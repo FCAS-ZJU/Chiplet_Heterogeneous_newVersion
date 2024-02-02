@@ -1,0 +1,43 @@
+
+CC=g++
+CFLAGS=-Wall -Werror -g -I$(SIMULATOR_ROOT)/sniper
+INTERCHIPLETLIB=$(SIMULATOR_ROOT)/sniper/interchiplet_app/lib/libinterchiplet_app.a
+SNIPER_EXEC=$(SIMULATOR_ROOT)/sniper/run-sniper
+
+NVCC=nvcc
+
+BENCHMARK_ROOT=$(SIMULATOR_ROOT)/benchmark/matmul
+
+SNIPER_SRCS=matmul.cpp
+SNIPER_OBJS=matmul.o
+SNIPER_TARGET=matmul_cpu
+
+GPGPUSIM_SRCS=matmul.cu
+GPGPUSIM_TARGET=matmul_cu
+
+all: sniper_target gpgpusim_target
+
+sniper_target: $(SNIPER_OBJS)
+	$(CC) $(SNIPER_OBJS) $(INTERCHIPLETLIB) -o $(SNIPER_TARGET)
+
+%.o: %.cpp
+	$(CC) $(CFLAGS) -c $< -o $@
+
+gpgpusim_target:
+	$(NVCC) --cudart shared $(GPGPUSIM_SRCS) -o $(GPGPUSIM_TARGET)
+
+run:
+	./$(GPGPUSIM_TARGET) 0 1 > gpgpusim.0.1.log 2>&1 &
+	./$(GPGPUSIM_TARGET) 1 0 > gpgpusim.1.0.log 2>&1 &
+	./$(GPGPUSIM_TARGET) 1 1 > gpgpusim.1.1.log 2>&1 &
+	$(SNIPER_EXEC) --curdir $(BENCHMARK_ROOT) -- $(BENCHMARK_ROOT)/$(SNIPER_TARGET) 0 0
+
+clean:
+	rm -rf bench* buffer* message_record.txt
+	rm -rf _app_cuda_version_* _cuobjdump_list_ptx_* gpgpusim_power_report_* *.ptx *.ptxas gpgpusim.*.log gpgpu_inst_stats.txt
+	rm -rf sim.cfg sim.info sim.out sim.stats.sqlite3
+	rm -rf checkpoint_files
+
+cleanall:
+	make clean
+	rm -rf $(SNIPER_OBJS) $(GPGPUSIM_TARGET) $(SNIPER_TARGET)

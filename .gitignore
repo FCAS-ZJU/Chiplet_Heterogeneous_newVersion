@@ -1,0 +1,6 @@
+.vscode
+*.o
+
+sniper/changes/build
+sniper/interchiplet_app/lib
+sniper/xed

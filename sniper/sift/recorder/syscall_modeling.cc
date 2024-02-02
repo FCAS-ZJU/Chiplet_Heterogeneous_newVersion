@@ -8,7 +8,7 @@
 #include <syscall.h>
 #include <fstream>
 
-#include "../../changes/sniper_change.h"
+#include "../../interchiplet_app/sniper_change.h"
 
 bool handleAccessMemory(void *arg, Sift::MemoryLockType lock_signal, Sift::MemoryOpType mem_op, uint64_t d_addr, uint8_t* data_buffer, uint32_t data_size)
 {
@@ -44,7 +44,7 @@ bool handleAccessMemory(void *arg, Sift::MemoryLockType lock_signal, Sift::Memor
 }
 void passGpuMessage(int dstX, int dstY, int srcX,int srcY,int data){
     char * fileName = new char[100];
-    sprintf(fileName,"../buffer%d_%d_%d_%d",srcX,srcY,dstX,dstY);
+    sprintf(fileName,"./buffer%d_%d_%d_%d",srcX,srcY,dstX,dstY);
     //std::ofstream file(fileName);
     FILE *file = fopen(fileName,"a");
     //for(int i = 0;i<dataSize;i++)
@@ -55,7 +55,7 @@ void passGpuMessage(int dstX, int dstY, int srcX,int srcY,int data){
     //}
     fclose(file);
    char* filename= new char[64];
-   sprintf(filename,"../bench.%d.%d",srcX,srcY);
+   sprintf(filename,"./bench.%d.%d",srcX,srcY);
    std::fstream toController(filename,std::ios::app);
    long long unsigned int timeNow = 0;
 
@@ -79,7 +79,7 @@ void passGpuMessage(int dstX, int dstY, int srcX,int srcY,int data){
 int readGpuMessage( int srcX,int srcY,int dstX,int dstY,int data,int dataNum){
 
     char * fileName = new char[100];
-    sprintf(fileName,"../gpgpu-sim/buffer%d_%d_%d_%d",srcX,srcY,dstX,dstY);
+    sprintf(fileName,"./buffer%d_%d_%d_%d",srcX,srcY,dstX,dstY);
     std::ifstream file(fileName);
     while(!file.is_open()){
     file.open(fileName,std::ios::in );

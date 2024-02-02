@@ -114,7 +114,7 @@ void __sift_assert_fail(__const char *__assertion, __const char *__file,
 AFUNPTR FindAddressOfRtn(IMG img, const char*rtnName)
 {
     RTN r = RTN_FindByName(img, rtnName);
-    ASSERT(RTN_Valid(r), "Failed to find RTN " + rtnName);
+    //ASSERT(RTN_Valid(r), "Failed to find RTN " + rtnName);
     return (AFUNPTR)RTN_Address(r);
 }
 //修改这个函数来获得读写任务程序内存的函数指针
@@ -127,14 +127,16 @@ void getFuncAddr(IMG image,VOID*v)
       rf.readFunc=FindAddressOfRtn(image,"remoteRead");
       rf.writeFunc=FindAddressOfRtn(image,"remoteWrite");
       rf.writeProMem=FindAddressOfRtn(image,"writeProcessMemory");
-      if(num_threads>=regFunc.size())regFunc.push_back(rf);
+      if((long unsigned int)num_threads>=regFunc.size())regFunc.push_back(rf);
       else regFunc[num_threads]=rf;
    }
 }
 //函数头，不写头文件了
 //Forgive me. I just don't want to create a new head file.
-int openZmqProcess();
-int closeZmqProcess();
+//int openZmqProcess();
+//int closeZmqProcess();
+int openZmqProcess() { return 0; }
+int closeZmqProcess() { return 0; }
 
 int main(int argc, char **argv)
 {
