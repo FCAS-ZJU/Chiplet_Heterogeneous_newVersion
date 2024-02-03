@@ -1,6 +1,6 @@
 #include <fstream>
 #include <iostream>
-#include "./interchiplet_app/interchiplet_app.h"
+#include "interchiplet_app.h"
 #define Row 100
 #define Col 100
 

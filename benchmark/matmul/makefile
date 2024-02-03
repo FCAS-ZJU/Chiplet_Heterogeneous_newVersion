@@ -1,6 +1,6 @@
 
 CC=g++
-CFLAGS=-Wall -Werror -g -I$(SIMULATOR_ROOT)/interchiplet/include/sniper
+CFLAGS=-Wall -Werror -g -I$(SIMULATOR_ROOT)/interchiplet/includes
 INTERCHIPLETLIB=$(SIMULATOR_ROOT)/interchiplet/lib/libinterchiplet_app.a
 SNIPER_EXEC=$(SIMULATOR_ROOT)/snipersim/run-sniper
 
