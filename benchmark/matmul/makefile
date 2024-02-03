@@ -1,8 +1,8 @@
 
 CC=g++
-CFLAGS=-Wall -Werror -g -I$(SIMULATOR_ROOT)/sniper
-INTERCHIPLETLIB=$(SIMULATOR_ROOT)/sniper/interchiplet_app/lib/libinterchiplet_app.a
-SNIPER_EXEC=$(SIMULATOR_ROOT)/sniper/run-sniper
+CFLAGS=-Wall -Werror -g -I$(SIMULATOR_ROOT)/interchiplet/include/sniper
+INTERCHIPLETLIB=$(SIMULATOR_ROOT)/interchiplet/lib/libinterchiplet_app.a
+SNIPER_EXEC=$(SIMULATOR_ROOT)/snipersim/run-sniper
 
 NVCC=nvcc
 

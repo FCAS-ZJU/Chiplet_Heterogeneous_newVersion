@@ -1,1 +1,0 @@
-PLATFORM = 'gcc-sniper'

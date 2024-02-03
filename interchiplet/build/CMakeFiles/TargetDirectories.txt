@@ -1,0 +1,4 @@
+/data_sda/junwan02/Chiplet_Heterogeneous_newVersion/interchiplet/build/CMakeFiles/rebuild_cache.dir
+/data_sda/junwan02/Chiplet_Heterogeneous_newVersion/interchiplet/build/CMakeFiles/edit_cache.dir
+/data_sda/junwan02/Chiplet_Heterogeneous_newVersion/interchiplet/build/CMakeFiles/record_transfer.dir
+/data_sda/junwan02/Chiplet_Heterogeneous_newVersion/interchiplet/build/CMakeFiles/interchiplet_app.dir

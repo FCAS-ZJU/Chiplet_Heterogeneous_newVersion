@@ -1,0 +1,3 @@
+[submodule "snipersim"]
+	path = snipersim
+	url = https://github.com/snipersim/snipersim.git

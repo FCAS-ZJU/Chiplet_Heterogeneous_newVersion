@@ -1,0 +1,44 @@
+
+cmake_minimum_required(VERSION 3.10)
+
+# Project name.
+project(interchiplet)
+
+# Parameter set.
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
+include_directories(includes)
+
+# Import library
+# find cppzmq wrapper, installed by make of cppzmq
+find_package(cppzmq)
+find_package(Boost REQUIRED COMPONENTS
+    system
+    filesystem
+)
+
+# Static library: interchiplet_app
+add_library(interchiplet_app STATIC
+    srcs/interchiplet_app.cpp)
+
+# Executable: record_transfer
+add_executable(record_transfer srcs/record_transfer.cpp)
+target_link_libraries(record_transfer ${Boost_LIBRARIES})
+
+# Executable: zmq_pro
+# Require cppzmq and Boost. If not found, skip.
+if (CPPZMQ_FOUND AND Boost_FOUND)
+    add_executable(zmq_pro
+        srcs/zmq_pro.cpp
+        srcs/interchiplet_client.cpp)
+
+    include_directories(${Boost_INCLUDE_DIRS})
+    target_link_libraries(zmq_pro cppzmq)
+    target_link_libraries(zmq_pro ${Boost_LIBRARIES})
+else()
+    if (CPPZMQ_FOUND)
+        message(STATUS "Cannot find Boost library, skip target zmq_pro.")
+    elseif(Boost_FOUND)
+        message(STATUS "Cannot find cppzmq library, skip target zmq_pro.")
+    endif()
+endif()
