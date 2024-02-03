@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../lib/libinterchiplet_app.a  CMakeFiles/interchiplet_app.dir/srcs/sniper/interchiplet_app.cpp.o
-/usr/bin/ranlib ../lib/libinterchiplet_app.a
