@@ -1,0 +1,109 @@
+diff --git a/src/cuda-sim/instructions.cc b/src/cuda-sim/instructions.cc
+index 8936fa8..56acbb5 100644
+--- a/src/cuda-sim/instructions.cc
++++ b/src/cuda-sim/instructions.cc
+@@ -1072,9 +1072,102 @@ void add_impl(const ptx_instruction *pI, ptx_thread_info *thread) {
+ 
+   thread->set_operand_value(dst, data, i_type, thread, pI, overflow, carry);
+ }
++void readFile(int dst_x, int dst_y ,int src_x, int src_y,long long unsigned int* data)
++{
++    char * fileName = new char[100];
++    sprintf(fileName,"./buffer%d_%d_%d_%d",src_x,src_y,dst_x,dst_y);
++    std::ifstream i(fileName);
++    int tmpdata = 0;
++    i>>tmpdata;
++    *data = tmpdata;
++    i.close();
++    delete fileName;
++}
+ 
+-void addc_impl(const ptx_instruction *pI, ptx_thread_info *thread) {
+-  inst_not_implemented(pI);
++void passMessage(int dst_x, int dst_y,int src_x, int src_y , int data)
++{
++    char * fileName = new char[100];
++    sprintf(fileName,"./buffer%d_%d_%d_%d",dst_x,dst_y,src_x,src_y);
++    FILE *pass = fopen( fileName, "ab" );
++    int number=data;
++    int j;
++    int len=0;
++    char str[100000000];
++                j = 0;
++                while(data)
++                {
++                        len++;
++                        str[j ++] = data % 10 + '0';
++                        data /= 10;
++                }
++                puts(str);
++
++    for(int k=len-1;k>=0;k--)
++    	fputc(str[k],pass); 
++    fputc('\n',pass);
++    fclose(pass);
++    delete fileName;
++}
++
++void addc_impl( const ptx_instruction *pI, ptx_thread_info *thread ) 
++{ 
++	ptx_reg_t src1_data, src2_data,data;
++
++   const operand_info &dst  = pI->dst();
++   const operand_info &src1 = pI->src1();
++   const operand_info &src2 = pI->src2();
++   unsigned i_type = pI->get_type();
++   src1_data = thread->get_operand_value(src1, dst, i_type, thread, 1);
++   src2_data = thread->get_operand_value(src2, dst, i_type, thread, 1);
++       	/**
++    * 传入的两个参数为src1_data.u64和src2_data.u64
++    *
++    * src1_data.u64是一个9位数, abcdefghi。ad表示src的x坐标，cd表示src的y坐标，ef表示dst的x坐标，gh表示dst的y坐标，i表是读请求还是写请求
++    * src2_data.u64是一个int型，在写请求中表示要写的数据，在读请求中表示请求的数据号
++    *
++    */
++   //std::cout<<"Step 1\n";
++
++   int data1 = src1_data.u64;
++   int data2 = src2_data.u64;
++    int src_x = data1 / 10000000;
++    int src_y = data1 % 10000000 / 100000;
++    int dst_x = data1 % 100000 / 1000;
++    int dst_y = data1 % 1000 / 10;
++   int opValue = data1 % 10; 
++
++   if(opValue == 0){
++   char* filename= new char[64];
++   sprintf(filename,"./trace/bench.%d.%d",src_x,src_y);
++   std::fstream toController(filename,std::ios::app);
++   long long unsigned int timeNow = thread->get_gpu()->gpu_sim_cycle+thread->get_gpu()->gpu_tot_sim_cycle;
++
++   if(!toController.is_open())
++   {
++              std::cout<<"Can not pass message to controller\n\n\n\n\n\n";
++              return;
++   }
++   else
++   {
++              toController<<timeNow<<" ";
++              toController<<src_x<<" ";
++              toController<<src_y<<" ";
++              toController<<dst_x<<" ";
++              toController<<dst_y<<" ";
++	      toController<<5<<"\n";
++           }
++   toController.close();
++   passMessage(dst_x,dst_y,src_x,src_y,data2);
++   }
++   else if(opValue == 1)
++   {
++	long long unsigned int *dataValue = &data.u64;
++	readFile(src_x,src_y,dst_x,dst_y,dataValue);
++   thread->set_operand_value(dst, data, i_type, thread, pI, 0, 0  );
++   }
++   //data.u64 = src1_data.u64 + src2_data.u64;
++   //readFile(1,2,src2_data.u64);
++   //thread->set_operand_value(dst, data, i_type, thread, pI, 0, 0  );
+ }
+ 
+ void and_impl(const ptx_instruction *pI, ptx_thread_info *thread) {

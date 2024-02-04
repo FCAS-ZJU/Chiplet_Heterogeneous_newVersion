@@ -3,4 +3,4 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib:/usr/local/cuda/lib6
 export CUDA_INSTALL_PATH=/usr/local/cuda
 export SIMULATOR_ROOT="$(pwd)"
 
-source gpgpu-sim_distribution/setup_environment
+source gpgpu-sim/setup_environment

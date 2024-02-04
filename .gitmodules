@@ -1,3 +1,6 @@
 [submodule "snipersim"]
 	path = snipersim
 	url = https://github.com/snipersim/snipersim.git
+[submodule "gpgpu-sim"]
+	path = gpgpu-sim
+	url = https://github.com/gpgpu-sim/gpgpu-sim_distribution.git

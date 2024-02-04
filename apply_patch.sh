@@ -7,6 +7,10 @@ else
     exit
 fi
 
+# Pathc for Sniper
 cd ${SIMULATOR_ROOT}/snipersim
 git apply ../interchiplet/patch/snipersim.diff
 
+# Patch for GPGPUSim
+cd ${SIMULATOR_ROOT}/gpgpu-sim
+git apply ../interchiplet/patch/gpgpu-sim.diff
