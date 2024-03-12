@@ -1,8 +1,8 @@
 diff --git a/src/cuda-sim/instructions.cc b/src/cuda-sim/instructions.cc
-index 8936fa8..56acbb5 100644
+index 8936fa8..a02ea17 100644
 --- a/src/cuda-sim/instructions.cc
 +++ b/src/cuda-sim/instructions.cc
-@@ -1072,9 +1072,102 @@ void add_impl(const ptx_instruction *pI, ptx_thread_info *thread) {
+@@ -1072,9 +1072,103 @@ void add_impl(const ptx_instruction *pI, ptx_thread_info *thread) {
  
    thread->set_operand_value(dst, data, i_type, thread, pI, overflow, carry);
  }
@@ -74,7 +74,7 @@ index 8936fa8..56acbb5 100644
 +
 +   if(opValue == 0){
 +   char* filename= new char[64];
-+   sprintf(filename,"./trace/bench.%d.%d",src_x,src_y);
++   sprintf(filename,"./bench.%d.%d",src_x,src_y);
 +   std::fstream toController(filename,std::ios::app);
 +   long long unsigned int timeNow = thread->get_gpu()->gpu_sim_cycle+thread->get_gpu()->gpu_tot_sim_cycle;
 +
@@ -99,6 +99,7 @@ index 8936fa8..56acbb5 100644
 +   {
 +	long long unsigned int *dataValue = &data.u64;
 +	readFile(src_x,src_y,dst_x,dst_y,dataValue);
++	// thread->get_gpu()->gpu_sim_cycle *= 2;
 +   thread->set_operand_value(dst, data, i_type, thread, pI, 0, 0  );
 +   }
 +   //data.u64 = src1_data.u64 + src2_data.u64;
