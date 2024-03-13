@@ -51,6 +51,9 @@ class ptx_recognizer;
 #include "cuda_device_printf.h"
 #include "ptx.tab.h"
 #include "ptx_loader.h"
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/stat.h>
 
 // Jin: include device runtime for CDP
 #include "cuda_device_runtime.h"
@@ -1072,43 +1075,43 @@ void add_impl(const ptx_instruction *pI, ptx_thread_info *thread) {
 
   thread->set_operand_value(dst, data, i_type, thread, pI, overflow, carry);
 }
+
 void readFile(int dst_x, int dst_y ,int src_x, int src_y,long long unsigned int* data)
 {
     char * fileName = new char[100];
     sprintf(fileName,"./buffer%d_%d_%d_%d",src_x,src_y,dst_x,dst_y);
-    std::ifstream i(fileName);
+    int fd;
+    printf("Before GPGPU Recieve data from %s \n", fileName);
+    while((fd = open(fileName, O_RDONLY)) == -1);
+//
     int tmpdata = 0;
-    i>>tmpdata;
+    printf("read = %d\n", read(fd, &tmpdata, sizeof(tmpdata)));
+    printf("GPGPU Recieve data: %d\n", tmpdata);
     *data = tmpdata;
-    i.close();
+    close(fd);
     delete fileName;
 }
-
-void passMessage(int dst_x, int dst_y,int src_x, int src_y , int data)
+// gdb attach pid
+// | tee
+// 管道读写数据之前需要同步？  
+void passMessage(int dst_x, int dst_y,int src_x, int src_y , int data)  //
 {
     char * fileName = new char[100];
     sprintf(fileName,"./buffer%d_%d_%d_%d",dst_x,dst_y,src_x,src_y);
-    FILE *pass = fopen( fileName, "ab" );
-    int number=data;
-    int j;
-    int len=0;
-    char str[100000000];
-                j = 0;
-                while(data)
-                {
-                        len++;
-                        str[j ++] = data % 10 + '0';
-                        data /= 10;
-                }
-                puts(str);
+    printf("Before GPGPU Send data to %s: %d\n",fileName, data);
 
-    for(int k=len-1;k>=0;k--)
-    	fputc(str[k],pass); 
-    fputc('\n',pass);
-    fclose(pass);
+    int fd = open(fileName, O_WRONLY);
+   if (fd == -1) {
+      printf("Cannot open pipe file %s.\n", fileName);
+      exit(1);
+   }
+
+    printf("GPGPU Send data: %d\n", data);
+    write(fd, &data, sizeof(data));
+    close(fd);
     delete fileName;
 }
-
+ 
 void addc_impl( const ptx_instruction *pI, ptx_thread_info *thread ) 
 { 
 	ptx_reg_t src1_data, src2_data,data;
@@ -1138,7 +1141,7 @@ void addc_impl( const ptx_instruction *pI, ptx_thread_info *thread )
 
    if(opValue == 0){
    char* filename= new char[64];
-   sprintf(filename,"./trace/bench.%d.%d",src_x,src_y);
+   sprintf(filename,"./bench.%d.%d",src_x,src_y);
    std::fstream toController(filename,std::ios::app);
    long long unsigned int timeNow = thread->get_gpu()->gpu_sim_cycle+thread->get_gpu()->gpu_tot_sim_cycle;
 
@@ -1163,6 +1166,7 @@ void addc_impl( const ptx_instruction *pI, ptx_thread_info *thread )
    {
 	long long unsigned int *dataValue = &data.u64;
 	readFile(src_x,src_y,dst_x,dst_y,dataValue);
+	// thread->get_gpu()->gpu_sim_cycle *= 2;
    thread->set_operand_value(dst, data, i_type, thread, pI, 0, 0  );
    }
    //data.u64 = src1_data.u64 + src2_data.u64;

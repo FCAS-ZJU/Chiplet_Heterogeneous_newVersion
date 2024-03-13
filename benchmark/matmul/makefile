@@ -27,6 +27,7 @@ gpgpusim_target:
 	$(NVCC) --cudart shared $(GPGPUSIM_SRCS) -o $(GPGPUSIM_TARGET)
 
 run:
+	mkfifo buffer0_0_0_1 buffer0_0_1_0 buffer0_0_1_1 buffer0_1_0_0 buffer1_0_0_0 buffer1_1_0_0
 	./$(GPGPUSIM_TARGET) 0 1 > gpgpusim.0.1.log 2>&1 &
 	./$(GPGPUSIM_TARGET) 1 0 > gpgpusim.1.0.log 2>&1 &
 	./$(GPGPUSIM_TARGET) 1 1 > gpgpusim.1.1.log 2>&1 &

@@ -3,9 +3,11 @@
 #include "globals.h"
 #include "threads.h"
 
+#include <sys/stat.h>
 #include <iostream>
 #include <unistd.h>
 #include <syscall.h>
+#include <fcntl.h>
 
 #include "../../../interchiplet/includes/sniper_change.h"
 
@@ -42,56 +44,62 @@ bool handleAccessMemory(void *arg, Sift::MemoryLockType lock_signal, Sift::Memor
    return true;
 }
 
+typedef void (*lib_writeMessage)(const char* fileName, int dstX, int dstY, int srcX,int srcY,int data);
+
+
 void passGpuMessage(int dstX, int dstY, int srcX,int srcY,int data){
+    printf("Enter Sniper passGpuMessage\n");
     char * fileName = new char[100];
     sprintf(fileName,"./buffer%d_%d_%d_%d",srcX,srcY,dstX,dstY);
-    //std::ofstream file(fileName);
-    FILE *file = fopen(fileName,"a");
-    //for(int i = 0;i<dataSize;i++)
-    //{
-        //data[i]>>file;
-        //"\n">>file;
-    fprintf(file,"%d\r\n",data);
-    //}
-    fclose(file);
-   char* filename= new char[64];
-   sprintf(filename,"./bench.%d.%d",srcX,srcY);
-   std::fstream toController(filename,std::ios::app);
-   long long unsigned int timeNow = 0;
 
-   if(!toController.is_open())
-   {
-              std::cout<<"Can not pass message to controller\n\n\n\n\n\n";
-              return;
+    int fd = open(fileName, O_WRONLY);
+   if (fd == -1) {
+      printf("Cannot open pipe file %s.\n", fileName);
+      exit(1);
    }
-   else
-   {
-              toController<<timeNow<<" ";
-              toController<<srcX<<" ";
-              toController<<srcY<<" ";
-              toController<<dstX<<" ";
-              toController<<dstY<<" ";
-              toController<<5<<"\n";
-           }
-   toController.close();
+
+    printf("Send data: %d\n", data);
+    write(fd, &data, sizeof(data));
+    close(fd);
+    delete fileName;
+
+    char* filename= new char[64];
+    sprintf(filename,"./bench.%d.%d",srcX,srcY);
+    std::fstream toController(filename,std::ios::out | std::ios::trunc);
+    long long unsigned int timeNow = 0;
+
+    if(!toController.is_open())
+    {
+                std::cout<<"Can not pass message to controller\n\n\n\n\n\n";
+                return;
+    }
+    else
+    {
+                toController<<timeNow<<" ";
+                toController<<srcX<<" ";
+                toController<<srcY<<" ";
+                toController<<dstX<<" ";
+                toController<<dstY<<" ";
+                toController<<5<<"\n";
+            }
+    toController.close();
 }
 
 int readGpuMessage( int srcX,int srcY,int dstX,int dstY,int data,int dataNum){
-
+    printf("Enter Sniper readGpuMessage\n");
     char * fileName = new char[100];
     sprintf(fileName,"./buffer%d_%d_%d_%d",srcX,srcY,dstX,dstY);
-    std::ifstream file(fileName);
-    while(!file.is_open()){
-    file.open(fileName,std::ios::in );
-    }
+
+    int fd = -1;
+    while((fd = open(fileName, O_RDONLY)) == -1);
+
     int tmpdata = 0;
-    for(int i = 0;i<dataNum;i++)
-    {
-        file>>tmpdata;
-        data = tmpdata;
-    }
-    file.close();
-    return data;
+    read(fd, &tmpdata, sizeof(tmpdata));
+    printf("Recieve data: %d\n", tmpdata);
+
+    close(fd);
+    delete fileName;
+    return tmpdata;
 }
 
 // Emulate all system calls

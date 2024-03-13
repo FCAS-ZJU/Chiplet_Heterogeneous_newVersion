@@ -335,78 +335,89 @@ index 4d5c003..76a381d 100644
     return 0;
  }
 diff --git a/sift/recorder/syscall_modeling.cc b/sift/recorder/syscall_modeling.cc
-index 4944127..31e4e43 100644
+index 4944127..c841043 100644
 --- a/sift/recorder/syscall_modeling.cc
 +++ b/sift/recorder/syscall_modeling.cc
-@@ -7,6 +7,8 @@
+@@ -3,9 +3,13 @@
+ #include "globals.h"
+ #include "threads.h"
+ 
++#include <sys/stat.h>
+ #include <iostream>
  #include <unistd.h>
  #include <syscall.h>
- 
-+#include "../../../interchiplet/includes/sniper_change.h"
++#include <fcntl.h>
 +
++#include "../../../interchiplet/includes/sniper_change.h"
+ 
  bool handleAccessMemory(void *arg, Sift::MemoryLockType lock_signal, Sift::MemoryOpType mem_op, uint64_t d_addr, uint8_t* data_buffer, uint32_t data_size)
  {
-    // Lock memory globally if requested
-@@ -40,6 +42,58 @@ bool handleAccessMemory(void *arg, Sift::MemoryLockType lock_signal, Sift::Memor
+@@ -40,6 +44,64 @@ bool handleAccessMemory(void *arg, Sift::MemoryLockType lock_signal, Sift::Memor
     return true;
  }
  
++typedef void (*lib_writeMessage)(const char* fileName, int dstX, int dstY, int srcX,int srcY,int data);
++
++
 +void passGpuMessage(int dstX, int dstY, int srcX,int srcY,int data){
++    printf("Enter Sniper passGpuMessage\n");
 +    char * fileName = new char[100];
 +    sprintf(fileName,"./buffer%d_%d_%d_%d",srcX,srcY,dstX,dstY);
-+    //std::ofstream file(fileName);
-+    FILE *file = fopen(fileName,"a");
-+    //for(int i = 0;i<dataSize;i++)
-+    //{
-+        //data[i]>>file;
-+        //"\n">>file;
-+    fprintf(file,"%d\r\n",data);
-+    //}
-+    fclose(file);
-+   char* filename= new char[64];
-+   sprintf(filename,"./bench.%d.%d",srcX,srcY);
-+   std::fstream toController(filename,std::ios::app);
-+   long long unsigned int timeNow = 0;
 +
-+   if(!toController.is_open())
-+   {
-+              std::cout<<"Can not pass message to controller\n\n\n\n\n\n";
-+              return;
++    int fd = open(fileName, O_WRONLY);
++   if (fd == -1) {
++      printf("Cannot open pipe file %s.\n", fileName);
++      exit(1);
 +   }
-+   else
-+   {
-+              toController<<timeNow<<" ";
-+              toController<<srcX<<" ";
-+              toController<<srcY<<" ";
-+              toController<<dstX<<" ";
-+              toController<<dstY<<" ";
-+              toController<<5<<"\n";
-+           }
-+   toController.close();
++
++    printf("Send data: %d\n", data);
++    write(fd, &data, sizeof(data));
++    close(fd);
++    delete fileName;
++
++    char* filename= new char[64];
++    sprintf(filename,"./bench.%d.%d",srcX,srcY);
++    std::fstream toController(filename,std::ios::out | std::ios::trunc);
++    long long unsigned int timeNow = 0;
++
++    if(!toController.is_open())
++    {
++                std::cout<<"Can not pass message to controller\n\n\n\n\n\n";
++                return;
++    }
++    else
++    {
++                toController<<timeNow<<" ";
++                toController<<srcX<<" ";
++                toController<<srcY<<" ";
++                toController<<dstX<<" ";
++                toController<<dstY<<" ";
++                toController<<5<<"\n";
++            }
++    toController.close();
 +}
 +
 +int readGpuMessage( int srcX,int srcY,int dstX,int dstY,int data,int dataNum){
-+
++    printf("Enter Sniper readGpuMessage\n");
 +    char * fileName = new char[100];
 +    sprintf(fileName,"./buffer%d_%d_%d_%d",srcX,srcY,dstX,dstY);
-+    std::ifstream file(fileName);
-+    while(!file.is_open()){
-+    file.open(fileName,std::ios::in );
-+    }
++
++    int fd = -1;
++    while((fd = open(fileName, O_RDONLY)) == -1);
++
 +    int tmpdata = 0;
-+    for(int i = 0;i<dataNum;i++)
-+    {
-+        file>>tmpdata;
-+        data = tmpdata;
-+    }
-+    file.close();
-+    return data;
++    read(fd, &tmpdata, sizeof(tmpdata));
++    printf("Recieve data: %d\n", tmpdata);
++
++    close(fd);
++    delete fileName;
++    return tmpdata;
 +}
 +
  // Emulate all system calls
  // Do this as a regular callback (versus syscall enter/exit functions) as those hold the global pin lock
  VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
-@@ -174,6 +228,32 @@ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
+@@ -174,6 +236,32 @@ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
           case SYS_exit_group:
              thread_data[threadid].output->Syscall(syscall_number, (char*)args, sizeof(args));
              break;

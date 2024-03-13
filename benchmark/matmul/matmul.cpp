@@ -32,6 +32,10 @@ int main(int argc, char** argv)
     sendGpuMessage(1,0,srcX,srcY,A,10000);
     sendGpuMessage(1,1,srcX,srcY,A,10000);
 
+    sendGpuMessage(0,1,srcX,srcY,B,10000);
+    sendGpuMessage(1,0,srcX,srcY,B,10000);
+    sendGpuMessage(1,1,srcX,srcY,B,10000);
+
     readGpuMessage(0,1,srcX,srcY,C1,100);
     readGpuMessage(1,0,srcX,srcY,C2,100);
     readGpuMessage(1,1,srcX,srcY,C3,100);
