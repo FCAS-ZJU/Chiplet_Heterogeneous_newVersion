@@ -36,9 +36,9 @@ int main(int argc, char** argv)
     sendGpuMessage(1,0,srcX,srcY,B,10000);
     sendGpuMessage(1,1,srcX,srcY,B,10000);
 
-    readGpuMessage(0,1,srcX,srcY,C1,100);
-    readGpuMessage(1,0,srcX,srcY,C2,100);
-    readGpuMessage(1,1,srcX,srcY,C3,100);
+    readGpuMessage(srcX,srcY,0,1,C1,100);
+    readGpuMessage(srcX,srcY,1,0,C2,100);
+    readGpuMessage(srcX,srcY,1,1,C3,100);
 
     for(int i=0;i<100;i++)
     {

@@ -44,62 +44,99 @@ bool handleAccessMemory(void *arg, Sift::MemoryLockType lock_signal, Sift::Memor
    return true;
 }
 
-typedef void (*lib_writeMessage)(const char* fileName, int dstX, int dstY, int srcX,int srcY,int data);
+int passGpuMessage(int dstX, int dstY, int srcX,int srcY,int* data,int dataNum)
+{
+   printf("Enter Sniper passGpuMessage\n");
+   char * fileName = new char[100];
+   sprintf(fileName,"./buffer%d_%d_%d_%d",srcX,srcY,dstX,dstY);
 
-
-void passGpuMessage(int dstX, int dstY, int srcX,int srcY,int data){
-    printf("Enter Sniper passGpuMessage\n");
-    char * fileName = new char[100];
-    sprintf(fileName,"./buffer%d_%d_%d_%d",srcX,srcY,dstX,dstY);
-
-    int fd = open(fileName, O_WRONLY);
+   int fd = open(fileName, O_WRONLY);
    if (fd == -1) {
       printf("Cannot open pipe file %s.\n", fileName);
       exit(1);
    }
 
-    printf("Send data: %d\n", data);
-    write(fd, &data, sizeof(data));
-    close(fd);
-    delete fileName;
+   int wr_count;
+   for (wr_count = 0; wr_count < dataNum;)
+   {
+      int* wrptr = &data[wr_count];
+      int iterSize = 1024;
+      if (dataNum - wr_count < iterSize) iterSize = dataNum - wr_count;
+      iterSize = write(fd, wrptr, sizeof(int) * iterSize);
+      printf("%d, %p, %d\n", wr_count, wrptr, iterSize);
+      if (wr_count >= 0)
+      {
+         wr_count += iterSize / sizeof(int);
+      }
+      else
+      {
+         break;
+      }
+   }
 
-    char* filename= new char[64];
-    sprintf(filename,"./bench.%d.%d",srcX,srcY);
-    std::fstream toController(filename,std::ios::out | std::ios::trunc);
-    long long unsigned int timeNow = 0;
+   printf("Sniper write %ld bytes to %s.\n", wr_count * sizeof(int), fileName);
 
-    if(!toController.is_open())
-    {
-                std::cout<<"Can not pass message to controller\n\n\n\n\n\n";
-                return;
-    }
-    else
-    {
-                toController<<timeNow<<" ";
-                toController<<srcX<<" ";
-                toController<<srcY<<" ";
-                toController<<dstX<<" ";
-                toController<<dstY<<" ";
-                toController<<5<<"\n";
-            }
-    toController.close();
+   close(fd);
+   delete fileName;
+
+   char* filename = new char[64];
+   sprintf(filename,"./bench.%d.%d",srcX,srcY);
+   std::fstream toController(filename,std::ios::out | std::ios::trunc);
+   long long unsigned int timeNow = 0;
+
+   if(!toController.is_open())
+   {
+      std::cout<<"Can not pass message to controller\n\n\n\n\n\n";
+      return 1;
+   }
+   else
+   {
+      toController<<timeNow<<" ";
+      toController<<srcX<<" ";
+      toController<<srcY<<" ";
+      toController<<dstX<<" ";
+      toController<<dstY<<" ";
+      toController<<5<<"\n";
+   }
+   toController.close();
+   return 1;
 }
 
-int readGpuMessage( int srcX,int srcY,int dstX,int dstY,int data,int dataNum){
-    printf("Enter Sniper readGpuMessage\n");
-    char * fileName = new char[100];
-    sprintf(fileName,"./buffer%d_%d_%d_%d",srcX,srcY,dstX,dstY);
+int readGpuMessage( int srcX,int srcY,int dstX,int dstY,int* data,int dataNum)
+{
+   printf("Enter Sniper readGpuMessage\n");
+   char * fileName = new char[100];
+   sprintf(fileName,"./buffer%d_%d_%d_%d",srcX,srcY,dstX,dstY);
 
-    int fd = -1;
-    while((fd = open(fileName, O_RDONLY)) == -1);
+   int fd = open(fileName, O_RDONLY);
+   if (fd == -1) {
+      printf("Cannot open pipe file %s.\n", fileName);
+      exit(1);
+   }
 
-    int tmpdata = 0;
-    read(fd, &tmpdata, sizeof(tmpdata));
-    printf("Recieve data: %d\n", tmpdata);
+   int rd_count;
+   for (rd_count = 0; rd_count < dataNum;)
+   {
+      int* rdptr = &data[rd_count];
+      int iterSize = 1024;
+      if (dataNum - rd_count < iterSize) iterSize = dataNum - rd_count;
+      iterSize = read(fd, rdptr, sizeof(int) * iterSize);
+      printf("%d, %p, %d\n", rd_count, rdptr, iterSize);
+      if (iterSize >= 0)
+      {
+         rd_count += iterSize / sizeof(int);
+      }
+      else
+      {
+         break;
+      }
+   }
 
-    close(fd);
-    delete fileName;
-    return tmpdata;
+   printf("Sniper read %ld bytes from %s.\n", rd_count * sizeof(int), fileName);
+
+   close(fd);
+   delete fileName;
+   return 1;
 }
 
 // Emulate all system calls
@@ -241,8 +278,8 @@ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
                thread_data[threadid].last_syscall_number = syscall_number;
                thread_data[threadid].last_syscall_emulated=true;
 
-               passGpuMessage(args[0],args[1],args[2],args[3],args[4]);
-               thread_data[threadid].last_syscall_returnval = 1;
+               thread_data[threadid].last_syscall_returnval =
+                  passGpuMessage(args[0],args[1],args[2],args[3],(int*)args[4],args[5]);
                thread_data[threadid].output->Syscall(
                   syscall_number,
                   (char *)args,
@@ -254,7 +291,8 @@ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
          thread_data[threadid].last_syscall_number = syscall_number;
                thread_data[threadid].last_syscall_emulated=true;
 
-               thread_data[threadid].last_syscall_returnval = readGpuMessage(args[0],args[1],args[2],args[3],args[4],args[5]);
+               thread_data[threadid].last_syscall_returnval =
+                  readGpuMessage(args[0],args[1],args[2],args[3],(int*)args[4],args[5]);
                thread_data[threadid].output->Syscall(
                   syscall_number,
                   (char *)args,

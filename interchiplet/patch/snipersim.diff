@@ -1,5 +1,5 @@
 diff --git a/common/core/syscall_model.cc b/common/core/syscall_model.cc
-index c336283..fa2048b 100644
+index c336283..ca4c1b8 100644
 --- a/common/core/syscall_model.cc
 +++ b/common/core/syscall_model.cc
 @@ -23,6 +23,14 @@
@@ -35,18 +35,7 @@ index c336283..fa2048b 100644
  SyscallMdl::SyscallMdl(Thread *thread)
        : m_thread(thread)
        , m_emulated(false)
-@@ -60,6 +79,10 @@ SyscallMdl::~SyscallMdl()
-    free(futex_counters);
- }
- 
-+//commented at 2020-3-23
-+//系统调用？
-+//是系统调用，但是增加的系统调用号没到这里就返回错误了。应该有某种保护机制。
-+//syscall, in front of which there are protecting codes, because errors will happen before the codes there run
- bool SyscallMdl::runEnter(IntPtr syscall_number, syscall_args_t &args)
- {
-    Core *core = m_thread->getCore();
-@@ -290,6 +313,110 @@ bool SyscallMdl::runEnter(IntPtr syscall_number, syscall_args_t &args)
+@@ -290,6 +309,110 @@ bool SyscallMdl::runEnter(IntPtr syscall_number, syscall_args_t &args)
           break;
        }
  
@@ -157,17 +146,8 @@ index c336283..fa2048b 100644
        case static_cast<unsigned long>(-1):
        default:
           break;
-@@ -301,6 +428,8 @@ bool SyscallMdl::runEnter(IntPtr syscall_number, syscall_args_t &args)
-    return m_stalled;
- }
- 
-+//commented at 2020-4-14
-+//leave syscall state and the thread gets ready
- IntPtr SyscallMdl::runExit(IntPtr old_return)
- {
-    CLOG("syscall", "Exit thread %d", m_thread->getId());
 diff --git a/common/trace_frontend/trace_thread.cc b/common/trace_frontend/trace_thread.cc
-index 227f9cb..5c28482 100644
+index 227f9cb..da00165 100644
 --- a/common/trace_frontend/trace_thread.cc
 +++ b/common/trace_frontend/trace_thread.cc
 @@ -25,6 +25,9 @@
@@ -180,32 +160,7 @@ index 227f9cb..5c28482 100644
  int TraceThread::m_isa = 0;
  
  TraceThread::TraceThread(Thread *thread, SubsecondTime time_start, String tracefile, String responsefile, app_id_t app_id, bool cleanup)
-@@ -195,6 +198,14 @@ void TraceThread::handleOutputFunc(uint8_t fd, const uint8_t *data, uint32_t siz
-    }
- }
- 
-+//commented at 2020-3-23
-+//系统调用？
-+//syscall
-+//扩展，并解除屏蔽
-+//是系统调用，但是增加的系统调用号没到这里就返回错误了。应该有某种保护机制。
-+//新增的系统调用号可以传进来了
-+//syscall function after protection
-+//new syscall numbers can be used here now
- uint64_t TraceThread::handleSyscallFunc(uint16_t syscall_number, const uint8_t *data, uint32_t size)
- {
-    // We may have been blocked in a system call, if we start executing instructions again that means we're continuing
-@@ -719,6 +730,9 @@ void TraceThread::addDetailedMemoryInfo(DynamicInstruction *dynins, Sift::Instru
-    }
- }
- 
-+//commented at 2020-4-15
-+//退出系统调用态
-+//exit syscall state
- void TraceThread::unblock()
- {
-    LOG_ASSERT_ERROR(m_blocked == true, "Must call only when m_blocked == true");
-@@ -747,6 +761,21 @@ void TraceThread::unblock()
+@@ -747,6 +750,21 @@ void TraceThread::unblock()
     m_blocked = false;
  }
  
@@ -227,20 +182,6 @@ index 227f9cb..5c28482 100644
  void TraceThread::run()
  {
     // Set thread name for Sniper-in-Sniper simulations
-@@ -773,6 +802,13 @@ void TraceThread::run()
- 
-    bool have_first = m_trace.Read(inst);
- 
-+   //commented at 2020-3-23
-+   //读指令的主循环？
-+   //设置，测试
-+   /* std::cout<<"main loop\n";
-+   getchar(); */
-+   //成功，的确是主循环
-+   //main loop
-    while(have_first && m_trace.Read(next_inst))
-    {
-       if (!m_started)
 diff --git a/sift/recorder/globals.cc b/sift/recorder/globals.cc
 index b27d763..be39834 100644
 --- a/sift/recorder/globals.cc
@@ -335,7 +276,7 @@ index 4d5c003..76a381d 100644
     return 0;
  }
 diff --git a/sift/recorder/syscall_modeling.cc b/sift/recorder/syscall_modeling.cc
-index 4944127..c841043 100644
+index 4944127..7017131 100644
 --- a/sift/recorder/syscall_modeling.cc
 +++ b/sift/recorder/syscall_modeling.cc
 @@ -3,9 +3,13 @@
@@ -352,72 +293,109 @@ index 4944127..c841043 100644
  
  bool handleAccessMemory(void *arg, Sift::MemoryLockType lock_signal, Sift::MemoryOpType mem_op, uint64_t d_addr, uint8_t* data_buffer, uint32_t data_size)
  {
-@@ -40,6 +44,64 @@ bool handleAccessMemory(void *arg, Sift::MemoryLockType lock_signal, Sift::Memor
+@@ -40,6 +44,101 @@ bool handleAccessMemory(void *arg, Sift::MemoryLockType lock_signal, Sift::Memor
     return true;
  }
  
-+typedef void (*lib_writeMessage)(const char* fileName, int dstX, int dstY, int srcX,int srcY,int data);
++int passGpuMessage(int dstX, int dstY, int srcX,int srcY,int* data,int dataNum)
++{
++   printf("Enter Sniper passGpuMessage\n");
++   char * fileName = new char[100];
++   sprintf(fileName,"./buffer%d_%d_%d_%d",srcX,srcY,dstX,dstY);
 +
-+
-+void passGpuMessage(int dstX, int dstY, int srcX,int srcY,int data){
-+    printf("Enter Sniper passGpuMessage\n");
-+    char * fileName = new char[100];
-+    sprintf(fileName,"./buffer%d_%d_%d_%d",srcX,srcY,dstX,dstY);
-+
-+    int fd = open(fileName, O_WRONLY);
++   int fd = open(fileName, O_WRONLY);
 +   if (fd == -1) {
 +      printf("Cannot open pipe file %s.\n", fileName);
 +      exit(1);
 +   }
 +
-+    printf("Send data: %d\n", data);
-+    write(fd, &data, sizeof(data));
-+    close(fd);
-+    delete fileName;
++   int wr_count;
++   for (wr_count = 0; wr_count < dataNum;)
++   {
++      int* wrptr = &data[wr_count];
++      int iterSize = 1024;
++      if (dataNum - wr_count < iterSize) iterSize = dataNum - wr_count;
++      iterSize = write(fd, wrptr, sizeof(int) * iterSize);
++      printf("%d, %p, %d\n", wr_count, wrptr, iterSize);
++      if (wr_count >= 0)
++      {
++         wr_count += iterSize / sizeof(int);
++      }
++      else
++      {
++         break;
++      }
++   }
 +
-+    char* filename= new char[64];
-+    sprintf(filename,"./bench.%d.%d",srcX,srcY);
-+    std::fstream toController(filename,std::ios::out | std::ios::trunc);
-+    long long unsigned int timeNow = 0;
++   printf("Sniper write %ld bytes to %s.\n", wr_count * sizeof(int), fileName);
 +
-+    if(!toController.is_open())
-+    {
-+                std::cout<<"Can not pass message to controller\n\n\n\n\n\n";
-+                return;
-+    }
-+    else
-+    {
-+                toController<<timeNow<<" ";
-+                toController<<srcX<<" ";
-+                toController<<srcY<<" ";
-+                toController<<dstX<<" ";
-+                toController<<dstY<<" ";
-+                toController<<5<<"\n";
-+            }
-+    toController.close();
++   close(fd);
++   delete fileName;
++
++   char* filename = new char[64];
++   sprintf(filename,"./bench.%d.%d",srcX,srcY);
++   std::fstream toController(filename,std::ios::out | std::ios::trunc);
++   long long unsigned int timeNow = 0;
++
++   if(!toController.is_open())
++   {
++      std::cout<<"Can not pass message to controller\n\n\n\n\n\n";
++      return 1;
++   }
++   else
++   {
++      toController<<timeNow<<" ";
++      toController<<srcX<<" ";
++      toController<<srcY<<" ";
++      toController<<dstX<<" ";
++      toController<<dstY<<" ";
++      toController<<5<<"\n";
++   }
++   toController.close();
++   return 1;
 +}
 +
-+int readGpuMessage( int srcX,int srcY,int dstX,int dstY,int data,int dataNum){
-+    printf("Enter Sniper readGpuMessage\n");
-+    char * fileName = new char[100];
-+    sprintf(fileName,"./buffer%d_%d_%d_%d",srcX,srcY,dstX,dstY);
++int readGpuMessage( int srcX,int srcY,int dstX,int dstY,int* data,int dataNum)
++{
++   printf("Enter Sniper readGpuMessage\n");
++   char * fileName = new char[100];
++   sprintf(fileName,"./buffer%d_%d_%d_%d",srcX,srcY,dstX,dstY);
 +
-+    int fd = -1;
-+    while((fd = open(fileName, O_RDONLY)) == -1);
++   int fd = open(fileName, O_RDONLY);
++   if (fd == -1) {
++      printf("Cannot open pipe file %s.\n", fileName);
++      exit(1);
++   }
 +
-+    int tmpdata = 0;
-+    read(fd, &tmpdata, sizeof(tmpdata));
-+    printf("Recieve data: %d\n", tmpdata);
++   int rd_count;
++   for (rd_count = 0; rd_count < dataNum;)
++   {
++      int* rdptr = &data[rd_count];
++      int iterSize = 1024;
++      if (dataNum - rd_count < iterSize) iterSize = dataNum - rd_count;
++      iterSize = read(fd, rdptr, sizeof(int) * iterSize);
++      printf("%d, %p, %d\n", rd_count, rdptr, iterSize);
++      if (iterSize >= 0)
++      {
++         rd_count += iterSize / sizeof(int);
++      }
++      else
++      {
++         break;
++      }
++   }
 +
-+    close(fd);
-+    delete fileName;
-+    return tmpdata;
++   printf("Sniper read %ld bytes from %s.\n", rd_count * sizeof(int), fileName);
++
++   close(fd);
++   delete fileName;
++   return 1;
 +}
 +
  // Emulate all system calls
  // Do this as a regular callback (versus syscall enter/exit functions) as those hold the global pin lock
  VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
-@@ -174,6 +236,32 @@ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
+@@ -174,6 +273,33 @@ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
           case SYS_exit_group:
              thread_data[threadid].output->Syscall(syscall_number, (char*)args, sizeof(args));
              break;
@@ -426,8 +404,8 @@ index 4944127..c841043 100644
 +               thread_data[threadid].last_syscall_number = syscall_number;
 +               thread_data[threadid].last_syscall_emulated=true;
 +
-+               passGpuMessage(args[0],args[1],args[2],args[3],args[4]);
-+               thread_data[threadid].last_syscall_returnval = 1;
++               thread_data[threadid].last_syscall_returnval =
++                  passGpuMessage(args[0],args[1],args[2],args[3],(int*)args[4],args[5]);
 +               thread_data[threadid].output->Syscall(
 +                  syscall_number,
 +                  (char *)args,
@@ -439,7 +417,8 @@ index 4944127..c841043 100644
 +         thread_data[threadid].last_syscall_number = syscall_number;
 +               thread_data[threadid].last_syscall_emulated=true;
 +
-+               thread_data[threadid].last_syscall_returnval = readGpuMessage(args[0],args[1],args[2],args[3],args[4],args[5]);
++               thread_data[threadid].last_syscall_returnval =
++                  readGpuMessage(args[0],args[1],args[2],args[3],(int*)args[4],args[5]);
 +               thread_data[threadid].output->Syscall(
 +                  syscall_number,
 +                  (char *)args,

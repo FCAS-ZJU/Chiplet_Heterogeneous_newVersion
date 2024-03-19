@@ -79,10 +79,6 @@ SyscallMdl::~SyscallMdl()
    free(futex_counters);
 }
 
-//commented at 2020-3-23
-//系统调用？
-//是系统调用，但是增加的系统调用号没到这里就返回错误了。应该有某种保护机制。
-//syscall, in front of which there are protecting codes, because errors will happen before the codes there run
 bool SyscallMdl::runEnter(IntPtr syscall_number, syscall_args_t &args)
 {
    Core *core = m_thread->getCore();
@@ -428,8 +424,6 @@ bool SyscallMdl::runEnter(IntPtr syscall_number, syscall_args_t &args)
    return m_stalled;
 }
 
-//commented at 2020-4-14
-//leave syscall state and the thread gets ready
 IntPtr SyscallMdl::runExit(IntPtr old_return)
 {
    CLOG("syscall", "Exit thread %d", m_thread->getId());

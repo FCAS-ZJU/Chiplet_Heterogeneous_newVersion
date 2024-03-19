@@ -43,7 +43,9 @@ class ptx_recognizer;
 #include <cmath>
 #include <map>
 #include <sstream>
+#include <iostream>
 #include <string>
+#include <vector>
 #include "../abstract_hardware_model.h"
 #include "../gpgpu-sim/gpu-sim.h"
 #include "../gpgpu-sim/shader.h"
@@ -1076,102 +1078,192 @@ void add_impl(const ptx_instruction *pI, ptx_thread_info *thread) {
   thread->set_operand_value(dst, data, i_type, thread, pI, overflow, carry);
 }
 
-void readFile(int dst_x, int dst_y ,int src_x, int src_y,long long unsigned int* data)
+int readFile(int dst_x, int dst_y ,int src_x, int src_y, int* data, int dataNum)
 {
-    char * fileName = new char[100];
-    sprintf(fileName,"./buffer%d_%d_%d_%d",src_x,src_y,dst_x,dst_y);
-    int fd;
-    printf("Before GPGPU Recieve data from %s \n", fileName);
-    while((fd = open(fileName, O_RDONLY)) == -1);
-//
-    int tmpdata = 0;
-    printf("read = %d\n", read(fd, &tmpdata, sizeof(tmpdata)));
-    printf("GPGPU Recieve data: %d\n", tmpdata);
-    *data = tmpdata;
-    close(fd);
-    delete fileName;
+  std::cerr << "Enter Sniper readFile" << std::endl;
+  char * fileName = new char[100];
+  sprintf(fileName,"./buffer%d_%d_%d_%d",src_x,src_y,dst_x,dst_y);
+
+  int fd = open(fileName, O_RDONLY);
+  if (fd == -1) {
+    std::cerr << "Cannot open pipe file " << fileName << "." << std::endl;
+    exit(1);
+  }
+
+  int rd_count;
+  for (rd_count = 0; rd_count < dataNum;)
+  {
+    int* rdptr = &data[rd_count];
+    int iterSize = 1024;
+    if (dataNum - rd_count < iterSize) iterSize = dataNum - rd_count;
+    iterSize = read(fd, rdptr, sizeof(int) * iterSize);
+    printf("%d, %p, %d\n", rd_count, rdptr, iterSize);
+    if (iterSize >= 0)
+    {
+      rd_count += iterSize / sizeof(int);
+    }
+    else
+    {
+      break;
+    }
+  }
+
+  std::cerr << "GPGPU read " << rd_count * sizeof(int) << " bytes from " << fileName << "." << std::endl;
+
+  close(fd);
+  delete fileName;
+  return 1;
 }
 // gdb attach pid
 // | tee
 // 管道读写数据之前需要同步？  
-void passMessage(int dst_x, int dst_y,int src_x, int src_y , int data)  //
+void passMessage(int dst_x, int dst_y,int src_x, int src_y , int* data, int dataNum)  //
 {
-    char * fileName = new char[100];
-    sprintf(fileName,"./buffer%d_%d_%d_%d",dst_x,dst_y,src_x,src_y);
-    printf("Before GPGPU Send data to %s: %d\n",fileName, data);
+  std::cerr << "Enter Sniper passGpuMessage" << std::endl;
+  char * fileName = new char[100];
+  sprintf(fileName,"./buffer%d_%d_%d_%d",src_x,src_y,dst_x,dst_y);
 
-    int fd = open(fileName, O_WRONLY);
-   if (fd == -1) {
-      printf("Cannot open pipe file %s.\n", fileName);
-      exit(1);
-   }
+  int fd = open(fileName, O_WRONLY);
+  if (fd == -1) {
+    std::cerr << "Cannot open pipe file " << fileName << "." << std::endl;
+    exit(1);
+  }
 
-    printf("GPGPU Send data: %d\n", data);
-    write(fd, &data, sizeof(data));
-    close(fd);
-    delete fileName;
+  int wr_count;
+  for (wr_count = 0; wr_count < dataNum;)
+  {
+    int* wrptr = &data[wr_count];
+    int iterSize = 1024;
+    if (dataNum - wr_count < iterSize) iterSize = dataNum - wr_count;
+    iterSize = write(fd, wrptr, sizeof(int) * iterSize);
+    printf("%d, %p, %d\n", wr_count, wrptr, iterSize);
+    if (wr_count >= 0)
+    {
+      wr_count += iterSize / sizeof(int);
+    }
+    else
+    {
+      break;
+    }
+  }
+
+  std::cerr << "GPGPU write " << wr_count * sizeof(int) << " bytes to " << fileName << "." << std::endl;
+
+  close(fd);
+  delete fileName;
 }
- 
+
+std::vector<uint32_t> syscall_op_list;
+
+//void decode_space(memory_space_t &space, ptx_thread_info *thread,
+//                  const operand_info &op, memory_space *&mem, addr_t &addr);
+
 void addc_impl( const ptx_instruction *pI, ptx_thread_info *thread ) 
 { 
-	ptx_reg_t src1_data, src2_data,data;
+	ptx_reg_t src1_data, src2_data, data;
 
-   const operand_info &dst  = pI->dst();
-   const operand_info &src1 = pI->src1();
-   const operand_info &src2 = pI->src2();
-   unsigned i_type = pI->get_type();
-   src1_data = thread->get_operand_value(src1, dst, i_type, thread, 1);
-   src2_data = thread->get_operand_value(src2, dst, i_type, thread, 1);
-       	/**
-    * 传入的两个参数为src1_data.u64和src2_data.u64
-    *
-    * src1_data.u64是一个9位数, abcdefghi。ad表示src的x坐标，cd表示src的y坐标，ef表示dst的x坐标，gh表示dst的y坐标，i表是读请求还是写请求
-    * src2_data.u64是一个int型，在写请求中表示要写的数据，在读请求中表示请求的数据号
-    *
-    */
-   //std::cout<<"Step 1\n";
+  const operand_info &dst  = pI->dst();
+  const operand_info &src1 = pI->src1();
+  const operand_info &src2 = pI->src2();
+  unsigned i_type = pI->get_type();
+  src1_data = thread->get_operand_value(src1, dst, i_type, thread, 1);
+  src2_data = thread->get_operand_value(src2, dst, i_type, thread, 1);
+  /**
+   * 传入的两个参数为src1_data.u64和src2_data.u64
+   *
+   * src1_data.u64是一个9位数, abcdefghi。ad表示src的x坐标，cd表示src的y坐标，ef表示dst的x坐标，gh表示dst的y坐标，i表是读请求还是写请求
+   * src2_data.u64是一个int型，在写请求中表示要写的数据，在读请求中表示请求的数据号
+   *
+   */
+  //std::cout<<"Step 1\n";
 
-   int data1 = src1_data.u64;
-   int data2 = src2_data.u64;
-    int src_x = data1 / 10000000;
-    int src_y = data1 % 10000000 / 100000;
-    int dst_x = data1 % 100000 / 1000;
-    int dst_y = data1 % 1000 / 10;
-   int opValue = data1 % 10; 
+  int data1 = src1_data.u64;
+  int data2 = src2_data.u64;
+  data.u64 = 0;
 
-   if(opValue == 0){
-   char* filename= new char[64];
-   sprintf(filename,"./bench.%d.%d",src_x,src_y);
-   std::fstream toController(filename,std::ios::app);
-   long long unsigned int timeNow = thread->get_gpu()->gpu_sim_cycle+thread->get_gpu()->gpu_tot_sim_cycle;
+  if (data2 == 0)
+  {
+    syscall_op_list.push_back(data1);
+    thread->set_operand_value(dst, data, i_type, thread, pI, 0, 0  );
+    std::cerr << "Add Syscall parameter " << data1 << std::endl;
+  }
+  else if (data2 == 1)
+  {
+    if (data1 == 1) // send message
+    {
+      int dst_x = syscall_op_list[0];
+      int dst_y = syscall_op_list[1];
+      int src_x = syscall_op_list[2];
+      int src_y = syscall_op_list[3];
+      uint64_t data_ptr = (uint64_t)syscall_op_list[4] + ((uint64_t)syscall_op_list[5] << 32);
+      int* data = (int*)data_ptr;
+      int dataSize = syscall_op_list[6];
 
-   if(!toController.is_open())
-   {
-              std::cout<<"Can not pass message to controller\n\n\n\n\n\n";
-              return;
-   }
-   else
-   {
-              toController<<timeNow<<" ";
-              toController<<src_x<<" ";
-              toController<<src_y<<" ";
-              toController<<dst_x<<" ";
-              toController<<dst_y<<" ";
+      char* filename= new char[64];
+      sprintf(filename,"./bench.%d.%d",src_x,src_y);
+      std::fstream toController(filename,std::ios::app);
+      long long unsigned int timeNow = thread->get_gpu()->gpu_sim_cycle+thread->get_gpu()->gpu_tot_sim_cycle;
+
+      if(!toController.is_open())
+      {
+        std::cout<<"Can not pass message to controller\n\n\n\n\n\n";
+        return;
+      }
+      else
+      {
+        toController<<timeNow<<" ";
+        toController<<src_x<<" ";
+        toController<<src_y<<" ";
+        toController<<dst_x<<" ";
+        toController<<dst_y<<" ";
 	      toController<<5<<"\n";
-           }
-   toController.close();
-   passMessage(dst_x,dst_y,src_x,src_y,data2);
-   }
-   else if(opValue == 1)
-   {
-	long long unsigned int *dataValue = &data.u64;
-	readFile(src_x,src_y,dst_x,dst_y,dataValue);
-	// thread->get_gpu()->gpu_sim_cycle *= 2;
-   thread->set_operand_value(dst, data, i_type, thread, pI, 0, 0  );
-   }
-   //data.u64 = src1_data.u64 + src2_data.u64;
-   //readFile(1,2,src2_data.u64);
-   //thread->set_operand_value(dst, data, i_type, thread, pI, 0, 0  );
+      }
+      toController.close();
+
+      // read data from D2D.
+      int* interdata = new int[dataSize];
+      passMessage(dst_x,dst_y,src_x,src_y,interdata,dataSize);
+
+      // write data to GPU memory.
+      //memory_space_t space = pI->get_space();
+      //memory_space *mem = NULL;
+      //addr_t addr = data_ptr;
+      //decode_space(space, thread, dst, mem, addr);
+      //mem->write(addr, dataSize, interdata, thread, pI);
+      delete interdata;
+
+      syscall_op_list.clear();
+    }
+    else if (data1 == 2) // send message
+    {
+      int dst_x = syscall_op_list[0];
+      int dst_y = syscall_op_list[1];
+      int src_x = syscall_op_list[2];
+      int src_y = syscall_op_list[3];
+      uint64_t data_ptr = (uint64_t)syscall_op_list[4] + ((uint64_t)syscall_op_list[5] << 32);
+      int* data = (int*)data_ptr;
+      int dataSize = syscall_op_list[6];
+
+      // read data from GPU memory.
+      int* interdata = new int[dataSize];
+      //memory_space_t space = pI->get_space();
+      //memory_space *mem = NULL;
+      //addr_t addr = data_ptr;
+      //decode_space(space, thread, src1, mem, addr);
+      //mem->read(addr, dataSize, interdata);
+
+      // send data to D2D.
+    	readFile(src_x,src_y,dst_x,dst_y,interdata,dataSize);
+      delete interdata;
+
+      syscall_op_list.clear();
+    }
+    else
+    {
+      data.u64 = -1;
+    }
+  }
+  thread->set_operand_value(dst, data, i_type, thread, pI, 0, 0  );
 }
 
 void and_impl(const ptx_instruction *pI, ptx_thread_info *thread) {
