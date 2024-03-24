@@ -16,3 +16,6 @@ sim.out
 sim.stats.sqlite3
 
 checkpoint_files
+
+obj
+bin
