@@ -53,9 +53,8 @@ class ptx_recognizer;
 #include "cuda_device_printf.h"
 #include "ptx.tab.h"
 #include "ptx_loader.h"
-#include <unistd.h>
-#include <fcntl.h>
-#include <sys/stat.h>
+
+#include "../../../interchiplet/includes/intercomm.h"
 
 // Jin: include device runtime for CDP
 #include "cuda_device_runtime.h"
@@ -1078,39 +1077,15 @@ void add_impl(const ptx_instruction *pI, ptx_thread_info *thread) {
   thread->set_operand_value(dst, data, i_type, thread, pI, overflow, carry);
 }
 
+nsInterchiplet::PipeComm global_pipe_comm;
+
 int readFile(int dst_x, int dst_y ,int src_x, int src_y, int* data, int dataNum)
 {
   std::cerr << "Enter Sniper readFile" << std::endl;
   char * fileName = new char[100];
   sprintf(fileName,"./buffer%d_%d_%d_%d",src_x,src_y,dst_x,dst_y);
 
-  int fd = open(fileName, O_RDONLY);
-  if (fd == -1) {
-    std::cerr << "Cannot open pipe file " << fileName << "." << std::endl;
-    exit(1);
-  }
-
-  int rd_count;
-  for (rd_count = 0; rd_count < dataNum;)
-  {
-    int* rdptr = &data[rd_count];
-    int iterSize = 1024;
-    if (dataNum - rd_count < iterSize) iterSize = dataNum - rd_count;
-    iterSize = read(fd, rdptr, sizeof(int) * iterSize);
-    printf("%d, %p, %d\n", rd_count, rdptr, iterSize);
-    if (iterSize >= 0)
-    {
-      rd_count += iterSize / sizeof(int);
-    }
-    else
-    {
-      break;
-    }
-  }
-
-  std::cerr << "GPGPU read " << rd_count * sizeof(int) << " bytes from " << fileName << "." << std::endl;
-
-  close(fd);
+  global_pipe_comm.read_data(fileName, data, dataNum * sizeof(int));
   delete fileName;
   return 1;
 }
@@ -1123,37 +1098,13 @@ void passMessage(int dst_x, int dst_y,int src_x, int src_y , int* data, int data
   char * fileName = new char[100];
   sprintf(fileName,"./buffer%d_%d_%d_%d",src_x,src_y,dst_x,dst_y);
 
-  int fd = open(fileName, O_WRONLY);
-  if (fd == -1) {
-    std::cerr << "Cannot open pipe file " << fileName << "." << std::endl;
-    exit(1);
-  }
-
-  int wr_count;
-  for (wr_count = 0; wr_count < dataNum;)
-  {
-    int* wrptr = &data[wr_count];
-    int iterSize = 1024;
-    if (dataNum - wr_count < iterSize) iterSize = dataNum - wr_count;
-    iterSize = write(fd, wrptr, sizeof(int) * iterSize);
-    printf("%d, %p, %d\n", wr_count, wrptr, iterSize);
-    if (wr_count >= 0)
-    {
-      wr_count += iterSize / sizeof(int);
-    }
-    else
-    {
-      break;
-    }
-  }
-
-  std::cerr << "GPGPU write " << wr_count * sizeof(int) << " bytes to " << fileName << "." << std::endl;
-
-  close(fd);
+  global_pipe_comm.write_data(fileName, data, dataNum * sizeof(int));
   delete fileName;
 }
 
 std::vector<uint32_t> syscall_op_list;
+void decode_space(memory_space_t &space, ptx_thread_info *thread,
+                  const operand_info &op, memory_space *&mem, addr_t &addr);
 
 //void decode_space(memory_space_t &space, ptx_thread_info *thread,
 //                  const operand_info &op, memory_space *&mem, addr_t &addr);
@@ -1225,11 +1176,12 @@ void addc_impl( const ptx_instruction *pI, ptx_thread_info *thread )
       passMessage(dst_x,dst_y,src_x,src_y,interdata,dataSize);
 
       // write data to GPU memory.
-      //memory_space_t space = pI->get_space();
-      //memory_space *mem = NULL;
-      //addr_t addr = data_ptr;
-      //decode_space(space, thread, dst, mem, addr);
-      //mem->write(addr, dataSize, interdata, thread, pI);
+      memory_space_t space;
+      space.set_type(global_space); // TODO: how to accept other space?
+      memory_space *mem = NULL;
+      addr_t addr = data_ptr;
+      decode_space(space, thread, dst, mem, addr);
+      mem->write(addr, dataSize, interdata, thread, pI);
       delete interdata;
 
       syscall_op_list.clear();
@@ -1246,14 +1198,15 @@ void addc_impl( const ptx_instruction *pI, ptx_thread_info *thread )
 
       // read data from GPU memory.
       int* interdata = new int[dataSize];
-      //memory_space_t space = pI->get_space();
-      //memory_space *mem = NULL;
-      //addr_t addr = data_ptr;
-      //decode_space(space, thread, src1, mem, addr);
-      //mem->read(addr, dataSize, interdata);
+      memory_space_t space;
+      space.set_type(global_space); // TODO: how to accept other space?
+      memory_space *mem = NULL;
+      addr_t addr = data_ptr;
+      decode_space(space, thread, src1, mem, addr);
+      mem->read(addr, dataSize, interdata);
 
       // send data to D2D.
-    	readFile(src_x,src_y,dst_x,dst_y,interdata,dataSize);
+    	readFile(dst_x,dst_y,src_x,src_y,interdata,dataSize);
       delete interdata;
 
       syscall_op_list.clear();

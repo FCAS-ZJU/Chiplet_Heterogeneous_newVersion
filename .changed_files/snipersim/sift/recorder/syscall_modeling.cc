@@ -3,13 +3,12 @@
 #include "globals.h"
 #include "threads.h"
 
-#include <sys/stat.h>
 #include <iostream>
 #include <unistd.h>
 #include <syscall.h>
-#include <fcntl.h>
 
 #include "../../../interchiplet/includes/sniper_change.h"
+#include "../../../interchiplet/includes/intercomm.h"
 
 bool handleAccessMemory(void *arg, Sift::MemoryLockType lock_signal, Sift::MemoryOpType mem_op, uint64_t d_addr, uint8_t* data_buffer, uint32_t data_size)
 {
@@ -44,39 +43,15 @@ bool handleAccessMemory(void *arg, Sift::MemoryLockType lock_signal, Sift::Memor
    return true;
 }
 
+nsInterchiplet::PipeComm global_pipe_comm;
+
 int passGpuMessage(int dstX, int dstY, int srcX,int srcY,int* data,int dataNum)
 {
    printf("Enter Sniper passGpuMessage\n");
    char * fileName = new char[100];
    sprintf(fileName,"./buffer%d_%d_%d_%d",srcX,srcY,dstX,dstY);
 
-   int fd = open(fileName, O_WRONLY);
-   if (fd == -1) {
-      printf("Cannot open pipe file %s.\n", fileName);
-      exit(1);
-   }
-
-   int wr_count;
-   for (wr_count = 0; wr_count < dataNum;)
-   {
-      int* wrptr = &data[wr_count];
-      int iterSize = 1024;
-      if (dataNum - wr_count < iterSize) iterSize = dataNum - wr_count;
-      iterSize = write(fd, wrptr, sizeof(int) * iterSize);
-      printf("%d, %p, %d\n", wr_count, wrptr, iterSize);
-      if (wr_count >= 0)
-      {
-         wr_count += iterSize / sizeof(int);
-      }
-      else
-      {
-         break;
-      }
-   }
-
-   printf("Sniper write %ld bytes to %s.\n", wr_count * sizeof(int), fileName);
-
-   close(fd);
+   global_pipe_comm.write_data(fileName, data, dataNum * sizeof(int));
    delete fileName;
 
    char* filename = new char[64];
@@ -102,39 +77,13 @@ int passGpuMessage(int dstX, int dstY, int srcX,int srcY,int* data,int dataNum)
    return 1;
 }
 
-int readGpuMessage( int srcX,int srcY,int dstX,int dstY,int* data,int dataNum)
+int readGpuMessage(int dstX,int dstY,int srcX,int srcY,int* data,int dataNum)
 {
    printf("Enter Sniper readGpuMessage\n");
    char * fileName = new char[100];
    sprintf(fileName,"./buffer%d_%d_%d_%d",srcX,srcY,dstX,dstY);
 
-   int fd = open(fileName, O_RDONLY);
-   if (fd == -1) {
-      printf("Cannot open pipe file %s.\n", fileName);
-      exit(1);
-   }
-
-   int rd_count;
-   for (rd_count = 0; rd_count < dataNum;)
-   {
-      int* rdptr = &data[rd_count];
-      int iterSize = 1024;
-      if (dataNum - rd_count < iterSize) iterSize = dataNum - rd_count;
-      iterSize = read(fd, rdptr, sizeof(int) * iterSize);
-      printf("%d, %p, %d\n", rd_count, rdptr, iterSize);
-      if (iterSize >= 0)
-      {
-         rd_count += iterSize / sizeof(int);
-      }
-      else
-      {
-         break;
-      }
-   }
-
-   printf("Sniper read %ld bytes from %s.\n", rd_count * sizeof(int), fileName);
-
-   close(fd);
+   global_pipe_comm.read_data(fileName, data, dataNum * sizeof(int));
    delete fileName;
    return 1;
 }

@@ -4,7 +4,7 @@
 #define Row 100
 #define Col 100
 
-int srcX,srcY;
+int idX,idY;
 
 using namespace std;
 
@@ -12,8 +12,8 @@ using namespace nsInterchiplet;
 
 int main(int argc, char** argv)
 {
-    srcX=atoi(argv[1]);
-    srcY=atoi(argv[2]);
+    idX = atoi(argv[1]);
+    idY = atoi(argv[2]);
 
     int64_t *A = (int64_t *)malloc(sizeof(int64_t) * Row * Col);
     int64_t *B = (int64_t *)malloc(sizeof(int64_t) * Row * Col);
@@ -26,19 +26,17 @@ int main(int argc, char** argv)
         B[i] = rand() % 51;
     }
 
-    std::cout<<"aaa"<<endl;
+    sendGpuMessage(0,1,idX,idY,A,10000);
+    sendGpuMessage(1,0,idX,idY,A,10000);
+    sendGpuMessage(1,1,idX,idY,A,10000);
 
-    sendGpuMessage(0,1,srcX,srcY,A,10000);
-    sendGpuMessage(1,0,srcX,srcY,A,10000);
-    sendGpuMessage(1,1,srcX,srcY,A,10000);
+    sendGpuMessage(0,1,idX,idY,B,10000);
+    sendGpuMessage(1,0,idX,idY,B,10000);
+    sendGpuMessage(1,1,idX,idY,B,10000);
 
-    sendGpuMessage(0,1,srcX,srcY,B,10000);
-    sendGpuMessage(1,0,srcX,srcY,B,10000);
-    sendGpuMessage(1,1,srcX,srcY,B,10000);
-
-    readGpuMessage(srcX,srcY,0,1,C1,100);
-    readGpuMessage(srcX,srcY,1,0,C2,100);
-    readGpuMessage(srcX,srcY,1,1,C3,100);
+    readGpuMessage(idX,idY,0,1,C1,100);
+    readGpuMessage(idX,idY,1,0,C2,100);
+    readGpuMessage(idX,idY,1,1,C3,100);
 
     for(int i=0;i<100;i++)
     {
