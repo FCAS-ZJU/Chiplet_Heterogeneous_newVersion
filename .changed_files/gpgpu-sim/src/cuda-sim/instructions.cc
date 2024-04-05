@@ -1081,7 +1081,8 @@ nsInterchiplet::PipeComm global_pipe_comm;
 
 int readFile(int dst_x, int dst_y ,int src_x, int src_y, int* data, int dataNum)
 {
-  std::cerr << "Enter Sniper readFile" << std::endl;
+  std::cerr << "Enter GPGPUSim readFile" << std::endl;
+  nsInterchiplet::readSync(0, src_x, src_y, dst_x, dst_y, dataNum * sizeof(int));
   char * fileName = new char[100];
   sprintf(fileName,"./buffer%d_%d_%d_%d",src_x,src_y,dst_x,dst_y);
 
@@ -1094,7 +1095,8 @@ int readFile(int dst_x, int dst_y ,int src_x, int src_y, int* data, int dataNum)
 // 管道读写数据之前需要同步？  
 void passMessage(int dst_x, int dst_y,int src_x, int src_y , int* data, int dataNum)  //
 {
-  std::cerr << "Enter Sniper passGpuMessage" << std::endl;
+  std::cerr << "Enter GPGPUSim passMessage" << std::endl;
+  nsInterchiplet::writeSync(0, src_x, src_y, dst_x, dst_y, dataNum * sizeof(int));
   char * fileName = new char[100];
   sprintf(fileName,"./buffer%d_%d_%d_%d",src_x,src_y,dst_x,dst_y);
 

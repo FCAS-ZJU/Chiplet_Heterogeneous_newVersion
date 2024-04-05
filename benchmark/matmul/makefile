@@ -40,12 +40,11 @@ run:
 	$(SNIPER_EXEC) --curdir $(BENCHMARK_ROOT) -- $(BENCHMARK_ROOT)/$(SNIPER_TARGET) 0 0
 
 clean:
-	rm -rf obj bin
 	rm -rf bench* buffer* message_record.txt
 	rm -rf _app_cuda_version_* _cuobjdump_list_ptx_* gpgpusim_power_report_* *.ptx *.ptxas gpgpusim.*.log gpgpu_inst_stats.txt
-	rm -rf sim.cfg sim.info sim.out sim.stats.sqlite3
+	rm -rf sim.cfg sim.info sim.out sim.stats.sqlite3 sniper.*.log
 	rm -rf checkpoint_files
 
 cleanall:
 	make clean
-	rm -rf $(SNIPER_OBJS) $(GPGPUSIM_TARGET) $(SNIPER_TARGET)
+	rm -rf obj bin

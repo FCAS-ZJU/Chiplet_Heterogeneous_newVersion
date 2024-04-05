@@ -48,6 +48,9 @@ nsInterchiplet::PipeComm global_pipe_comm;
 int passGpuMessage(int dstX, int dstY, int srcX,int srcY,int* data,int dataNum)
 {
    printf("Enter Sniper passGpuMessage\n");
+   long long unsigned int timeNow = 0;
+   nsInterchiplet::writeSync(timeNow, srcX, srcY, dstX, dstY, dataNum * sizeof(int));
+
    char * fileName = new char[100];
    sprintf(fileName,"./buffer%d_%d_%d_%d",srcX,srcY,dstX,dstY);
 
@@ -57,7 +60,6 @@ int passGpuMessage(int dstX, int dstY, int srcX,int srcY,int* data,int dataNum)
    char* filename = new char[64];
    sprintf(filename,"./bench.%d.%d",srcX,srcY);
    std::fstream toController(filename,std::ios::out | std::ios::trunc);
-   long long unsigned int timeNow = 0;
 
    if(!toController.is_open())
    {
@@ -80,6 +82,7 @@ int passGpuMessage(int dstX, int dstY, int srcX,int srcY,int* data,int dataNum)
 int readGpuMessage(int dstX,int dstY,int srcX,int srcY,int* data,int dataNum)
 {
    printf("Enter Sniper readGpuMessage\n");
+   nsInterchiplet::readSync(0, srcX, srcY, dstX, dstY, dataNum * sizeof(int));
    char * fileName = new char[100];
    sprintf(fileName,"./buffer%d_%d_%d_%d",srcX,srcY,dstX,dstY);
 

@@ -25,6 +25,12 @@ add_library(interchiplet_app STATIC
 add_executable(record_transfer srcs/record_transfer.cpp)
 target_link_libraries(record_transfer ${Boost_LIBRARIES})
 
+# Executable: comm_bridge
+add_executable(comm_bridge srcs/comm_bridge.cpp)
+target_compile_options(comm_bridge PUBLIC "-pthread")
+target_link_options(comm_bridge PUBLIC "-pthread")
+#target_link_libraries(comm_bridge ${Boost_LIBRARIES})
+
 # Executable: zmq_pro
 # Require cppzmq and Boost. If not found, skip.
 if (CPPZMQ_FOUND AND Boost_FOUND)

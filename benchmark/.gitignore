@@ -8,6 +8,7 @@ gpgpu_inst_stats.txt
 bench.*
 buffer*
 gpgpusim*.log
+sniper*.log
 message_record.txt
 
 sim.cfg

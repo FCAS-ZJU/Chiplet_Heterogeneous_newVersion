@@ -276,7 +276,7 @@ index 4d5c003..76a381d 100644
     return 0;
  }
 diff --git a/sift/recorder/syscall_modeling.cc b/sift/recorder/syscall_modeling.cc
-index 4944127..a6c9e97 100644
+index 4944127..c73e3c8 100644
 --- a/sift/recorder/syscall_modeling.cc
 +++ b/sift/recorder/syscall_modeling.cc
 @@ -7,6 +7,9 @@
@@ -289,7 +289,7 @@ index 4944127..a6c9e97 100644
  bool handleAccessMemory(void *arg, Sift::MemoryLockType lock_signal, Sift::MemoryOpType mem_op, uint64_t d_addr, uint8_t* data_buffer, uint32_t data_size)
  {
     // Lock memory globally if requested
-@@ -40,6 +43,51 @@ bool handleAccessMemory(void *arg, Sift::MemoryLockType lock_signal, Sift::Memor
+@@ -40,6 +43,54 @@ bool handleAccessMemory(void *arg, Sift::MemoryLockType lock_signal, Sift::Memor
     return true;
  }
  
@@ -298,6 +298,9 @@ index 4944127..a6c9e97 100644
 +int passGpuMessage(int dstX, int dstY, int srcX,int srcY,int* data,int dataNum)
 +{
 +   printf("Enter Sniper passGpuMessage\n");
++   long long unsigned int timeNow = 0;
++   nsInterchiplet::writeSync(timeNow, srcX, srcY, dstX, dstY, dataNum * sizeof(int));
++
 +   char * fileName = new char[100];
 +   sprintf(fileName,"./buffer%d_%d_%d_%d",srcX,srcY,dstX,dstY);
 +
@@ -307,7 +310,6 @@ index 4944127..a6c9e97 100644
 +   char* filename = new char[64];
 +   sprintf(filename,"./bench.%d.%d",srcX,srcY);
 +   std::fstream toController(filename,std::ios::out | std::ios::trunc);
-+   long long unsigned int timeNow = 0;
 +
 +   if(!toController.is_open())
 +   {
@@ -330,6 +332,7 @@ index 4944127..a6c9e97 100644
 +int readGpuMessage(int dstX,int dstY,int srcX,int srcY,int* data,int dataNum)
 +{
 +   printf("Enter Sniper readGpuMessage\n");
++   nsInterchiplet::readSync(0, srcX, srcY, dstX, dstY, dataNum * sizeof(int));
 +   char * fileName = new char[100];
 +   sprintf(fileName,"./buffer%d_%d_%d_%d",srcX,srcY,dstX,dstY);
 +
@@ -341,7 +344,7 @@ index 4944127..a6c9e97 100644
  // Emulate all system calls
  // Do this as a regular callback (versus syscall enter/exit functions) as those hold the global pin lock
  VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
-@@ -174,6 +222,33 @@ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
+@@ -174,6 +225,33 @@ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
           case SYS_exit_group:
              thread_data[threadid].output->Syscall(syscall_number, (char*)args, sizeof(args));
              break;

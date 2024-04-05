@@ -2,6 +2,8 @@
 #include <cstring>
 
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include <vector>
 #include <map>
 
@@ -9,7 +11,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-#define PIPE_COMMON_DEBUG true
+//#define PIPE_COMMON_DEBUG
 #define PIPE_COMMON_UNIT_CAPACITY 4096
 
 namespace nsInterchiplet
@@ -37,6 +39,12 @@ namespace nsInterchiplet
             }
             m_size = 0;
             m_read_ptr = 0;
+
+#ifdef PIPE_COMMON_DEBUG
+            std::string debug_file_name = m_file_name + ".hex";
+            m_debug_fs.open(debug_file_name.c_str(), std::ios::out);
+            m_debug_col = 0;
+#endif
         }
 
         bool valid() const { return m_file_id >= 0; }
@@ -50,12 +58,11 @@ namespace nsInterchiplet
                 int iter_nbyte = PIPE_COMMON_UNIT_CAPACITY;
                 if ((nbyte - dst_ptr) < iter_nbyte) iter_nbyte = nbyte - dst_ptr;
                 iter_nbyte = read_data_iter(uint8_buf + dst_ptr, iter_nbyte);
-                if (PIPE_COMMON_DEBUG)
-                {
-                    std::cout << dst_ptr << "\t"
-                              << (void*)(uint8_buf + dst_ptr)
-                              << "\t" << iter_nbyte << std::endl;
-                }
+#ifdef PIPE_COMMON_DEBUG
+                std::cout << "[DEBUG read_data] " << dst_ptr << "\t"
+                          << (void*)(uint8_buf + dst_ptr)
+                          << "\t" << iter_nbyte << std::endl;
+#endif
                 if (iter_nbyte > 0)
                 {
                     dst_ptr += iter_nbyte;
@@ -72,10 +79,7 @@ namespace nsInterchiplet
                 }
             }
 
-            if (PIPE_COMMON_DEBUG)
-            {
-                std::cout << "Read " << dst_ptr << " B from " << m_file_name << "." << std::endl;
-            }
+            std::cout << "Read " << dst_ptr << " B from " << m_file_name << "." << std::endl;
             return dst_ptr;
         }
 
@@ -88,12 +92,11 @@ namespace nsInterchiplet
                 int iter_nbyte = PIPE_COMMON_UNIT_CAPACITY;
                 if ((nbyte - src_ptr) < iter_nbyte) iter_nbyte = nbyte - src_ptr;
                 iter_nbyte = write(m_file_id, uint8_buf + src_ptr, iter_nbyte);
-                if (PIPE_COMMON_DEBUG)
-                {
-                    std::cout << src_ptr << "\t"
-                              << (void*)(uint8_buf + src_ptr)
-                              << "\t" << iter_nbyte << std::endl;
-                }
+#ifdef PIPE_COMMON_DEBUG
+                std::cout << "[DEBUG write_data] " << src_ptr << "\t"
+                          << (void*)(uint8_buf + src_ptr)
+                          << "\t" << iter_nbyte << std::endl;
+#endif
                 if (iter_nbyte > 0)
                 {
                     src_ptr += iter_nbyte;
@@ -110,10 +113,31 @@ namespace nsInterchiplet
                 }
             }
 
-            if (PIPE_COMMON_DEBUG)
+#ifdef PIPE_COMMON_DEBUG
+            char byte_hex_l, byte_hex_h;
+            for (int i = 0; i < nbyte; i ++)
             {
-                std::cout << "Write " << src_ptr << " B to " << m_file_name << "." << std::endl;
+                uint8_t byte_value = uint8_buf[i];
+                uint8_t byte_low = byte_value % 16;
+                byte_hex_l = byte_low < 10 ? byte_low + '0' : byte_low + 'A';
+                uint8_t byte_high = byte_value / 16;
+                byte_hex_h = byte_high < 10 ? byte_high + '0' : byte_high + 'A';
+
+                m_debug_fs << byte_hex_h << byte_hex_l << " ";
+                if (m_debug_col == 15)
+                {
+                    m_debug_fs << "\n";
+                    m_debug_col = 0;
+                }
+                else
+                {
+                    m_debug_col += 1;
+                }
             }
+            m_debug_fs.flush();
+#endif
+
+            std::cout << "Write " << src_ptr << " B to " << m_file_name << "." << std::endl;
             return src_ptr;
         }
 
@@ -137,12 +161,11 @@ namespace nsInterchiplet
 
                 int read_size = read(
                     m_file_id, mp_buf + m_size, PIPE_COMMON_UNIT_CAPACITY - m_size);
-                if (PIPE_COMMON_DEBUG)
-                {
-                    std::cerr << "[DEBUG] " << (void*)(mp_buf + m_size) << "\t"
-                              << PIPE_COMMON_UNIT_CAPACITY - m_size << "\t"
-                              << read_size << std::endl;
-                }
+#ifdef PIPE_COMMON_DEBUG
+                std::cerr << "[DEBUG read_data_iter] " << (void*)(mp_buf + m_size) << "\t"
+                          << PIPE_COMMON_UNIT_CAPACITY - m_size << "\t"
+                          << read_size << std::endl;
+#endif
                 if (read_size <= 0)
                 {
                     return read_size;
@@ -164,6 +187,10 @@ namespace nsInterchiplet
         uint8_t *mp_buf;
         int m_read_ptr;
         int m_size;
+#ifdef PIPE_COMMON_DEBUG
+        std::ofstream m_debug_fs;
+        int m_debug_col;
+#endif
     };
 
     class PipeComm
@@ -207,4 +234,147 @@ namespace nsInterchiplet
     private:
         std::map<std::string, PipeCommUnit *> m_named_fifo_map;
     };
+
+    enum SyncCommType
+    {
+        SC_CYCLE,
+        SC_READ,
+        SC_WRITE,
+        SC_BARRIER,
+        SC_LOCK,
+        SC_UNLOCK,
+        SC_SYNC,
+        SC_RESULT,
+    };
+
+    class SyncCommand
+    {
+    public:
+        SyncCommType m_type;
+        long long int m_cycle;
+        int m_src_x;
+        int m_src_y;
+        int m_dst_x;
+        int m_dst_y;
+        int m_nbytes;
+
+        int m_stdin_fd;
+    };
+
+    std::string m_cmd_head = "[INTERCMD]";
+
+    void sendCycleCmd(long long int cycle)
+    {
+        std::cout << m_cmd_head << " CYCLE " << cycle << std::endl;
+    }
+
+    void sendReadCmd(long long int cycle, int src_x, int src_y, int dst_x, int dst_y, int nbyte)
+    {
+        std::cout << m_cmd_head << " READ " << cycle << " "
+            << src_x << " " << src_y << " " << dst_x << " " << dst_y << " " << nbyte
+            << std::endl;
+    }
+
+    void sendWriteCmd(long long int cycle, int src_x, int src_y, int dst_x, int dst_y, int nbyte)
+    {
+        std::cout << m_cmd_head << " WRITE " << cycle << " "
+            << src_x << " " << src_y << " " << dst_x << " " << dst_y << " " << nbyte
+            << std::endl;
+    }
+
+    void sendSyncCmd(long long int cycle)
+    {
+        std::cout << m_cmd_head << " SYNC " << cycle << std::endl;
+    }
+
+    SyncCommand parseCmd(const std::string& __message)
+    {
+        std::string message;
+        if (__message.substr(0, 10) == m_cmd_head)
+        {
+            message = __message.substr(11);
+        }
+        else
+        {
+            message = __message;
+        }
+        std::stringstream ss(message);
+        std::string command;
+        long long int cycle;
+        ss >> command >> cycle;
+
+        SyncCommand cmd;
+        cmd.m_cycle = cycle;
+        cmd.m_type = command == "CYCLE" ? SC_CYCLE :
+                     command == "READ" ? SC_READ :
+                     command == "WRITE" ? SC_WRITE :
+                     command == "BARRIER" ? SC_BARRIER :
+                     command == "LOCK" ? SC_LOCK :
+                     command == "UNLOCK" ? SC_UNLOCK :
+                     command == "SYNC" ? SC_SYNC : SC_CYCLE;
+
+        if (cmd.m_type == SC_READ || cmd.m_type == SC_WRITE)
+        {
+            ss >> cmd.m_src_x >> cmd.m_src_y >> cmd.m_dst_x >> cmd.m_dst_y >> cmd.m_nbytes;
+        }
+
+        return cmd;
+    }
+
+    long long int cycleSync(long long int cycle)
+    {
+        sendCycleCmd(cycle);
+
+        char* message = new char[1024];
+        while(read(STDIN_FILENO, message, 1024) == 0);
+        SyncCommand resp_cmd = parseCmd(std::string(message));
+        delete message;
+
+        if (resp_cmd.m_type == SC_SYNC)
+        {
+            return resp_cmd.m_cycle;
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
+    long long int readSync(long long int cycle, int src_x, int src_y, int dst_x, int dst_y, int nbyte)
+    {
+        sendReadCmd(cycle, src_x, src_y, dst_x, dst_y, nbyte);
+
+        char* message = new char[1024];
+        while(read(STDIN_FILENO, message, 1024) == 0);
+        SyncCommand resp_cmd = parseCmd(std::string(message));
+        delete message;
+
+        if (resp_cmd.m_type == SC_SYNC)
+        {
+            return resp_cmd.m_cycle;
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
+    long long int writeSync(long long int cycle, int src_x, int src_y, int dst_x, int dst_y, int nbyte)
+    {
+        sendWriteCmd(cycle, src_x, src_y, dst_x, dst_y, nbyte);
+
+        char* message = new char[1024];
+        while(read(STDIN_FILENO, message, 1024) == 0);
+        SyncCommand resp_cmd = parseCmd(std::string(message));
+        delete message;
+
+        if (resp_cmd.m_type == SC_SYNC)
+        {
+            return resp_cmd.m_cycle;
+        }
+        else
+        {
+            return -1;
+        }
+    }
 }

@@ -1,5 +1,5 @@
 diff --git a/src/cuda-sim/instructions.cc b/src/cuda-sim/instructions.cc
-index 8936fa8..4a37020 100644
+index 8936fa8..dfd8a82 100644
 --- a/src/cuda-sim/instructions.cc
 +++ b/src/cuda-sim/instructions.cc
 @@ -43,7 +43,9 @@ class ptx_recognizer;
@@ -21,7 +21,7 @@ index 8936fa8..4a37020 100644
  // Jin: include device runtime for CDP
  #include "cuda_device_runtime.h"
  
-@@ -1073,8 +1077,146 @@ void add_impl(const ptx_instruction *pI, ptx_thread_info *thread) {
+@@ -1073,8 +1077,148 @@ void add_impl(const ptx_instruction *pI, ptx_thread_info *thread) {
    thread->set_operand_value(dst, data, i_type, thread, pI, overflow, carry);
  }
  
@@ -31,7 +31,8 @@ index 8936fa8..4a37020 100644
 +
 +int readFile(int dst_x, int dst_y ,int src_x, int src_y, int* data, int dataNum)
 +{
-+  std::cerr << "Enter Sniper readFile" << std::endl;
++  std::cerr << "Enter GPGPUSim readFile" << std::endl;
++  nsInterchiplet::readSync(0, src_x, src_y, dst_x, dst_y, dataNum * sizeof(int));
 +  char * fileName = new char[100];
 +  sprintf(fileName,"./buffer%d_%d_%d_%d",src_x,src_y,dst_x,dst_y);
 +
@@ -44,7 +45,8 @@ index 8936fa8..4a37020 100644
 +// 管道读写数据之前需要同步？  
 +void passMessage(int dst_x, int dst_y,int src_x, int src_y , int* data, int dataNum)  //
 +{
-+  std::cerr << "Enter Sniper passGpuMessage" << std::endl;
++  std::cerr << "Enter GPGPUSim passMessage" << std::endl;
++  nsInterchiplet::writeSync(0, src_x, src_y, dst_x, dst_y, dataNum * sizeof(int));
 +  char * fileName = new char[100];
 +  sprintf(fileName,"./buffer%d_%d_%d_%d",src_x,src_y,dst_x,dst_y);
 +
