@@ -1,13 +1,22 @@
 diff --git a/common/core/syscall_model.cc b/common/core/syscall_model.cc
-index c336283..ca4c1b8 100644
+index c336283..6bc5bac 100644
 --- a/common/core/syscall_model.cc
 +++ b/common/core/syscall_model.cc
-@@ -23,6 +23,14 @@
+@@ -14,6 +14,7 @@
+ #include "stats.h"
+ #include "syscall_strings.h"
+ #include "circular_log.h"
++#include "dvfs_manager.h"
+ 
+ #include <errno.h>
+ #include <sys/syscall.h>
+@@ -23,6 +24,15 @@
  
  #include <boost/algorithm/string.hpp>
  
 +//changed at 2020-3-27
 +#include "../../../interchiplet/includes/sniper_change.h"
++#include "../../../interchiplet/includes/intercomm.h"
 +#include <unordered_map>
 +#include <cstdint>
 +//#include<atomic>
@@ -17,7 +26,7 @@ index c336283..ca4c1b8 100644
  const char *SyscallMdl::futex_names[] =
  {
     "FUTEX_WAIT", "FUTEX_WAKE", "FUTEX_FD", "FUTEX_REQUEUE",
-@@ -31,6 +39,17 @@ const char *SyscallMdl::futex_names[] =
+@@ -31,6 +41,17 @@ const char *SyscallMdl::futex_names[] =
     "FUTEX_CMP_REQUEUE_PI"
  };
  
@@ -35,7 +44,7 @@ index c336283..ca4c1b8 100644
  SyscallMdl::SyscallMdl(Thread *thread)
        : m_thread(thread)
        , m_emulated(false)
-@@ -290,6 +309,110 @@ bool SyscallMdl::runEnter(IntPtr syscall_number, syscall_args_t &args)
+@@ -290,6 +311,164 @@ bool SyscallMdl::runEnter(IntPtr syscall_number, syscall_args_t &args)
           break;
        }
  
@@ -140,6 +149,60 @@ index c336283..ca4c1b8 100644
 +            ThreadManager::STALL_SYSCALL,
 +            m_thread->getCore()->getPerformanceModel()->getElapsedTime());
 +         m_stalled = true;
++         break;
++      }
++      case nsChange::SYSCALL_SEND_TO_GPU:
++      {
++         SubsecondTime start_time = m_thread->getCore()->getPerformanceModel()->getElapsedTime();
++         // Convert SubsecondTime to cycles in global clock domain
++         const ComponentPeriod *dom_global = Sim()->getDvfsManager()->getGlobalDomain();
++         UInt64 cycles = SubsecondTime::divideRounded(start_time, *dom_global);
++
++         int dst_x = args.arg0;
++         int dst_y = args.arg1;
++         int src_x = args.arg2;
++         int src_y = args.arg3;
++         int data_num = args.arg5;
++         long long int end_time = nsInterchiplet::writeSync(
++            cycles, src_x, src_y, dst_x, dst_y, data_num * sizeof(int));
++
++         ComponentPeriod time_wake_period = *(Sim()->getDvfsManager()->getGlobalDomain()) * end_time;
++         SubsecondTime time_wake = time_wake_period.getPeriod();
++         SubsecondTime sleep_end_time;
++         Sim()->getSyscallServer()->handleSleepCall(m_thread->getId(), time_wake, start_time, sleep_end_time);
++
++         if (m_thread->reschedule(sleep_end_time, core))
++            core = m_thread->getCore();
++
++         core->getPerformanceModel()->queuePseudoInstruction(new SyncInstruction(sleep_end_time, SyncInstruction::SLEEP));
++
++         break;
++      }
++      case nsChange::SYSCALL_READ_FROM_GPU:
++      {
++         SubsecondTime start_time = m_thread->getCore()->getPerformanceModel()->getElapsedTime();
++         // Convert SubsecondTime to cycles in global clock domain
++         const ComponentPeriod *dom_global = Sim()->getDvfsManager()->getGlobalDomain();
++         UInt64 cycles = SubsecondTime::divideRounded(start_time, *dom_global);
++
++         int dst_x = args.arg0;
++         int dst_y = args.arg1;
++         int src_x = args.arg2;
++         int src_y = args.arg3;
++         int data_num = args.arg5;
++         long long int end_time = nsInterchiplet::readSync(
++            cycles, src_x, src_y, dst_x, dst_y, data_num * sizeof(int));
++
++         ComponentPeriod time_wake_period = *(Sim()->getDvfsManager()->getGlobalDomain()) * end_time;
++         SubsecondTime time_wake = time_wake_period.getPeriod();
++         SubsecondTime sleep_end_time;
++         Sim()->getSyscallServer()->handleSleepCall(m_thread->getId(), time_wake, start_time, sleep_end_time);
++
++         if (m_thread->reschedule(sleep_end_time, core))
++            core = m_thread->getCore();
++
++         core->getPerformanceModel()->queuePseudoInstruction(new SyncInstruction(sleep_end_time, SyncInstruction::SLEEP));
++
 +         break;
 +      }
 +
@@ -276,7 +339,7 @@ index 4d5c003..76a381d 100644
     return 0;
  }
 diff --git a/sift/recorder/syscall_modeling.cc b/sift/recorder/syscall_modeling.cc
-index 4944127..c73e3c8 100644
+index 4944127..03bf772 100644
 --- a/sift/recorder/syscall_modeling.cc
 +++ b/sift/recorder/syscall_modeling.cc
 @@ -7,6 +7,9 @@
@@ -289,91 +352,93 @@ index 4944127..c73e3c8 100644
  bool handleAccessMemory(void *arg, Sift::MemoryLockType lock_signal, Sift::MemoryOpType mem_op, uint64_t d_addr, uint8_t* data_buffer, uint32_t data_size)
  {
     // Lock memory globally if requested
-@@ -40,6 +43,54 @@ bool handleAccessMemory(void *arg, Sift::MemoryLockType lock_signal, Sift::Memor
+@@ -40,6 +43,8 @@ bool handleAccessMemory(void *arg, Sift::MemoryLockType lock_signal, Sift::Memor
     return true;
  }
  
 +nsInterchiplet::PipeComm global_pipe_comm;
 +
-+int passGpuMessage(int dstX, int dstY, int srcX,int srcY,int* data,int dataNum)
-+{
-+   printf("Enter Sniper passGpuMessage\n");
-+   long long unsigned int timeNow = 0;
-+   nsInterchiplet::writeSync(timeNow, srcX, srcY, dstX, dstY, dataNum * sizeof(int));
-+
-+   char * fileName = new char[100];
-+   sprintf(fileName,"./buffer%d_%d_%d_%d",srcX,srcY,dstX,dstY);
-+
-+   global_pipe_comm.write_data(fileName, data, dataNum * sizeof(int));
-+   delete fileName;
-+
-+   char* filename = new char[64];
-+   sprintf(filename,"./bench.%d.%d",srcX,srcY);
-+   std::fstream toController(filename,std::ios::out | std::ios::trunc);
-+
-+   if(!toController.is_open())
-+   {
-+      std::cout<<"Can not pass message to controller\n\n\n\n\n\n";
-+      return 1;
-+   }
-+   else
-+   {
-+      toController<<timeNow<<" ";
-+      toController<<srcX<<" ";
-+      toController<<srcY<<" ";
-+      toController<<dstX<<" ";
-+      toController<<dstY<<" ";
-+      toController<<5<<"\n";
-+   }
-+   toController.close();
-+   return 1;
-+}
-+
-+int readGpuMessage(int dstX,int dstY,int srcX,int srcY,int* data,int dataNum)
-+{
-+   printf("Enter Sniper readGpuMessage\n");
-+   nsInterchiplet::readSync(0, srcX, srcY, dstX, dstY, dataNum * sizeof(int));
-+   char * fileName = new char[100];
-+   sprintf(fileName,"./buffer%d_%d_%d_%d",srcX,srcY,dstX,dstY);
-+
-+   global_pipe_comm.read_data(fileName, data, dataNum * sizeof(int));
-+   delete fileName;
-+   return 1;
-+}
-+
  // Emulate all system calls
  // Do this as a regular callback (versus syscall enter/exit functions) as those hold the global pin lock
  VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
-@@ -174,6 +225,33 @@ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
+@@ -174,6 +179,81 @@ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
           case SYS_exit_group:
              thread_data[threadid].output->Syscall(syscall_number, (char*)args, sizeof(args));
              break;
 +
-+         case nsChange::SYSCALL_SEND_TO_GPU:{
-+               thread_data[threadid].last_syscall_number = syscall_number;
-+               thread_data[threadid].last_syscall_emulated=true;
++         case nsChange::SYSCALL_SEND_TO_GPU:
++         {
++            thread_data[threadid].last_syscall_number = syscall_number;
++            thread_data[threadid].last_syscall_emulated=true;
 +
-+               thread_data[threadid].last_syscall_returnval =
-+                  passGpuMessage(args[0],args[1],args[2],args[3],(int*)args[4],args[5]);
-+               thread_data[threadid].output->Syscall(
-+                  syscall_number,
-+                  (char *)args,
-+                  sizeof(args));
++            int dstX = args[0];
++            int dstY = args[1];
++            int srcX = args[2];
++            int srcY = args[3];
++            int* data = (int*)args[4];
++            int dataNum = args[5];
++
++            printf("Enter Sniper passGpuMessage\n");
++            // Pipe sync
++            nsInterchiplet::pipeSync(srcX, srcY, dstX, dstY);
++            // Write data
++            char * fileName = nsInterchiplet::pipeName(srcX, srcY, dstX, dstY);
++            global_pipe_comm.write_data(fileName, data, dataNum * sizeof(int));
++            delete fileName;
++
++            char* filename = new char[64];
++            sprintf(filename,"./bench.%d.%d",srcX,srcY);
++            std::fstream toController(filename,std::ios::out | std::ios::trunc);
++
++            if(!toController.is_open())
++            {
++               std::cout<<"Can not pass message to controller\n\n\n\n\n\n";
++            }
++            else
++            {
++               toController<<0<<" ";
++               toController<<srcX<<" ";
++               toController<<srcY<<" ";
++               toController<<dstX<<" ";
++               toController<<dstY<<" ";
++               toController<<5<<"\n";
++            }
++            toController.close();
++
++            thread_data[threadid].last_syscall_returnval = 1;
++            thread_data[threadid].output->Syscall(
++               syscall_number,
++               (char *)args,
++               sizeof(args));
 +         break;
 +         }
 +
-+         case nsChange::SYSCALL_READ_FROM_GPU:{
-+         thread_data[threadid].last_syscall_number = syscall_number;
-+               thread_data[threadid].last_syscall_emulated=true;
++         case nsChange::SYSCALL_READ_FROM_GPU:
++         {
++            thread_data[threadid].last_syscall_number = syscall_number;
++            thread_data[threadid].last_syscall_emulated=true;
 +
-+               thread_data[threadid].last_syscall_returnval =
-+                  readGpuMessage(args[0],args[1],args[2],args[3],(int*)args[4],args[5]);
-+               thread_data[threadid].output->Syscall(
-+                  syscall_number,
-+                  (char *)args,
-+                  sizeof(args));
-+               break;
-+                           
++            int dstX = args[0];
++            int dstY = args[1];
++            int srcX = args[2];
++            int srcY = args[3];
++            int* data = (int*)args[4];
++            int dataNum = args[5];
++
++            printf("Enter Sniper readGpuMessage\n");
++            // Pipe sync
++            nsInterchiplet::pipeSync(srcX, srcY, dstX, dstY);
++            // Read data
++            char * fileName = nsInterchiplet::pipeName(srcX, srcY, dstX, dstY);
++            global_pipe_comm.read_data(fileName, data, dataNum * sizeof(int));
++            delete fileName;
++
++            thread_data[threadid].last_syscall_returnval = 1;
++            thread_data[threadid].output->Syscall(
++               syscall_number,
++               (char *)args,
++               sizeof(args));
++            break;
 +         }
        }
     }

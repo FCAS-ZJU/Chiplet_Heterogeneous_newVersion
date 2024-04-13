@@ -20,6 +20,7 @@
 #include <unistd.h>
 
 #include "intercomm.h"
+#include "network_interface.h"
 
 /**
  * @brief Data structure of synchronize operation.
@@ -77,14 +78,6 @@ public:
     SyncStruct* m_sync_struct;
 };
 
-// Return fifo name
-std::string fifo_name(int __src_x, int __src_y, int __dst_x, int __dst_y)
-{
-    std::stringstream ss;
-    ss << "buffer" << __src_x << "_" << __src_y << "_" << __dst_x << "_" << __dst_y;
-    return ss.str();
-}
-
 // Create FIFO with specified name.
 int create_fifo(std::string __fifo_name)
 {
@@ -113,15 +106,16 @@ int create_fifo(std::string __fifo_name)
 
 #define PIPE_BUF_SIZE 1024
 
-void handle_read_cmd(const nsInterchiplet::SyncCommand& __cmd,
+void handle_pipe_cmd(const nsInterchiplet::SyncCommand& __cmd,
                      SyncStruct* __sync_struct,
                      int __stdin_fd)
 {
     std::cout << "From pipe " << __stdin_fd
-        << " Handle READ command from " << __cmd.m_src_x << " " << __cmd.m_src_y
+        << " Handle PIPE command from " << __cmd.m_src_x << " " << __cmd.m_src_y
         << " to " << __cmd.m_dst_x << " " << __cmd.m_dst_y << std::endl;
     // Check pipe file.
-    std::string file_name = fifo_name(__cmd.m_src_x, __cmd.m_src_y, __cmd.m_dst_x, __cmd.m_dst_y);
+    std::string file_name = nsInterchiplet::pipeNameString(
+        __cmd.m_src_x, __cmd.m_src_y, __cmd.m_dst_x, __cmd.m_dst_y);
 
     bool has_fifo_file = false;
     for (std::size_t i = 0; i < __sync_struct->m_fifo_set.size(); i ++)
@@ -139,12 +133,24 @@ void handle_read_cmd(const nsInterchiplet::SyncCommand& __cmd,
         {
             __sync_struct->m_fifo_set.push_back(file_name);
         }
-        else
-        {
-            return;
-        }
     }
 
+    std::stringstream ss;
+    ss << "[INTERCMD] SYNC " << 0 << std::endl;
+    write(__stdin_fd, ss.str().c_str(), ss.str().size());
+}
+
+void handle_read_cmd(const nsInterchiplet::SyncCommand& __cmd,
+                     SyncStruct* __sync_struct,
+                     int __stdin_fd)
+{
+    std::cout << "From pipe " << __stdin_fd
+        << " Handle READ command from " << __cmd.m_src_x << " " << __cmd.m_src_y
+        << " to " << __cmd.m_dst_x << " " << __cmd.m_dst_y << std::endl;
+    // Check pipe file.
+    std::string file_name = nsInterchiplet::pipeNameString(
+        __cmd.m_src_x, __cmd.m_src_y, __cmd.m_dst_x, __cmd.m_dst_y);
+    
     bool has_write_cmd = false;
     nsInterchiplet::SyncCommand write_cmd;
     for (std::size_t i = 0; i < __sync_struct->m_write_cmd_set.size(); i ++)
@@ -174,15 +180,15 @@ void handle_read_cmd(const nsInterchiplet::SyncCommand& __cmd,
     {
         std::cout << "Pair with WRITE command." << std::endl;
 
-        __sync_struct->m_cycle += 10;
+        long long int end_cycle = getCommEndCycle(write_cmd, __cmd);
 
         // Send sync command.
         std::stringstream ss;
-        ss << "[INTERCMD] SYNC " << __sync_struct->m_cycle << std::endl;
+        ss << "[INTERCMD] SYNC " << end_cycle << std::endl;
         write(__stdin_fd, ss.str().c_str(), ss.str().size());
 
         ss.clear();
-        ss << "[INTERCMD] SYNC " << __sync_struct->m_cycle << std::endl;
+        ss << "[INTERCMD] SYNC " << end_cycle << std::endl;
         write(write_cmd.m_stdin_fd, ss.str().c_str(), ss.str().size());
     }
 }
@@ -195,29 +201,8 @@ void handle_write_cmd(const nsInterchiplet::SyncCommand& __cmd,
         << " WRITE command from " << __cmd.m_src_x << " " << __cmd.m_src_y
         << " to " << __cmd.m_dst_x << " " << __cmd.m_dst_y << std::endl;
     // Check pipe file.
-    std::string file_name = fifo_name(__cmd.m_src_x, __cmd.m_src_y, __cmd.m_dst_x, __cmd.m_dst_y);
-
-    bool has_fifo_file = false;
-    for (std::size_t i = 0; i < __sync_struct->m_fifo_set.size(); i ++)
-    {
-        if (__sync_struct->m_fifo_set[i] == file_name)
-        {
-            has_fifo_file = true;
-            break;
-        }
-    }
-    
-    if (!has_fifo_file)
-    {
-        if (create_fifo(file_name.c_str()) == 0)
-        {
-            __sync_struct->m_fifo_set.push_back(file_name);
-        }
-        else
-        {
-            return;
-        }
-    }
+    std::string file_name = nsInterchiplet::pipeNameString(
+        __cmd.m_src_x, __cmd.m_src_y, __cmd.m_dst_x, __cmd.m_dst_y);
 
     bool has_read_cmd = false;
     nsInterchiplet::SyncCommand read_cmd;
@@ -248,15 +233,15 @@ void handle_write_cmd(const nsInterchiplet::SyncCommand& __cmd,
     {
         std::cout << "Pair with READ command." << std::endl;
 
-        __sync_struct->m_cycle += 10;
+        long long int end_cycle = getCommEndCycle(__cmd, read_cmd);
 
         // Send sync command.
         std::stringstream ss;
-        ss << "[INTERCMD] SYNC " << __sync_struct->m_cycle << std::endl;
+        ss << "[INTERCMD] SYNC " << end_cycle << std::endl;
         write(__stdin_fd, ss.str().c_str(), ss.str().size());
 
         ss.clear();
-        ss << "[INTERCMD] SYNC " << __sync_struct->m_cycle << std::endl;
+        ss << "[INTERCMD] SYNC " << end_cycle << std::endl;
         write(read_cmd.m_stdin_fd, ss.str().c_str(), ss.str().size());
     }
 }
@@ -269,6 +254,9 @@ void handle_command(const std::string& __cmd, SyncStruct* __sync_struct, int __s
 
     switch(cmd.m_type)
     {
+    case nsInterchiplet::SC_PIPE:
+        handle_pipe_cmd(cmd, __sync_struct, __stdin_fd);
+        break;
     case nsInterchiplet::SC_READ:
         handle_read_cmd(cmd, __sync_struct, __stdin_fd);
         break;

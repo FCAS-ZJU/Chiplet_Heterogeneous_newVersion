@@ -1,5 +1,5 @@
 diff --git a/src/cuda-sim/instructions.cc b/src/cuda-sim/instructions.cc
-index 8936fa8..dfd8a82 100644
+index 8936fa8..10e0b8b 100644
 --- a/src/cuda-sim/instructions.cc
 +++ b/src/cuda-sim/instructions.cc
 @@ -43,7 +43,9 @@ class ptx_recognizer;
@@ -21,38 +21,13 @@ index 8936fa8..dfd8a82 100644
  // Jin: include device runtime for CDP
  #include "cuda_device_runtime.h"
  
-@@ -1073,8 +1077,148 @@ void add_impl(const ptx_instruction *pI, ptx_thread_info *thread) {
+@@ -1073,8 +1077,145 @@ void add_impl(const ptx_instruction *pI, ptx_thread_info *thread) {
    thread->set_operand_value(dst, data, i_type, thread, pI, overflow, carry);
  }
  
 -void addc_impl(const ptx_instruction *pI, ptx_thread_info *thread) {
 -  inst_not_implemented(pI);
 +nsInterchiplet::PipeComm global_pipe_comm;
-+
-+int readFile(int dst_x, int dst_y ,int src_x, int src_y, int* data, int dataNum)
-+{
-+  std::cerr << "Enter GPGPUSim readFile" << std::endl;
-+  nsInterchiplet::readSync(0, src_x, src_y, dst_x, dst_y, dataNum * sizeof(int));
-+  char * fileName = new char[100];
-+  sprintf(fileName,"./buffer%d_%d_%d_%d",src_x,src_y,dst_x,dst_y);
-+
-+  global_pipe_comm.read_data(fileName, data, dataNum * sizeof(int));
-+  delete fileName;
-+  return 1;
-+}
-+// gdb attach pid
-+// | tee
-+// 管道读写数据之前需要同步？  
-+void passMessage(int dst_x, int dst_y,int src_x, int src_y , int* data, int dataNum)  //
-+{
-+  std::cerr << "Enter GPGPUSim passMessage" << std::endl;
-+  nsInterchiplet::writeSync(0, src_x, src_y, dst_x, dst_y, dataNum * sizeof(int));
-+  char * fileName = new char[100];
-+  sprintf(fileName,"./buffer%d_%d_%d_%d",src_x,src_y,dst_x,dst_y);
-+
-+  global_pipe_comm.write_data(fileName, data, dataNum * sizeof(int));
-+  delete fileName;
-+}
 +
 +std::vector<uint32_t> syscall_op_list;
 +void decode_space(memory_space_t &space, ptx_thread_info *thread,
@@ -125,7 +100,17 @@ index 8936fa8..dfd8a82 100644
 +
 +      // read data from D2D.
 +      int* interdata = new int[dataSize];
-+      passMessage(dst_x,dst_y,src_x,src_y,interdata,dataSize);
++      std::cerr << "Enter GPGPUSim passMessage" << std::endl;
++      // Pipe
++      nsInterchiplet::pipeSync(src_x, src_y, dst_x, dst_y);
++      // Write data
++      char * fileName = nsInterchiplet::pipeName(src_x, src_y, dst_x, dst_y);
++      global_pipe_comm.write_data(fileName, interdata, dataSize * sizeof(int));
++      delete fileName;
++      // Sync clock.
++      long long int timeEnd = nsInterchiplet::writeSync(
++        timeNow, src_x, src_y, dst_x, dst_y, dataSize * sizeof(int));
++      thread->get_gpu()->chiplet_direct_set_cycle(timeEnd);
 +
 +      // write data to GPU memory.
 +      memory_space_t space;
@@ -138,7 +123,7 @@ index 8936fa8..dfd8a82 100644
 +
 +      syscall_op_list.clear();
 +    }
-+    else if (data1 == 2) // send message
++    else if (data1 == 2) // read message
 +    {
 +      int dst_x = syscall_op_list[0];
 +      int dst_y = syscall_op_list[1];
@@ -158,7 +143,19 @@ index 8936fa8..dfd8a82 100644
 +      mem->read(addr, dataSize, interdata);
 +
 +      // send data to D2D.
-+    	readFile(dst_x,dst_y,src_x,src_y,interdata,dataSize);
++      long long unsigned int timeNow = thread->get_gpu()->gpu_sim_cycle+thread->get_gpu()->gpu_tot_sim_cycle;
++      std::cerr << "Enter GPGPUSim readFile" << std::endl;
++      // Pipe
++      nsInterchiplet::pipeSync(src_x, src_y, dst_x, dst_y);
++      // Read data
++      char * fileName = nsInterchiplet::pipeName(src_x, src_y, dst_x, dst_y);
++      global_pipe_comm.read_data(fileName, interdata, dataSize * sizeof(int));
++      delete fileName;
++      // Sync clock.
++      long long int timeEnd = nsInterchiplet::readSync(
++        timeNow, src_x, src_y, dst_x, dst_y, dataSize * sizeof(int));
++      thread->get_gpu()->chiplet_direct_set_cycle(timeEnd);
++
 +      delete interdata;
 +
 +      syscall_op_list.clear();
@@ -172,3 +169,57 @@ index 8936fa8..dfd8a82 100644
  }
  
  void and_impl(const ptx_instruction *pI, ptx_thread_info *thread) {
+diff --git a/src/gpgpu-sim/gpu-sim.cc b/src/gpgpu-sim/gpu-sim.cc
+index 1650688..478a576 100644
+--- a/src/gpgpu-sim/gpu-sim.cc
++++ b/src/gpgpu-sim/gpu-sim.cc
+@@ -81,6 +81,9 @@ class gpgpu_sim_wrapper {};
+ #define MAX(a, b) (((a) > (b)) ? (a) : (b))
+ 
+ bool g_interactive_debugger_enabled = false;
++// TODO: directly forward GPU cycle.
++bool g_chiplet_directly_set_cycle = false;
++unsigned long long g_chiplet_directly_set_cycle_val = 0;
+ 
+ tr1_hash_map<new_addr_type, unsigned> address_random_interleaving;
+ 
+@@ -1854,6 +1857,13 @@ void gpgpu_sim::cycle() {
+       raise(SIGTRAP);  // Debug breakpoint
+     }
+     gpu_sim_cycle++;
++    // TODO: quick forward cycle.
++    if (g_chiplet_directly_set_cycle)
++    {
++      std::cout << "Directly set cycle to " << g_chiplet_directly_set_cycle_val << std::endl;
++      gpu_sim_cycle = g_chiplet_directly_set_cycle_val;
++      g_chiplet_directly_set_cycle = false;
++    }
+ 
+     if (g_interactive_debugger_enabled) gpgpu_debug();
+ 
+@@ -2051,3 +2061,10 @@ const shader_core_config *gpgpu_sim::getShaderCoreConfig() {
+ const memory_config *gpgpu_sim::getMemoryConfig() { return m_memory_config; }
+ 
+ simt_core_cluster *gpgpu_sim::getSIMTCluster() { return *m_cluster; }
++
++// Directly set cycle
++void gpgpu_sim::chiplet_direct_set_cycle(long long int end_time)
++{
++  g_chiplet_directly_set_cycle_val = end_time;
++  g_chiplet_directly_set_cycle = true;
++}
+\ No newline at end of file
+diff --git a/src/gpgpu-sim/gpu-sim.h b/src/gpgpu-sim/gpu-sim.h
+index 2e6820d..5c0ce40 100644
+--- a/src/gpgpu-sim/gpu-sim.h
++++ b/src/gpgpu-sim/gpu-sim.h
+@@ -565,6 +565,9 @@ class gpgpu_sim : public gpgpu_t {
+   // backward pointer
+   class gpgpu_context *gpgpu_ctx;
+ 
++  // Directly set gpu cycle.
++  void chiplet_direct_set_cycle(long long int end_time);
++
+  private:
+   // clocks
+   void reinit_clock_domains(void);

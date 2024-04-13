@@ -1079,31 +1079,6 @@ void add_impl(const ptx_instruction *pI, ptx_thread_info *thread) {
 
 nsInterchiplet::PipeComm global_pipe_comm;
 
-int readFile(int dst_x, int dst_y ,int src_x, int src_y, int* data, int dataNum)
-{
-  std::cerr << "Enter GPGPUSim readFile" << std::endl;
-  nsInterchiplet::readSync(0, src_x, src_y, dst_x, dst_y, dataNum * sizeof(int));
-  char * fileName = new char[100];
-  sprintf(fileName,"./buffer%d_%d_%d_%d",src_x,src_y,dst_x,dst_y);
-
-  global_pipe_comm.read_data(fileName, data, dataNum * sizeof(int));
-  delete fileName;
-  return 1;
-}
-// gdb attach pid
-// | tee
-// 管道读写数据之前需要同步？  
-void passMessage(int dst_x, int dst_y,int src_x, int src_y , int* data, int dataNum)  //
-{
-  std::cerr << "Enter GPGPUSim passMessage" << std::endl;
-  nsInterchiplet::writeSync(0, src_x, src_y, dst_x, dst_y, dataNum * sizeof(int));
-  char * fileName = new char[100];
-  sprintf(fileName,"./buffer%d_%d_%d_%d",src_x,src_y,dst_x,dst_y);
-
-  global_pipe_comm.write_data(fileName, data, dataNum * sizeof(int));
-  delete fileName;
-}
-
 std::vector<uint32_t> syscall_op_list;
 void decode_space(memory_space_t &space, ptx_thread_info *thread,
                   const operand_info &op, memory_space *&mem, addr_t &addr);
@@ -1175,7 +1150,17 @@ void addc_impl( const ptx_instruction *pI, ptx_thread_info *thread )
 
       // read data from D2D.
       int* interdata = new int[dataSize];
-      passMessage(dst_x,dst_y,src_x,src_y,interdata,dataSize);
+      std::cerr << "Enter GPGPUSim passMessage" << std::endl;
+      // Pipe
+      nsInterchiplet::pipeSync(src_x, src_y, dst_x, dst_y);
+      // Write data
+      char * fileName = nsInterchiplet::pipeName(src_x, src_y, dst_x, dst_y);
+      global_pipe_comm.write_data(fileName, interdata, dataSize * sizeof(int));
+      delete fileName;
+      // Sync clock.
+      long long int timeEnd = nsInterchiplet::writeSync(
+        timeNow, src_x, src_y, dst_x, dst_y, dataSize * sizeof(int));
+      thread->get_gpu()->chiplet_direct_set_cycle(timeEnd);
 
       // write data to GPU memory.
       memory_space_t space;
@@ -1188,7 +1173,7 @@ void addc_impl( const ptx_instruction *pI, ptx_thread_info *thread )
 
       syscall_op_list.clear();
     }
-    else if (data1 == 2) // send message
+    else if (data1 == 2) // read message
     {
       int dst_x = syscall_op_list[0];
       int dst_y = syscall_op_list[1];
@@ -1208,7 +1193,19 @@ void addc_impl( const ptx_instruction *pI, ptx_thread_info *thread )
       mem->read(addr, dataSize, interdata);
 
       // send data to D2D.
-    	readFile(dst_x,dst_y,src_x,src_y,interdata,dataSize);
+      long long unsigned int timeNow = thread->get_gpu()->gpu_sim_cycle+thread->get_gpu()->gpu_tot_sim_cycle;
+      std::cerr << "Enter GPGPUSim readFile" << std::endl;
+      // Pipe
+      nsInterchiplet::pipeSync(src_x, src_y, dst_x, dst_y);
+      // Read data
+      char * fileName = nsInterchiplet::pipeName(src_x, src_y, dst_x, dst_y);
+      global_pipe_comm.read_data(fileName, interdata, dataSize * sizeof(int));
+      delete fileName;
+      // Sync clock.
+      long long int timeEnd = nsInterchiplet::readSync(
+        timeNow, src_x, src_y, dst_x, dst_y, dataSize * sizeof(int));
+      thread->get_gpu()->chiplet_direct_set_cycle(timeEnd);
+
       delete interdata;
 
       syscall_op_list.clear();

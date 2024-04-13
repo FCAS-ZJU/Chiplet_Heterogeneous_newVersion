@@ -45,52 +45,6 @@ bool handleAccessMemory(void *arg, Sift::MemoryLockType lock_signal, Sift::Memor
 
 nsInterchiplet::PipeComm global_pipe_comm;
 
-int passGpuMessage(int dstX, int dstY, int srcX,int srcY,int* data,int dataNum)
-{
-   printf("Enter Sniper passGpuMessage\n");
-   long long unsigned int timeNow = 0;
-   nsInterchiplet::writeSync(timeNow, srcX, srcY, dstX, dstY, dataNum * sizeof(int));
-
-   char * fileName = new char[100];
-   sprintf(fileName,"./buffer%d_%d_%d_%d",srcX,srcY,dstX,dstY);
-
-   global_pipe_comm.write_data(fileName, data, dataNum * sizeof(int));
-   delete fileName;
-
-   char* filename = new char[64];
-   sprintf(filename,"./bench.%d.%d",srcX,srcY);
-   std::fstream toController(filename,std::ios::out | std::ios::trunc);
-
-   if(!toController.is_open())
-   {
-      std::cout<<"Can not pass message to controller\n\n\n\n\n\n";
-      return 1;
-   }
-   else
-   {
-      toController<<timeNow<<" ";
-      toController<<srcX<<" ";
-      toController<<srcY<<" ";
-      toController<<dstX<<" ";
-      toController<<dstY<<" ";
-      toController<<5<<"\n";
-   }
-   toController.close();
-   return 1;
-}
-
-int readGpuMessage(int dstX,int dstY,int srcX,int srcY,int* data,int dataNum)
-{
-   printf("Enter Sniper readGpuMessage\n");
-   nsInterchiplet::readSync(0, srcX, srcY, dstX, dstY, dataNum * sizeof(int));
-   char * fileName = new char[100];
-   sprintf(fileName,"./buffer%d_%d_%d_%d",srcX,srcY,dstX,dstY);
-
-   global_pipe_comm.read_data(fileName, data, dataNum * sizeof(int));
-   delete fileName;
-   return 1;
-}
-
 // Emulate all system calls
 // Do this as a regular callback (versus syscall enter/exit functions) as those hold the global pin lock
 VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
@@ -226,31 +180,79 @@ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
             thread_data[threadid].output->Syscall(syscall_number, (char*)args, sizeof(args));
             break;
 
-         case nsChange::SYSCALL_SEND_TO_GPU:{
-               thread_data[threadid].last_syscall_number = syscall_number;
-               thread_data[threadid].last_syscall_emulated=true;
+         case nsChange::SYSCALL_SEND_TO_GPU:
+         {
+            thread_data[threadid].last_syscall_number = syscall_number;
+            thread_data[threadid].last_syscall_emulated=true;
 
-               thread_data[threadid].last_syscall_returnval =
-                  passGpuMessage(args[0],args[1],args[2],args[3],(int*)args[4],args[5]);
-               thread_data[threadid].output->Syscall(
-                  syscall_number,
-                  (char *)args,
-                  sizeof(args));
+            int dstX = args[0];
+            int dstY = args[1];
+            int srcX = args[2];
+            int srcY = args[3];
+            int* data = (int*)args[4];
+            int dataNum = args[5];
+
+            printf("Enter Sniper passGpuMessage\n");
+            // Pipe sync
+            nsInterchiplet::pipeSync(srcX, srcY, dstX, dstY);
+            // Write data
+            char * fileName = nsInterchiplet::pipeName(srcX, srcY, dstX, dstY);
+            global_pipe_comm.write_data(fileName, data, dataNum * sizeof(int));
+            delete fileName;
+
+            char* filename = new char[64];
+            sprintf(filename,"./bench.%d.%d",srcX,srcY);
+            std::fstream toController(filename,std::ios::out | std::ios::trunc);
+
+            if(!toController.is_open())
+            {
+               std::cout<<"Can not pass message to controller\n\n\n\n\n\n";
+            }
+            else
+            {
+               toController<<0<<" ";
+               toController<<srcX<<" ";
+               toController<<srcY<<" ";
+               toController<<dstX<<" ";
+               toController<<dstY<<" ";
+               toController<<5<<"\n";
+            }
+            toController.close();
+
+            thread_data[threadid].last_syscall_returnval = 1;
+            thread_data[threadid].output->Syscall(
+               syscall_number,
+               (char *)args,
+               sizeof(args));
          break;
          }
 
-         case nsChange::SYSCALL_READ_FROM_GPU:{
-         thread_data[threadid].last_syscall_number = syscall_number;
-               thread_data[threadid].last_syscall_emulated=true;
+         case nsChange::SYSCALL_READ_FROM_GPU:
+         {
+            thread_data[threadid].last_syscall_number = syscall_number;
+            thread_data[threadid].last_syscall_emulated=true;
 
-               thread_data[threadid].last_syscall_returnval =
-                  readGpuMessage(args[0],args[1],args[2],args[3],(int*)args[4],args[5]);
-               thread_data[threadid].output->Syscall(
-                  syscall_number,
-                  (char *)args,
-                  sizeof(args));
-               break;
-                           
+            int dstX = args[0];
+            int dstY = args[1];
+            int srcX = args[2];
+            int srcY = args[3];
+            int* data = (int*)args[4];
+            int dataNum = args[5];
+
+            printf("Enter Sniper readGpuMessage\n");
+            // Pipe sync
+            nsInterchiplet::pipeSync(srcX, srcY, dstX, dstY);
+            // Read data
+            char * fileName = nsInterchiplet::pipeName(srcX, srcY, dstX, dstY);
+            global_pipe_comm.read_data(fileName, data, dataNum * sizeof(int));
+            delete fileName;
+
+            thread_data[threadid].last_syscall_returnval = 1;
+            thread_data[threadid].output->Syscall(
+               syscall_number,
+               (char *)args,
+               sizeof(args));
+            break;
          }
       }
    }

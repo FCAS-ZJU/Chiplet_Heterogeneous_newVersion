@@ -14,6 +14,7 @@
 #include "stats.h"
 #include "syscall_strings.h"
 #include "circular_log.h"
+#include "dvfs_manager.h"
 
 #include <errno.h>
 #include <sys/syscall.h>
@@ -25,6 +26,7 @@
 
 //changed at 2020-3-27
 #include "../../../interchiplet/includes/sniper_change.h"
+#include "../../../interchiplet/includes/intercomm.h"
 #include <unordered_map>
 #include <cstdint>
 //#include<atomic>
@@ -410,6 +412,60 @@ bool SyscallMdl::runEnter(IntPtr syscall_number, syscall_args_t &args)
             ThreadManager::STALL_SYSCALL,
             m_thread->getCore()->getPerformanceModel()->getElapsedTime());
          m_stalled = true;
+         break;
+      }
+      case nsChange::SYSCALL_SEND_TO_GPU:
+      {
+         SubsecondTime start_time = m_thread->getCore()->getPerformanceModel()->getElapsedTime();
+         // Convert SubsecondTime to cycles in global clock domain
+         const ComponentPeriod *dom_global = Sim()->getDvfsManager()->getGlobalDomain();
+         UInt64 cycles = SubsecondTime::divideRounded(start_time, *dom_global);
+
+         int dst_x = args.arg0;
+         int dst_y = args.arg1;
+         int src_x = args.arg2;
+         int src_y = args.arg3;
+         int data_num = args.arg5;
+         long long int end_time = nsInterchiplet::writeSync(
+            cycles, src_x, src_y, dst_x, dst_y, data_num * sizeof(int));
+
+         ComponentPeriod time_wake_period = *(Sim()->getDvfsManager()->getGlobalDomain()) * end_time;
+         SubsecondTime time_wake = time_wake_period.getPeriod();
+         SubsecondTime sleep_end_time;
+         Sim()->getSyscallServer()->handleSleepCall(m_thread->getId(), time_wake, start_time, sleep_end_time);
+
+         if (m_thread->reschedule(sleep_end_time, core))
+            core = m_thread->getCore();
+
+         core->getPerformanceModel()->queuePseudoInstruction(new SyncInstruction(sleep_end_time, SyncInstruction::SLEEP));
+
+         break;
+      }
+      case nsChange::SYSCALL_READ_FROM_GPU:
+      {
+         SubsecondTime start_time = m_thread->getCore()->getPerformanceModel()->getElapsedTime();
+         // Convert SubsecondTime to cycles in global clock domain
+         const ComponentPeriod *dom_global = Sim()->getDvfsManager()->getGlobalDomain();
+         UInt64 cycles = SubsecondTime::divideRounded(start_time, *dom_global);
+
+         int dst_x = args.arg0;
+         int dst_y = args.arg1;
+         int src_x = args.arg2;
+         int src_y = args.arg3;
+         int data_num = args.arg5;
+         long long int end_time = nsInterchiplet::readSync(
+            cycles, src_x, src_y, dst_x, dst_y, data_num * sizeof(int));
+
+         ComponentPeriod time_wake_period = *(Sim()->getDvfsManager()->getGlobalDomain()) * end_time;
+         SubsecondTime time_wake = time_wake_period.getPeriod();
+         SubsecondTime sleep_end_time;
+         Sim()->getSyscallServer()->handleSleepCall(m_thread->getId(), time_wake, start_time, sleep_end_time);
+
+         if (m_thread->reschedule(sleep_end_time, core))
+            core = m_thread->getCore();
+
+         core->getPerformanceModel()->queuePseudoInstruction(new SyncInstruction(sleep_end_time, SyncInstruction::SLEEP));
+
          break;
       }
 

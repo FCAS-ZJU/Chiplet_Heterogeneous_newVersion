@@ -1,3 +1,7 @@
+
+#ifndef INTERCOMM_H
+#define INTERCOMM_H
+
 #include <cstdio>
 #include <cstring>
 
@@ -238,6 +242,7 @@ namespace nsInterchiplet
     enum SyncCommType
     {
         SC_CYCLE,
+        SC_PIPE,
         SC_READ,
         SC_WRITE,
         SC_BARRIER,
@@ -266,6 +271,13 @@ namespace nsInterchiplet
     void sendCycleCmd(long long int cycle)
     {
         std::cout << m_cmd_head << " CYCLE " << cycle << std::endl;
+    }
+
+    void sendPipeCmd(int src_x, int src_y, int dst_x, int dst_y)
+    {
+        std::cout << m_cmd_head << " PIPE " << 0 << " "
+            << src_x << " " << src_y << " " << dst_x << " " << dst_y
+            << std::endl;
     }
 
     void sendReadCmd(long long int cycle, int src_x, int src_y, int dst_x, int dst_y, int nbyte)
@@ -306,6 +318,7 @@ namespace nsInterchiplet
         SyncCommand cmd;
         cmd.m_cycle = cycle;
         cmd.m_type = command == "CYCLE" ? SC_CYCLE :
+                     command == "PIPE" ? SC_PIPE :
                      command == "READ" ? SC_READ :
                      command == "WRITE" ? SC_WRITE :
                      command == "BARRIER" ? SC_BARRIER :
@@ -313,7 +326,7 @@ namespace nsInterchiplet
                      command == "UNLOCK" ? SC_UNLOCK :
                      command == "SYNC" ? SC_SYNC : SC_CYCLE;
 
-        if (cmd.m_type == SC_READ || cmd.m_type == SC_WRITE)
+        if (cmd.m_type == SC_PIPE || cmd.m_type == SC_READ || cmd.m_type == SC_WRITE)
         {
             ss >> cmd.m_src_x >> cmd.m_src_y >> cmd.m_dst_x >> cmd.m_dst_y >> cmd.m_nbytes;
         }
@@ -327,7 +340,30 @@ namespace nsInterchiplet
 
         char* message = new char[1024];
         while(read(STDIN_FILENO, message, 1024) == 0);
+        for (std::size_t i = 0; i < strlen(message); i ++) if (message[i] == '\n') message[i + 1] = 0;
         SyncCommand resp_cmd = parseCmd(std::string(message));
+        std::cout << message;
+        delete message;
+
+        if (resp_cmd.m_type == SC_SYNC)
+        {
+            return resp_cmd.m_cycle;
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
+    long long int pipeSync(int src_x, int src_y, int dst_x, int dst_y)
+    {
+        sendPipeCmd(src_x, src_y, dst_x, dst_y);
+
+        char* message = new char[1024];
+        while(read(STDIN_FILENO, message, 1024) == 0);
+        for (std::size_t i = 0; i < strlen(message); i ++) if (message[i] == '\n') message[i + 1] = 0;
+        SyncCommand resp_cmd = parseCmd(std::string(message));
+        std::cout << message;
         delete message;
 
         if (resp_cmd.m_type == SC_SYNC)
@@ -346,7 +382,9 @@ namespace nsInterchiplet
 
         char* message = new char[1024];
         while(read(STDIN_FILENO, message, 1024) == 0);
+        for (std::size_t i = 0; i < strlen(message); i ++) if (message[i] == '\n') message[i + 1] = 0;
         SyncCommand resp_cmd = parseCmd(std::string(message));
+        std::cout << message;
         delete message;
 
         if (resp_cmd.m_type == SC_SYNC)
@@ -365,7 +403,9 @@ namespace nsInterchiplet
 
         char* message = new char[1024];
         while(read(STDIN_FILENO, message, 1024) == 0);
+        for (std::size_t i = 0; i < strlen(message); i ++) if (message[i] == '\n') message[i + 1] = 0;
         SyncCommand resp_cmd = parseCmd(std::string(message));
+        std::cout << message;
         delete message;
 
         if (resp_cmd.m_type == SC_SYNC)
@@ -377,4 +417,21 @@ namespace nsInterchiplet
             return -1;
         }
     }
+
+    char* pipeName(int __src_x, int __src_y, int __dst_x, int __dst_y)
+    {
+        char * fileName = new char[100];
+        sprintf(fileName, "./buffer%d_%d_%d_%d", __src_x, __src_y, __dst_x, __dst_y);
+        return fileName;
+    }
+
+    // Return fifo name
+    std::string pipeNameString(int __src_x, int __src_y, int __dst_x, int __dst_y)
+    {
+        std::stringstream ss;
+        ss << "./buffer" << __src_x << "_" << __src_y << "_" << __dst_x << "_" << __dst_y;
+        return ss.str();
+    }
 }
+
+#endif
