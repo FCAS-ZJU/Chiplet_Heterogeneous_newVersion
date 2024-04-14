@@ -1117,43 +1117,7 @@ void addc_impl( const ptx_instruction *pI, ptx_thread_info *thread )
   }
   else if (data2 == 1)
   {
-    if (data1 == 1) // send message
-    {
-      int dst_x = syscall_op_list[0];
-      int dst_y = syscall_op_list[1];
-      int src_x = syscall_op_list[2];
-      int src_y = syscall_op_list[3];
-      uint64_t data_ptr = (uint64_t)syscall_op_list[4] + ((uint64_t)syscall_op_list[5] << 32);
-      int* data = (int*)data_ptr;
-      int dataSize = syscall_op_list[6];
-
-      // read data from D2D.
-      int* interdata = new int[dataSize];
-      long long unsigned int timeNow = thread->get_gpu()->gpu_sim_cycle+thread->get_gpu()->gpu_tot_sim_cycle;
-      std::cerr << "Enter GPGPUSim passMessage" << std::endl;
-      // Pipe
-      nsInterchiplet::pipeSync(src_x, src_y, dst_x, dst_y);
-      // Write data
-      char * fileName = nsInterchiplet::pipeName(src_x, src_y, dst_x, dst_y);
-      global_pipe_comm.write_data(fileName, interdata, dataSize * sizeof(int));
-      delete fileName;
-      // Sync clock.
-      long long int timeEnd = nsInterchiplet::writeSync(
-        timeNow, src_x, src_y, dst_x, dst_y, dataSize * sizeof(int));
-      thread->get_gpu()->chiplet_direct_set_cycle(timeEnd);
-
-      // write data to GPU memory.
-      memory_space_t space;
-      space.set_type(global_space); // TODO: how to accept other space?
-      memory_space *mem = NULL;
-      addr_t addr = data_ptr;
-      decode_space(space, thread, dst, mem, addr);
-      mem->write(addr, dataSize, interdata, thread, pI);
-      delete interdata;
-
-      syscall_op_list.clear();
-    }
-    else if (data1 == 2) // read message
+    if (data1 == 1) // write message
     {
       int dst_x = syscall_op_list[0];
       int dst_y = syscall_op_list[1];
@@ -1172,7 +1136,34 @@ void addc_impl( const ptx_instruction *pI, ptx_thread_info *thread )
       decode_space(space, thread, src1, mem, addr);
       mem->read(addr, dataSize, interdata);
 
-      // send data to D2D.
+      // write data to chiplet.
+      long long unsigned int timeNow = thread->get_gpu()->gpu_sim_cycle+thread->get_gpu()->gpu_tot_sim_cycle;
+      std::cerr << "Enter GPGPUSim passMessage" << std::endl;
+      // Pipe
+      nsInterchiplet::pipeSync(src_x, src_y, dst_x, dst_y);
+      // Write data
+      char * fileName = nsInterchiplet::pipeName(src_x, src_y, dst_x, dst_y);
+      global_pipe_comm.write_data(fileName, interdata, dataSize * sizeof(int));
+      delete fileName;
+      // Sync clock.
+      long long int timeEnd = nsInterchiplet::writeSync(
+        timeNow, src_x, src_y, dst_x, dst_y, dataSize * sizeof(int));
+      thread->get_gpu()->chiplet_direct_set_cycle(timeEnd);
+
+      syscall_op_list.clear();
+    }
+    else if (data1 == 2) // read message
+    {
+      int dst_x = syscall_op_list[0];
+      int dst_y = syscall_op_list[1];
+      int src_x = syscall_op_list[2];
+      int src_y = syscall_op_list[3];
+      uint64_t data_ptr = (uint64_t)syscall_op_list[4] + ((uint64_t)syscall_op_list[5] << 32);
+      int* data = (int*)data_ptr;
+      int dataSize = syscall_op_list[6];
+
+      // read data from chiplet.
+      int* interdata = new int[dataSize];
       long long unsigned int timeNow = thread->get_gpu()->gpu_sim_cycle+thread->get_gpu()->gpu_tot_sim_cycle;
       std::cerr << "Enter GPGPUSim readFile" << std::endl;
       // Pipe
@@ -1186,6 +1177,13 @@ void addc_impl( const ptx_instruction *pI, ptx_thread_info *thread )
         timeNow, src_x, src_y, dst_x, dst_y, dataSize * sizeof(int));
       thread->get_gpu()->chiplet_direct_set_cycle(timeEnd);
 
+      // write data to GPU memory.
+      memory_space_t space;
+      space.set_type(global_space); // TODO: how to accept other space?
+      memory_space *mem = NULL;
+      addr_t addr = data_ptr;
+      decode_space(space, thread, dst, mem, addr);
+      mem->write(addr, dataSize, interdata, thread, pI);
       delete interdata;
 
       syscall_op_list.clear();
