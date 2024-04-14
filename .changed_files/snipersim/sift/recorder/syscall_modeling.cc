@@ -200,25 +200,6 @@ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
             global_pipe_comm.write_data(fileName, data, dataNum * sizeof(int));
             delete fileName;
 
-            char* filename = new char[64];
-            sprintf(filename,"./bench.%d.%d",srcX,srcY);
-            std::fstream toController(filename,std::ios::out | std::ios::trunc);
-
-            if(!toController.is_open())
-            {
-               std::cout<<"Can not pass message to controller\n\n\n\n\n\n";
-            }
-            else
-            {
-               toController<<0<<" ";
-               toController<<srcX<<" ";
-               toController<<srcY<<" ";
-               toController<<dstX<<" ";
-               toController<<dstY<<" ";
-               toController<<5<<"\n";
-            }
-            toController.close();
-
             thread_data[threadid].last_syscall_returnval = 1;
             thread_data[threadid].output->Syscall(
                syscall_number,

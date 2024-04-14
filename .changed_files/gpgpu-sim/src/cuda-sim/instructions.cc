@@ -1127,29 +1127,9 @@ void addc_impl( const ptx_instruction *pI, ptx_thread_info *thread )
       int* data = (int*)data_ptr;
       int dataSize = syscall_op_list[6];
 
-      char* filename= new char[64];
-      sprintf(filename,"./bench.%d.%d",src_x,src_y);
-      std::fstream toController(filename,std::ios::app);
-      long long unsigned int timeNow = thread->get_gpu()->gpu_sim_cycle+thread->get_gpu()->gpu_tot_sim_cycle;
-
-      if(!toController.is_open())
-      {
-        std::cout<<"Can not pass message to controller\n\n\n\n\n\n";
-        return;
-      }
-      else
-      {
-        toController<<timeNow<<" ";
-        toController<<src_x<<" ";
-        toController<<src_y<<" ";
-        toController<<dst_x<<" ";
-        toController<<dst_y<<" ";
-	      toController<<5<<"\n";
-      }
-      toController.close();
-
       // read data from D2D.
       int* interdata = new int[dataSize];
+      long long unsigned int timeNow = thread->get_gpu()->gpu_sim_cycle+thread->get_gpu()->gpu_tot_sim_cycle;
       std::cerr << "Enter GPGPUSim passMessage" << std::endl;
       // Pipe
       nsInterchiplet::pipeSync(src_x, src_y, dst_x, dst_y);

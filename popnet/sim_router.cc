@@ -469,7 +469,7 @@ void sim_router_template::receive_packet()
 		if(localInputTraces.empty())return;
 		SPacket&p=localInputTraces.front();
 		inject_packet(packet_counter_, /* sor_addr_t */p.sourceAddress,
-					  /* des_addr_t */p.destinationAddress, local_input_time_, /* pack_size_t */p.packetSize);
+					  /* des_addr_t */p.destinationAddress, p.startTime, /* pack_size_t */p.packetSize);
 		packet_counter_++;
 
 		//second, create next EVG_ event

@@ -38,6 +38,8 @@ public:
 
     long long int m_cycle;
 
+    std::multimap<long long int, BenchItem> m_bench_list;
+
     std::vector<std::string> m_fifo_set;
     std::vector<nsInterchiplet::SyncCommand> m_read_cmd_set;
     std::vector<nsInterchiplet::SyncCommand> m_write_cmd_set;
@@ -203,6 +205,10 @@ void handle_write_cmd(const nsInterchiplet::SyncCommand& __cmd,
     // Check pipe file.
     std::string file_name = nsInterchiplet::pipeNameString(
         __cmd.m_src_x, __cmd.m_src_y, __cmd.m_dst_x, __cmd.m_dst_y);
+
+    // Insert benchmark;        
+    BenchItem bench_item = syncCommandToBenchItem(__cmd);
+    __sync_struct->m_bench_list.insert(std::pair<long long int, BenchItem>(__cmd.m_cycle, bench_item));
 
     bool has_read_cmd = false;
     nsInterchiplet::SyncCommand read_cmd;
@@ -457,21 +463,8 @@ void *bridge_thread(void * __args_ptr)
     return 0;
 }
 
-int main(int argc, char** argv)
+void __loop_phase_one(const std::vector<ProcessConfig*>& __proc_cfg_list)
 {
-    // Parse commandline arguments.
-
-    // Parse process configuration.
-    std::vector<ProcessConfig*> m_proc_cfg_list;
-    m_proc_cfg_list.push_back(
-        new ProcessConfig("./bin/matmul_cu", {"0", "1"}, "gpgpusim.0.1.log", false));
-    m_proc_cfg_list.push_back(
-        new ProcessConfig("./bin/matmul_cu", {"1", "0"}, "gpgpusim.1.0.log", false));
-    m_proc_cfg_list.push_back(
-        new ProcessConfig("./bin/matmul_cu", {"1", "1"}, "gpgpusim.1.1.log", false));
-    m_proc_cfg_list.push_back(new ProcessConfig(
-        "../../snipersim/run-sniper", {"--", "./bin/matmul_cpu", "0", "0"}, "sniper.0.0.log", false));
-
     // Create synchronize data structure.
     SyncStruct* g_sync_structure = new SyncStruct();
     if (pthread_mutex_init(&g_sync_structure->m_mutex, NULL) < 0)
@@ -481,9 +474,9 @@ int main(int argc, char** argv)
     }
 
     // Create multi-thread.
-    for (std::size_t pindex = 0; pindex < m_proc_cfg_list.size(); pindex ++)
+    for (std::size_t pindex = 0; pindex < __proc_cfg_list.size(); pindex ++)
     {
-        ProcessConfig* proc_cfg = m_proc_cfg_list[pindex];
+        ProcessConfig* proc_cfg = __proc_cfg_list[pindex];
         proc_cfg->m_sync_struct = g_sync_structure;
         int res = pthread_create(&(proc_cfg->m_thread_id), NULL, bridge_thread, (void*)proc_cfg);
         if (res < 0)
@@ -494,9 +487,9 @@ int main(int argc, char** argv)
     }
 
     // Wait threads to finish.
-    for (std::size_t pindex = 0; pindex < m_proc_cfg_list.size(); pindex ++)
+    for (std::size_t pindex = 0; pindex < __proc_cfg_list.size(); pindex ++)
     {
-        pthread_join(m_proc_cfg_list[pindex]->m_thread_id, NULL);
+        pthread_join(__proc_cfg_list[pindex]->m_thread_id, NULL);
     }
     std::cout << "All process has exit." << std::endl;
 
@@ -508,4 +501,78 @@ int main(int argc, char** argv)
     {
         remove(g_sync_structure->m_fifo_set[i].c_str());
     }
+
+    // Dump benchmark record.
+    std::ofstream bench_of("bench.txt", std::ios::out);
+    for (std::multimap<long long int, BenchItem>::iterator it = g_sync_structure->m_bench_list.begin();
+         it != g_sync_structure->m_bench_list.end(); it ++)
+    {
+        bench_of << it->second.m_cycle << " "
+            << it->second.m_src_x << " " << it->second.m_src_y << " "
+            << it->second.m_dst_x << " " << it->second.m_dst_y << " "
+            << it->second.m_pac_size << std::endl;
+    }
+    bench_of.close();
+}
+
+void __loop_phase_two(const std::vector<ProcessConfig*>& __proc_cfg_list)
+{
+    // Create synchronize data structure.
+    SyncStruct* g_sync_structure = new SyncStruct();
+    if (pthread_mutex_init(&g_sync_structure->m_mutex, NULL) < 0)
+    {
+        perror("pthread_mutex_init");
+        exit(EXIT_FAILURE);
+    }
+
+    // Create multi-thread.
+    for (std::size_t pindex = 0; pindex < __proc_cfg_list.size(); pindex ++)
+    {
+        ProcessConfig* proc_cfg = __proc_cfg_list[pindex];
+        proc_cfg->m_sync_struct = g_sync_structure;
+        int res = pthread_create(&(proc_cfg->m_thread_id), NULL, bridge_thread, (void*)proc_cfg);
+        if (res < 0)
+        {
+            perror("pthread_create");
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    // Wait threads to finish.
+    for (std::size_t pindex = 0; pindex < __proc_cfg_list.size(); pindex ++)
+    {
+        pthread_join(__proc_cfg_list[pindex]->m_thread_id, NULL);
+    }
+    std::cout << "All process has exit." << std::endl;
+
+    // End handle.
+    pthread_mutex_destroy(&g_sync_structure->m_mutex);
+}
+
+int main(int argc, char** argv)
+{
+    // Parse commandline arguments.
+
+    // Parse process configuration.
+    std::vector<ProcessConfig*> phase1_proc_cfg_list;
+    phase1_proc_cfg_list.push_back(
+        new ProcessConfig("./bin/matmul_cu", {"0", "1"}, "gpgpusim.0.1.log", false));
+    phase1_proc_cfg_list.push_back(
+        new ProcessConfig("./bin/matmul_cu", {"1", "0"}, "gpgpusim.1.0.log", false));
+    phase1_proc_cfg_list.push_back(
+        new ProcessConfig("./bin/matmul_cu", {"1", "1"}, "gpgpusim.1.1.log", false));
+    phase1_proc_cfg_list.push_back(new ProcessConfig(
+        "../../snipersim/run-sniper", {"--", "./bin/matmul_cpu", "0", "0"}, "sniper.0.0.log", false));
+
+    __loop_phase_one(phase1_proc_cfg_list);
+
+    std::vector<ProcessConfig*> phase2_proc_cfg_list;
+    // ./popnet -A 9 -c 2 -V 3 -B 12 -O 12 -F 4 -L 1000 -T 20000 -r 1 -I ./bench.txt -R 0
+    phase2_proc_cfg_list.push_back(
+        new ProcessConfig("../../popnet/popnet",
+            {"-A", "9", "-c", "2", "-V", "3", "-B", "12", "-O", "12", "-F", "4",
+             "-L", "1000", "-T", "10000000", "-r", "1", "-I", "./bench.txt", "-R", "0"},
+            "popnet.log", false));
+
+    __loop_phase_two(phase2_proc_cfg_list);
 }

@@ -339,7 +339,7 @@ index 4d5c003..76a381d 100644
     return 0;
  }
 diff --git a/sift/recorder/syscall_modeling.cc b/sift/recorder/syscall_modeling.cc
-index 4944127..03bf772 100644
+index 4944127..05cbcf9 100644
 --- a/sift/recorder/syscall_modeling.cc
 +++ b/sift/recorder/syscall_modeling.cc
 @@ -7,6 +7,9 @@
@@ -361,7 +361,7 @@ index 4944127..03bf772 100644
  // Emulate all system calls
  // Do this as a regular callback (versus syscall enter/exit functions) as those hold the global pin lock
  VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
-@@ -174,6 +179,81 @@ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
+@@ -174,6 +179,62 @@ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
           case SYS_exit_group:
              thread_data[threadid].output->Syscall(syscall_number, (char*)args, sizeof(args));
              break;
@@ -385,25 +385,6 @@ index 4944127..03bf772 100644
 +            char * fileName = nsInterchiplet::pipeName(srcX, srcY, dstX, dstY);
 +            global_pipe_comm.write_data(fileName, data, dataNum * sizeof(int));
 +            delete fileName;
-+
-+            char* filename = new char[64];
-+            sprintf(filename,"./bench.%d.%d",srcX,srcY);
-+            std::fstream toController(filename,std::ios::out | std::ios::trunc);
-+
-+            if(!toController.is_open())
-+            {
-+               std::cout<<"Can not pass message to controller\n\n\n\n\n\n";
-+            }
-+            else
-+            {
-+               toController<<0<<" ";
-+               toController<<srcX<<" ";
-+               toController<<srcY<<" ";
-+               toController<<dstX<<" ";
-+               toController<<dstY<<" ";
-+               toController<<5<<"\n";
-+            }
-+            toController.close();
 +
 +            thread_data[threadid].last_syscall_returnval = 1;
 +            thread_data[threadid].output->Syscall(

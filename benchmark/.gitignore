@@ -5,10 +5,10 @@ _cuobjdump_list_ptx_*
 *.ptxas
 gpgpu_inst_stats.txt
 
-bench.*
+bench.txt
+delayInfo.txt
 buffer*
-gpgpusim*.log
-sniper*.log
+*.log
 message_record.txt
 
 sim.cfg
