@@ -1140,13 +1140,13 @@ void addc_impl( const ptx_instruction *pI, ptx_thread_info *thread )
       long long unsigned int timeNow = thread->get_gpu()->gpu_sim_cycle+thread->get_gpu()->gpu_tot_sim_cycle;
       std::cerr << "Enter GPGPUSim passMessage" << std::endl;
       // Pipe
-      nsInterchiplet::pipeSync(src_x, src_y, dst_x, dst_y);
+      nsInterchiplet::SyncProtocol::pipeSync(src_x, src_y, dst_x, dst_y);
       // Write data
-      char * fileName = nsInterchiplet::pipeName(src_x, src_y, dst_x, dst_y);
+      char * fileName = nsInterchiplet::SyncProtocol::pipeName(src_x, src_y, dst_x, dst_y);
       global_pipe_comm.write_data(fileName, interdata, dataSize * sizeof(int));
       delete fileName;
       // Sync clock.
-      long long int timeEnd = nsInterchiplet::writeSync(
+      long long int timeEnd = nsInterchiplet::SyncProtocol::writeSync(
         timeNow, src_x, src_y, dst_x, dst_y, dataSize * sizeof(int));
       thread->get_gpu()->chiplet_direct_set_cycle(timeEnd);
 
@@ -1167,13 +1167,13 @@ void addc_impl( const ptx_instruction *pI, ptx_thread_info *thread )
       long long unsigned int timeNow = thread->get_gpu()->gpu_sim_cycle+thread->get_gpu()->gpu_tot_sim_cycle;
       std::cerr << "Enter GPGPUSim readFile" << std::endl;
       // Pipe
-      nsInterchiplet::pipeSync(src_x, src_y, dst_x, dst_y);
+      nsInterchiplet::SyncProtocol::pipeSync(src_x, src_y, dst_x, dst_y);
       // Read data
-      char * fileName = nsInterchiplet::pipeName(src_x, src_y, dst_x, dst_y);
+      char * fileName = nsInterchiplet::SyncProtocol::pipeName(src_x, src_y, dst_x, dst_y);
       global_pipe_comm.read_data(fileName, interdata, dataSize * sizeof(int));
       delete fileName;
       // Sync clock.
-      long long int timeEnd = nsInterchiplet::readSync(
+      long long int timeEnd = nsInterchiplet::SyncProtocol::readSync(
         timeNow, src_x, src_y, dst_x, dst_y, dataSize * sizeof(int));
       thread->get_gpu()->chiplet_direct_set_cycle(timeEnd);
 

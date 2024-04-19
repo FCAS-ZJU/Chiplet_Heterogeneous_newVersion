@@ -1135,13 +1135,13 @@ void sim_router_template::accept_flit(time_type a, const flit_template &b)
 		time_type t = a - b.start_time();
 		delay_update(t);
 		//发送时间（周期），源地址，目的地址，延迟（周期）
-		ofs << b.start_time() << ' '
+		ofs << (unsigned long long)b.start_time() << ' '
 			/* <<a<<' ' */;
 		for (auto &x : b.sor_addr())
 			ofs << x << ' ';
 		for (auto &x : b.des_addr())
 			ofs << x << ' ';
-		ofs << t << endl;
+		ofs << (unsigned long long)t << endl;
 	}
 }
 

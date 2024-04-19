@@ -1,5 +1,32 @@
+diff --git a/common/core/core.cc b/common/core/core.cc
+index 33f7f92..3c0193a 100644
+--- a/common/core/core.cc
++++ b/common/core/core.cc
+@@ -19,6 +19,8 @@
+ 
+ #include <cstring>
+ 
++#include "../../../interchiplet/includes/intercomm.h"
++
+ #if 0
+    extern Lock iolock;
+ #  define MYLOG(...) { ScopedLock l(iolock); fflush(stderr); fprintf(stderr, "[%8lu] %dcor %-25s@%03u: ", getPerformanceModel()->getCycleCount(ShmemPerfModel::_USER_THREAD), m_core_id, __FUNCTION__, __LINE__); fprintf(stderr, __VA_ARGS__); fprintf(stderr, "\n"); fflush(stderr); }
+@@ -127,6 +129,13 @@ void Core::enablePerformanceModels()
+ 
+ void Core::disablePerformanceModels()
+ {
++   SubsecondTime start_time = getPerformanceModel()->getElapsedTime();
++   // Convert SubsecondTime to cycles in global clock domain
++   const ComponentPeriod *dom_global = Sim()->getDvfsManager()->getGlobalDomain();
++   UInt64 cycles = SubsecondTime::divideRounded(start_time, *dom_global);
++   // Send cycle command.
++   nsInterchiplet::SyncProtocol::sendCycleCmd(cycles);
++
+    getShmemPerfModel()->disable();
+    getMemoryManager()->disableModels();
+    getNetwork()->disableModels();
 diff --git a/common/core/syscall_model.cc b/common/core/syscall_model.cc
-index c336283..6bc5bac 100644
+index c336283..871dadb 100644
 --- a/common/core/syscall_model.cc
 +++ b/common/core/syscall_model.cc
 @@ -14,6 +14,7 @@
@@ -163,7 +190,7 @@ index c336283..6bc5bac 100644
 +         int src_x = args.arg2;
 +         int src_y = args.arg3;
 +         int data_num = args.arg5;
-+         long long int end_time = nsInterchiplet::writeSync(
++         long long int end_time = nsInterchiplet::SyncProtocol::writeSync(
 +            cycles, src_x, src_y, dst_x, dst_y, data_num * sizeof(int));
 +
 +         ComponentPeriod time_wake_period = *(Sim()->getDvfsManager()->getGlobalDomain()) * end_time;
@@ -190,7 +217,7 @@ index c336283..6bc5bac 100644
 +         int src_x = args.arg2;
 +         int src_y = args.arg3;
 +         int data_num = args.arg5;
-+         long long int end_time = nsInterchiplet::readSync(
++         long long int end_time = nsInterchiplet::SyncProtocol::readSync(
 +            cycles, src_x, src_y, dst_x, dst_y, data_num * sizeof(int));
 +
 +         ComponentPeriod time_wake_period = *(Sim()->getDvfsManager()->getGlobalDomain()) * end_time;
@@ -339,7 +366,7 @@ index 4d5c003..76a381d 100644
     return 0;
  }
 diff --git a/sift/recorder/syscall_modeling.cc b/sift/recorder/syscall_modeling.cc
-index 4944127..05cbcf9 100644
+index 4944127..38e5041 100644
 --- a/sift/recorder/syscall_modeling.cc
 +++ b/sift/recorder/syscall_modeling.cc
 @@ -7,6 +7,9 @@
@@ -380,9 +407,9 @@ index 4944127..05cbcf9 100644
 +
 +            printf("Enter Sniper passGpuMessage\n");
 +            // Pipe sync
-+            nsInterchiplet::pipeSync(srcX, srcY, dstX, dstY);
++            nsInterchiplet::SyncProtocol::pipeSync(srcX, srcY, dstX, dstY);
 +            // Write data
-+            char * fileName = nsInterchiplet::pipeName(srcX, srcY, dstX, dstY);
++            char * fileName = nsInterchiplet::SyncProtocol::pipeName(srcX, srcY, dstX, dstY);
 +            global_pipe_comm.write_data(fileName, data, dataNum * sizeof(int));
 +            delete fileName;
 +
@@ -408,9 +435,9 @@ index 4944127..05cbcf9 100644
 +
 +            printf("Enter Sniper readGpuMessage\n");
 +            // Pipe sync
-+            nsInterchiplet::pipeSync(srcX, srcY, dstX, dstY);
++            nsInterchiplet::SyncProtocol::pipeSync(srcX, srcY, dstX, dstY);
 +            // Read data
-+            char * fileName = nsInterchiplet::pipeName(srcX, srcY, dstX, dstY);
++            char * fileName = nsInterchiplet::SyncProtocol::pipeName(srcX, srcY, dstX, dstY);
 +            global_pipe_comm.read_data(fileName, data, dataNum * sizeof(int));
 +            delete fileName;
 +

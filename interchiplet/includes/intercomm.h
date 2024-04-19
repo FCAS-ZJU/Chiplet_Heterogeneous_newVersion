@@ -266,172 +266,178 @@ namespace nsInterchiplet
         int m_stdin_fd;
     };
 
-    std::string m_cmd_head = "[INTERCMD]";
+#define NSINTERCHIPLET_CMD_HEAD "[INTERCMD]"
 
-    void sendCycleCmd(long long int cycle)
+    class SyncProtocol
     {
-        std::cout << m_cmd_head << " CYCLE " << cycle << std::endl;
-    }
+    private:
 
-    void sendPipeCmd(int src_x, int src_y, int dst_x, int dst_y)
-    {
-        std::cout << m_cmd_head << " PIPE " << 0 << " "
-            << src_x << " " << src_y << " " << dst_x << " " << dst_y
-            << std::endl;
-    }
-
-    void sendReadCmd(long long int cycle, int src_x, int src_y, int dst_x, int dst_y, int nbyte)
-    {
-        std::cout << m_cmd_head << " READ " << cycle << " "
-            << src_x << " " << src_y << " " << dst_x << " " << dst_y << " " << nbyte
-            << std::endl;
-    }
-
-    void sendWriteCmd(long long int cycle, int src_x, int src_y, int dst_x, int dst_y, int nbyte)
-    {
-        std::cout << m_cmd_head << " WRITE " << cycle << " "
-            << src_x << " " << src_y << " " << dst_x << " " << dst_y << " " << nbyte
-            << std::endl;
-    }
-
-    void sendSyncCmd(long long int cycle)
-    {
-        std::cout << m_cmd_head << " SYNC " << cycle << std::endl;
-    }
-
-    SyncCommand parseCmd(const std::string& __message)
-    {
-        std::string message;
-        if (__message.substr(0, 10) == m_cmd_head)
+    public:
+        static void sendCycleCmd(long long int cycle)
         {
-            message = __message.substr(11);
-        }
-        else
-        {
-            message = __message;
-        }
-        std::stringstream ss(message);
-        std::string command;
-        long long int cycle;
-        ss >> command >> cycle;
-
-        SyncCommand cmd;
-        cmd.m_cycle = cycle;
-        cmd.m_type = command == "CYCLE" ? SC_CYCLE :
-                     command == "PIPE" ? SC_PIPE :
-                     command == "READ" ? SC_READ :
-                     command == "WRITE" ? SC_WRITE :
-                     command == "BARRIER" ? SC_BARRIER :
-                     command == "LOCK" ? SC_LOCK :
-                     command == "UNLOCK" ? SC_UNLOCK :
-                     command == "SYNC" ? SC_SYNC : SC_CYCLE;
-
-        if (cmd.m_type == SC_PIPE || cmd.m_type == SC_READ || cmd.m_type == SC_WRITE)
-        {
-            ss >> cmd.m_src_x >> cmd.m_src_y >> cmd.m_dst_x >> cmd.m_dst_y >> cmd.m_nbytes;
+            std::cout << NSINTERCHIPLET_CMD_HEAD << " CYCLE " << cycle << std::endl;
         }
 
-        return cmd;
-    }
-
-    long long int cycleSync(long long int cycle)
-    {
-        sendCycleCmd(cycle);
-
-        char* message = new char[1024];
-        while(read(STDIN_FILENO, message, 1024) == 0);
-        for (std::size_t i = 0; i < strlen(message); i ++) if (message[i] == '\n') message[i + 1] = 0;
-        SyncCommand resp_cmd = parseCmd(std::string(message));
-        std::cout << message;
-        delete message;
-
-        if (resp_cmd.m_type == SC_SYNC)
+        static void sendPipeCmd(int src_x, int src_y, int dst_x, int dst_y)
         {
-            return resp_cmd.m_cycle;
+            std::cout << NSINTERCHIPLET_CMD_HEAD << " PIPE " << 0 << " "
+                << src_x << " " << src_y << " " << dst_x << " " << dst_y
+                << std::endl;
         }
-        else
+
+        static void sendReadCmd(long long int cycle, int src_x, int src_y, int dst_x, int dst_y, int nbyte)
         {
-            return -1;
+            std::cout << NSINTERCHIPLET_CMD_HEAD << " READ " << cycle << " "
+                << src_x << " " << src_y << " " << dst_x << " " << dst_y << " " << nbyte
+                << std::endl;
         }
-    }
 
-    long long int pipeSync(int src_x, int src_y, int dst_x, int dst_y)
-    {
-        sendPipeCmd(src_x, src_y, dst_x, dst_y);
-
-        char* message = new char[1024];
-        while(read(STDIN_FILENO, message, 1024) == 0);
-        for (std::size_t i = 0; i < strlen(message); i ++) if (message[i] == '\n') message[i + 1] = 0;
-        SyncCommand resp_cmd = parseCmd(std::string(message));
-        std::cout << message;
-        delete message;
-
-        if (resp_cmd.m_type == SC_SYNC)
+        static void sendWriteCmd(long long int cycle, int src_x, int src_y, int dst_x, int dst_y, int nbyte)
         {
-            return resp_cmd.m_cycle;
+            std::cout << NSINTERCHIPLET_CMD_HEAD << " WRITE " << cycle << " "
+                << src_x << " " << src_y << " " << dst_x << " " << dst_y << " " << nbyte
+                << std::endl;
         }
-        else
+
+        static void sendSyncCmd(long long int cycle)
         {
-            return -1;
+            std::cout << NSINTERCHIPLET_CMD_HEAD << " SYNC " << cycle << std::endl;
         }
-    }
 
-    long long int readSync(long long int cycle, int src_x, int src_y, int dst_x, int dst_y, int nbyte)
-    {
-        sendReadCmd(cycle, src_x, src_y, dst_x, dst_y, nbyte);
-
-        char* message = new char[1024];
-        while(read(STDIN_FILENO, message, 1024) == 0);
-        for (std::size_t i = 0; i < strlen(message); i ++) if (message[i] == '\n') message[i + 1] = 0;
-        SyncCommand resp_cmd = parseCmd(std::string(message));
-        std::cout << message;
-        delete message;
-
-        if (resp_cmd.m_type == SC_SYNC)
+        static SyncCommand parseCmd(const std::string& __message)
         {
-            return resp_cmd.m_cycle;
+            std::string message;
+            if (__message.substr(0, 10) == NSINTERCHIPLET_CMD_HEAD)
+            {
+                message = __message.substr(11);
+            }
+            else
+            {
+                message = __message;
+            }
+            std::stringstream ss(message);
+            std::string command;
+            long long int cycle;
+            ss >> command >> cycle;
+
+            SyncCommand cmd;
+            cmd.m_cycle = cycle;
+            cmd.m_type = command == "CYCLE" ? SC_CYCLE :
+                        command == "PIPE" ? SC_PIPE :
+                        command == "READ" ? SC_READ :
+                        command == "WRITE" ? SC_WRITE :
+                        command == "BARRIER" ? SC_BARRIER :
+                        command == "LOCK" ? SC_LOCK :
+                        command == "UNLOCK" ? SC_UNLOCK :
+                        command == "SYNC" ? SC_SYNC : SC_CYCLE;
+
+            if (cmd.m_type == SC_PIPE || cmd.m_type == SC_READ || cmd.m_type == SC_WRITE)
+            {
+                ss >> cmd.m_src_x >> cmd.m_src_y >> cmd.m_dst_x >> cmd.m_dst_y >> cmd.m_nbytes;
+            }
+
+            return cmd;
         }
-        else
+
+        static long long int cycleSync(long long int cycle)
         {
-            return -1;
+            sendCycleCmd(cycle);
+
+            char* message = new char[1024];
+            while(read(STDIN_FILENO, message, 1024) == 0);
+            for (std::size_t i = 0; i < strlen(message); i ++) if (message[i] == '\n') message[i + 1] = 0;
+            SyncCommand resp_cmd = parseCmd(std::string(message));
+            std::cout << message;
+            delete message;
+
+            if (resp_cmd.m_type == SC_SYNC)
+            {
+                return resp_cmd.m_cycle;
+            }
+            else
+            {
+                return -1;
+            }
         }
-    }
 
-    long long int writeSync(long long int cycle, int src_x, int src_y, int dst_x, int dst_y, int nbyte)
-    {
-        sendWriteCmd(cycle, src_x, src_y, dst_x, dst_y, nbyte);
-
-        char* message = new char[1024];
-        while(read(STDIN_FILENO, message, 1024) == 0);
-        for (std::size_t i = 0; i < strlen(message); i ++) if (message[i] == '\n') message[i + 1] = 0;
-        SyncCommand resp_cmd = parseCmd(std::string(message));
-        std::cout << message;
-        delete message;
-
-        if (resp_cmd.m_type == SC_SYNC)
+        static long long int pipeSync(int src_x, int src_y, int dst_x, int dst_y)
         {
-            return resp_cmd.m_cycle;
+            sendPipeCmd(src_x, src_y, dst_x, dst_y);
+
+            char* message = new char[1024];
+            while(read(STDIN_FILENO, message, 1024) == 0);
+            for (std::size_t i = 0; i < strlen(message); i ++) if (message[i] == '\n') message[i + 1] = 0;
+            SyncCommand resp_cmd = parseCmd(std::string(message));
+            std::cout << message;
+            delete message;
+
+            if (resp_cmd.m_type == SC_SYNC)
+            {
+                return resp_cmd.m_cycle;
+            }
+            else
+            {
+                return -1;
+            }
         }
-        else
+
+        static long long int readSync(long long int cycle, int src_x, int src_y, int dst_x, int dst_y, int nbyte)
         {
-            return -1;
+            sendReadCmd(cycle, src_x, src_y, dst_x, dst_y, nbyte);
+
+            char* message = new char[1024];
+            while(read(STDIN_FILENO, message, 1024) == 0);
+            for (std::size_t i = 0; i < strlen(message); i ++) if (message[i] == '\n') message[i + 1] = 0;
+            SyncCommand resp_cmd = parseCmd(std::string(message));
+            std::cout << message;
+            delete message;
+
+            if (resp_cmd.m_type == SC_SYNC)
+            {
+                return resp_cmd.m_cycle;
+            }
+            else
+            {
+                return -1;
+            }
         }
-    }
 
-    char* pipeName(int __src_x, int __src_y, int __dst_x, int __dst_y)
-    {
-        char * fileName = new char[100];
-        sprintf(fileName, "./buffer%d_%d_%d_%d", __src_x, __src_y, __dst_x, __dst_y);
-        return fileName;
-    }
+        static long long int writeSync(long long int cycle, int src_x, int src_y, int dst_x, int dst_y, int nbyte)
+        {
+            sendWriteCmd(cycle, src_x, src_y, dst_x, dst_y, nbyte);
 
-    // Return fifo name
-    std::string pipeNameString(int __src_x, int __src_y, int __dst_x, int __dst_y)
-    {
-        std::stringstream ss;
-        ss << "./buffer" << __src_x << "_" << __src_y << "_" << __dst_x << "_" << __dst_y;
-        return ss.str();
-    }
+            char* message = new char[1024];
+            while(read(STDIN_FILENO, message, 1024) == 0);
+            for (std::size_t i = 0; i < strlen(message); i ++) if (message[i] == '\n') message[i + 1] = 0;
+            SyncCommand resp_cmd = parseCmd(std::string(message));
+            std::cout << message;
+            delete message;
+
+            if (resp_cmd.m_type == SC_SYNC)
+            {
+                return resp_cmd.m_cycle;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
+        static char* pipeName(int __src_x, int __src_y, int __dst_x, int __dst_y)
+        {
+            char * fileName = new char[100];
+            sprintf(fileName, "./buffer%d_%d_%d_%d", __src_x, __src_y, __dst_x, __dst_y);
+            return fileName;
+        }
+
+        // Return fifo name
+        static std::string pipeNameString(int __src_x, int __src_y, int __dst_x, int __dst_y)
+        {
+            std::stringstream ss;
+            ss << "./buffer" << __src_x << "_" << __src_y << "_" << __dst_x << "_" << __dst_y;
+            return ss.str();
+        }
+    };
 }
 
 #endif

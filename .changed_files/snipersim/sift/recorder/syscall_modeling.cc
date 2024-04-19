@@ -194,9 +194,9 @@ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
 
             printf("Enter Sniper passGpuMessage\n");
             // Pipe sync
-            nsInterchiplet::pipeSync(srcX, srcY, dstX, dstY);
+            nsInterchiplet::SyncProtocol::pipeSync(srcX, srcY, dstX, dstY);
             // Write data
-            char * fileName = nsInterchiplet::pipeName(srcX, srcY, dstX, dstY);
+            char * fileName = nsInterchiplet::SyncProtocol::pipeName(srcX, srcY, dstX, dstY);
             global_pipe_comm.write_data(fileName, data, dataNum * sizeof(int));
             delete fileName;
 
@@ -222,9 +222,9 @@ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
 
             printf("Enter Sniper readGpuMessage\n");
             // Pipe sync
-            nsInterchiplet::pipeSync(srcX, srcY, dstX, dstY);
+            nsInterchiplet::SyncProtocol::pipeSync(srcX, srcY, dstX, dstY);
             // Read data
-            char * fileName = nsInterchiplet::pipeName(srcX, srcY, dstX, dstY);
+            char * fileName = nsInterchiplet::SyncProtocol::pipeName(srcX, srcY, dstX, dstY);
             global_pipe_comm.read_data(fileName, data, dataNum * sizeof(int));
             delete fileName;
 
