@@ -7,8 +7,7 @@
 #include <unistd.h>
 #include <syscall.h>
 
-#include "../../../interchiplet/includes/sniper_change.h"
-#include "../../../interchiplet/includes/intercomm.h"
+#include "../../../interchiplet/includes/pipe_comm.h"
 
 bool handleAccessMemory(void *arg, Sift::MemoryLockType lock_signal, Sift::MemoryOpType mem_op, uint64_t d_addr, uint8_t* data_buffer, uint32_t data_size)
 {
@@ -43,7 +42,7 @@ bool handleAccessMemory(void *arg, Sift::MemoryLockType lock_signal, Sift::Memor
    return true;
 }
 
-nsInterchiplet::PipeComm global_pipe_comm;
+InterChiplet::PipeComm global_pipe_comm;
 
 // Emulate all system calls
 // Do this as a regular callback (versus syscall enter/exit functions) as those hold the global pin lock
@@ -179,8 +178,8 @@ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
          case SYS_exit_group:
             thread_data[threadid].output->Syscall(syscall_number, (char*)args, sizeof(args));
             break;
-
-         case nsChange::SYSCALL_SEND_TO_GPU:
+         // Send data to GPU.
+         case InterChiplet::SYSCALL_SEND_TO_GPU:
          {
             thread_data[threadid].last_syscall_number = syscall_number;
             thread_data[threadid].last_syscall_emulated=true;
@@ -190,14 +189,14 @@ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
             int srcX = args[2];
             int srcY = args[3];
             int* data = (int*)args[4];
-            int dataNum = args[5];
+            int nbytes = args[5];
 
             printf("Enter Sniper passGpuMessage\n");
             // Pipe sync
-            nsInterchiplet::SyncProtocol::pipeSync(srcX, srcY, dstX, dstY);
+            InterChiplet::SyncProtocol::pipeSync(srcX, srcY, dstX, dstY);
             // Write data
-            char * fileName = nsInterchiplet::SyncProtocol::pipeName(srcX, srcY, dstX, dstY);
-            global_pipe_comm.write_data(fileName, data, dataNum * sizeof(int));
+            char * fileName = InterChiplet::SyncProtocol::pipeName(srcX, srcY, dstX, dstY);
+            global_pipe_comm.write_data(fileName, data, nbytes);
             delete fileName;
 
             thread_data[threadid].last_syscall_returnval = 1;
@@ -207,8 +206,8 @@ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
                sizeof(args));
          break;
          }
-
-         case nsChange::SYSCALL_READ_FROM_GPU:
+         // Read data from GPU.
+         case InterChiplet::SYSCALL_READ_FROM_GPU:
          {
             thread_data[threadid].last_syscall_number = syscall_number;
             thread_data[threadid].last_syscall_emulated=true;
@@ -218,14 +217,14 @@ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
             int srcX = args[2];
             int srcY = args[3];
             int* data = (int*)args[4];
-            int dataNum = args[5];
+            int nbytes = args[5];
 
             printf("Enter Sniper readGpuMessage\n");
             // Pipe sync
-            nsInterchiplet::SyncProtocol::pipeSync(srcX, srcY, dstX, dstY);
+            InterChiplet::SyncProtocol::pipeSync(srcX, srcY, dstX, dstY);
             // Read data
-            char * fileName = nsInterchiplet::SyncProtocol::pipeName(srcX, srcY, dstX, dstY);
-            global_pipe_comm.read_data(fileName, data, dataNum * sizeof(int));
+            char * fileName = InterChiplet::SyncProtocol::pipeName(srcX, srcY, dstX, dstY);
+            global_pipe_comm.read_data(fileName, data, nbytes);
             delete fileName;
 
             thread_data[threadid].last_syscall_returnval = 1;

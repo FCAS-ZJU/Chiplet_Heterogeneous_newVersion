@@ -25,8 +25,7 @@
 #include <boost/algorithm/string.hpp>
 
 //changed at 2020-3-27
-#include "../../../interchiplet/includes/sniper_change.h"
-#include "../../../interchiplet/includes/intercomm.h"
+#include "../../../interchiplet/includes/pipe_comm.h"
 #include <unordered_map>
 #include <cstdint>
 //#include<atomic>
@@ -313,12 +312,12 @@ bool SyscallMdl::runEnter(IntPtr syscall_number, syscall_args_t &args)
 
       //changed at 2020-3-27
       //syscall numbers on inter-chiplet operations
-      case nsChange::SYSCALL_TEST_CHANGE:
+      case InterChiplet::SYSCALL_TEST_CHANGE:
          //testing
          std::cout << "Test succeeds(core)\n";
          break;
 
-      case nsChange::SYSCALL_REMOTE_READ:
+      case InterChiplet::SYSCALL_REMOTE_READ:
       {
          //TODO: 跨芯粒读
          //read from other chiplet
@@ -343,7 +342,7 @@ bool SyscallMdl::runEnter(IntPtr syscall_number, syscall_args_t &args)
          break;
       }
 
-      case nsChange::SYSCALL_REMOTE_WRITE:
+      case InterChiplet::SYSCALL_REMOTE_WRITE:
       {
          //TODO: 跨芯粒写
          ScopedLock sl(Sim()->getThreadManager()->getLock());
@@ -367,7 +366,7 @@ bool SyscallMdl::runEnter(IntPtr syscall_number, syscall_args_t &args)
          break;
       }
 
-      case nsChange::SYSCALL_REG_FUNC:
+      case InterChiplet::SYSCALL_REG_FUNC:
       {
          ScopedLock sl(Sim()->getThreadManager()->getLock());
          Sim()->getThreadManager()->stallThread_async(
@@ -377,7 +376,7 @@ bool SyscallMdl::runEnter(IntPtr syscall_number, syscall_args_t &args)
          m_stalled = true;
          break;
       }
-      case nsChange::SYSCALL_CONNECT:
+      case InterChiplet::SYSCALL_CONNECT:
       {
          ScopedLock sl(Sim()->getThreadManager()->getLock());
          des_addr_map_t::iterator it = des_addr_map.find(args.arg0);
@@ -392,7 +391,7 @@ bool SyscallMdl::runEnter(IntPtr syscall_number, syscall_args_t &args)
          m_stalled = true;
          break;
       }
-      case nsChange::SYSCALL_DISCONNECT:
+      case InterChiplet::SYSCALL_DISCONNECT:
       {
          ScopedLock sl(Sim()->getThreadManager()->getLock());
          //本地端口
@@ -404,7 +403,7 @@ bool SyscallMdl::runEnter(IntPtr syscall_number, syscall_args_t &args)
          m_stalled = true;
          break;
       }
-      case nsChange::SYSCALL_GET_LOCAL_ADDR:
+      case InterChiplet::SYSCALL_GET_LOCAL_ADDR:
       {
          ScopedLock sl(Sim()->getThreadManager()->getLock());
          Sim()->getThreadManager()->stallThread_async(
@@ -414,26 +413,30 @@ bool SyscallMdl::runEnter(IntPtr syscall_number, syscall_args_t &args)
          m_stalled = true;
          break;
       }
-      case nsChange::SYSCALL_SEND_TO_GPU:
+      case InterChiplet::SYSCALL_SEND_TO_GPU:
       {
+         // Get current cycle
          SubsecondTime start_time = m_thread->getCore()->getPerformanceModel()->getElapsedTime();
          // Convert SubsecondTime to cycles in global clock domain
          const ComponentPeriod *dom_global = Sim()->getDvfsManager()->getGlobalDomain();
          UInt64 cycles = SubsecondTime::divideRounded(start_time, *dom_global);
 
+         // Send WRITE command and wait for SYNC.
          int dst_x = args.arg0;
          int dst_y = args.arg1;
          int src_x = args.arg2;
          int src_y = args.arg3;
-         int data_num = args.arg5;
-         long long int end_time = nsInterchiplet::SyncProtocol::writeSync(
-            cycles, src_x, src_y, dst_x, dst_y, data_num * sizeof(int));
+         int nbytes = args.arg5;
+         long long int end_time = InterChiplet::SyncProtocol::writeSync(
+            cycles, src_x, src_y, dst_x, dst_y, nbytes);
 
+         // Update simulator time.
          ComponentPeriod time_wake_period = *(Sim()->getDvfsManager()->getGlobalDomain()) * end_time;
          SubsecondTime time_wake = time_wake_period.getPeriod();
          SubsecondTime sleep_end_time;
          Sim()->getSyscallServer()->handleSleepCall(m_thread->getId(), time_wake, start_time, sleep_end_time);
 
+         // Sleep core until specified time.
          if (m_thread->reschedule(sleep_end_time, core))
             core = m_thread->getCore();
 
@@ -441,26 +444,30 @@ bool SyscallMdl::runEnter(IntPtr syscall_number, syscall_args_t &args)
 
          break;
       }
-      case nsChange::SYSCALL_READ_FROM_GPU:
+      case InterChiplet::SYSCALL_READ_FROM_GPU:
       {
+         // Get current cycle
          SubsecondTime start_time = m_thread->getCore()->getPerformanceModel()->getElapsedTime();
          // Convert SubsecondTime to cycles in global clock domain
          const ComponentPeriod *dom_global = Sim()->getDvfsManager()->getGlobalDomain();
          UInt64 cycles = SubsecondTime::divideRounded(start_time, *dom_global);
 
+         // Send WRITE command and wait for SYNC.
          int dst_x = args.arg0;
          int dst_y = args.arg1;
          int src_x = args.arg2;
          int src_y = args.arg3;
-         int data_num = args.arg5;
-         long long int end_time = nsInterchiplet::SyncProtocol::readSync(
-            cycles, src_x, src_y, dst_x, dst_y, data_num * sizeof(int));
+         int nbytes = args.arg5;
+         long long int end_time = InterChiplet::SyncProtocol::readSync(
+            cycles, src_x, src_y, dst_x, dst_y, nbytes);
 
+         // Update simulator time.
          ComponentPeriod time_wake_period = *(Sim()->getDvfsManager()->getGlobalDomain()) * end_time;
          SubsecondTime time_wake = time_wake_period.getPeriod();
          SubsecondTime sleep_end_time;
          Sim()->getSyscallServer()->handleSleepCall(m_thread->getId(), time_wake, start_time, sleep_end_time);
 
+         // Sleep core until specified time.
          if (m_thread->reschedule(sleep_end_time, core))
             core = m_thread->getCore();
 

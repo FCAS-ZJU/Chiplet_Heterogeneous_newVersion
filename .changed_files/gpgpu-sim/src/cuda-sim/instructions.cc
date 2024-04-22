@@ -54,7 +54,7 @@ class ptx_recognizer;
 #include "ptx.tab.h"
 #include "ptx_loader.h"
 
-#include "../../../interchiplet/includes/intercomm.h"
+#include "../../../interchiplet/includes/pipe_comm.h"
 
 // Jin: include device runtime for CDP
 #include "cuda_device_runtime.h"
@@ -1077,7 +1077,7 @@ void add_impl(const ptx_instruction *pI, ptx_thread_info *thread) {
   thread->set_operand_value(dst, data, i_type, thread, pI, overflow, carry);
 }
 
-nsInterchiplet::PipeComm global_pipe_comm;
+InterChiplet::PipeComm global_pipe_comm;
 
 std::vector<uint32_t> syscall_op_list;
 void decode_space(memory_space_t &space, ptx_thread_info *thread,
@@ -1109,15 +1109,15 @@ void addc_impl( const ptx_instruction *pI, ptx_thread_info *thread )
   int data2 = src2_data.u64;
   data.u64 = 0;
 
-  if (data2 == 0)
+  if (data2 == InterChiplet::CUDA_SYSCALL_ARG)
   {
     syscall_op_list.push_back(data1);
     thread->set_operand_value(dst, data, i_type, thread, pI, 0, 0  );
     std::cerr << "Add Syscall parameter " << data1 << std::endl;
   }
-  else if (data2 == 1)
+  else if (data2 == InterChiplet::CUDA_SYSCALL_CMD)
   {
-    if (data1 == 1) // write message
+    if (data1 == InterChiplet::SYSCALL_READ_FROM_GPU) // write message
     {
       int dst_x = syscall_op_list[0];
       int dst_y = syscall_op_list[1];
@@ -1125,34 +1125,34 @@ void addc_impl( const ptx_instruction *pI, ptx_thread_info *thread )
       int src_y = syscall_op_list[3];
       uint64_t data_ptr = (uint64_t)syscall_op_list[4] + ((uint64_t)syscall_op_list[5] << 32);
       int* data = (int*)data_ptr;
-      int dataSize = syscall_op_list[6];
+      int nbytes = syscall_op_list[6];
 
-      // read data from GPU memory.
-      int* interdata = new int[dataSize];
+      // Read data from GPU memory.
+      uint8_t* interdata = new uint8_t[nbytes];
       memory_space_t space;
       space.set_type(global_space); // TODO: how to accept other space?
       memory_space *mem = NULL;
       addr_t addr = data_ptr;
       decode_space(space, thread, src1, mem, addr);
-      mem->read(addr, dataSize, interdata);
+      mem->read(addr, nbytes, interdata);
 
       // write data to chiplet.
       long long unsigned int timeNow = thread->get_gpu()->gpu_sim_cycle+thread->get_gpu()->gpu_tot_sim_cycle;
       std::cerr << "Enter GPGPUSim passMessage" << std::endl;
       // Pipe
-      nsInterchiplet::SyncProtocol::pipeSync(src_x, src_y, dst_x, dst_y);
+      InterChiplet::SyncProtocol::pipeSync(src_x, src_y, dst_x, dst_y);
       // Write data
-      char * fileName = nsInterchiplet::SyncProtocol::pipeName(src_x, src_y, dst_x, dst_y);
-      global_pipe_comm.write_data(fileName, interdata, dataSize * sizeof(int));
+      char * fileName = InterChiplet::SyncProtocol::pipeName(src_x, src_y, dst_x, dst_y);
+      global_pipe_comm.write_data(fileName, interdata, nbytes);
       delete fileName;
       // Sync clock.
-      long long int timeEnd = nsInterchiplet::SyncProtocol::writeSync(
-        timeNow, src_x, src_y, dst_x, dst_y, dataSize * sizeof(int));
+      long long int timeEnd = InterChiplet::SyncProtocol::writeSync(
+        timeNow, src_x, src_y, dst_x, dst_y, nbytes);
       thread->get_gpu()->chiplet_direct_set_cycle(timeEnd);
 
       syscall_op_list.clear();
     }
-    else if (data1 == 2) // read message
+    else if (data1 == InterChiplet::SYSCALL_SEND_TO_GPU) // read message
     {
       int dst_x = syscall_op_list[0];
       int dst_y = syscall_op_list[1];
@@ -1160,21 +1160,21 @@ void addc_impl( const ptx_instruction *pI, ptx_thread_info *thread )
       int src_y = syscall_op_list[3];
       uint64_t data_ptr = (uint64_t)syscall_op_list[4] + ((uint64_t)syscall_op_list[5] << 32);
       int* data = (int*)data_ptr;
-      int dataSize = syscall_op_list[6];
+      int nbytes = syscall_op_list[6];
 
       // read data from chiplet.
-      int* interdata = new int[dataSize];
+      uint8_t* interdata = new uint8_t[nbytes];
       long long unsigned int timeNow = thread->get_gpu()->gpu_sim_cycle+thread->get_gpu()->gpu_tot_sim_cycle;
-      std::cerr << "Enter GPGPUSim readFile" << std::endl;
+      std::cerr << "Enter GPGPUSim readMessage" << std::endl;
       // Pipe
-      nsInterchiplet::SyncProtocol::pipeSync(src_x, src_y, dst_x, dst_y);
+      InterChiplet::SyncProtocol::pipeSync(src_x, src_y, dst_x, dst_y);
       // Read data
-      char * fileName = nsInterchiplet::SyncProtocol::pipeName(src_x, src_y, dst_x, dst_y);
-      global_pipe_comm.read_data(fileName, interdata, dataSize * sizeof(int));
+      char * fileName = InterChiplet::SyncProtocol::pipeName(src_x, src_y, dst_x, dst_y);
+      global_pipe_comm.read_data(fileName, interdata, nbytes);
       delete fileName;
       // Sync clock.
-      long long int timeEnd = nsInterchiplet::SyncProtocol::readSync(
-        timeNow, src_x, src_y, dst_x, dst_y, dataSize * sizeof(int));
+      long long int timeEnd = InterChiplet::SyncProtocol::readSync(
+        timeNow, src_x, src_y, dst_x, dst_y, nbytes);
       thread->get_gpu()->chiplet_direct_set_cycle(timeEnd);
 
       // write data to GPU memory.
@@ -1183,7 +1183,7 @@ void addc_impl( const ptx_instruction *pI, ptx_thread_info *thread )
       memory_space *mem = NULL;
       addr_t addr = data_ptr;
       decode_space(space, thread, dst, mem, addr);
-      mem->write(addr, dataSize, interdata, thread, pI);
+      mem->write(addr, nbytes, interdata, thread, pI);
       delete interdata;
 
       syscall_op_list.clear();

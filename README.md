@@ -113,16 +113,15 @@
     make
     ```
 
-3. 执行可执行文件。示例包含4个进程，分别是1个CPU进行和3个GPU进程。
+3. 执行可执行文件。示例包含4个进程，分别是1个CPU进行和3个GPU进程。必须在benchmark/matmul进程执行。
 
     ```
-    make run
+    ../../interchiplet/bin/interchiplet
     ```
 
     执行后，可以在benchmark/matmul文件下找到如下文件：
 
-    1. 通信记录文件bench.0.0.txt和通信数据文件。
-    2. GPGPUSim仿真的日志文件gpgpusim_X_X.log。
+    2. GPGPUSim仿真的日志文件gpgpusim_X_X.log和sniper仿真的日志文件sniper.log。
     3. GPGPUSim仿真的临时文件。
     4. Sniper仿真的临时文件。
 

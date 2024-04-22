@@ -1,50 +1,59 @@
-
-CC=g++
-CFLAGS=-Wall -Werror -g -I$(SIMULATOR_ROOT)/interchiplet/includes
-INTERCHIPLETLIB=$(SIMULATOR_ROOT)/interchiplet/lib/libinterchiplet_app.a
-SNIPER_EXEC=$(SIMULATOR_ROOT)/snipersim/run-sniper
-
-NVCC=nvcc
-
+# Project environment
+# SIMULATOR_ROOT, defined by setup_env.sh
 BENCHMARK_ROOT=$(SIMULATOR_ROOT)/benchmark/matmul
 
-SNIPER_SRCS=matmul.cpp
-SNIPER_OBJS=obj/matmul.o
-SNIPER_TARGET=bin/matmul_cpu
+# Compiler environment of C/C++
+CC=g++
+CFLAGS=-Wall -Werror -g -I$(SIMULATOR_ROOT)/interchiplet/includes
+INTERCHIPLET_C_LIB=$(SIMULATOR_ROOT)/interchiplet/lib/libinterchiplet_c.a
 
-GPGPUSIM_SRCS=matmul.cu
-GPGPUSIM_TARGET=bin/matmul_cu
+# C/C++ Source file
+C_SRCS=matmul.cpp
+C_OBJS=obj/matmul.o
+C_TARGET=bin/matmul_c
 
-all: bin_dir obj_dir sniper_target gpgpusim_target
+# Compiler environment of CUDA
+NVCC=nvcc
+CUFLAGS=--compiler-options -Wall -I$(SIMULATOR_ROOT)/interchiplet/includes
+INTERCHIPLET_CU_LIB=$(SIMULATOR_ROOT)/interchiplet/lib/libinterchiplet_cu.a
 
-sniper_target: $(SNIPER_OBJS)
-	$(CC) $(SNIPER_OBJS) $(INTERCHIPLETLIB) -o $(SNIPER_TARGET)
+# CUDA Source file
+CUDA_SRCS=matmul.cu
+CUDA_OBJS=cuobj/matmul.o
+CUDA_TARGET=bin/matmul_cu
 
+all: bin_dir obj_dir cuobj_dir C_target CUDA_target
+
+# C language target
+C_target: $(C_OBJS)
+	$(CC) $(C_OBJS) $(INTERCHIPLET_C_LIB) -o $(C_TARGET)
+
+# CUDA language target
+CUDA_target: $(CUDA_OBJS)
+	$(NVCC) --cudart shared $(CUDA_OBJS) $(INTERCHIPLET_CU_LIB) -o $(CUDA_TARGET)
+
+# Rule for C object
 obj/%.o: %.cpp
 	$(CC) $(CFLAGS) -c $< -o $@
 
-gpgpusim_target:
-	$(NVCC) --cudart shared $(GPGPUSIM_SRCS) -o $(GPGPUSIM_TARGET)
+# Rule for Cuda object
+cuobj/%.o: %.cu
+	$(NVCC) $(CUFLAGS) -c $< -o $@
 
+# Directory for binary files.
 bin_dir:
 	mkdir -p bin
 
+# Directory for object files for C.
 obj_dir:
 	mkdir -p obj
 
-run:
-	mkfifo buffer0_0_0_1 buffer0_0_1_0 buffer0_0_1_1 buffer0_1_0_0 buffer1_0_0_0 buffer1_1_0_0
-	./$(GPGPUSIM_TARGET) 0 1 > gpgpusim.0.1.log 2>&1 &
-	./$(GPGPUSIM_TARGET) 1 0 > gpgpusim.1.0.log 2>&1 &
-	./$(GPGPUSIM_TARGET) 1 1 > gpgpusim.1.1.log 2>&1 &
-	$(SNIPER_EXEC) --curdir $(BENCHMARK_ROOT) -- $(BENCHMARK_ROOT)/$(SNIPER_TARGET) 0 0
+# Directory for object files for CUDA.
+cuobj_dir:
+	mkdir -p cuobj
 
+# Clean generated files.
 clean:
 	rm -rf bench.txt delayInfo.txt buffer* message_record.txt
-	rm -rf _app_cuda_version_* _cuobjdump_list_ptx_* gpgpusim_power_report_* *.ptx *.ptxas gpgpu_inst_stats.txt
-	rm -rf sim.cfg sim.info sim.out sim.stats.sqlite3 *.log 
-	rm -rf checkpoint_files
-
-cleanall:
-	make clean
-	rm -rf obj bin
+	rm -rf proc_r*_t* *.log
+	rm -rf obj cuobj bin

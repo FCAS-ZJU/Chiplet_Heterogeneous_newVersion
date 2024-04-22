@@ -19,7 +19,7 @@
 
 #include <cstring>
 
-#include "../../../interchiplet/includes/intercomm.h"
+#include "../../../interchiplet/includes/pipe_comm.h"
 
 #if 0
    extern Lock iolock;
@@ -134,7 +134,7 @@ void Core::disablePerformanceModels()
    const ComponentPeriod *dom_global = Sim()->getDvfsManager()->getGlobalDomain();
    UInt64 cycles = SubsecondTime::divideRounded(start_time, *dom_global);
    // Send cycle command.
-   nsInterchiplet::SyncProtocol::sendCycleCmd(cycles);
+   InterChiplet::SyncProtocol::sendCycleCmd(cycles);
 
    getShmemPerfModel()->disable();
    getMemoryManager()->disableModels();

@@ -19,4 +19,6 @@ sim.stats.sqlite3
 checkpoint_files
 
 obj
+cuobj
 bin
+proc_r*_t*

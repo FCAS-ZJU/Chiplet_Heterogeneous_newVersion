@@ -1,14 +1,11 @@
 #include <fstream>
 #include <iostream>
-#include "interchiplet_app.h"
+#include "apis_c.h"
+
 #define Row 100
 #define Col 100
 
 int idX,idY;
-
-using namespace std;
-
-using namespace nsInterchiplet;
 
 int main(int argc, char** argv)
 {
@@ -26,17 +23,17 @@ int main(int argc, char** argv)
         B[i] = rand() % 51;
     }
 
-    sendGpuMessage(0,1,idX,idY,A,10000);
-    sendGpuMessage(1,0,idX,idY,A,10000);
-    sendGpuMessage(1,1,idX,idY,A,10000);
+    InterChiplet::sendGpuMessage(0, 1, idX, idY, A, 10000);
+    InterChiplet::sendGpuMessage(1, 0, idX, idY, A, 10000);
+    InterChiplet::sendGpuMessage(1, 1, idX, idY, A, 10000);
 
-    sendGpuMessage(0,1,idX,idY,B,10000);
-    sendGpuMessage(1,0,idX,idY,B,10000);
-    sendGpuMessage(1,1,idX,idY,B,10000);
+    InterChiplet::sendGpuMessage(0, 1, idX, idY, B, 10000);
+    InterChiplet::sendGpuMessage(1, 0, idX, idY, B, 10000);
+    InterChiplet::sendGpuMessage(1, 1, idX, idY, B, 10000);
 
-    readGpuMessage(idX,idY,0,1,C1,100);
-    readGpuMessage(idX,idY,1,0,C2,100);
-    readGpuMessage(idX,idY,1,1,C3,100);
+    InterChiplet::readGpuMessage(idX, idY, 0, 1, C1, 100);
+    InterChiplet::readGpuMessage(idX, idY, 1, 0, C2, 100);
+    InterChiplet::readGpuMessage(idX, idY, 1, 1, C3, 100);
 
     for(int i=0;i<100;i++)
     {
