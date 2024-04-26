@@ -2,6 +2,8 @@
 #include "sync_protocol.h"
 #include "net_bench.h"
 #include "net_delay.h"
+#include "cmdline_options.h"
+#include "benchmark_yaml.h"
 
 #include <ctime>
 
@@ -82,17 +84,15 @@ public:
 /**
  * @brief Data structure of process configuration.
  */
-class ProcessConfig
+class ProcessStruct
 {
 public:
-    ProcessConfig(const std::string& __cmd,
-                  const std::vector<std::string>& __args,
-                  const std::string& __log,
-                  bool __to_stdout)
-        : m_command(__cmd)
-        , m_args(__args)
-        , m_log_file(__log)
-        , m_to_stdout(__to_stdout)
+    ProcessStruct(const InterChiplet::ProcessConfig& __config)
+        : m_command(__config.m_command)
+        , m_args(__config.m_args)
+        , m_log_file(__config.m_log_file)
+        , m_to_stdout(__config.m_to_stdout)
+        , m_pre_copy(__config.m_pre_copy)
         , m_unfinished_line()
         , m_thread_id()
         , m_pid(-1)
@@ -101,13 +101,16 @@ public:
     {}
 
 public:
+    // Configuration.
     std::string m_command;
     std::vector<std::string> m_args;
     std::string m_log_file;
     bool m_to_stdout;
+    std::string m_pre_copy;
 
     std::string m_unfinished_line;
 
+    // Indentify
     int m_round;
     int m_phase;
     int m_thread;
@@ -115,6 +118,10 @@ public:
     pthread_t m_thread_id;
     int m_pid;
     int m_pid2;
+
+    /**
+     * @brief Pointer to synchronize structure.
+     */
     SyncStruct* m_sync_struct;
 };
 
@@ -306,7 +313,7 @@ void handle_cycle_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync
     }
 }
 
-void parse_command(char* __pipe_buf, ProcessConfig* __proc_cfg, int __stdin_fd)
+void parse_command(char* __pipe_buf, ProcessStruct* __proc_struct, int __stdin_fd)
 {
     // Split line by '\n'
     std::string line = std::string(__pipe_buf);
@@ -329,14 +336,14 @@ void parse_command(char* __pipe_buf, ProcessConfig* __proc_cfg, int __stdin_fd)
     }
 
     // Unfinished line.
-    if (__proc_cfg->m_unfinished_line.size() > 0)
+    if (__proc_struct->m_unfinished_line.size() > 0)
     {
-        lines[0] = __proc_cfg->m_unfinished_line + lines[0];
-        __proc_cfg->m_unfinished_line = "";
+        lines[0] = __proc_struct->m_unfinished_line + lines[0];
+        __proc_struct->m_unfinished_line = "";
     }
     if (lines[lines.size() - 1].find('\n') == -1)
     {
-        __proc_cfg->m_unfinished_line = lines[lines.size() - 1];
+        __proc_struct->m_unfinished_line = lines[lines.size() - 1];
         lines.pop_back();
     }
 
@@ -349,35 +356,35 @@ void parse_command(char* __pipe_buf, ProcessConfig* __proc_cfg, int __stdin_fd)
             InterChiplet::SyncCommand cmd = InterChiplet::SyncProtocol::parseCmd(l);
             cmd.m_stdin_fd = __stdin_fd;
 
-            pthread_mutex_lock(&__proc_cfg->m_sync_struct->m_mutex);
+            pthread_mutex_lock(&__proc_struct->m_sync_struct->m_mutex);
 
             // Call functions to handle corresponding command.
             switch(cmd.m_type)
             {
             case InterChiplet::SC_CYCLE:
-                handle_cycle_cmd(cmd, __proc_cfg->m_sync_struct);
+                handle_cycle_cmd(cmd, __proc_struct->m_sync_struct);
                 break;
             case InterChiplet::SC_PIPE:
-                handle_pipe_cmd(cmd, __proc_cfg->m_sync_struct);
+                handle_pipe_cmd(cmd, __proc_struct->m_sync_struct);
                 break;
             case InterChiplet::SC_READ:
-                handle_read_cmd(cmd, __proc_cfg->m_sync_struct);
+                handle_read_cmd(cmd, __proc_struct->m_sync_struct);
                 break;
             case InterChiplet::SC_WRITE:
-                handle_write_cmd(cmd, __proc_cfg->m_sync_struct);
+                handle_write_cmd(cmd, __proc_struct->m_sync_struct);
                 break;
             default:
                 break;
             }
 
-            pthread_mutex_unlock(&__proc_cfg->m_sync_struct->m_mutex);
+            pthread_mutex_unlock(&__proc_struct->m_sync_struct->m_mutex);
         }
     }
 }
 
 void *bridge_thread(void * __args_ptr)
 {
-    ProcessConfig* proc_cfg = (ProcessConfig*)__args_ptr;
+    ProcessStruct* proc_struct = (ProcessStruct*)__args_ptr;
 
     int pipe_stdin[2]; // Pipe to send data to child process
     int pipe_stdout[2]; // Pipe to receive data from child process
@@ -393,13 +400,13 @@ void *bridge_thread(void * __args_ptr)
     // Create sub directory for subprocess.
     char* sub_dir_path = new char[128];
     sprintf(sub_dir_path, "./proc_r%d_p%d_t%d",
-        proc_cfg->m_round, proc_cfg->m_phase, proc_cfg->m_thread);
+        proc_struct->m_round, proc_struct->m_phase, proc_struct->m_thread);
     if (access(sub_dir_path, F_OK) == -1)
     {
         mkdir(sub_dir_path, 0775);
     }
 
-    std::cout << "Enter bridge_thread " << proc_cfg->m_command << std::endl;
+    std::cout << "Enter bridge_thread " << proc_struct->m_command << std::endl;
     // Fork a child process
     pid_t pid = fork();
     if (pid == -1)
@@ -424,29 +431,33 @@ void *bridge_thread(void * __args_ptr)
         chdir(sub_dir_path);
         perror("chdir");
         // TODO: Copy necessary configuration file.
-        system("cp ../*.icnt ../*.config ../*.xml .");
-        perror("system");
+        if (!proc_struct->m_pre_copy.empty())
+        {
+            std::string cp_cmd = std::string("cp ") + proc_struct->m_pre_copy + " .";
+            system(cp_cmd.c_str());
+            perror("system");
+        }
 
         std::cout << "CWD: " << get_current_dir_name() << std::endl;
 
         // Build arguments.
-        int argc = proc_cfg->m_args.size();
+        int argc = proc_struct->m_args.size();
         char** args_list = new char*[argc + 2];
-        args_list[0] = new char[proc_cfg->m_command.size() + 1];
-        strcpy(args_list[0], proc_cfg->m_command.c_str());
-        args_list[0][proc_cfg->m_command.size()] = '\0';
+        args_list[0] = new char[proc_struct->m_command.size() + 1];
+        strcpy(args_list[0], proc_struct->m_command.c_str());
+        args_list[0][proc_struct->m_command.size()] = '\0';
         for (int i = 0; i < argc; i ++)
         {
-            int arg_len = proc_cfg->m_args[i].size();
+            int arg_len = proc_struct->m_args[i].size();
             args_list[i + 1] = new char[arg_len + 1];
-            strcpy(args_list[i + 1], proc_cfg->m_args[i].c_str());
+            strcpy(args_list[i + 1], proc_struct->m_args[i].c_str());
             args_list[i + 1][arg_len] = '\0';
         }
         args_list[argc + 1] = NULL;
 
         // Execute the child program
         std::cout << "Exec: ";
-        for (int i = 0; i < proc_cfg->m_args.size() + 1; i ++)
+        for (int i = 0; i < proc_struct->m_args.size() + 1; i ++)
         {
             std::cout << " " << args_list[i];
         }
@@ -460,7 +471,7 @@ void *bridge_thread(void * __args_ptr)
     else
     { // Parent process
         std::cout << "Start simulation process " << pid << std::endl;
-        proc_cfg->m_pid2 = pid;
+        proc_struct->m_pid2 = pid;
 
         // Close unnecessary pipe ends
         close(pipe_stdin[0]);
@@ -474,7 +485,7 @@ void *bridge_thread(void * __args_ptr)
                              {fd: stderr_fd, events: POLL_IN}};
 
         // Move log to subfolder.
-        std::ofstream log_file(std::string(sub_dir_path) + "/" + proc_cfg->m_log_file);
+        std::ofstream log_file(std::string(sub_dir_path) + "/" + proc_struct->m_log_file);
 
         // Write execution start time to log file.
         std::time_t t = std::time(0);
@@ -484,7 +495,7 @@ void *bridge_thread(void * __args_ptr)
             << (now->tm_hour) << ":" << (now->tm_min) << ":" << (now->tm_sec) << std::endl;
 
         char* pipe_buf = new char[PIPE_BUF_SIZE + 1];
-        bool to_stdout = proc_cfg->m_to_stdout;
+        bool to_stdout = proc_struct->m_to_stdout;
         int res = 0;
         while (true)
         {
@@ -510,7 +521,7 @@ void *bridge_thread(void * __args_ptr)
                     std::cout.flush();
                 }
                 // Parse command in pipe_buf
-                parse_command(pipe_buf, proc_cfg, stdin_fd);
+                parse_command(pipe_buf, proc_struct, stdin_fd);
             }
             if (fd_list[1].revents & POLL_IN)
             {
@@ -526,7 +537,7 @@ void *bridge_thread(void * __args_ptr)
                     std::cerr.flush();
                 }
                 // Parse command in pipe_buf
-                parse_command(pipe_buf, proc_cfg, stdin_fd);
+                parse_command(pipe_buf, proc_struct, stdin_fd);
             }
 
             // Check the status of child process and quit.
@@ -534,7 +545,7 @@ void *bridge_thread(void * __args_ptr)
             if (!has_stdout && (waitpid(pid, &status, WNOHANG) > 0))
             {
                 // Optionally handle child process termination status
-                std::cout << "Simulation process " << proc_cfg->m_pid2
+                std::cout << "Simulation process " << proc_struct->m_pid2
                     << " terminate with status = " << status << "." << std::endl;
                 break;
             }
@@ -546,8 +557,9 @@ void *bridge_thread(void * __args_ptr)
     return 0;
 }
 
-InterChiplet::TimeType __loop_phase_one(int __round,
-                                        const std::vector<ProcessConfig*>& __proc_cfg_list)
+InterChiplet::TimeType __loop_phase_one(
+    int __round,
+    const std::vector<InterChiplet::ProcessConfig>& __proc_cfg_list)
 {
     // Create synchronize data structure.
     SyncStruct* g_sync_structure = new SyncStruct();
@@ -558,29 +570,33 @@ InterChiplet::TimeType __loop_phase_one(int __round,
 
     // Create multi-thread.
     int thread_i = 0;
+    std::vector<ProcessStruct*> proc_struct_list;
     for (auto& proc_cfg: __proc_cfg_list)
     {
-        proc_cfg->m_round = __round;
-        proc_cfg->m_phase = 1;
-        proc_cfg->m_thread = thread_i;
-        thread_i ++;
-        proc_cfg->m_sync_struct = g_sync_structure;
-        int res = pthread_create(&(proc_cfg->m_thread_id), NULL, bridge_thread, (void*)proc_cfg);
+        ProcessStruct* proc_struct = new ProcessStruct(proc_cfg);
+        proc_struct->m_round = __round;
+        proc_struct->m_phase = 1;
+        proc_struct->m_thread = thread_i;
+        proc_struct->m_sync_struct = g_sync_structure;
+        int res = pthread_create(
+            &(proc_struct->m_thread_id), NULL, bridge_thread, (void*)proc_struct);
         if (res < 0)
         {
             perror("pthread_create");
             exit(EXIT_FAILURE);
         }
+
+        proc_struct_list.push_back(proc_struct);
+        thread_i ++;
     }
 
     // Wait threads to finish.
-    for (auto& proc_cfg: __proc_cfg_list)
+    for (auto& proc_struct: proc_struct_list)
     {
-        pthread_join(proc_cfg->m_thread_id, NULL);
+        pthread_join(proc_struct->m_thread_id, NULL);
+        delete proc_struct;
     }
     std::cout << "All process has exit." << std::endl;
-
-    // End handle.
 
     // Remove file.
     for (auto& __name: g_sync_structure->m_fifo_list)
@@ -598,33 +614,41 @@ InterChiplet::TimeType __loop_phase_one(int __round,
     return res_cycle;
 }
 
-void __loop_phase_two(int __round,
-                      const std::vector<ProcessConfig*>& __proc_cfg_list)
+void __loop_phase_two(
+    int __round,
+    const std::vector<InterChiplet::ProcessConfig>& __proc_cfg_list)
 {
     // Create synchronize data structure.
     SyncStruct* g_sync_structure = new SyncStruct();
 
     // Create multi-thread.
     int thread_i = 0;
+    std::vector<ProcessStruct*> proc_struct_list;
     for (auto& proc_cfg: __proc_cfg_list)
     {
-        proc_cfg->m_round = __round;
-        proc_cfg->m_phase = 2;
-        proc_cfg->m_thread = thread_i;
+        ProcessStruct* proc_struct = new ProcessStruct(proc_cfg);
+        proc_struct->m_round = __round;
+        proc_struct->m_phase = 2;
+        proc_struct->m_thread = thread_i;
         thread_i ++;
-        proc_cfg->m_sync_struct = g_sync_structure;
-        int res = pthread_create(&(proc_cfg->m_thread_id), NULL, bridge_thread, (void*)proc_cfg);
+        proc_struct->m_sync_struct = g_sync_structure;
+        int res = pthread_create(
+            &(proc_struct->m_thread_id), NULL, bridge_thread, (void*)proc_struct);
         if (res < 0)
         {
             perror("pthread_create");
             exit(EXIT_FAILURE);
         }
+
+        proc_struct_list.push_back(proc_struct);
+        thread_i ++;
     }
 
     // Wait threads to finish.
-    for (auto& proc_cfg: __proc_cfg_list)
+    for (auto& proc_struct: proc_struct_list)
     {
-        pthread_join(proc_cfg->m_thread_id, NULL);
+        pthread_join(proc_struct->m_thread_id, NULL);
+        delete proc_struct;
     }
     std::cout << "All process has exit." << std::endl;
 
@@ -632,43 +656,43 @@ void __loop_phase_two(int __round,
     delete g_sync_structure;
 }
 
-int main(int argc, char** argv)
+int main(int argc, const char* argv[])
 {
-    // Parse commandline arguments.
+    // Parse command line.
+    InterChiplet::CmdLineOptions options(argc, argv);
 
-    // Parse process configuration.
-    std::vector<ProcessConfig*> phase1_proc_cfg_list;
-    phase1_proc_cfg_list.push_back(
-        new ProcessConfig("../bin/matmul_cu", {"0", "1"}, "gpgpusim.0.1.log", false));
-    phase1_proc_cfg_list.push_back(
-        new ProcessConfig("../bin/matmul_cu", {"1", "0"}, "gpgpusim.1.0.log", false));
-    phase1_proc_cfg_list.push_back(
-        new ProcessConfig("../bin/matmul_cu", {"1", "1"}, "gpgpusim.1.1.log", false));
-    phase1_proc_cfg_list.push_back(new ProcessConfig(
-        "../../../snipersim/run-sniper", {"--", "../bin/matmul_c", "0", "0"}, "sniper.0.0.log", false));
+    // Change working directory if --cwd is specified.
+    if (options.m_has_cwd)
+    {
+        if (access(options.m_cwd.c_str(), F_OK) == 0)
+        {
+            chdir(options.m_cwd.c_str());
+            std::cout << "[INTERCMD] Change working directory " << get_current_dir_name() << ".\n";
+        }
+    }
 
-    std::vector<ProcessConfig*> phase2_proc_cfg_list;
-    // ./popnet -A 9 -c 2 -V 3 -B 12 -O 12 -F 4 -L 1000 -T 20000 -r 1 -I ./bench.txt -R 0
-    phase2_proc_cfg_list.push_back(
-        new ProcessConfig("../../../popnet/popnet",
-            {"-A", "9", "-c", "2", "-V", "3", "-B", "12", "-O", "12", "-F", "4",
-             "-L", "1000", "-T", "10000000", "-r", "1", "-I", "../bench.txt", "-R", "0"},
-            "popnet.log", false));
+    // Check exist of benchmark configuration yaml.
+    if (access(options.m_bench.c_str(), F_OK) < 0)
+    {
+        std::cerr << "Error: Cannot find benchmark " << options.m_bench << "." << std::endl;
+        exit(EXIT_FAILURE);
+    }
 
-    int timeout_round = 2;
-    double err_rate_threshold = 0.005;
+    // Load benchmark configuration.
+    InterChiplet::BenchmarkConfig configs(options.m_bench);
+    std::cout << "[INTERCMD] Load benchmark configuration from " << options.m_bench << ".\n";
 
     // Get start time of simulation.
 	struct timeval simstart, simend, roundstart, roundend;
 	gettimeofday(&simstart, 0);
 
     long long sim_cycle = 0;
-    for (int round = 1; round <= timeout_round; round ++)
+    for (int round = 1; round <= options.m_timeout_threshold; round ++)
     {
         // Get start time of one round.
 	    gettimeofday(&roundstart, 0);
         std::cout << "[COMMBRIDGE] *** Round " << round << " Phase 1 ***" << std::endl;
-        InterChiplet::TimeType round_cycle = __loop_phase_one(round, phase1_proc_cfg_list);
+        InterChiplet::TimeType round_cycle = __loop_phase_one(round, configs.m_phase1_proc_cfg_list);
 
         // Get simulation cycle.
         // If simulation cycle this round is close to the previous one, quit iteration.
@@ -681,7 +705,7 @@ int main(int argc, char** argv)
             std::cout << "[COMMBRIDGE] Difference related to pervious round is "
                 << err_rate * 100 << "%." << std::endl;
             // If difference is small enough, quit loop.
-            if (err_rate < err_rate_threshold)
+            if (err_rate < options.m_err_rate_threshold)
             {
                 std::cout << "[COMMBRIDGE] Quit simulation because simulation cycle has converged."
                     << std::endl;
@@ -692,7 +716,7 @@ int main(int argc, char** argv)
         sim_cycle = round_cycle;
 
         std::cout << "[COMMBRIDGE] *** Round " << round << " Phase 2 ***" << std::endl;
-        __loop_phase_two(round, phase2_proc_cfg_list);
+        __loop_phase_two(round, configs.m_phase2_proc_cfg_list);
 
         // Get end time of one round.
         gettimeofday(&roundend, 0);
@@ -714,17 +738,4 @@ int main(int argc, char** argv)
         << (elaped_sec / 3600) % 24 << "h "
         << (elaped_sec / 60) % 60 << "m "
         << elaped_sec % 60 << "s." << std::endl;
-
-    // Clear process configuration for phase 1.
-    for (auto& item: phase1_proc_cfg_list)
-    {
-        delete item;
-    }
-    phase1_proc_cfg_list.clear();
-    // Clear process configuration for phase 2.
-    for (auto& item: phase2_proc_cfg_list)
-    {
-        delete item;
-    }
-    phase2_proc_cfg_list.clear();
 }
