@@ -10,6 +10,7 @@
  * @param __src_y Source address (GPU address) in Y-axis.
  * @param __addr Data address.
  * @param __size Number of elements.
+ * @param __res Return result value.
  */
 __global__ void passMessage(
     int __dst_x, int __dst_y, int __src_x, int __srx_y, int64_t* __addr, int __size, int* __res);
@@ -22,6 +23,7 @@ __global__ void passMessage(
  * @param __src_y Source address (CPU address) in Y-axis.
  * @param __addr Data address.
  * @param __size Number of elements.
+ * @param __res Return result value.
  */
 __global__ void readMessage(
     int __dst_x, int __dst_y, int __src_x, int __srx_y, int64_t* __addr, int __size, int* __res);

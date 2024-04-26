@@ -1128,7 +1128,7 @@ void sim_router_template::flit_traversal(long i)
 void sim_router_template::accept_flit(time_type a, const flit_template &b)
 {
 	//changed at 2020-5-9
-	static ofstream ofs("delayInfo.txt");
+	static ofstream ofs("../delayInfo.txt");
 	if (/* b.type() == TAIL_ */ isTail(b.type()))
 	{
 		mess_queue::wm_pointer().TotFin_inc();

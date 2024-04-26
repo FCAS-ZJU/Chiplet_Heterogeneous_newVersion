@@ -2,9 +2,6 @@
 #include "global_define.h"
 #include "apis_cu.h"
 
-/**
- * 用于传递单个chiplet计算结果的kernel函数
- */
 __global__ void passMessage(
     int __dst_x, int __dst_y, int __src_x, int __srx_y, int64_t* __addr, int __size, int* __res)
 {

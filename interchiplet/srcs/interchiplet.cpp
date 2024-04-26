@@ -1,6 +1,9 @@
 
 #include "sync_protocol.h"
+#include "net_bench.h"
 #include "net_delay.h"
+
+#include <ctime>
 
 #include <vector>
 
@@ -17,22 +20,63 @@
 class SyncStruct
 {
 public:
+    /**
+     * @brief Construct synchronize stucture.
+     * 
+     * Initializete mutex.
+     */
     SyncStruct()
         : m_cycle(0)
     {
+        if (pthread_mutex_init(&m_mutex, NULL) < 0)
+        {
+            perror("pthread_mutex_init");
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    /**
+     * @brief Destory synchronize structure.
+     * 
+     * Destory mutex.
+     */
+    ~SyncStruct()
+    {
+        pthread_mutex_destroy(&m_mutex);
     }
 
 public:
+    /**
+     * @brief Mutex to access this structure.
+     */
     pthread_mutex_t m_mutex;
 
+    /**
+     * @brief Global simulation cycle, which is the largest notified cycle count.
+     */
     InterChiplet::TimeType m_cycle;
 
+    /**
+     * @brief Benchmark list, recording the communication transactions have sent out.
+     */
     InterChiplet::NetworkBenchList m_bench_list;
+    /**
+     * @brief Delay list, recoding the delay of each communication transactions
+     */
     InterChiplet::NetworkDelayList m_delay_list;
 
-    std::vector<std::string> m_fifo_set;
-    std::vector<InterChiplet::SyncCommand> m_read_cmd_set;
-    std::vector<InterChiplet::SyncCommand> m_write_cmd_set;
+    /**
+     * @brief List of PIPE file names.
+     */
+    std::vector<std::string> m_fifo_list;
+    /**
+     * @brief List of Read commands, used to pair with write commands.
+     */
+    std::vector<InterChiplet::SyncCommand> m_read_cmd_list;
+    /**
+     * @brief List of Write commands, used to pair with write commands.
+     */
+    std::vector<InterChiplet::SyncCommand> m_write_cmd_list;
 };
 
 /**
@@ -65,6 +109,7 @@ public:
     std::string m_unfinished_line;
 
     int m_round;
+    int m_phase;
     int m_thread;
 
     pthread_t m_thread_id;
@@ -73,7 +118,12 @@ public:
     SyncStruct* m_sync_struct;
 };
 
-// Create FIFO with specified name.
+/**
+ * @brief  Create FIFO with specified name.
+ * @param __fifo_name Specified name for PIPE.
+ * @retval 0 Operation success. PIPE file is existed or created.
+ * @retval -1 Operation fail. PIPE file is missing.
+ */
 int create_fifo(std::string __fifo_name)
 {
     if (access(__fifo_name.c_str(), F_OK) == -1)
@@ -101,182 +151,159 @@ int create_fifo(std::string __fifo_name)
 
 #define PIPE_BUF_SIZE 1024
 
-void handle_pipe_cmd(const InterChiplet::SyncCommand& __cmd,
-                     SyncStruct* __sync_struct,
-                     int __stdin_fd)
+/**
+ * @brief Handle PIPE command.
+ * @param __cmd Command to handle.
+ * @param __sync_struct Pointer to global synchronize structure.
+ */
+void handle_pipe_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync_struct)
 {
-    std::cout << "From pipe " << __stdin_fd
-        << " Handle PIPE command from " << __cmd.m_src_x << " " << __cmd.m_src_y
-        << " to " << __cmd.m_dst_x << " " << __cmd.m_dst_y << std::endl;
-    // Check pipe file.
+    std::cout << "[INTERCMD DBG] PIPE command"
+        << " from " << __cmd.m_src_x << " " << __cmd.m_src_y
+        << " to " << __cmd.m_dst_x << " " << __cmd.m_dst_y << ". ";
+
+    // Create Pipe file and add the file to 
     std::string file_name = InterChiplet::SyncProtocol::pipeNameMaster(
         __cmd.m_src_x, __cmd.m_src_y, __cmd.m_dst_x, __cmd.m_dst_y);
-
-    bool has_fifo_file = false;
-    for (auto& __name: __sync_struct->m_fifo_set)
+    if (create_fifo(file_name.c_str()) == 0)
     {
-        if (__name == file_name)
-        {
-            has_fifo_file = true;
-            break;
-        }
+        __sync_struct->m_fifo_list.push_back(file_name);
     }
-    
-    if (!has_fifo_file)
-    {
-        if (create_fifo(file_name.c_str()) == 0)
-        {
-            __sync_struct->m_fifo_set.push_back(file_name);
-        }
-    }
+    std::cout << "Create pipe file " << file_name << "." << std::endl;
 
+    // Send synchronize command.
     std::stringstream ss;
     ss << "[INTERCMD] SYNC " << 0 << std::endl;
-    write(__stdin_fd, ss.str().c_str(), ss.str().size());
+    write(__cmd.m_stdin_fd, ss.str().c_str(), ss.str().size());
 }
 
-void handle_read_cmd(const InterChiplet::SyncCommand& __cmd,
-                     SyncStruct* __sync_struct,
-                     int __stdin_fd)
+/**
+ * @brief Handle READ command.
+ * @param __cmd Command to handle.
+ * @param __sync_struct Pointer to global synchronize structure.
+ */
+void handle_read_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync_struct)
 {
-    std::cout << "From pipe " << __stdin_fd
-        << " Handle READ command from " << __cmd.m_src_x << " " << __cmd.m_src_y
-        << " to " << __cmd.m_dst_x << " " << __cmd.m_dst_y << std::endl;
-    // Check pipe file.
-    std::string file_name = InterChiplet::SyncProtocol::pipeNameMaster(
-        __cmd.m_src_x, __cmd.m_src_y, __cmd.m_dst_x, __cmd.m_dst_y);
-    
+    std::cout << "[INTERCMD DBG] READ command at " << __cmd.m_cycle << " cycle"
+        << " from " << __cmd.m_src_x << " " << __cmd.m_src_y
+        << " to " << __cmd.m_dst_x << " " << __cmd.m_dst_y << ". ";
+
+    // Check for paired write command.
     bool has_write_cmd = false;
     InterChiplet::SyncCommand write_cmd;
-    for (std::size_t i = 0; i < __sync_struct->m_write_cmd_set.size(); i ++)
+    for (std::size_t i = 0; i < __sync_struct->m_write_cmd_list.size(); i ++)
     {
-        InterChiplet::SyncCommand& __write_cmd = __sync_struct->m_write_cmd_set[i];
+        InterChiplet::SyncCommand& __write_cmd = __sync_struct->m_write_cmd_list[i];
         if (__write_cmd.m_src_x == __cmd.m_src_x && __write_cmd.m_src_y == __cmd.m_src_y &&
             __write_cmd.m_dst_x == __cmd.m_dst_x && __write_cmd.m_dst_y == __cmd.m_dst_y &&
             __write_cmd.m_nbytes == __cmd.m_nbytes)
         {
             has_write_cmd = true;
             write_cmd = __write_cmd;
-            __sync_struct->m_write_cmd_set.erase(__sync_struct->m_write_cmd_set.begin() + i);
+            __sync_struct->m_write_cmd_list.erase(__sync_struct->m_write_cmd_list.begin() + i);
             break;
         }
     }
 
     if (!has_write_cmd)
     {
-        __sync_struct->m_read_cmd_set.push_back(__cmd);
-        __sync_struct->m_read_cmd_set[__sync_struct->m_read_cmd_set.size() - 1].m_stdin_fd =
-            __stdin_fd;
+        // If there is no paired write command, add this command to read command queue to wait.
+        __sync_struct->m_read_cmd_list.push_back(__cmd);
         std::cout << "Register READ command to pair with WRITE command." << std::endl;
     }
     else
     {
-        std::cout << "Pair with WRITE command." << std::endl;
+        // If there is a paired write command, get the end cycle of transaction.
+        InterChiplet::TimeType end_cycle =
+            __sync_struct->m_delay_list.getEndCycle(write_cmd, __cmd);
+        std::cout << "Pair with WRITE command and transation ends at "
+            << end_cycle << " cycle." << std::endl;
 
-        InterChiplet::TimeType end_cycle = __sync_struct->m_delay_list.getEndCycle(write_cmd, __cmd);
-
-        // Send sync command.
+        // Send synchronize command to response READ command.
         std::stringstream ss;
         ss << "[INTERCMD] SYNC " << end_cycle << std::endl;
-        write(__stdin_fd, ss.str().c_str(), ss.str().size());
+        write(__cmd.m_stdin_fd, ss.str().c_str(), ss.str().size());
 
+        // Send synchronize command to response WRITE command.
         ss.clear();
         ss << "[INTERCMD] SYNC " << end_cycle << std::endl;
         write(write_cmd.m_stdin_fd, ss.str().c_str(), ss.str().size());
     }
 }
 
-void handle_write_cmd(const InterChiplet::SyncCommand& __cmd,
-                      SyncStruct* __sync_struct,
-                      int __stdin_fd)
+/**
+ * @brief Handle WRITE command.
+ * @param __cmd Command to handle.
+ * @param __sync_struct Pointer to global synchronize structure.
+ */
+void handle_write_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync_struct)
 {
-    std::cout << "From pipe " << __stdin_fd
-        << " WRITE command from " << __cmd.m_src_x << " " << __cmd.m_src_y
-        << " to " << __cmd.m_dst_x << " " << __cmd.m_dst_y << std::endl;
-    // Check pipe file.
-    std::string file_name = InterChiplet::SyncProtocol::pipeNameMaster(
-        __cmd.m_src_x, __cmd.m_src_y, __cmd.m_dst_x, __cmd.m_dst_y);
+    std::cout << "[INTERCMD DBG] WRITE command at " << __cmd.m_cycle << " cycle"
+        << " from " << __cmd.m_src_x << " " << __cmd.m_src_y
+        << " to " << __cmd.m_dst_x << " " << __cmd.m_dst_y << ". ";
 
-    // Insert benchmark;        
+    // Insert write event to benchmark list.
     InterChiplet::NetworkBenchItem bench_item(__cmd);
     __sync_struct->m_bench_list.insert(bench_item);
 
+    // Check for paired read command.
     bool has_read_cmd = false;
     InterChiplet::SyncCommand read_cmd;
-    for (std::size_t i = 0; i < __sync_struct->m_read_cmd_set.size(); i ++)
+    for (std::size_t i = 0; i < __sync_struct->m_read_cmd_list.size(); i ++)
     {
-        InterChiplet::SyncCommand& __read_cmd = __sync_struct->m_read_cmd_set[i];
+        InterChiplet::SyncCommand& __read_cmd = __sync_struct->m_read_cmd_list[i];
         if (__read_cmd.m_src_x == __cmd.m_src_x && __read_cmd.m_src_y == __cmd.m_src_y &&
             __read_cmd.m_dst_x == __cmd.m_dst_x && __read_cmd.m_dst_y == __cmd.m_dst_y &&
             __read_cmd.m_nbytes == __cmd.m_nbytes)
         {
             has_read_cmd = true;
             read_cmd = __read_cmd;
-            __sync_struct->m_read_cmd_set.erase(__sync_struct->m_read_cmd_set.begin() + i);
+            __sync_struct->m_read_cmd_list.erase(__sync_struct->m_read_cmd_list.begin() + i);
             break;
         }
     }
 
     if (!has_read_cmd)
     {
-        __sync_struct->m_write_cmd_set.push_back(__cmd);
-        __sync_struct->m_write_cmd_set[__sync_struct->m_write_cmd_set.size() - 1].m_stdin_fd =
-            __stdin_fd;
+        // If there is no paired read command, add this command to write command queue to wait.
+        __sync_struct->m_write_cmd_list.push_back(__cmd);
         std::cout << "Register WRITE command to pair with READ command." << std::endl;
     }
     else
     {
-        std::cout << "Pair with READ command." << std::endl;
+        // If there is a paired read command, get the end cycle of transaction.
+        InterChiplet::TimeType end_cycle =
+            __sync_struct->m_delay_list.getEndCycle(__cmd, read_cmd);
+        std::cout << "Pair with READ command and transation ends at "
+            << end_cycle << " cycle." << std::endl;
 
-        InterChiplet::TimeType end_cycle = __sync_struct->m_delay_list.getEndCycle(__cmd, read_cmd);
-
-        // Send sync command.
+        // Send synchronize command to response WRITE command.
         std::stringstream ss;
         ss << "[INTERCMD] SYNC " << end_cycle << std::endl;
-        write(__stdin_fd, ss.str().c_str(), ss.str().size());
+        write(__cmd.m_stdin_fd, ss.str().c_str(), ss.str().size());
 
+        // Send synchronize command to response READ command.
         ss.clear();
         ss << "[INTERCMD] SYNC " << end_cycle << std::endl;
         write(read_cmd.m_stdin_fd, ss.str().c_str(), ss.str().size());
     }
 }
 
-void handle_cycle_cmd(const InterChiplet::SyncCommand& __cmd,
-                      SyncStruct* __sync_struct,
-                      int __stdin_fd)
+/**
+ * @brief Handle CYCLE command.
+ * @param __cmd Command to handle.
+ * @param __sync_struct Pointer to global synchronize structure.
+ */
+void handle_cycle_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync_struct)
 {
+    std::cout << "[INTERCMD DBG] CYCLE command at " << __cmd.m_cycle << " cycle" << ".";
+
+    // Update global cycle.
     InterChiplet::TimeType new_cycle = __cmd.m_cycle;
     if (__sync_struct->m_cycle < new_cycle)
     {
         __sync_struct->m_cycle = new_cycle;
     }
-}
-
-void handle_command(const std::string& __cmd, SyncStruct* __sync_struct, int __stdin_fd)
-{
-    InterChiplet::SyncCommand cmd = InterChiplet::SyncProtocol::parseCmd(__cmd);
-
-    pthread_mutex_lock(&__sync_struct->m_mutex);
-
-    switch(cmd.m_type)
-    {
-    case InterChiplet::SC_CYCLE:
-        handle_cycle_cmd(cmd, __sync_struct, __stdin_fd);
-        break;
-    case InterChiplet::SC_PIPE:
-        handle_pipe_cmd(cmd, __sync_struct, __stdin_fd);
-        break;
-    case InterChiplet::SC_READ:
-        handle_read_cmd(cmd, __sync_struct, __stdin_fd);
-        break;
-    case InterChiplet::SC_WRITE:
-        handle_write_cmd(cmd, __sync_struct, __stdin_fd);
-        break;
-    default:
-        break;
-    }
-
-    pthread_mutex_unlock(&__sync_struct->m_mutex);
 }
 
 void parse_command(char* __pipe_buf, ProcessConfig* __proc_cfg, int __stdin_fd)
@@ -319,7 +346,31 @@ void parse_command(char* __pipe_buf, ProcessConfig* __proc_cfg, int __stdin_fd)
         std::string l = lines[i];
         if (l.substr(0, 10) == "[INTERCMD]")
         {
-            handle_command(l, __proc_cfg->m_sync_struct, __stdin_fd);
+            InterChiplet::SyncCommand cmd = InterChiplet::SyncProtocol::parseCmd(l);
+            cmd.m_stdin_fd = __stdin_fd;
+
+            pthread_mutex_lock(&__proc_cfg->m_sync_struct->m_mutex);
+
+            // Call functions to handle corresponding command.
+            switch(cmd.m_type)
+            {
+            case InterChiplet::SC_CYCLE:
+                handle_cycle_cmd(cmd, __proc_cfg->m_sync_struct);
+                break;
+            case InterChiplet::SC_PIPE:
+                handle_pipe_cmd(cmd, __proc_cfg->m_sync_struct);
+                break;
+            case InterChiplet::SC_READ:
+                handle_read_cmd(cmd, __proc_cfg->m_sync_struct);
+                break;
+            case InterChiplet::SC_WRITE:
+                handle_write_cmd(cmd, __proc_cfg->m_sync_struct);
+                break;
+            default:
+                break;
+            }
+
+            pthread_mutex_unlock(&__proc_cfg->m_sync_struct->m_mutex);
         }
     }
 }
@@ -337,6 +388,15 @@ void *bridge_thread(void * __args_ptr)
     {
         perror("pipe");
         exit(EXIT_FAILURE);
+    }
+
+    // Create sub directory for subprocess.
+    char* sub_dir_path = new char[128];
+    sprintf(sub_dir_path, "./proc_r%d_p%d_t%d",
+        proc_cfg->m_round, proc_cfg->m_phase, proc_cfg->m_thread);
+    if (access(sub_dir_path, F_OK) == -1)
+    {
+        mkdir(sub_dir_path, 0775);
     }
 
     std::cout << "Enter bridge_thread " << proc_cfg->m_command << std::endl;
@@ -360,16 +420,10 @@ void *bridge_thread(void * __args_ptr)
         dup2(pipe_stdout[1], STDOUT_FILENO);
         dup2(pipe_stderr[1], STDERR_FILENO);
 
-        // Change working directory.
-        char* cwd = new char[128];
-        sprintf(cwd, "./proc_r%d_t%d", proc_cfg->m_round, proc_cfg->m_thread);
-        if (access(cwd, F_OK) == -1)
-        {
-            mkdir(cwd, 0775);
-            perror("mkdir");
-        }
-        chdir(cwd);
+        // Change directory to sub-process.
+        chdir(sub_dir_path);
         perror("chdir");
+        // TODO: Copy necessary configuration file.
         system("cp ../*.icnt ../*.config ../*.xml .");
         perror("system");
 
@@ -419,9 +473,17 @@ void *bridge_thread(void * __args_ptr)
         pollfd fd_list[2] = {{fd: stdout_fd, events: POLL_IN},
                              {fd: stderr_fd, events: POLL_IN}};
 
-        char* pipe_buf = new char[PIPE_BUF_SIZE + 1];
-        std::ofstream log_file(proc_cfg->m_log_file);
+        // Move log to subfolder.
+        std::ofstream log_file(std::string(sub_dir_path) + "/" + proc_cfg->m_log_file);
 
+        // Write execution start time to log file.
+        std::time_t t = std::time(0);
+        std::tm* now = std::localtime(&t);
+        log_file << "Execution starts at "
+            << (now->tm_year + 1900) << "-" << (now->tm_mon + 1) << "-" << now->tm_mday << "  "
+            << (now->tm_hour) << ":" << (now->tm_min) << ":" << (now->tm_sec) << std::endl;
+
+        char* pipe_buf = new char[PIPE_BUF_SIZE + 1];
         bool to_stdout = proc_cfg->m_to_stdout;
         int res = 0;
         while (true)
@@ -489,11 +551,6 @@ InterChiplet::TimeType __loop_phase_one(int __round,
 {
     // Create synchronize data structure.
     SyncStruct* g_sync_structure = new SyncStruct();
-    if (pthread_mutex_init(&g_sync_structure->m_mutex, NULL) < 0)
-    {
-        perror("pthread_mutex_init");
-        exit(EXIT_FAILURE);
-    }
 
     // Load delay record.
     g_sync_structure->m_delay_list.load_delay("delayInfo.txt");
@@ -504,6 +561,7 @@ InterChiplet::TimeType __loop_phase_one(int __round,
     for (auto& proc_cfg: __proc_cfg_list)
     {
         proc_cfg->m_round = __round;
+        proc_cfg->m_phase = 1;
         proc_cfg->m_thread = thread_i;
         thread_i ++;
         proc_cfg->m_sync_struct = g_sync_structure;
@@ -523,10 +581,9 @@ InterChiplet::TimeType __loop_phase_one(int __round,
     std::cout << "All process has exit." << std::endl;
 
     // End handle.
-    pthread_mutex_destroy(&g_sync_structure->m_mutex);
 
     // Remove file.
-    for (auto& __name: g_sync_structure->m_fifo_set)
+    for (auto& __name: g_sync_structure->m_fifo_list)
     {
         remove(__name.c_str());
     }
@@ -535,6 +592,7 @@ InterChiplet::TimeType __loop_phase_one(int __round,
     g_sync_structure->m_bench_list.dump_bench("bench.txt");
     std::cout << "Dump " << g_sync_structure->m_bench_list.size() << " bench records." << std::endl;
 
+    // Destory global synchronize structure, and return total cycle.
     InterChiplet::TimeType res_cycle = g_sync_structure->m_cycle;
     delete g_sync_structure;
     return res_cycle;
@@ -545,17 +603,13 @@ void __loop_phase_two(int __round,
 {
     // Create synchronize data structure.
     SyncStruct* g_sync_structure = new SyncStruct();
-    if (pthread_mutex_init(&g_sync_structure->m_mutex, NULL) < 0)
-    {
-        perror("pthread_mutex_init");
-        exit(EXIT_FAILURE);
-    }
 
     // Create multi-thread.
     int thread_i = 0;
     for (auto& proc_cfg: __proc_cfg_list)
     {
         proc_cfg->m_round = __round;
+        proc_cfg->m_phase = 2;
         proc_cfg->m_thread = thread_i;
         thread_i ++;
         proc_cfg->m_sync_struct = g_sync_structure;
@@ -574,8 +628,7 @@ void __loop_phase_two(int __round,
     }
     std::cout << "All process has exit." << std::endl;
 
-    // End handle.
-    pthread_mutex_destroy(&g_sync_structure->m_mutex);
+    // Destory global synchronize structure.
     delete g_sync_structure;
 }
 
@@ -597,33 +650,41 @@ int main(int argc, char** argv)
     std::vector<ProcessConfig*> phase2_proc_cfg_list;
     // ./popnet -A 9 -c 2 -V 3 -B 12 -O 12 -F 4 -L 1000 -T 20000 -r 1 -I ./bench.txt -R 0
     phase2_proc_cfg_list.push_back(
-        new ProcessConfig("../../popnet/popnet",
+        new ProcessConfig("../../../popnet/popnet",
             {"-A", "9", "-c", "2", "-V", "3", "-B", "12", "-O", "12", "-F", "4",
-             "-L", "1000", "-T", "10000000", "-r", "1", "-I", "./bench.txt", "-R", "0"},
+             "-L", "1000", "-T", "10000000", "-r", "1", "-I", "../bench.txt", "-R", "0"},
             "popnet.log", false));
 
     int timeout_round = 2;
     double err_rate_threshold = 0.005;
 
+    // Get start time of simulation.
 	struct timeval simstart, simend, roundstart, roundend;
 	gettimeofday(&simstart, 0);
 
     long long sim_cycle = 0;
     for (int round = 1; round <= timeout_round; round ++)
     {
+        // Get start time of one round.
 	    gettimeofday(&roundstart, 0);
         std::cout << "[COMMBRIDGE] *** Round " << round << " Phase 1 ***" << std::endl;
         InterChiplet::TimeType round_cycle = __loop_phase_one(round, phase1_proc_cfg_list);
 
+        // Get simulation cycle.
+        // If simulation cycle this round is close to the previous one, quit iteration.
         std::cout << "[COMMBRIDGE] Benchmark elapses " << round_cycle << " cycle." << std::endl;
         if (round > 1)
         {
+            // Calculate error of simulation cycle.
             double err_rate = ((double)round_cycle - (double)sim_cycle) / (double)round_cycle;
             err_rate = err_rate < 0 ? - err_rate : err_rate;
-            std::cout << "[COMMBRIDGE] Difference related to pervious round is " << err_rate * 100 << "%." << std::endl;
+            std::cout << "[COMMBRIDGE] Difference related to pervious round is "
+                << err_rate * 100 << "%." << std::endl;
+            // If difference is small enough, quit loop.
             if (err_rate < err_rate_threshold)
             {
-                std::cout << "[COMMBRIDGE] Quit simulation because simulation cycle has converged." << std::endl;
+                std::cout << "[COMMBRIDGE] Quit simulation because simulation cycle has converged."
+                    << std::endl;
                 sim_cycle = round_cycle;
                 break;
             }
@@ -633,8 +694,8 @@ int main(int argc, char** argv)
         std::cout << "[COMMBRIDGE] *** Round " << round << " Phase 2 ***" << std::endl;
         __loop_phase_two(round, phase2_proc_cfg_list);
 
+        // Get end time of one round.
         gettimeofday(&roundend, 0);
-
         unsigned long elaped_sec = roundend.tv_sec - roundstart.tv_sec;
         std::cout << "[COMMBRIDGE] Round " << round << " elapses "
             << elaped_sec / 3600 / 24 << "d "
@@ -643,6 +704,7 @@ int main(int argc, char** argv)
             << elaped_sec % 60 << "s." << std::endl;
     }
 
+    // Get end time of simulation.
     std::cout << "[COMMBRIDGE] *** End of Simulation ***" << std::endl;
     gettimeofday(&simend, 0);
     unsigned long elaped_sec = simend.tv_sec - simstart.tv_sec;
@@ -653,11 +715,13 @@ int main(int argc, char** argv)
         << (elaped_sec / 60) % 60 << "m "
         << elaped_sec % 60 << "s." << std::endl;
 
+    // Clear process configuration for phase 1.
     for (auto& item: phase1_proc_cfg_list)
     {
         delete item;
     }
     phase1_proc_cfg_list.clear();
+    // Clear process configuration for phase 2.
     for (auto& item: phase2_proc_cfg_list)
     {
         delete item;
