@@ -469,7 +469,7 @@ void sim_router_template::receive_packet()
 		if(localInputTraces.empty())return;
 		SPacket&p=localInputTraces.front();
 		inject_packet(packet_counter_, /* sor_addr_t */p.sourceAddress,
-					  /* des_addr_t */p.destinationAddress, local_input_time_, /* pack_size_t */p.packetSize);
+					  /* des_addr_t */p.destinationAddress, p.startTime, /* pack_size_t */p.packetSize);
 		packet_counter_++;
 
 		//second, create next EVG_ event
@@ -1128,20 +1128,20 @@ void sim_router_template::flit_traversal(long i)
 void sim_router_template::accept_flit(time_type a, const flit_template &b)
 {
 	//changed at 2020-5-9
-	static ofstream ofs("delayInfo.txt");
+	static ofstream ofs("../delayInfo.txt");
 	if (/* b.type() == TAIL_ */ isTail(b.type()))
 	{
 		mess_queue::wm_pointer().TotFin_inc();
 		time_type t = a - b.start_time();
 		delay_update(t);
 		//发送时间（周期），源地址，目的地址，延迟（周期）
-		ofs << b.start_time() << ' '
+		ofs << (unsigned long long)b.start_time() << ' '
 			/* <<a<<' ' */;
 		for (auto &x : b.sor_addr())
 			ofs << x << ' ';
 		for (auto &x : b.des_addr())
 			ofs << x << ' ';
-		ofs << t << endl;
+		ofs << (unsigned long long)t << endl;
 	}
 }
 

@@ -1,0 +1,330 @@
+diff --git a/common/core/core.cc b/common/core/core.cc
+index 33f7f92..25d789e 100644
+--- a/common/core/core.cc
++++ b/common/core/core.cc
+@@ -19,6 +19,8 @@
+ 
+ #include <cstring>
+ 
++#include "../../../interchiplet/includes/pipe_comm.h"
++
+ #if 0
+    extern Lock iolock;
+ #  define MYLOG(...) { ScopedLock l(iolock); fflush(stderr); fprintf(stderr, "[%8lu] %dcor %-25s@%03u: ", getPerformanceModel()->getCycleCount(ShmemPerfModel::_USER_THREAD), m_core_id, __FUNCTION__, __LINE__); fprintf(stderr, __VA_ARGS__); fprintf(stderr, "\n"); fflush(stderr); }
+@@ -127,6 +129,13 @@ void Core::enablePerformanceModels()
+ 
+ void Core::disablePerformanceModels()
+ {
++   SubsecondTime start_time = getPerformanceModel()->getElapsedTime();
++   // Convert SubsecondTime to cycles in global clock domain
++   const ComponentPeriod *dom_global = Sim()->getDvfsManager()->getGlobalDomain();
++   UInt64 cycles = SubsecondTime::divideRounded(start_time, *dom_global);
++   // Send cycle command.
++   InterChiplet::SyncProtocol::sendCycleCmd(cycles);
++
+    getShmemPerfModel()->disable();
+    getMemoryManager()->disableModels();
+    getNetwork()->disableModels();
+diff --git a/common/core/syscall_model.cc b/common/core/syscall_model.cc
+index c336283..fb3045b 100644
+--- a/common/core/syscall_model.cc
++++ b/common/core/syscall_model.cc
+@@ -14,6 +14,7 @@
+ #include "stats.h"
+ #include "syscall_strings.h"
+ #include "circular_log.h"
++#include "dvfs_manager.h"
+ 
+ #include <errno.h>
+ #include <sys/syscall.h>
+@@ -23,6 +24,14 @@
+ 
+ #include <boost/algorithm/string.hpp>
+ 
++//changed at 2020-3-27
++#include "../../../interchiplet/includes/pipe_comm.h"
++#include <unordered_map>
++#include <cstdint>
++//#include<atomic>
++#include <map>
++//#include<mutex>
++
+ const char *SyscallMdl::futex_names[] =
+ {
+    "FUTEX_WAIT", "FUTEX_WAKE", "FUTEX_FD", "FUTEX_REQUEUE",
+@@ -31,6 +40,17 @@ const char *SyscallMdl::futex_names[] =
+    "FUTEX_CMP_REQUEUE_PI"
+ };
+ 
++//changed at 2020-5-4
++struct SPortInfo
++{
++   int64_t localPort, remoteAddr, remotePort;
++};
++//typedef std::map<int64_t,int64_t> des_addr_map_t;
++typedef std::unordered_map<int64_t, SPortInfo> des_addr_map_t;
++des_addr_map_t des_addr_map;
++std::ofstream msg_record("message_record.txt");
++//pthread_mutex_t mtx;
++
+ SyscallMdl::SyscallMdl(Thread *thread)
+       : m_thread(thread)
+       , m_emulated(false)
+@@ -290,6 +310,172 @@ bool SyscallMdl::runEnter(IntPtr syscall_number, syscall_args_t &args)
+          break;
+       }
+ 
++      //changed at 2020-3-27
++      //syscall numbers on inter-chiplet operations
++      case InterChiplet::SYSCALL_TEST_CHANGE:
++         //testing
++         std::cout << "Test succeeds(core)\n";
++         break;
++
++      case InterChiplet::SYSCALL_REMOTE_READ:
++      {
++         //TODO: 跨芯粒读
++         //read from other chiplet
++         ScopedLock sl(Sim()->getThreadManager()->getLock());
++         auto cur_time = m_thread->getCore()->getPerformanceModel()->getElapsedTime();
++         des_addr_map_t::iterator it = des_addr_map.find(args.arg0);
++         //recv (local port) (remote address) (remote port) (local core) (time by nanosecond)
++         if (it != des_addr_map.end())
++         {
++            msg_record << "recv "
++                     << args.arg0 << ' '
++                     << it->second.remoteAddr << ' '
++                     << it->second.remotePort << ' '
++                     << m_thread->getCore()->getId() << ' '
++                     << cur_time.getNS() << std::endl;
++         }
++         Sim()->getThreadManager()->stallThread_async(
++            m_thread->getId(),
++            ThreadManager::STALL_SYSCALL,
++            cur_time);
++         m_stalled = true;
++         break;
++      }
++
++      case InterChiplet::SYSCALL_REMOTE_WRITE:
++      {
++         //TODO: 跨芯粒写
++         ScopedLock sl(Sim()->getThreadManager()->getLock());
++         auto cur_time = m_thread->getCore()->getPerformanceModel()->getElapsedTime();
++         des_addr_map_t::iterator it = des_addr_map.find(args.arg0);
++         //send 本地端口 远程地址 远程端口 本地核心 时间（按纳秒计）
++         if (it != des_addr_map.end())
++         {
++            msg_record << "send "
++                     << args.arg0 << ' '
++                     << it->second.remoteAddr << ' '
++                     << it->second.remotePort << ' '
++                     << m_thread->getCore()->getId() << ' '
++                     << cur_time.getNS() << std::endl;
++         }
++         Sim()->getThreadManager()->stallThread_async(
++            m_thread->getId(),
++            ThreadManager::STALL_SYSCALL,
++            cur_time);
++         m_stalled = true;
++         break;
++      }
++
++      case InterChiplet::SYSCALL_REG_FUNC:
++      {
++         ScopedLock sl(Sim()->getThreadManager()->getLock());
++         Sim()->getThreadManager()->stallThread_async(
++            m_thread->getId(),
++            ThreadManager::STALL_SYSCALL,
++            m_thread->getCore()->getPerformanceModel()->getElapsedTime());
++         m_stalled = true;
++         break;
++      }
++      case InterChiplet::SYSCALL_CONNECT:
++      {
++         ScopedLock sl(Sim()->getThreadManager()->getLock());
++         des_addr_map_t::iterator it = des_addr_map.find(args.arg0);
++         //本地端口 远程地址 远程端口
++         if (it == des_addr_map.end())
++            des_addr_map.insert(std::pair<int64_t, SPortInfo>(args.arg0,
++                                                            {args.arg0, args.arg1, args.arg2}));
++         Sim()->getThreadManager()->stallThread_async(
++            m_thread->getId(),
++            ThreadManager::STALL_SYSCALL,
++            m_thread->getCore()->getPerformanceModel()->getElapsedTime());
++         m_stalled = true;
++         break;
++      }
++      case InterChiplet::SYSCALL_DISCONNECT:
++      {
++         ScopedLock sl(Sim()->getThreadManager()->getLock());
++         //本地端口
++         des_addr_map.erase(args.arg0);
++         Sim()->getThreadManager()->stallThread_async(
++            m_thread->getId(),
++            ThreadManager::STALL_SYSCALL,
++            m_thread->getCore()->getPerformanceModel()->getElapsedTime());
++         m_stalled = true;
++         break;
++      }
++      case InterChiplet::SYSCALL_GET_LOCAL_ADDR:
++      {
++         ScopedLock sl(Sim()->getThreadManager()->getLock());
++         Sim()->getThreadManager()->stallThread_async(
++            m_thread->getId(),
++            ThreadManager::STALL_SYSCALL,
++            m_thread->getCore()->getPerformanceModel()->getElapsedTime());
++         m_stalled = true;
++         break;
++      }
++      case InterChiplet::SYSCALL_SEND_TO_GPU:
++      {
++         // Get current cycle
++         SubsecondTime start_time = m_thread->getCore()->getPerformanceModel()->getElapsedTime();
++         // Convert SubsecondTime to cycles in global clock domain
++         const ComponentPeriod *dom_global = Sim()->getDvfsManager()->getGlobalDomain();
++         UInt64 cycles = SubsecondTime::divideRounded(start_time, *dom_global);
++
++         // Send WRITE command and wait for SYNC.
++         int dst_x = args.arg0;
++         int dst_y = args.arg1;
++         int src_x = args.arg2;
++         int src_y = args.arg3;
++         int nbytes = args.arg5;
++         long long int end_time = InterChiplet::SyncProtocol::writeSync(
++            cycles, src_x, src_y, dst_x, dst_y, nbytes);
++
++         // Update simulator time.
++         ComponentPeriod time_wake_period = *(Sim()->getDvfsManager()->getGlobalDomain()) * end_time;
++         SubsecondTime time_wake = time_wake_period.getPeriod();
++         SubsecondTime sleep_end_time;
++         Sim()->getSyscallServer()->handleSleepCall(m_thread->getId(), time_wake, start_time, sleep_end_time);
++
++         // Sleep core until specified time.
++         if (m_thread->reschedule(sleep_end_time, core))
++            core = m_thread->getCore();
++
++         core->getPerformanceModel()->queuePseudoInstruction(new SyncInstruction(sleep_end_time, SyncInstruction::SLEEP));
++
++         break;
++      }
++      case InterChiplet::SYSCALL_READ_FROM_GPU:
++      {
++         // Get current cycle
++         SubsecondTime start_time = m_thread->getCore()->getPerformanceModel()->getElapsedTime();
++         // Convert SubsecondTime to cycles in global clock domain
++         const ComponentPeriod *dom_global = Sim()->getDvfsManager()->getGlobalDomain();
++         UInt64 cycles = SubsecondTime::divideRounded(start_time, *dom_global);
++
++         // Send WRITE command and wait for SYNC.
++         int dst_x = args.arg0;
++         int dst_y = args.arg1;
++         int src_x = args.arg2;
++         int src_y = args.arg3;
++         int nbytes = args.arg5;
++         long long int end_time = InterChiplet::SyncProtocol::readSync(
++            cycles, src_x, src_y, dst_x, dst_y, nbytes);
++
++         // Update simulator time.
++         ComponentPeriod time_wake_period = *(Sim()->getDvfsManager()->getGlobalDomain()) * end_time;
++         SubsecondTime time_wake = time_wake_period.getPeriod();
++         SubsecondTime sleep_end_time;
++         Sim()->getSyscallServer()->handleSleepCall(m_thread->getId(), time_wake, start_time, sleep_end_time);
++
++         // Sleep core until specified time.
++         if (m_thread->reschedule(sleep_end_time, core))
++            core = m_thread->getCore();
++
++         core->getPerformanceModel()->queuePseudoInstruction(new SyncInstruction(sleep_end_time, SyncInstruction::SLEEP));
++
++         break;
++      }
++
+       case static_cast<unsigned long>(-1):
+       default:
+          break;
+diff --git a/sift/recorder/syscall_modeling.cc b/sift/recorder/syscall_modeling.cc
+index 4944127..cde1de5 100644
+--- a/sift/recorder/syscall_modeling.cc
++++ b/sift/recorder/syscall_modeling.cc
+@@ -7,6 +7,8 @@
+ #include <unistd.h>
+ #include <syscall.h>
+ 
++#include "../../../interchiplet/includes/pipe_comm.h"
++
+ bool handleAccessMemory(void *arg, Sift::MemoryLockType lock_signal, Sift::MemoryOpType mem_op, uint64_t d_addr, uint8_t* data_buffer, uint32_t data_size)
+ {
+    // Lock memory globally if requested
+@@ -40,6 +42,8 @@ bool handleAccessMemory(void *arg, Sift::MemoryLockType lock_signal, Sift::Memor
+    return true;
+ }
+ 
++InterChiplet::PipeComm global_pipe_comm;
++
+ // Emulate all system calls
+ // Do this as a regular callback (versus syscall enter/exit functions) as those hold the global pin lock
+ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
+@@ -174,6 +178,62 @@ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
+          case SYS_exit_group:
+             thread_data[threadid].output->Syscall(syscall_number, (char*)args, sizeof(args));
+             break;
++         // Send data to GPU.
++         case InterChiplet::SYSCALL_SEND_TO_GPU:
++         {
++            thread_data[threadid].last_syscall_number = syscall_number;
++            thread_data[threadid].last_syscall_emulated=true;
++
++            int dstX = args[0];
++            int dstY = args[1];
++            int srcX = args[2];
++            int srcY = args[3];
++            int* data = (int*)args[4];
++            int nbytes = args[5];
++
++            printf("Enter Sniper passGpuMessage\n");
++            // Pipe sync
++            InterChiplet::SyncProtocol::pipeSync(srcX, srcY, dstX, dstY);
++            // Write data
++            char * fileName = InterChiplet::SyncProtocol::pipeName(srcX, srcY, dstX, dstY);
++            global_pipe_comm.write_data(fileName, data, nbytes);
++            delete fileName;
++
++            thread_data[threadid].last_syscall_returnval = 1;
++            thread_data[threadid].output->Syscall(
++               syscall_number,
++               (char *)args,
++               sizeof(args));
++         break;
++         }
++         // Read data from GPU.
++         case InterChiplet::SYSCALL_READ_FROM_GPU:
++         {
++            thread_data[threadid].last_syscall_number = syscall_number;
++            thread_data[threadid].last_syscall_emulated=true;
++
++            int dstX = args[0];
++            int dstY = args[1];
++            int srcX = args[2];
++            int srcY = args[3];
++            int* data = (int*)args[4];
++            int nbytes = args[5];
++
++            printf("Enter Sniper readGpuMessage\n");
++            // Pipe sync
++            InterChiplet::SyncProtocol::pipeSync(srcX, srcY, dstX, dstY);
++            // Read data
++            char * fileName = InterChiplet::SyncProtocol::pipeName(srcX, srcY, dstX, dstY);
++            global_pipe_comm.read_data(fileName, data, nbytes);
++            delete fileName;
++
++            thread_data[threadid].last_syscall_returnval = 1;
++            thread_data[threadid].output->Syscall(
++               syscall_number,
++               (char *)args,
++               sizeof(args));
++            break;
++         }
+       }
+    }
+ }

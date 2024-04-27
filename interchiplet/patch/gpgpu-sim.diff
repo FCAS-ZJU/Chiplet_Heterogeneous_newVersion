@@ -1,0 +1,203 @@
+diff --git a/src/cuda-sim/instructions.cc b/src/cuda-sim/instructions.cc
+index 8936fa8..c04fd5f 100644
+--- a/src/cuda-sim/instructions.cc
++++ b/src/cuda-sim/instructions.cc
+@@ -43,7 +43,9 @@ class ptx_recognizer;
+ #include <cmath>
+ #include <map>
+ #include <sstream>
++#include <iostream>
+ #include <string>
++#include <vector>
+ #include "../abstract_hardware_model.h"
+ #include "../gpgpu-sim/gpu-sim.h"
+ #include "../gpgpu-sim/shader.h"
+@@ -52,6 +54,8 @@ class ptx_recognizer;
+ #include "ptx.tab.h"
+ #include "ptx_loader.h"
+ 
++#include "../../../interchiplet/includes/pipe_comm.h"
++
+ // Jin: include device runtime for CDP
+ #include "cuda_device_runtime.h"
+ 
+@@ -1073,8 +1077,123 @@ void add_impl(const ptx_instruction *pI, ptx_thread_info *thread) {
+   thread->set_operand_value(dst, data, i_type, thread, pI, overflow, carry);
+ }
+ 
+-void addc_impl(const ptx_instruction *pI, ptx_thread_info *thread) {
+-  inst_not_implemented(pI);
++InterChiplet::PipeComm global_pipe_comm;
++
++std::vector<uint32_t> syscall_op_list;
++void decode_space(memory_space_t &space, ptx_thread_info *thread,
++                  const operand_info &op, memory_space *&mem, addr_t &addr);
++
++//void decode_space(memory_space_t &space, ptx_thread_info *thread,
++//                  const operand_info &op, memory_space *&mem, addr_t &addr);
++
++void addc_impl( const ptx_instruction *pI, ptx_thread_info *thread ) 
++{ 
++	ptx_reg_t src1_data, src2_data, data;
++
++  const operand_info &dst  = pI->dst();
++  const operand_info &src1 = pI->src1();
++  const operand_info &src2 = pI->src2();
++  unsigned i_type = pI->get_type();
++  src1_data = thread->get_operand_value(src1, dst, i_type, thread, 1);
++  src2_data = thread->get_operand_value(src2, dst, i_type, thread, 1);
++  /**
++   * 传入的两个参数为src1_data.u64和src2_data.u64
++   *
++   * src1_data.u64是一个9位数, abcdefghi。ad表示src的x坐标，cd表示src的y坐标，ef表示dst的x坐标，gh表示dst的y坐标，i表是读请求还是写请求
++   * src2_data.u64是一个int型，在写请求中表示要写的数据，在读请求中表示请求的数据号
++   *
++   */
++  //std::cout<<"Step 1\n";
++
++  int data1 = src1_data.u64;
++  int data2 = src2_data.u64;
++  data.u64 = 0;
++
++  if (data2 == InterChiplet::CUDA_SYSCALL_ARG)
++  {
++    syscall_op_list.push_back(data1);
++    thread->set_operand_value(dst, data, i_type, thread, pI, 0, 0  );
++    std::cerr << "Add Syscall parameter " << data1 << std::endl;
++  }
++  else if (data2 == InterChiplet::CUDA_SYSCALL_CMD)
++  {
++    if (data1 == InterChiplet::SYSCALL_READ_FROM_GPU) // write message
++    {
++      int dst_x = syscall_op_list[0];
++      int dst_y = syscall_op_list[1];
++      int src_x = syscall_op_list[2];
++      int src_y = syscall_op_list[3];
++      uint64_t data_ptr = (uint64_t)syscall_op_list[4] + ((uint64_t)syscall_op_list[5] << 32);
++      int* data = (int*)data_ptr;
++      int nbytes = syscall_op_list[6];
++
++      // Read data from GPU memory.
++      uint8_t* interdata = new uint8_t[nbytes];
++      memory_space_t space;
++      space.set_type(global_space); // TODO: how to accept other space?
++      memory_space *mem = NULL;
++      addr_t addr = data_ptr;
++      decode_space(space, thread, src1, mem, addr);
++      mem->read(addr, nbytes, interdata);
++
++      // write data to chiplet.
++      long long unsigned int timeNow = thread->get_gpu()->gpu_sim_cycle+thread->get_gpu()->gpu_tot_sim_cycle;
++      std::cerr << "Enter GPGPUSim passMessage" << std::endl;
++      // Pipe
++      InterChiplet::SyncProtocol::pipeSync(src_x, src_y, dst_x, dst_y);
++      // Write data
++      char * fileName = InterChiplet::SyncProtocol::pipeName(src_x, src_y, dst_x, dst_y);
++      global_pipe_comm.write_data(fileName, interdata, nbytes);
++      delete fileName;
++      // Sync clock.
++      long long int timeEnd = InterChiplet::SyncProtocol::writeSync(
++        timeNow, src_x, src_y, dst_x, dst_y, nbytes);
++      thread->get_gpu()->chiplet_direct_set_cycle(timeEnd);
++
++      syscall_op_list.clear();
++    }
++    else if (data1 == InterChiplet::SYSCALL_SEND_TO_GPU) // read message
++    {
++      int dst_x = syscall_op_list[0];
++      int dst_y = syscall_op_list[1];
++      int src_x = syscall_op_list[2];
++      int src_y = syscall_op_list[3];
++      uint64_t data_ptr = (uint64_t)syscall_op_list[4] + ((uint64_t)syscall_op_list[5] << 32);
++      int* data = (int*)data_ptr;
++      int nbytes = syscall_op_list[6];
++
++      // read data from chiplet.
++      uint8_t* interdata = new uint8_t[nbytes];
++      long long unsigned int timeNow = thread->get_gpu()->gpu_sim_cycle+thread->get_gpu()->gpu_tot_sim_cycle;
++      std::cerr << "Enter GPGPUSim readMessage" << std::endl;
++      // Pipe
++      InterChiplet::SyncProtocol::pipeSync(src_x, src_y, dst_x, dst_y);
++      // Read data
++      char * fileName = InterChiplet::SyncProtocol::pipeName(src_x, src_y, dst_x, dst_y);
++      global_pipe_comm.read_data(fileName, interdata, nbytes);
++      delete fileName;
++      // Sync clock.
++      long long int timeEnd = InterChiplet::SyncProtocol::readSync(
++        timeNow, src_x, src_y, dst_x, dst_y, nbytes);
++      thread->get_gpu()->chiplet_direct_set_cycle(timeEnd);
++
++      // write data to GPU memory.
++      memory_space_t space;
++      space.set_type(global_space); // TODO: how to accept other space?
++      memory_space *mem = NULL;
++      addr_t addr = data_ptr;
++      decode_space(space, thread, dst, mem, addr);
++      mem->write(addr, nbytes, interdata, thread, pI);
++      delete interdata;
++
++      syscall_op_list.clear();
++    }
++    else
++    {
++      data.u64 = -1;
++    }
++  }
++  thread->set_operand_value(dst, data, i_type, thread, pI, 0, 0  );
+ }
+ 
+ void and_impl(const ptx_instruction *pI, ptx_thread_info *thread) {
+diff --git a/src/gpgpu-sim/gpu-sim.cc b/src/gpgpu-sim/gpu-sim.cc
+index 1650688..478a576 100644
+--- a/src/gpgpu-sim/gpu-sim.cc
++++ b/src/gpgpu-sim/gpu-sim.cc
+@@ -81,6 +81,9 @@ class gpgpu_sim_wrapper {};
+ #define MAX(a, b) (((a) > (b)) ? (a) : (b))
+ 
+ bool g_interactive_debugger_enabled = false;
++// TODO: directly forward GPU cycle.
++bool g_chiplet_directly_set_cycle = false;
++unsigned long long g_chiplet_directly_set_cycle_val = 0;
+ 
+ tr1_hash_map<new_addr_type, unsigned> address_random_interleaving;
+ 
+@@ -1854,6 +1857,13 @@ void gpgpu_sim::cycle() {
+       raise(SIGTRAP);  // Debug breakpoint
+     }
+     gpu_sim_cycle++;
++    // TODO: quick forward cycle.
++    if (g_chiplet_directly_set_cycle)
++    {
++      std::cout << "Directly set cycle to " << g_chiplet_directly_set_cycle_val << std::endl;
++      gpu_sim_cycle = g_chiplet_directly_set_cycle_val;
++      g_chiplet_directly_set_cycle = false;
++    }
+ 
+     if (g_interactive_debugger_enabled) gpgpu_debug();
+ 
+@@ -2051,3 +2061,10 @@ const shader_core_config *gpgpu_sim::getShaderCoreConfig() {
+ const memory_config *gpgpu_sim::getMemoryConfig() { return m_memory_config; }
+ 
+ simt_core_cluster *gpgpu_sim::getSIMTCluster() { return *m_cluster; }
++
++// Directly set cycle
++void gpgpu_sim::chiplet_direct_set_cycle(long long int end_time)
++{
++  g_chiplet_directly_set_cycle_val = end_time;
++  g_chiplet_directly_set_cycle = true;
++}
+\ No newline at end of file
+diff --git a/src/gpgpu-sim/gpu-sim.h b/src/gpgpu-sim/gpu-sim.h
+index 2e6820d..5c0ce40 100644
+--- a/src/gpgpu-sim/gpu-sim.h
++++ b/src/gpgpu-sim/gpu-sim.h
+@@ -565,6 +565,9 @@ class gpgpu_sim : public gpgpu_t {
+   // backward pointer
+   class gpgpu_context *gpgpu_ctx;
+ 
++  // Directly set gpu cycle.
++  void chiplet_direct_set_cycle(long long int end_time);
++
+  private:
+   // clocks
+   void reinit_clock_domains(void);
