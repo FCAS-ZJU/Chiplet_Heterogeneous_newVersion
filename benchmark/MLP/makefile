@@ -21,12 +21,13 @@ GIT_REPO=https://github.com/nlohmann/json.git
 all: sniper_target gpgpusim_target
 
 sniper_target: $(SNIPER_OBJS)
-	if [ ! -d $(REPO_DIR) ]; then \
-        git clone $(GIT_REPO) $(REPO_DIR); \
-    fi
 	$(CC) -g $(SNIPER_OBJS) $(INTERCHIPLETLIB) -o $(SNIPER_TARGET) -lpthread
 
 %.o: %.cpp
+	if [ ! -d $(REPO_DIR) ]; then \
+        git clone $(GIT_REPO) $(REPO_DIR); \
+    fi
+	
 	$(CC) $(CFLAGS) -c $< -o $@
 
 debug: CFLAGS += -DDEBUG -g
