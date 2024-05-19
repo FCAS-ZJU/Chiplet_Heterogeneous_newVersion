@@ -1137,7 +1137,8 @@ void addc_impl( const ptx_instruction *pI, ptx_thread_info *thread )
       mem->read(addr, nbytes, interdata);
 
       // write data to chiplet.
-      long long unsigned int timeNow = thread->get_gpu()->gpu_sim_cycle+thread->get_gpu()->gpu_tot_sim_cycle;
+      long long unsigned int timeNow =
+        thread->get_gpu()->gpu_sim_cycle + thread->get_gpu()->gpu_tot_sim_cycle;
       std::cerr << "Enter GPGPUSim passMessage" << std::endl;
       // Pipe
       InterChiplet::SyncProtocol::pipeSync(src_x, src_y, dst_x, dst_y);
@@ -1148,7 +1149,7 @@ void addc_impl( const ptx_instruction *pI, ptx_thread_info *thread )
       // Sync clock.
       long long int timeEnd = InterChiplet::SyncProtocol::writeSync(
         timeNow, src_x, src_y, dst_x, dst_y, nbytes);
-      thread->get_gpu()->chiplet_direct_set_cycle(timeEnd);
+      thread->get_gpu()->chiplet_direct_set_cycle(timeEnd - thread->get_gpu()->gpu_tot_sim_cycle);
 
       syscall_op_list.clear();
     }
@@ -1164,7 +1165,8 @@ void addc_impl( const ptx_instruction *pI, ptx_thread_info *thread )
 
       // read data from chiplet.
       uint8_t* interdata = new uint8_t[nbytes];
-      long long unsigned int timeNow = thread->get_gpu()->gpu_sim_cycle+thread->get_gpu()->gpu_tot_sim_cycle;
+      long long unsigned int timeNow =
+        thread->get_gpu()->gpu_sim_cycle + thread->get_gpu()->gpu_tot_sim_cycle;
       std::cerr << "Enter GPGPUSim readMessage" << std::endl;
       // Pipe
       InterChiplet::SyncProtocol::pipeSync(src_x, src_y, dst_x, dst_y);
@@ -1175,7 +1177,7 @@ void addc_impl( const ptx_instruction *pI, ptx_thread_info *thread )
       // Sync clock.
       long long int timeEnd = InterChiplet::SyncProtocol::readSync(
         timeNow, src_x, src_y, dst_x, dst_y, nbytes);
-      thread->get_gpu()->chiplet_direct_set_cycle(timeEnd);
+      thread->get_gpu()->chiplet_direct_set_cycle(timeEnd - thread->get_gpu()->gpu_tot_sim_cycle);
 
       // write data to GPU memory.
       memory_space_t space;
