@@ -1,5 +1,5 @@
 diff --git a/src/cuda-sim/instructions.cc b/src/cuda-sim/instructions.cc
-index 8936fa8..c04fd5f 100644
+index 8936fa8..ab90a9e 100644
 --- a/src/cuda-sim/instructions.cc
 +++ b/src/cuda-sim/instructions.cc
 @@ -43,7 +43,9 @@ class ptx_recognizer;
@@ -21,7 +21,7 @@ index 8936fa8..c04fd5f 100644
  // Jin: include device runtime for CDP
  #include "cuda_device_runtime.h"
  
-@@ -1073,8 +1077,123 @@ void add_impl(const ptx_instruction *pI, ptx_thread_info *thread) {
+@@ -1073,8 +1077,125 @@ void add_impl(const ptx_instruction *pI, ptx_thread_info *thread) {
    thread->set_operand_value(dst, data, i_type, thread, pI, overflow, carry);
  }
  
@@ -87,7 +87,8 @@ index 8936fa8..c04fd5f 100644
 +      mem->read(addr, nbytes, interdata);
 +
 +      // write data to chiplet.
-+      long long unsigned int timeNow = thread->get_gpu()->gpu_sim_cycle+thread->get_gpu()->gpu_tot_sim_cycle;
++      long long unsigned int timeNow =
++        thread->get_gpu()->gpu_sim_cycle + thread->get_gpu()->gpu_tot_sim_cycle;
 +      std::cerr << "Enter GPGPUSim passMessage" << std::endl;
 +      // Pipe
 +      InterChiplet::SyncProtocol::pipeSync(src_x, src_y, dst_x, dst_y);
@@ -98,7 +99,7 @@ index 8936fa8..c04fd5f 100644
 +      // Sync clock.
 +      long long int timeEnd = InterChiplet::SyncProtocol::writeSync(
 +        timeNow, src_x, src_y, dst_x, dst_y, nbytes);
-+      thread->get_gpu()->chiplet_direct_set_cycle(timeEnd);
++      thread->get_gpu()->chiplet_direct_set_cycle(timeEnd - thread->get_gpu()->gpu_tot_sim_cycle);
 +
 +      syscall_op_list.clear();
 +    }
@@ -114,7 +115,8 @@ index 8936fa8..c04fd5f 100644
 +
 +      // read data from chiplet.
 +      uint8_t* interdata = new uint8_t[nbytes];
-+      long long unsigned int timeNow = thread->get_gpu()->gpu_sim_cycle+thread->get_gpu()->gpu_tot_sim_cycle;
++      long long unsigned int timeNow =
++        thread->get_gpu()->gpu_sim_cycle + thread->get_gpu()->gpu_tot_sim_cycle;
 +      std::cerr << "Enter GPGPUSim readMessage" << std::endl;
 +      // Pipe
 +      InterChiplet::SyncProtocol::pipeSync(src_x, src_y, dst_x, dst_y);
@@ -125,7 +127,7 @@ index 8936fa8..c04fd5f 100644
 +      // Sync clock.
 +      long long int timeEnd = InterChiplet::SyncProtocol::readSync(
 +        timeNow, src_x, src_y, dst_x, dst_y, nbytes);
-+      thread->get_gpu()->chiplet_direct_set_cycle(timeEnd);
++      thread->get_gpu()->chiplet_direct_set_cycle(timeEnd - thread->get_gpu()->gpu_tot_sim_cycle);
 +
 +      // write data to GPU memory.
 +      memory_space_t space;
