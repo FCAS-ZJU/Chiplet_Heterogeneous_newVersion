@@ -244,7 +244,7 @@ index c336283..fb3045b 100644
        default:
           break;
 diff --git a/sift/recorder/syscall_modeling.cc b/sift/recorder/syscall_modeling.cc
-index 4944127..cde1de5 100644
+index 4944127..7270f47 100644
 --- a/sift/recorder/syscall_modeling.cc
 +++ b/sift/recorder/syscall_modeling.cc
 @@ -7,6 +7,8 @@
@@ -310,7 +310,7 @@ index 4944127..cde1de5 100644
 +            int* data = (int*)args[4];
 +            int nbytes = args[5];
 +
-+            printf("Enter Sniper readGpuMessage\n");
++            printf("Enter Sniper receiveMessage\n");
 +            // Pipe sync
 +            InterChiplet::SyncProtocol::pipeSync(srcX, srcY, dstX, dstY);
 +            // Read data

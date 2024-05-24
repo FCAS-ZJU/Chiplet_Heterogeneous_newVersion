@@ -150,20 +150,21 @@ index 8936fa8..ab90a9e 100644
  
  void and_impl(const ptx_instruction *pI, ptx_thread_info *thread) {
 diff --git a/src/gpgpu-sim/gpu-sim.cc b/src/gpgpu-sim/gpu-sim.cc
-index 1650688..478a576 100644
+index 1650688..9292e39 100644
 --- a/src/gpgpu-sim/gpu-sim.cc
 +++ b/src/gpgpu-sim/gpu-sim.cc
-@@ -81,6 +81,9 @@ class gpgpu_sim_wrapper {};
+@@ -81,6 +81,10 @@ class gpgpu_sim_wrapper {};
  #define MAX(a, b) (((a) > (b)) ? (a) : (b))
  
  bool g_interactive_debugger_enabled = false;
 +// TODO: directly forward GPU cycle.
 +bool g_chiplet_directly_set_cycle = false;
 +unsigned long long g_chiplet_directly_set_cycle_val = 0;
++bool g_chiplet_jump_deadlock_detect = false;
  
  tr1_hash_map<new_addr_type, unsigned> address_random_interleaving;
  
-@@ -1854,6 +1857,13 @@ void gpgpu_sim::cycle() {
+@@ -1854,6 +1858,14 @@ void gpgpu_sim::cycle() {
        raise(SIGTRAP);  // Debug breakpoint
      }
      gpu_sim_cycle++;
@@ -172,12 +173,25 @@ index 1650688..478a576 100644
 +    {
 +      std::cout << "Directly set cycle to " << g_chiplet_directly_set_cycle_val << std::endl;
 +      gpu_sim_cycle = g_chiplet_directly_set_cycle_val;
++      g_chiplet_jump_deadlock_detect = true;
 +      g_chiplet_directly_set_cycle = false;
 +    }
  
      if (g_interactive_debugger_enabled) gpgpu_debug();
  
-@@ -2051,3 +2061,10 @@ const shader_core_config *gpgpu_sim::getShaderCoreConfig() {
+@@ -1956,7 +1968,10 @@ void gpgpu_sim::cycle() {
+ 
+     if (!(gpu_sim_cycle % 50000)) {
+       // deadlock detection
+-      if (m_config.gpu_deadlock_detect && gpu_sim_insn == last_gpu_sim_insn) {
++      if (g_chiplet_jump_deadlock_detect) {
++        g_chiplet_jump_deadlock_detect = false;
++        last_gpu_sim_insn = gpu_sim_insn;
++      } else if (m_config.gpu_deadlock_detect && gpu_sim_insn == last_gpu_sim_insn) {
+         gpu_deadlock = true;
+       } else {
+         last_gpu_sim_insn = gpu_sim_insn;
+@@ -2051,3 +2066,10 @@ const shader_core_config *gpgpu_sim::getShaderCoreConfig() {
  const memory_config *gpgpu_sim::getMemoryConfig() { return m_memory_config; }
  
  simt_core_cluster *gpgpu_sim::getSIMTCluster() { return *m_cluster; }

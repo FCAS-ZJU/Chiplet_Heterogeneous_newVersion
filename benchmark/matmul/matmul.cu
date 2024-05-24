@@ -51,15 +51,15 @@ int main(int argc, char** argv)
 	cudaMalloc((void**)&d_dataC, sizeof(int64_t) *Col);
 
 	int res;
-	readMessage <<<1,1>>> (idX,idY,0,0,d_dataA,10000,&res);
-	readMessage <<<1,1>>> (idX,idY,0,0,d_dataB,10000,&res);
+	readMessage <<<1,1>>> (idX,idY,0,0,d_dataA,sizeof(int64_t) *Row*Col,&res);
+	readMessage <<<1,1>>> (idX,idY,0,0,d_dataB,sizeof(int64_t) *Row*Col,&res);
 
 	//calculate
 	dim3 threadPerBlock(10,10);
 	dim3 blockNumber(1);
 	matrix_mul_gpu << <blockNumber, threadPerBlock >> > (d_dataA, d_dataB, d_dataC, Col);
 
-	passMessage << <1,1>> > (0,0,idX,idY,d_dataC,100,&res);
+	passMessage << <1,1>> > (0,0,idX,idY,d_dataC,100 * sizeof(int64_t),&res);
 	cudaFree(d_dataA);
 	cudaFree(d_dataB);
 	cudaFree(d_dataC);
