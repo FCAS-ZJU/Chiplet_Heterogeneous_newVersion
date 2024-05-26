@@ -124,13 +124,13 @@ void GpuMultiply(double* mat1,double* mat2,int fst_Row,int fst_Col,int sec_Row,i
     DoubleToInt(mat1,Mat1,fst_Row*fst_Col);
     DoubleToInt(mat2,Mat2,sec_Row*sec_Col);
     std::cout<<"hello"<<std::endl;
-    InterChiplet::sendGpuMessage(dstX,dstY,srcX,srcY,Mat1_size,2);
+    InterChiplet::sendMessage(dstX,dstY,srcX,srcY,Mat1_size,2 * sizeof(int64_t));
     std::cout<<"hell0 2"<<std::endl;
-    InterChiplet::sendGpuMessage(dstX,dstY,srcX,srcY,Mat2_size,2);
+    InterChiplet::sendMessage(dstX,dstY,srcX,srcY,Mat2_size,2 * sizeof(int64_t));
     std::cout<<"##########################################"<<std::endl;
-    InterChiplet::sendGpuMessage(dstX,dstY,srcX,srcY,Mat1,fst_Col*fst_Row);
+    InterChiplet::sendMessage(dstX,dstY,srcX,srcY,Mat1,fst_Col * fst_Row * sizeof(int64_t));
     std::cout<<"##########################################"<<std::endl;
-    InterChiplet::sendGpuMessage(dstX,dstY,srcX,srcY,Mat2,sec_Row * sec_Col);
+    InterChiplet::sendMessage(dstX,dstY,srcX,srcY,Mat2,sec_Row * sec_Col * sizeof(int64_t));
     std::cout<<"##########################################"<<std::endl;
     bool file=1;
     while(file==0){
@@ -139,7 +139,7 @@ void GpuMultiply(double* mat1,double* mat2,int fst_Row,int fst_Col,int sec_Row,i
     
     double *result=new double[fst_Row*sec_Col];
     int64_t *Result_2=new int64_t[fst_Row*sec_Col];
-    InterChiplet::readGpuMessage(srcX,srcY,dstX,dstY,Result_2,fst_Row*sec_Col);
+    InterChiplet::receiveMessage(srcX,srcY,dstX,dstY,Result_2,fst_Row*sec_Col*sizeof(int64_t));
     IntToDouble(result,Result_2,fst_Row*sec_Col);
     // std::lock_guard<std::mutex> lock(mtx);
     std::vector<std::vector<double>> res(fst_Row,std::vector<double>(sec_Col));

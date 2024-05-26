@@ -15,14 +15,14 @@ namespace InterChiplet
      * @param __src_x Source address (CPU address) in X-axis.
      * @param __src_y Source address (CPU address) in Y-axis.
      * @param __addr Data address.
-     * @param __size Number of elements.
+     * @param __nbyte Number of bytes.
     */
-    syscall_return_t sendGpuMessage(int64_t __dst_x,
+    syscall_return_t sendMessage(int64_t __dst_x,
                                     int64_t __dst_y,
                                     int64_t __src_x,
                                     int64_t __src_y,
-                                    int64_t* __addr,
-                                    int64_t __size);
+                                    void* __addr,
+                                    int64_t __nbyte);
 
     /**
      * @brief Read data from GPU to CPU.
@@ -31,12 +31,12 @@ namespace InterChiplet
      * @param __src_x Source address (GPU address) in X-axis.
      * @param __src_y Source address (GPU address) in Y-axis.
      * @param __addr Data address.
-     * @param __size Number of elements.
+     * @param __nbyte Number of bytes.
     */
-    syscall_return_t readGpuMessage(int64_t __dst_x,
+    syscall_return_t receiveMessage(int64_t __dst_x,
                                     int64_t __dst_y,
                                     int64_t __src_x,
                                     int64_t __src_y,
-                                    int64_t* __addr,
-                                    int64_t __size);
+                                    void* __addr,
+                                    int64_t __nbyte);
 }

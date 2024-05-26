@@ -219,7 +219,7 @@ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
             int* data = (int*)args[4];
             int nbytes = args[5];
 
-            printf("Enter Sniper readGpuMessage\n");
+            printf("Enter Sniper receiveMessage\n");
             // Pipe sync
             InterChiplet::SyncProtocol::pipeSync(srcX, srcY, dstX, dstY);
             // Read data

@@ -84,6 +84,7 @@ bool g_interactive_debugger_enabled = false;
 // TODO: directly forward GPU cycle.
 bool g_chiplet_directly_set_cycle = false;
 unsigned long long g_chiplet_directly_set_cycle_val = 0;
+bool g_chiplet_jump_deadlock_detect = false;
 
 tr1_hash_map<new_addr_type, unsigned> address_random_interleaving;
 
@@ -1862,6 +1863,7 @@ void gpgpu_sim::cycle() {
     {
       std::cout << "Directly set cycle to " << g_chiplet_directly_set_cycle_val << std::endl;
       gpu_sim_cycle = g_chiplet_directly_set_cycle_val;
+      g_chiplet_jump_deadlock_detect = true;
       g_chiplet_directly_set_cycle = false;
     }
 
@@ -1966,7 +1968,10 @@ void gpgpu_sim::cycle() {
 
     if (!(gpu_sim_cycle % 50000)) {
       // deadlock detection
-      if (m_config.gpu_deadlock_detect && gpu_sim_insn == last_gpu_sim_insn) {
+      if (g_chiplet_jump_deadlock_detect) {
+        g_chiplet_jump_deadlock_detect = false;
+        last_gpu_sim_insn = gpu_sim_insn;
+      } else if (m_config.gpu_deadlock_detect && gpu_sim_insn == last_gpu_sim_insn) {
         gpu_deadlock = true;
       } else {
         last_gpu_sim_insn = gpu_sim_insn;

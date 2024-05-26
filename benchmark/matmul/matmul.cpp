@@ -23,17 +23,17 @@ int main(int argc, char** argv)
         B[i] = rand() % 51;
     }
 
-    InterChiplet::sendGpuMessage(0, 1, idX, idY, A, 10000);
-    InterChiplet::sendGpuMessage(1, 0, idX, idY, A, 10000);
-    InterChiplet::sendGpuMessage(1, 1, idX, idY, A, 10000);
+    InterChiplet::sendMessage(0, 1, idX, idY, A, 10000*sizeof(int64_t));
+    InterChiplet::sendMessage(1, 0, idX, idY, A, 10000*sizeof(int64_t));
+    InterChiplet::sendMessage(1, 1, idX, idY, A, 10000*sizeof(int64_t));
 
-    InterChiplet::sendGpuMessage(0, 1, idX, idY, B, 10000);
-    InterChiplet::sendGpuMessage(1, 0, idX, idY, B, 10000);
-    InterChiplet::sendGpuMessage(1, 1, idX, idY, B, 10000);
+    InterChiplet::sendMessage(0, 1, idX, idY, B, 10000*sizeof(int64_t));
+    InterChiplet::sendMessage(1, 0, idX, idY, B, 10000*sizeof(int64_t));
+    InterChiplet::sendMessage(1, 1, idX, idY, B, 10000*sizeof(int64_t));
 
-    InterChiplet::readGpuMessage(idX, idY, 0, 1, C1, 100);
-    InterChiplet::readGpuMessage(idX, idY, 1, 0, C2, 100);
-    InterChiplet::readGpuMessage(idX, idY, 1, 1, C3, 100);
+    InterChiplet::receiveMessage(idX, idY, 0, 1, C1, 100*sizeof(int64_t));
+    InterChiplet::receiveMessage(idX, idY, 1, 0, C2, 100*sizeof(int64_t));
+    InterChiplet::receiveMessage(idX, idY, 1, 1, C3, 100*sizeof(int64_t));
 
     for(int i=0;i<100;i++)
     {
