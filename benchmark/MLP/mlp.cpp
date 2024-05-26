@@ -128,7 +128,7 @@ void GpuMultiply(double* mat1,double* mat2,int fst_Row,int fst_Col,int sec_Row,i
     std::cout<<"hell0 2"<<std::endl;
     InterChiplet::sendMessage(dstX,dstY,srcX,srcY,Mat2_size,2 * sizeof(int64_t));
     std::cout<<"##########################################"<<std::endl;
-    InterChiplet::sendMessage(dstX,dstY,srcX,srcY,Mat1,fst_Col * sizeof(int64_t));
+    InterChiplet::sendMessage(dstX,dstY,srcX,srcY,Mat1,fst_Col * fst_Row * sizeof(int64_t));
     std::cout<<"##########################################"<<std::endl;
     InterChiplet::sendMessage(dstX,dstY,srcX,srcY,Mat2,sec_Row * sec_Col * sizeof(int64_t));
     std::cout<<"##########################################"<<std::endl;
