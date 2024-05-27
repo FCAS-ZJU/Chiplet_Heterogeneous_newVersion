@@ -12,7 +12,7 @@
  * @param __nbyte Number of bytes.
  * @param __res Return result value.
  */
-__global__ void passMessage(
+__global__ void sendMessage(
     int __dst_x, int __dst_y, int __src_x, int __srx_y, void* __addr, int __nbyte, int* __res);
 
 /**
@@ -25,5 +25,5 @@ __global__ void passMessage(
  * @param __nbyte Number of bytes.
  * @param __res Return result value.
  */
-__global__ void readMessage(
+__global__ void receiveMessage(
     int __dst_x, int __dst_y, int __src_x, int __srx_y, void* __addr, int __nbyte, int* __res);
