@@ -44,8 +44,8 @@ int main(int argc, char** argv)
 		
 		
 		int res;
-		readMessage <<<1,1>>> (srcX,srcY,0,0,Size_A,sizeof(int64_t) * 2,&res);
-		readMessage <<<1,1>>> (srcX,srcY,0,0,Size_B,sizeof(int64_t) * 2,&res);
+		receiveMessage <<<1,1>>> (srcX,srcY,0,0,Size_A,sizeof(int64_t) * 2,&res);
+		receiveMessage <<<1,1>>> (srcX,srcY,0,0,Size_B,sizeof(int64_t) * 2,&res);
 		
 		cudaMemcpy(size_A, Size_A, sizeof(int64_t) * 2, cudaMemcpyDeviceToHost);
 		cudaMemcpy(size_B, Size_B, sizeof(int64_t) * 2, cudaMemcpyDeviceToHost);
@@ -60,8 +60,8 @@ int main(int argc, char** argv)
 		cudaMalloc((void**)&d_dataC, sizeof(int64_t) *Col_B*Row_A);
 	
 		
-		readMessage <<<1,1>>> (srcX,srcY,0,0,d_dataA,Col_A*Row_A*sizeof(int64_t),&res);
-		readMessage <<<1,1>>> (srcX,srcY,0,0,d_dataB,Col_B*Row_B*sizeof(int64_t),&res);
+		receiveMessage <<<1,1>>> (srcX,srcY,0,0,d_dataA,Col_A*Row_A*sizeof(int64_t),&res);
+		receiveMessage <<<1,1>>> (srcX,srcY,0,0,d_dataB,Col_B*Row_B*sizeof(int64_t),&res);
 		
 		cudaMemcpy(A, d_dataA, sizeof(int64_t) * Col_A * Row_A, cudaMemcpyDeviceToHost);
 		for(int64_t i=0;i<Row_A * Col_A;i++){
@@ -80,7 +80,7 @@ int main(int argc, char** argv)
 			if(i%Col_B==0 && i!=0)std::cout<<std::endl;
 			else std::cout<<" ";
 		}
-		passMessage << <1,1>> > (0,0, srcX,srcY,d_dataC,Row_A * Col_B * sizeof(int64_t), &res);
+		sendMessage << <1,1>> > (0,0, srcX,srcY,d_dataC,Row_A * Col_B * sizeof(int64_t), &res);
 		cudaFree(d_dataA);
 		cudaFree(d_dataB);
 		cudaFree(d_dataC);

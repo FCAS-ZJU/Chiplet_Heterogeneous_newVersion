@@ -1139,7 +1139,7 @@ void addc_impl( const ptx_instruction *pI, ptx_thread_info *thread )
       // write data to chiplet.
       long long unsigned int timeNow =
         thread->get_gpu()->gpu_sim_cycle + thread->get_gpu()->gpu_tot_sim_cycle;
-      std::cerr << "Enter GPGPUSim passMessage" << std::endl;
+      std::cerr << "Enter GPGPUSim sendMessage" << std::endl;
       // Pipe
       InterChiplet::SyncProtocol::pipeSync(src_x, src_y, dst_x, dst_y);
       // Write data
@@ -1167,7 +1167,7 @@ void addc_impl( const ptx_instruction *pI, ptx_thread_info *thread )
       uint8_t* interdata = new uint8_t[nbytes];
       long long unsigned int timeNow =
         thread->get_gpu()->gpu_sim_cycle + thread->get_gpu()->gpu_tot_sim_cycle;
-      std::cerr << "Enter GPGPUSim readMessage" << std::endl;
+      std::cerr << "Enter GPGPUSim receiveMessage" << std::endl;
       // Pipe
       InterChiplet::SyncProtocol::pipeSync(src_x, src_y, dst_x, dst_y);
       // Read data

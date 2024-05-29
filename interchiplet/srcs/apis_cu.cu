@@ -2,7 +2,7 @@
 #include "global_define.h"
 #include "apis_cu.h"
 
-__global__ void passMessage(
+__global__ void sendMessage(
     int __dst_x, int __dst_y, int __src_x, int __srx_y, void* __addr, int __nbyte, int* __res)
 {
     // Split address into 32 bits.
@@ -34,7 +34,7 @@ __global__ void passMessage(
 	*__res += t_res;
 }
 
-__global__ void readMessage(
+__global__ void receiveMessage(
     int __dst_x, int __dst_y, int __src_x, int __srx_y, void* __addr, int __nbyte, int* __res)
 {
     // Split address into 32 bits.
