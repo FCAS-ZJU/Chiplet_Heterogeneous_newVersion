@@ -92,6 +92,7 @@ public:
         , m_args(__config.m_args)
         , m_log_file(__config.m_log_file)
         , m_to_stdout(__config.m_to_stdout)
+        , m_clock_rate(__config.m_clock_rate)
         , m_pre_copy(__config.m_pre_copy)
         , m_unfinished_line()
         , m_thread_id()
@@ -106,6 +107,7 @@ public:
     std::vector<std::string> m_args;
     std::string m_log_file;
     bool m_to_stdout;
+    float m_clock_rate;
     std::string m_pre_copy;
 
     std::string m_unfinished_line;
@@ -228,12 +230,12 @@ void handle_read_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync_
 
         // Send synchronize command to response READ command.
         std::stringstream ss;
-        ss << "[INTERCMD] SYNC " << end_cycle << std::endl;
+        ss << "[INTERCMD] SYNC " << end_cycle * __cmd.m_clock_rate << std::endl;
         write(__cmd.m_stdin_fd, ss.str().c_str(), ss.str().size());
 
         // Send synchronize command to response WRITE command.
         ss.clear();
-        ss << "[INTERCMD] SYNC " << end_cycle << std::endl;
+        ss << "[INTERCMD] SYNC " << end_cycle * write_cmd.m_clock_rate << std::endl;
         write(write_cmd.m_stdin_fd, ss.str().c_str(), ss.str().size());
     }
 }
@@ -286,12 +288,12 @@ void handle_write_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync
 
         // Send synchronize command to response WRITE command.
         std::stringstream ss;
-        ss << "[INTERCMD] SYNC " << end_cycle << std::endl;
+        ss << "[INTERCMD] SYNC " << end_cycle * __cmd.m_clock_rate << std::endl;
         write(__cmd.m_stdin_fd, ss.str().c_str(), ss.str().size());
 
         // Send synchronize command to response READ command.
         ss.clear();
-        ss << "[INTERCMD] SYNC " << end_cycle << std::endl;
+        ss << "[INTERCMD] SYNC " << end_cycle * read_cmd.m_clock_rate << std::endl;
         write(read_cmd.m_stdin_fd, ss.str().c_str(), ss.str().size());
     }
 }
@@ -355,6 +357,8 @@ void parse_command(char* __pipe_buf, ProcessStruct* __proc_struct, int __stdin_f
         {
             InterChiplet::SyncCommand cmd = InterChiplet::SyncProtocol::parseCmd(l);
             cmd.m_stdin_fd = __stdin_fd;
+            cmd.m_clock_rate = __proc_struct->m_clock_rate;
+            cmd.m_cycle = cmd.m_cycle / __proc_struct->m_clock_rate;
 
             pthread_mutex_lock(&__proc_struct->m_sync_struct->m_mutex);
 
@@ -512,7 +516,7 @@ void *bridge_thread(void * __args_ptr)
                 has_stdout = true;
                 int res = read(stdout_fd, pipe_buf, PIPE_BUF_SIZE);
                 if (res <= 0) break;
-                pipe_buf[res] = '\0';
+                pipe_buf[res] = '\0'; 
                 // log redirection.
                 log_file.write(pipe_buf, res).flush();
                 if (to_stdout)

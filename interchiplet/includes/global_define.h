@@ -66,6 +66,10 @@ namespace InterChiplet
          */
         TimeType m_cycle;
         /**
+         * @brief Cycle convert rate.
+         */
+        float m_clock_rate;
+        /**
          * @brief Source address in X-axis.
          */
         int m_src_x;
