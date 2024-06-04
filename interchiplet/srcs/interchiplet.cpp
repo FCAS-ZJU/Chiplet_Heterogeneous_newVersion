@@ -230,12 +230,14 @@ void handle_read_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync_
 
         // Send synchronize command to response READ command.
         std::stringstream ss;
-        ss << "[INTERCMD] SYNC " << end_cycle * __cmd.m_clock_rate << std::endl;
+        InterChiplet::TimeType resp_cycle = static_cast<InterChiplet::TimeType>(end_cycle * __cmd.m_clock_rate);
+        ss << "[INTERCMD] SYNC " << resp_cycle << std::endl;
         write(__cmd.m_stdin_fd, ss.str().c_str(), ss.str().size());
 
         // Send synchronize command to response WRITE command.
         ss.clear();
-        ss << "[INTERCMD] SYNC " << end_cycle * write_cmd.m_clock_rate << std::endl;
+        resp_cycle = static_cast<InterChiplet::TimeType>(end_cycle * write_cmd.m_clock_rate);
+        ss << "[INTERCMD] SYNC " << resp_cycle << std::endl;
         write(write_cmd.m_stdin_fd, ss.str().c_str(), ss.str().size());
     }
 }
@@ -288,12 +290,14 @@ void handle_write_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync
 
         // Send synchronize command to response WRITE command.
         std::stringstream ss;
-        ss << "[INTERCMD] SYNC " << end_cycle * __cmd.m_clock_rate << std::endl;
+        InterChiplet::TimeType resp_cycle = static_cast<InterChiplet::TimeType>(end_cycle * __cmd.m_clock_rate);
+        ss << "[INTERCMD] SYNC " << resp_cycle << std::endl;
         write(__cmd.m_stdin_fd, ss.str().c_str(), ss.str().size());
 
         // Send synchronize command to response READ command.
         ss.clear();
-        ss << "[INTERCMD] SYNC " << end_cycle * read_cmd.m_clock_rate << std::endl;
+        resp_cycle = static_cast<InterChiplet::TimeType>(end_cycle * read_cmd.m_clock_rate);
+        ss << "[INTERCMD] SYNC " << resp_cycle << std::endl;
         write(read_cmd.m_stdin_fd, ss.str().c_str(), ss.str().size());
     }
 }
@@ -358,7 +362,7 @@ void parse_command(char* __pipe_buf, ProcessStruct* __proc_struct, int __stdin_f
             InterChiplet::SyncCommand cmd = InterChiplet::SyncProtocol::parseCmd(l);
             cmd.m_stdin_fd = __stdin_fd;
             cmd.m_clock_rate = __proc_struct->m_clock_rate;
-            cmd.m_cycle = cmd.m_cycle / __proc_struct->m_clock_rate;
+            cmd.m_cycle = static_cast<InterChiplet::TimeType>(cmd.m_cycle / __proc_struct->m_clock_rate);
 
             pthread_mutex_lock(&__proc_struct->m_sync_struct->m_mutex);
 
