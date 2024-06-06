@@ -56,7 +56,7 @@ public:
     /**
      * @brief Global simulation cycle, which is the largest notified cycle count.
      */
-    InterChiplet::TimeType m_cycle;
+    InterChiplet::InnerTimeType m_cycle;
 
     /**
      * @brief Benchmark list, recording the communication transactions have sent out.
@@ -107,7 +107,7 @@ public:
     std::vector<std::string> m_args;
     std::string m_log_file;
     bool m_to_stdout;
-    float m_clock_rate;
+    double m_clock_rate;
     std::string m_pre_copy;
 
     std::string m_unfinished_line;
@@ -223,7 +223,7 @@ void handle_read_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync_
     else
     {
         // If there is a paired write command, get the end cycle of transaction.
-        InterChiplet::TimeType end_cycle =
+        InterChiplet::InnerTimeType end_cycle =
             __sync_struct->m_delay_list.getEndCycle(write_cmd, __cmd);
         std::cout << "Pair with WRITE command and transation ends at "
             << end_cycle << " cycle." << std::endl;
@@ -283,7 +283,7 @@ void handle_write_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync
     else
     {
         // If there is a paired read command, get the end cycle of transaction.
-        InterChiplet::TimeType end_cycle =
+        InterChiplet::InnerTimeType end_cycle =
             __sync_struct->m_delay_list.getEndCycle(__cmd, read_cmd);
         std::cout << "Pair with READ command and transation ends at "
             << end_cycle << " cycle." << std::endl;
@@ -312,7 +312,7 @@ void handle_cycle_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync
     std::cout << "[INTERCMD DBG] CYCLE command at " << __cmd.m_cycle << " cycle" << ".";
 
     // Update global cycle.
-    InterChiplet::TimeType new_cycle = __cmd.m_cycle;
+    InterChiplet::InnerTimeType new_cycle = __cmd.m_cycle;
     if (__sync_struct->m_cycle < new_cycle)
     {
         __sync_struct->m_cycle = new_cycle;
@@ -362,7 +362,7 @@ void parse_command(char* __pipe_buf, ProcessStruct* __proc_struct, int __stdin_f
             InterChiplet::SyncCommand cmd = InterChiplet::SyncProtocol::parseCmd(l);
             cmd.m_stdin_fd = __stdin_fd;
             cmd.m_clock_rate = __proc_struct->m_clock_rate;
-            cmd.m_cycle = static_cast<InterChiplet::TimeType>(cmd.m_cycle / __proc_struct->m_clock_rate);
+            cmd.m_cycle = cmd.m_cycle / __proc_struct->m_clock_rate;
 
             pthread_mutex_lock(&__proc_struct->m_sync_struct->m_mutex);
 
@@ -565,21 +565,22 @@ void *bridge_thread(void * __args_ptr)
     return 0;
 }
 
-InterChiplet::TimeType __loop_phase_one(
+InterChiplet::InnerTimeType __loop_phase_one(
     int __round,
-    const std::vector<InterChiplet::ProcessConfig>& __proc_cfg_list)
+    const std::vector<InterChiplet::ProcessConfig>& __proc_phase1_cfg_list,
+    const std::vector<InterChiplet::ProcessConfig>& __proc_phase2_cfg_list)
 {
     // Create synchronize data structure.
     SyncStruct* g_sync_structure = new SyncStruct();
 
     // Load delay record.
-    g_sync_structure->m_delay_list.load_delay("delayInfo.txt");
+    g_sync_structure->m_delay_list.load_delay("delayInfo.txt", __proc_phase2_cfg_list[0].m_clock_rate);
     std::cout << "Load " << g_sync_structure->m_delay_list.size() << " delay records." << std::endl;
 
     // Create multi-thread.
     int thread_i = 0;
     std::vector<ProcessStruct*> proc_struct_list;
-    for (auto& proc_cfg: __proc_cfg_list)
+    for (auto& proc_cfg: __proc_phase1_cfg_list)
     {
         ProcessStruct* proc_struct = new ProcessStruct(proc_cfg);
         proc_struct->m_round = __round;
@@ -613,11 +614,11 @@ InterChiplet::TimeType __loop_phase_one(
     }
 
     // Dump benchmark record.
-    g_sync_structure->m_bench_list.dump_bench("bench.txt");
+    g_sync_structure->m_bench_list.dump_bench("bench.txt", __proc_phase2_cfg_list[0].m_clock_rate);
     std::cout << "Dump " << g_sync_structure->m_bench_list.size() << " bench records." << std::endl;
 
     // Destory global synchronize structure, and return total cycle.
-    InterChiplet::TimeType res_cycle = g_sync_structure->m_cycle;
+    InterChiplet::InnerTimeType res_cycle = g_sync_structure->m_cycle;
     delete g_sync_structure;
     return res_cycle;
 }
@@ -694,13 +695,14 @@ int main(int argc, const char* argv[])
 	struct timeval simstart, simend, roundstart, roundend;
 	gettimeofday(&simstart, 0);
 
-    long long sim_cycle = 0;
+    InterChiplet::InnerTimeType sim_cycle = 0;
     for (int round = 1; round <= options.m_timeout_threshold; round ++)
     {
         // Get start time of one round.
 	    gettimeofday(&roundstart, 0);
         std::cout << "[COMMBRIDGE] *** Round " << round << " Phase 1 ***" << std::endl;
-        InterChiplet::TimeType round_cycle = __loop_phase_one(round, configs.m_phase1_proc_cfg_list);
+        InterChiplet::InnerTimeType round_cycle = __loop_phase_one(
+            round, configs.m_phase1_proc_cfg_list, configs.m_phase2_proc_cfg_list);
 
         // Get simulation cycle.
         // If simulation cycle this round is close to the previous one, quit iteration.

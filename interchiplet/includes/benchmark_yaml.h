@@ -27,7 +27,7 @@ namespace InterChiplet
                     const std::vector<std::string>& __args,
                     const std::string& __log,
                     bool __to_stdout,
-                    float __clock_rate,
+                    double __clock_rate,
                     const std::string& __pre_copy)
             : m_command(__cmd)
             , m_args(__args)
@@ -57,7 +57,7 @@ namespace InterChiplet
         /**
          * @brief the rate of inter-simulator cycle convert.
          */
-        float m_clock_rate;
+        double m_clock_rate;
         /**
          * @brief Files copy to sub-directory of simulator before executing.
          */
@@ -147,7 +147,7 @@ namespace InterChiplet
                                  config["args"].as<std::vector<std::string> >(),
                                  config["log"].as<std::string>(),
                                  config["is_to_stdout"].as<bool>(),
-                                 config["clock_rate"].as<float>(),
+                                 config["clock_rate"].as<double>(),
                                  pre_copy);
         }
 

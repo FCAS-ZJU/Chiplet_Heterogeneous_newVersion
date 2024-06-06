@@ -36,6 +36,11 @@ namespace InterChiplet
     typedef unsigned long long TimeType;
 
     /**
+     * Time type used interchiplet module.
+     */
+    typedef double InnerTimeType;
+
+    /**
      * @brief Type of synchronization command between simulators.
      */
     enum SyncCommType
@@ -64,11 +69,11 @@ namespace InterChiplet
         /**
          * @brief Cycle to send/receive command.
          */
-        TimeType m_cycle;
+        InnerTimeType m_cycle;
         /**
          * @brief Cycle convert rate.
          */
-        float m_clock_rate;
+        double m_clock_rate;
         /**
          * @brief Source address in X-axis.
          */

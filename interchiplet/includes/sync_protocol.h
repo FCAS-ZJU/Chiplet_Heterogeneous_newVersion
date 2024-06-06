@@ -75,7 +75,7 @@ namespace InterChiplet
             // Read cycle and command from message
             std::stringstream ss(message);
             std::string command;
-            TimeType cycle;
+            InnerTimeType cycle;
             ss >> command >> cycle;
 
             // Decode command to enumerate.
