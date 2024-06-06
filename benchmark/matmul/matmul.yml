@@ -31,8 +31,8 @@ phase1:
 # Phase 2 configuration.
 phase2:
   # Process 0
-  - cmd: "$SIMULATOR_ROOT/popnet/popnet"
-    args: ["-A", "2", "-c", "2", "-V", "3", "-B", "12", "-O", "12", "-F", "4", "-L", "1000", "-T", "10000000", "-r", "1", "-I", "../bench.txt", "-R", "0"]
+  - cmd: "$SIMULATOR_ROOT/popnet_modified/build/popnet"
+    args: ["-A", "2", "-c", "2", "-V", "3", "-B", "12", "-O", "12", "-F", "4", "-L", "1000", "-T", "10000000", "-r", "1", "-I", "../bench.txt", "-R", "0", "-D", "../delayInfo.txt"]
     log: "popnet.log"
     is_to_stdout: false
     clock_rate: 1
