@@ -82,13 +82,13 @@ namespace InterChiplet
             SyncCommand cmd;
             cmd.m_cycle = cycle;
             cmd.m_type = command == "CYCLE" ? SC_CYCLE :
-                        command == "PIPE" ? SC_PIPE :
-                        command == "READ" ? SC_READ :
-                        command == "WRITE" ? SC_WRITE :
-                        command == "BARRIER" ? SC_BARRIER :
-                        command == "LOCK" ? SC_LOCK :
-                        command == "UNLOCK" ? SC_UNLOCK :
-                        command == "SYNC" ? SC_SYNC : SC_CYCLE;
+                         command == "PIPE" ? SC_PIPE :
+                         command == "READ" ? SC_READ :
+                         command == "WRITE" ? SC_WRITE :
+                         command == "BARRIER" ? SC_BARRIER :
+                         command == "LOCK" ? SC_LOCK :
+                         command == "UNLOCK" ? SC_UNLOCK :
+                         command == "SYNC" ? SC_SYNC : SC_CYCLE;
 
             // Read source/destination address.
             if (cmd.m_type == SC_PIPE || cmd.m_type == SC_READ || cmd.m_type == SC_WRITE)
@@ -98,7 +98,7 @@ namespace InterChiplet
             // Read number of bytes.
             if (cmd.m_type == SC_READ || cmd.m_type == SC_WRITE)
             {
-                ss >> cmd.m_nbytes;
+                ss >> cmd.m_nbytes >> cmd.m_desc;
             }
 
             return cmd;
@@ -162,13 +162,19 @@ public:
          * @param __dst_x Destiantion address in X-axis.
          * @param __dst_y Destination address in Y-axis.
          * @param __nbyte Number of bytes to read.
+         * @param __desc Synchronization protocol descriptor.
          */
-        static void sendReadCmd(
-            TimeType __cycle, int __src_x, int __src_y, int __dst_x, int __dst_y, int __nbyte)
+        static void sendReadCmd(TimeType __cycle,
+                                int __src_x, 
+                                int __src_y,
+                                int __dst_x,
+                                int __dst_y,
+                                int __nbyte,
+                                long __desc)
         {
             std::cout << NSINTERCHIPLET_CMD_HEAD << " READ " << __cycle << " "
-                << __src_x << " " << __src_y << " " << __dst_x << " " << __dst_y << " " << __nbyte
-                << std::endl;
+                << __src_x << " " << __src_y << " " << __dst_x << " " << __dst_y << " "
+                << __nbyte << " " << __desc << std::endl;
         }
 
         /**
@@ -179,13 +185,19 @@ public:
          * @param __dst_x Destiantion address in X-axis.
          * @param __dst_y Destination address in Y-axis.
          * @param __nbyte Number of bytes to write.
+         * @param __desc Synchronization protocol descriptor.
          */
-        static void sendWriteCmd(
-            TimeType __cycle, int __src_x, int __src_y, int __dst_x, int __dst_y, int __nbyte)
+        static void sendWriteCmd(TimeType __cycle,
+                                 int __src_x,
+                                 int __src_y,
+                                 int __dst_x,
+                                 int __dst_y,
+                                 int __nbyte,
+                                 long __desc)
         {
             std::cout << NSINTERCHIPLET_CMD_HEAD << " WRITE " << __cycle << " "
-                << __src_x << " " << __src_y << " " << __dst_x << " " << __dst_y << " " << __nbyte
-                << std::endl;
+                << __src_x << " " << __src_y << " " << __dst_x << " " << __dst_y << " "
+                << __nbyte << " " << __desc << std::endl;
         }
 
         /**
@@ -239,14 +251,19 @@ public:
          * @param __dst_x Destiantion address in X-axis.
          * @param __dst_y Destination address in Y-axis.
          * @param __nbyte Number of bytes to read.
+         * @param __desc Synchronization protocol descriptor.
          * @return Cycle to receive SYNC command.
          */
-        static TimeType readSync(
-            TimeType __cycle, int __src_x, int __src_y, int __dst_x, int __dst_y, int __nbyte)
-
+        static TimeType readSync(TimeType __cycle,
+                                 int __src_x,
+                                 int __src_y,
+                                 int __dst_x,
+                                 int __dst_y,
+                                 int __nbyte,
+                                 long __desc)
         {
             // Send READ command.
-            sendReadCmd(__cycle, __src_x, __src_y, __dst_x, __dst_y, __nbyte);
+            sendReadCmd(__cycle, __src_x, __src_y, __dst_x, __dst_y, __nbyte, __desc);
             // Read message from stdin.
             SyncCommand resp_cmd = parseCmd();
             // Only handle SYNC message, return cycle to receive SYNC command.
@@ -261,13 +278,19 @@ public:
          * @param __dst_x Destiantion address in X-axis.
          * @param __dst_y Destination address in Y-axis.
          * @param __nbyte Number of bytes to write.
+         * @param __desc Synchronization protocol descriptor.
          * @return Cycle to receive SYNC command.
          */
-        static TimeType writeSync(
-            TimeType __cycle, int __src_x, int __src_y, int __dst_x, int __dst_y, int __nbyte)
+        static TimeType writeSync(TimeType __cycle,
+                                  int __src_x,
+                                  int __src_y,
+                                  int __dst_x,
+                                  int __dst_y,
+                                  int __nbyte,
+                                  long __desc)
         {
             // Send WRITE command.
-            sendWriteCmd(__cycle, __src_x, __src_y, __dst_x, __dst_y, __nbyte);
+            sendWriteCmd(__cycle, __src_x, __src_y, __dst_x, __dst_y, __nbyte, __desc);
             // Read message from stdin.
             SyncCommand resp_cmd = parseCmd();
             // Only handle SYNC message, return cycle to receive SYNC command.

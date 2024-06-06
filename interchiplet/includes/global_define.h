@@ -57,6 +57,25 @@ namespace InterChiplet
     };
 
     /**
+     * @brief Behavior descriptor of synchronization protocol.
+     */
+    enum SyncProtocolDesc
+    {
+        /**
+         * @brief Acknowledge.
+         */
+        SPD_ACK = 0x01,
+        /**
+         * @brief Synchronization before data transmission.
+         */
+        SPD_PRE_SYNC = 0x02,
+        /**
+         * @brief Synchronization after data transmission.
+         */
+        SPD_POST_SYNC = 0x04
+    };
+
+    /**
      * @brief Structure of synchronization command.
      */
     class SyncCommand
@@ -94,6 +113,10 @@ namespace InterChiplet
          * @brief Number of bytes to write.
          */
         int m_nbytes;
+        /**
+         * @brief Descriptor of synchronization behavior.
+         */
+        long m_desc;
 
         /**
          * @brief File descriptor to write response of this command.

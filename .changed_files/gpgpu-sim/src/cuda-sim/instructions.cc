@@ -1148,7 +1148,7 @@ void addc_impl( const ptx_instruction *pI, ptx_thread_info *thread )
       delete fileName;
       // Sync clock.
       long long int timeEnd = InterChiplet::SyncProtocol::writeSync(
-        timeNow, src_x, src_y, dst_x, dst_y, nbytes);
+        timeNow, src_x, src_y, dst_x, dst_y, nbytes, 0);
       thread->get_gpu()->chiplet_direct_set_cycle(timeEnd - thread->get_gpu()->gpu_tot_sim_cycle);
 
       syscall_op_list.clear();
@@ -1176,7 +1176,7 @@ void addc_impl( const ptx_instruction *pI, ptx_thread_info *thread )
       delete fileName;
       // Sync clock.
       long long int timeEnd = InterChiplet::SyncProtocol::readSync(
-        timeNow, src_x, src_y, dst_x, dst_y, nbytes);
+        timeNow, src_x, src_y, dst_x, dst_y, nbytes, 0);
       thread->get_gpu()->chiplet_direct_set_cycle(timeEnd - thread->get_gpu()->gpu_tot_sim_cycle);
 
       // write data to GPU memory.

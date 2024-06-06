@@ -428,7 +428,7 @@ bool SyscallMdl::runEnter(IntPtr syscall_number, syscall_args_t &args)
          int src_y = args.arg3;
          int nbytes = args.arg5;
          long long int end_time = InterChiplet::SyncProtocol::writeSync(
-            cycles, src_x, src_y, dst_x, dst_y, nbytes);
+            cycles, src_x, src_y, dst_x, dst_y, nbytes, 0);
 
          // Update simulator time.
          ComponentPeriod time_wake_period = *(Sim()->getDvfsManager()->getGlobalDomain()) * end_time;
@@ -459,7 +459,7 @@ bool SyscallMdl::runEnter(IntPtr syscall_number, syscall_args_t &args)
          int src_y = args.arg3;
          int nbytes = args.arg5;
          long long int end_time = InterChiplet::SyncProtocol::readSync(
-            cycles, src_x, src_y, dst_x, dst_y, nbytes);
+            cycles, src_x, src_y, dst_x, dst_y, nbytes, 0);
 
          // Update simulator time.
          ComponentPeriod time_wake_period = *(Sim()->getDvfsManager()->getGlobalDomain()) * end_time;
