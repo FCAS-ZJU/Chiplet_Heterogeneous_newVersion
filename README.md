@@ -55,7 +55,10 @@
 7. 编译安装popnet
 
     ```
-    cd popnet
+    cd popnet_chiplet
+    mkdir build
+    cd build
+    cmake ..
     make -j4
     ```
 

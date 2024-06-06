@@ -41,9 +41,13 @@ namespace InterChiplet
          */
         int m_dst_y;
         /**
-         * @brief Package delay: from injection of the first flit to ejection of the last flit.
+         * @brief Package delay on the source side.
          */
-        InnerTimeType m_delay;
+        InnerTimeType m_src_delay;
+        /**
+         * @brief Package delay on the destination side.
+         */
+        InnerTimeType m_dst_delay;
 
     public:
         /**
@@ -59,16 +63,23 @@ namespace InterChiplet
          * @param __src_y Source address in Y-axis.
          * @param __dst_x Destination address in X-axis.
          * @param __dst_y Destination address in Y-axis.
-         * @param __delay Package delay.
+         * @param __src_delay Package delay on the source side.
+         * @param __dst_delay Package delay on the destination side.
          */
-        NetworkDelayItem(
-            InnerTimeType __cycle, int __src_x, int __src_y, int __dst_x, int __dst_y, int __delay)
+        NetworkDelayItem(InnerTimeType __cycle,
+                         int __src_x,
+                         int __src_y,
+                         int __dst_x,
+                         int __dst_y,
+                         int __src_delay,
+                         int __dst_delay)
             : m_cycle(__cycle)
             , m_dst_x(__dst_x)
             , m_dst_y(__dst_y)
             , m_src_x(__src_x)
             , m_src_y(__src_y)
-            , m_delay(__delay)
+            , m_src_delay(__src_delay)
+            , m_dst_delay(__dst_delay)
         {}
 
         /**
@@ -81,7 +92,7 @@ namespace InterChiplet
             os << __item.m_cycle << " "
                 << __item.m_src_x << " " << __item.m_src_y << " "
                 << __item.m_dst_x << " " << __item.m_dst_y << " "
-                << __item.m_delay;
+                << __item.m_src_delay << " " << __item.m_dst_delay;
             return os;
         }
 
@@ -95,7 +106,7 @@ namespace InterChiplet
             os >> __item.m_cycle 
                 >> __item.m_src_x >> __item.m_src_y
                 >> __item.m_dst_x >> __item.m_dst_y
-                >> __item.m_delay;
+                >> __item.m_src_delay >> __item.m_dst_delay;
             return os;
         }
     };
@@ -134,9 +145,10 @@ namespace InterChiplet
             {
                 NetworkDelayItem item;
                 bench_if >> item;
-                item.m_cycle = item.m_cycle / __clock_rate;
-                item.m_delay = item.m_delay / __clock_rate;
                 if (!bench_if) break;
+                item.m_cycle = item.m_cycle / __clock_rate;
+                item.m_src_delay = item.m_src_delay / __clock_rate;
+                item.m_dst_delay = item.m_dst_delay / __clock_rate;
                 insert(item);
             }
         }
@@ -147,8 +159,9 @@ namespace InterChiplet
          * @param __read_cmd  Read command.
          * @return End cycle of this communication, used to acknowledge SYNC command.
          */
-        InnerTimeType getEndCycle(const InterChiplet::SyncCommand& __write_cmd,
-                             const InterChiplet::SyncCommand& __read_cmd)
+        std::tuple<InnerTimeType, InnerTimeType> getEndCycle(
+            const InterChiplet::SyncCommand& __write_cmd,
+            const InterChiplet::SyncCommand& __read_cmd)
         {
             std::multimap<InnerTimeType, NetworkDelayItem>::iterator it = find_first_item(
                 __write_cmd.m_src_x, __write_cmd.m_src_y, __write_cmd.m_dst_x, __write_cmd.m_dst_y);
@@ -159,17 +172,10 @@ namespace InterChiplet
             }
             else
             {
-                InnerTimeType delay = it->second.m_delay;
                 erase(it);
-
-                if (__write_cmd.m_cycle >= __read_cmd.m_cycle)
-                {
-                    return __write_cmd.m_cycle + delay;
-                }
-                else
-                {
-                    return __read_cmd.m_cycle + delay;
-                }
+                return std::tuple<InnerTimeType, InnerTimeType>(
+                    __write_cmd.m_cycle + it->second.m_src_delay,
+                    __read_cmd.m_cycle + it->second.m_dst_delay);
             }
         }
 
@@ -200,15 +206,21 @@ namespace InterChiplet
          * @param __read_cmd  Read command.
          * @return End cycle of this communication, used to acknowledge SYNC command.
          */
-        InnerTimeType getDefaultEndCycle(const InterChiplet::SyncCommand& write_cmd,
-                                    const InterChiplet::SyncCommand& read_cmd)
+        std::tuple<InnerTimeType, InnerTimeType> getDefaultEndCycle(
+            const InterChiplet::SyncCommand& write_cmd,
+            const InterChiplet::SyncCommand& read_cmd)
         {
             // TODO: Get more accurate end cycle.
             int pac_size = write_cmd.m_nbytes / PAC_PAYLOAD_BYTE
                 + ((write_cmd.m_nbytes % PAC_PAYLOAD_BYTE) > 0 ? 1 : 0) + 1;
 
-            return (write_cmd.m_cycle >= read_cmd.m_cycle ? write_cmd.m_cycle : read_cmd.m_cycle)
-                + pac_size;
+            if (write_cmd.m_cycle >= read_cmd.m_cycle) {
+                return std::tuple<TimeType, TimeType>(write_cmd.m_cycle + pac_size,
+                                                      write_cmd.m_cycle + pac_size);
+            } else {
+                return std::tuple<TimeType, TimeType>(read_cmd.m_cycle + pac_size,
+                                                      read_cmd.m_cycle + pac_size);
+            }
         }
     };
 }
