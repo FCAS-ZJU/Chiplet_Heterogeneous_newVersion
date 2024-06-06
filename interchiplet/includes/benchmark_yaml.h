@@ -20,17 +20,20 @@ namespace InterChiplet
          * @param __args Arguments of simulation process.
          * @param __log Path of logging name.
          * @param __to_stdout True means redirect output of this process to standard output.
+         * @param __clock_rate the rate of inter-simulator cycle convert.
          * @param __pre_copy Files copy to sub-directory of simulator before executing.
          */
         ProcessConfig(const std::string& __cmd,
                     const std::vector<std::string>& __args,
                     const std::string& __log,
                     bool __to_stdout,
+                    double __clock_rate,
                     const std::string& __pre_copy)
             : m_command(__cmd)
             , m_args(__args)
             , m_log_file(__log)
             , m_to_stdout(__to_stdout)
+            , m_clock_rate(__clock_rate)
             , m_pre_copy(__pre_copy)
         {}
 
@@ -51,6 +54,10 @@ namespace InterChiplet
          * @brief True means redirect output of this process to standard output.
          */
         bool m_to_stdout;
+        /**
+         * @brief the rate of inter-simulator cycle convert.
+         */
+        double m_clock_rate;
         /**
          * @brief Files copy to sub-directory of simulator before executing.
          */
@@ -140,6 +147,7 @@ namespace InterChiplet
                                  config["args"].as<std::vector<std::string> >(),
                                  config["log"].as<std::string>(),
                                  config["is_to_stdout"].as<bool>(),
+                                 config["clock_rate"].as<double>(),
                                  pre_copy);
         }
 

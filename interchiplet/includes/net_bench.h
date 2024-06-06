@@ -19,7 +19,7 @@ namespace InterChiplet
         /**
          * @brief Package injection cycle.
          */
-        TimeType m_cycle;
+        InnerTimeType m_cycle;
         /**
          * @brief Packate id. (Not used yet.)
          */
@@ -62,7 +62,7 @@ namespace InterChiplet
          * @param __pac_size Size of package in bytes.
          */
         NetworkBenchItem(
-            TimeType __cycle, int __src_x, int __src_y, int __dst_x, int __dst_y, int __pac_size)
+            InnerTimeType __cycle, int __src_x, int __src_y, int __dst_x, int __dst_y, int __pac_size)
             : m_cycle(__cycle)
             , m_dst_x(__dst_x)
             , m_dst_y(__dst_y)
@@ -122,14 +122,14 @@ namespace InterChiplet
      * @brief List of network benchmark item.
      */
     class NetworkBenchList
-        : public std::multimap<TimeType, NetworkBenchItem>
+        : public std::multimap<InnerTimeType, NetworkBenchItem>
     {
     public:
         /**
          * @brief Construct NetworkBenchList.
          */
         NetworkBenchList()
-            : std::multimap<TimeType, NetworkBenchItem>()
+            : std::multimap<InnerTimeType, NetworkBenchItem>()
         {}
 
         /**
@@ -137,20 +137,20 @@ namespace InterChiplet
          */
         void insert(const NetworkBenchItem& __item)
         {
-            std::multimap<TimeType, NetworkBenchItem>::insert(
-                std::pair<TimeType, NetworkBenchItem>(__item.m_cycle, __item));
+            std::multimap<InnerTimeType, NetworkBenchItem>::insert(
+                std::pair<InnerTimeType, NetworkBenchItem>(__item.m_cycle, __item));
         }
 
         /**
          * @brief Dump benchmark list to specified file.
          * @param file_name Path to benchmark file.
          */
-        void dump_bench(const std::string& __file_name)
+        void dump_bench(const std::string& __file_name, const double __clock_rate)
         {
             std::ofstream bench_of(__file_name, std::ios::out);
             for (auto& it: *this)
             {
-                bench_of << it.second.m_cycle << " "
+                bench_of << it.second.m_cycle * __clock_rate << " "
                     << it.second.m_src_x << " " << it.second.m_src_y << " "
                     << it.second.m_dst_x << " " << it.second.m_dst_y << " "
                     << it.second.m_pac_size << std::endl;

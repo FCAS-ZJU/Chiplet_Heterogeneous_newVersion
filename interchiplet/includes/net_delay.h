@@ -19,11 +19,11 @@ namespace InterChiplet
         /**
          * @brief Package injection cycle. Used to order packages.
          */
-        TimeType m_cycle;
+        InnerTimeType m_cycle;
         /**
          * @brief Packate id. (Not used yet.)
          */
-        TimeType m_id;
+        uint64_t m_id;
         /**
          * @brief Source address in X-axis.
          */
@@ -43,7 +43,7 @@ namespace InterChiplet
         /**
          * @brief Package delay: from injection of the first flit to ejection of the last flit.
          */
-        TimeType m_delay;
+        InnerTimeType m_delay;
 
     public:
         /**
@@ -62,7 +62,7 @@ namespace InterChiplet
          * @param __delay Package delay.
          */
         NetworkDelayItem(
-            TimeType __cycle, int __src_x, int __src_y, int __dst_x, int __dst_y, int __delay)
+            InnerTimeType __cycle, int __src_x, int __src_y, int __dst_x, int __dst_y, int __delay)
             : m_cycle(__cycle)
             , m_dst_x(__dst_x)
             , m_dst_y(__dst_y)
@@ -104,14 +104,14 @@ namespace InterChiplet
      * @brief List of network delay item.
      */
     class NetworkDelayList
-        : public std::multimap<TimeType, NetworkDelayItem>
+        : public std::multimap<InnerTimeType, NetworkDelayItem>
     {
     public:
         /**
          * @brief Construct NetworkDelayList.
          */
         NetworkDelayList()
-            : std::multimap<TimeType, NetworkDelayItem>()
+            : std::multimap<InnerTimeType, NetworkDelayItem>()
         {}
 
         /**
@@ -119,21 +119,23 @@ namespace InterChiplet
          */
         void insert(const NetworkDelayItem& __item)
         {
-            std::multimap<TimeType, NetworkDelayItem>::insert(
-                std::pair<TimeType, NetworkDelayItem>(__item.m_cycle, __item));
+            std::multimap<InnerTimeType, NetworkDelayItem>::insert(
+                std::pair<InnerTimeType, NetworkDelayItem>(__item.m_cycle, __item));
         }
 
         /**
          * @brief Load package delay list from specified file.
          * @param file_name Path to benchmark file.
          */
-        void load_delay(const std::string& __file_name)
+        void load_delay(const std::string& __file_name, const double __clock_rate)
         {
             std::ifstream bench_if(__file_name, std::ios::in);
             while (bench_if)
             {
                 NetworkDelayItem item;
                 bench_if >> item;
+                item.m_cycle = item.m_cycle / __clock_rate;
+                item.m_delay = item.m_delay / __clock_rate;
                 if (!bench_if) break;
                 insert(item);
             }
@@ -145,10 +147,10 @@ namespace InterChiplet
          * @param __read_cmd  Read command.
          * @return End cycle of this communication, used to acknowledge SYNC command.
          */
-        TimeType getEndCycle(const InterChiplet::SyncCommand& __write_cmd,
+        InnerTimeType getEndCycle(const InterChiplet::SyncCommand& __write_cmd,
                              const InterChiplet::SyncCommand& __read_cmd)
         {
-            std::multimap<TimeType, NetworkDelayItem>::iterator it = find_first_item(
+            std::multimap<InnerTimeType, NetworkDelayItem>::iterator it = find_first_item(
                 __write_cmd.m_src_x, __write_cmd.m_src_y, __write_cmd.m_dst_x, __write_cmd.m_dst_y);
 
             if (it == end())
@@ -157,7 +159,7 @@ namespace InterChiplet
             }
             else
             {
-                TimeType delay = it->second.m_delay;
+                InnerTimeType delay = it->second.m_delay;
                 erase(it);
 
                 if (__write_cmd.m_cycle >= __read_cmd.m_cycle)
@@ -175,10 +177,10 @@ namespace InterChiplet
         /**
          * @brief Return the pointer to the first item match specified source and destination.
          */
-        std::multimap<TimeType, NetworkDelayItem>::iterator find_first_item(
+        std::multimap<InnerTimeType, NetworkDelayItem>::iterator find_first_item(
             int __src_x, int __src_y, int __dst_x, int __dst_y)
         {
-            for (std::multimap<TimeType, NetworkDelayItem>::iterator it = begin();
+            for (std::multimap<InnerTimeType, NetworkDelayItem>::iterator it = begin();
                     it != end(); it ++)
             {
                 if (it->second.m_src_x == __src_x && it->second.m_src_y == __src_y
@@ -198,7 +200,7 @@ namespace InterChiplet
          * @param __read_cmd  Read command.
          * @return End cycle of this communication, used to acknowledge SYNC command.
          */
-        TimeType getDefaultEndCycle(const InterChiplet::SyncCommand& write_cmd,
+        InnerTimeType getDefaultEndCycle(const InterChiplet::SyncCommand& write_cmd,
                                     const InterChiplet::SyncCommand& read_cmd)
         {
             // TODO: Get more accurate end cycle.
