@@ -15,7 +15,6 @@ C_TARGET=bin/matmul_c
 # Compiler environment of CUDA
 NVCC=nvcc
 CUFLAGS=--compiler-options -Wall -I$(SIMULATOR_ROOT)/interchiplet/includes
-INTERCHIPLET_CU_LIB=$(SIMULATOR_ROOT)/interchiplet/lib/libinterchiplet_cu.a
 
 # CUDA Source file
 CUDA_SRCS=matmul.cu
@@ -30,7 +29,7 @@ C_target: $(C_OBJS)
 
 # CUDA language target
 CUDA_target: $(CUDA_OBJS)
-	$(NVCC) --cudart shared $(CUDA_OBJS) $(INTERCHIPLET_CU_LIB) -o $(CUDA_TARGET)
+	$(NVCC) -L$(SIMULATOR_ROOT)/gpgpu-sim/lib/$(GPGPUSIM_CONFIG) --cudart shared $(CUDA_OBJS) -o $(CUDA_TARGET)
 
 # Rule for C object
 obj/%.o: %.cpp

@@ -38,8 +38,8 @@ add_library(interchiplet_c STATIC
     srcs/apis_c.cpp)
 
 # Static library: interchiplet_cu
-add_library(interchiplet_cu STATIC
-    srcs/apis_cu.cu)
+# add_library(interchiplet_cu STATIC
+#     srcs/apis_cu.cu)
 
 # Executable: interchiplet
 add_executable(interchiplet srcs/interchiplet.cpp)

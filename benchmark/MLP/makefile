@@ -5,7 +5,6 @@ SNIPER_EXEC=$(SIMULATOR_ROOT)/snipersim/run-sniper
 
 NVCC=nvcc
 CUFLAGS=--compiler-options -Wall -I$(SIMULATOR_ROOT)/interchiplet/includes
-INTERCHIPLET_CU_LIB=$(SIMULATOR_ROOT)/interchiplet/lib/libinterchiplet_cu.a
 
 BENCHMARK_ROOT=$(SIMULATOR_ROOT)/benchmark/MLP
 
@@ -34,7 +33,7 @@ debug: CFLAGS += -DDEBUG -g
 debug: all
 
 gpgpusim_target:
-	$(NVCC) --cudart shared $(GPGPUSIM_SRCS) $(CUFLAGS) $(INTERCHIPLET_CU_LIB) -o $(GPGPUSIM_TARGET) -g
+	$(NVCC) -L$(SIMULATOR_ROOT)/gpgpu-sim/lib/$(GPGPUSIM_CONFIG) --cudart shared $(GPGPUSIM_SRCS) $(CUFLAGS) -o $(GPGPUSIM_TARGET) -g
 
 run:
 	touch "start running" &

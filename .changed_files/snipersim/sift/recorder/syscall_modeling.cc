@@ -178,8 +178,47 @@ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
          case SYS_exit_group:
             thread_data[threadid].output->Syscall(syscall_number, (char*)args, sizeof(args));
             break;
-         // Send data to GPU.
-         case InterChiplet::SYSCALL_SEND_TO_GPU:
+
+         // Connect to remote chiplet. (lock resource)
+         case InterChiplet::SYSCALL_CONNECT:
+         {
+            thread_data[threadid].last_syscall_number = syscall_number;
+            thread_data[threadid].last_syscall_emulated=true;
+
+            int dstX = args[0];
+            int dstY = args[1];
+            int srcX = args[2];
+            int srcY = args[3];
+
+            printf("Enter Sniper lockResource\n");
+            // Lock sync
+            InterChiplet::SyncProtocol::lockSync(srcX, srcY, dstX, dstY);
+
+            thread_data[threadid].last_syscall_returnval = 1;
+            thread_data[threadid].output->Syscall(syscall_number, (char *)args, sizeof(args));
+            break;
+         }
+         // Disconnect to remote chiplet. (unlock resource)
+         case InterChiplet::SYSCALL_DISCONNECT:
+         {
+            thread_data[threadid].last_syscall_number = syscall_number;
+            thread_data[threadid].last_syscall_emulated=true;
+
+            int dstX = args[0];
+            int dstY = args[1];
+            int srcX = args[2];
+            int srcY = args[3];
+
+            printf("Enter Sniper unlockResource\n");
+            // Unlock sync
+            InterChiplet::SyncProtocol::unlockSync(srcX, srcY, dstX, dstY);
+
+            thread_data[threadid].last_syscall_returnval = 1;
+            thread_data[threadid].output->Syscall(syscall_number, (char *)args, sizeof(args));
+            break;
+         }
+         // Send data to remote chiplet.
+         case InterChiplet::SYSCALL_REMOTE_WRITE:
          {
             thread_data[threadid].last_syscall_number = syscall_number;
             thread_data[threadid].last_syscall_emulated=true;
@@ -191,7 +230,7 @@ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
             int* data = (int*)args[4];
             int nbytes = args[5];
 
-            printf("Enter Sniper passGpuMessage\n");
+            printf("Enter Sniper sendMessage\n");
             // Pipe sync
             InterChiplet::SyncProtocol::pipeSync(srcX, srcY, dstX, dstY);
             // Write data
@@ -200,14 +239,11 @@ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
             delete fileName;
 
             thread_data[threadid].last_syscall_returnval = 1;
-            thread_data[threadid].output->Syscall(
-               syscall_number,
-               (char *)args,
-               sizeof(args));
-         break;
+            thread_data[threadid].output->Syscall(syscall_number, (char *)args, sizeof(args));
+            break;
          }
-         // Read data from GPU.
-         case InterChiplet::SYSCALL_READ_FROM_GPU:
+         // Read data from remote chiplet.
+         case InterChiplet::SYSCALL_REMOTE_READ:
          {
             thread_data[threadid].last_syscall_number = syscall_number;
             thread_data[threadid].last_syscall_emulated=true;
@@ -228,10 +264,7 @@ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
             delete fileName;
 
             thread_data[threadid].last_syscall_returnval = 1;
-            thread_data[threadid].output->Syscall(
-               syscall_number,
-               (char *)args,
-               sizeof(args));
+            thread_data[threadid].output->Syscall(syscall_number, (char *)args, sizeof(args));
             break;
          }
       }
