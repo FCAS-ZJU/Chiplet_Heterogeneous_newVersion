@@ -98,6 +98,10 @@ class SyncStruct {
      * @brief Barrier items.
      */
     std::map<int, std::vector<InterChiplet::SyncCommand> > m_barrier_items_map;
+    /**
+     * @brief Barrier items.
+     */
+    std::map<int, std::vector<InterChiplet::SyncCommand> > m_barrier_write_items_map;
 };
 
 /**
@@ -351,7 +355,6 @@ void handle_barrier_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sy
             __sync_struct->m_barrier_items_map[uid] = std::vector<InterChiplet::SyncCommand>();
             __sync_struct->m_barrier_items_map[uid].push_back(__cmd);
         }
-
     }
     // Exist barrier.
     else {
@@ -450,12 +453,74 @@ void handle_read_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync_
     }
 }
 
+void handle_barrier_write_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync_struct) {
+    int uid = __cmd.m_dst_x;
+    int count = __cmd.m_desc & 0xFFFF;
+
+    // Insert event to benchmark list.
+    InterChiplet::NetworkBenchItem bench_item(__cmd);
+    __sync_struct->m_bench_list.insert(bench_item);
+
+    if (__sync_struct->m_barrier_count_map.find(uid) == __sync_struct->m_barrier_count_map.end()) {
+        InterChiplet::InnerTimeType end_cycle = __sync_struct->m_delay_list.getEndCycle(__cmd);
+        spdlog::debug("{} Transation ends at {},{} cycle.", cmdToDebug(__cmd),
+                      static_cast<InterChiplet::TimeType>(end_cycle));
+
+        // Send synchronize command to response WRITE command.
+        InterChiplet::SyncProtocol::sendSyncCmd(
+            __cmd.m_stdin_fd, static_cast<InterChiplet::TimeType>(end_cycle * __cmd.m_clock_rate));
+    } else {
+        // Add barrier item.
+        if (__sync_struct->m_barrier_write_items_map.find(uid) ==
+            __sync_struct->m_barrier_write_items_map.end()) {
+            __sync_struct->m_barrier_write_items_map[uid] =
+                std::vector<InterChiplet::SyncCommand>();
+        }
+        __sync_struct->m_barrier_write_items_map[uid].push_back(__cmd);
+
+        // If barrier override.
+        if (__sync_struct->m_barrier_write_items_map[uid].size() >=
+            __sync_struct->m_barrier_count_map[uid]) {
+            // Get barrier overflow time.
+            InterChiplet::InnerTimeType barrier_cycle = __sync_struct->m_delay_list.getBarrierCycle(
+                __sync_struct->m_barrier_write_items_map[uid]);
+            spdlog::debug("{} Barrier overflow at {} cycle.", cmdToDebug(__cmd),
+                          static_cast<InterChiplet::TimeType>(barrier_cycle));
+            // Generate a command as read command.
+            InterChiplet::SyncCommand sync_cmd = __cmd;
+            sync_cmd.m_cycle = barrier_cycle;
+
+            // Send synchronization command to all barrier items.
+            for (InterChiplet::SyncCommand item : __sync_struct->m_barrier_write_items_map[uid]) {
+                std::tuple<InterChiplet::InnerTimeType, InterChiplet::InnerTimeType> end_cycle =
+                    __sync_struct->m_delay_list.getEndCycle(item, sync_cmd);
+                InterChiplet::InnerTimeType write_end_cycle = std::get<0>(end_cycle);
+                spdlog::debug("\t{} Transaction ends at {} cycle.", cmdToDebug(item),
+                              static_cast<InterChiplet::TimeType>(write_end_cycle));
+
+                // Send synchronization comand to response WRITE command.
+                InterChiplet::SyncProtocol::sendSyncCmd(
+                    item.m_stdin_fd,
+                    static_cast<InterChiplet::TimeType>(write_end_cycle * __cmd.m_clock_rate));
+            }
+            __sync_struct->m_barrier_write_items_map[uid].clear();
+        } else {
+            spdlog::debug("{} Wait for other barrier items.", cmdToDebug(__cmd));
+        }
+    }
+}
+
 /**
  * @brief Handle WRITE command.
  * @param __cmd Command to handle.
  * @param __sync_struct Pointer to global synchronize structure.
  */
 void handle_write_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync_struct) {
+    // Special handle WRITE cmmand after BARRIER.
+    if (__cmd.m_desc & InterChiplet::SPD_BARRIER) {
+        return handle_barrier_write_cmd(__cmd, __sync_struct);
+    }
+
     // Check for paired read command.
     bool has_read_cmd = false;
     InterChiplet::SyncCommand read_cmd;

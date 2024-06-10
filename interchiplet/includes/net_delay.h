@@ -183,6 +183,24 @@ class NetworkDelayList : public std::multimap<InnerTimeType, NetworkDelayItem> {
 
                 return std::tuple<InnerTimeType, InnerTimeType>(write_end_time, read_end_time);
             }
+            // Barrier communication.
+            if (__write_cmd.m_desc & SPD_BARRIER) {
+                // Forward packet.
+                InnerTimeType pac_delay_src = it->second.m_delay_list[0];
+                InnerTimeType pac_delay_dst = it->second.m_delay_list[1];
+                InnerTimeType write_end_time = __write_cmd.m_cycle + pac_delay_src;
+                InnerTimeType read_end_time = __write_cmd.m_cycle + pac_delay_dst;
+                if (__read_cmd.m_cycle > read_end_time) {
+                    read_end_time = __read_cmd.m_cycle;
+                }
+                // Acknowledge packet.
+                InnerTimeType ack_delay_src = it->second.m_delay_list[2];
+                InnerTimeType ack_delay_dst = it->second.m_delay_list[3];
+                read_end_time = read_end_time + ack_delay_src;
+                write_end_time = read_end_time - ack_delay_src + ack_delay_dst;
+
+                return std::tuple<InnerTimeType, InnerTimeType>(write_end_time, read_end_time);
+            }
             // Normal communication.
             else {
                 // Forward packet.
@@ -216,6 +234,25 @@ class NetworkDelayList : public std::multimap<InnerTimeType, NetworkDelayItem> {
             InnerTimeType write_end_time = __write_cmd.m_cycle + pac_delay_src;
             return pac_delay_src;
         }
+    }
+
+    InnerTimeType getBarrierCycle(const std::vector<InterChiplet::SyncCommand>& barrier_items) {
+        InnerTimeType barrier_cycle = 0;
+        for (auto& item: barrier_items)
+        {
+            std::multimap<InnerTimeType, NetworkDelayItem>::iterator it = find_first_item(
+                item.m_src_x, item.m_src_y, item.m_dst_x, item.m_dst_y);
+
+            if (it == end()) {
+                continue;
+            }
+
+            InnerTimeType t_cycle = it->second.m_cycle + it->second.m_delay_list[1];
+            if (t_cycle > barrier_cycle) {
+                barrier_cycle = t_cycle;
+            }
+        }
+        return barrier_cycle;
     }
 
    public:

@@ -72,11 +72,11 @@ enum SyncProtocolDesc {
     /**
      * @brief Locker behavior.
      */
-    SPD_LOCKER = 0x10,
+    SPD_LOCKER = 0x10000,
     /**
      * @brief Barrier behavior.
      */
-    SPD_BARRIER = 0x20,
+    SPD_BARRIER = 0x20000,
 };
 
 /**
