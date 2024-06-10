@@ -8,3 +8,12 @@
 [submodule "popnet_chiplet"]
 	path = popnet_chiplet
 	url = https://github.com/baikeina/popnet_chiplet.git
+[submodule "interchiplet/thirdparty/spdlog"]
+	path = interchiplet/thirdparty/spdlog
+	url = https://github.com/gabime/spdlog.git
+[submodule "interchiplet/thirdparty/CLI11"]
+	path = interchiplet/thirdparty/CLI11
+	url = https://github.com/CLIUtils/CLI11.git
+[submodule "interchiplet/thirdparty/yaml-cpp"]
+	path = interchiplet/thirdparty/yaml-cpp
+	url = https://github.com/jbeder/yaml-cpp.git

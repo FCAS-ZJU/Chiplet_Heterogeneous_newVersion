@@ -13,6 +13,7 @@
 #include "cmdline_options.h"
 #include "net_bench.h"
 #include "net_delay.h"
+#include "spdlog/spdlog.h"
 #include "sync_protocol.h"
 
 /**
@@ -162,12 +163,39 @@ int create_fifo(std::string __fifo_name) {
     }
 }
 
-#define PIPE_BUF_SIZE 1024
+static std::string cmdToDebug(const InterChiplet::SyncCommand& __cmd) {
+    std::stringstream ss;
+    if (__cmd.m_type == InterChiplet::SC_LOCK) {
+        ss << "LOCK command from " << __cmd.m_src_x << "," << __cmd.m_src_y << " to "
+           << __cmd.m_dst_x << "," << __cmd.m_dst_y << ".";
+    } else if (__cmd.m_type == InterChiplet::SC_WAITLOCK) {
+        ss << "WAITLOCK command from " << __cmd.m_src_x << "," << __cmd.m_src_y << " to "
+           << __cmd.m_dst_x << "," << __cmd.m_dst_y << ".";
+    } else if (__cmd.m_type == InterChiplet::SC_UNLOCK) {
+        ss << "UNLOCK command from " << __cmd.m_src_x << "," << __cmd.m_src_y << " to "
+           << __cmd.m_dst_x << "," << __cmd.m_dst_y << ".";
+    } else if (__cmd.m_type == InterChiplet::SC_BARRIER) {
+        ss << "BARRIER command from " << __cmd.m_src_x << "," << __cmd.m_src_y << " to "
+           << __cmd.m_dst_x << ".";
+    } else if (__cmd.m_type == InterChiplet::SC_PIPE) {
+        ss << "PIPE command from " << __cmd.m_src_x << "," << __cmd.m_src_y << " to "
+           << __cmd.m_dst_x << "," << __cmd.m_dst_y << ".";
+    } else if (__cmd.m_type == InterChiplet::SC_READ) {
+        ss << "READ command at " << static_cast<InterChiplet::TimeType>(__cmd.m_cycle)
+           << " cycle from " << __cmd.m_src_x << "," << __cmd.m_src_y << " to " << __cmd.m_dst_x
+           << "," << __cmd.m_dst_y << ".";
+    } else if (__cmd.m_type == InterChiplet::SC_WRITE) {
+        ss << "WRITE command at " << static_cast<InterChiplet::TimeType>(__cmd.m_cycle)
+           << " cycle from " << __cmd.m_src_x << "," << __cmd.m_src_y << " to " << __cmd.m_dst_x
+           << "," << __cmd.m_dst_y << ".";
+    } else if (__cmd.m_type == InterChiplet::SC_CYCLE) {
+        ss << "CYCLE command at " << static_cast<InterChiplet::TimeType>(__cmd.m_cycle)
+           << " cycle.";
+    }
+    return ss.str();
+}
 
 void handle_lock_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync_struct) {
-    std::cout << "[INTERCMD DBG] LOCK command" << " from " << __cmd.m_src_x << " " << __cmd.m_src_y
-              << " to " << __cmd.m_dst_x << " " << __cmd.m_dst_y << ". ";
-
     // Check for unconfirmed waitlock command.
     bool has_waitlock_cmd = false;
     InterChiplet::SyncCommand waitlock_cmd;
@@ -185,32 +213,25 @@ void handle_lock_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync_
 
     // If there is not waitlock command, waitlock command.
     if (!has_waitlock_cmd) {
-        std::cout << "Register LOCK command to pair with WAITLOCK command." << std::endl;
+        spdlog::debug("{} Register LOCK command to pair with WAITLOCK command.", cmdToDebug(__cmd));
         __sync_struct->m_pending_lock_cmd_list.push_back(__cmd);
         // If there is waitlock command, response lock and waitlock command.
     } else {
-        std::cout << "Pair with WAITLOCK command." << std::endl;
+        spdlog::debug("{} Pair with WAITLOCK command.", cmdToDebug(__cmd));
 
         // Append to lock queue.
         __sync_struct->m_lock_cmd_list.push_back(__cmd);
 
         // Send SYNC to response LOCK command.
-        std::stringstream ss1;
-        ss1 << "[INTERCMD] SYNC " << 0 << std::endl;
-        write(__cmd.m_stdin_fd, ss1.str().c_str(), ss1.str().size());
+        InterChiplet::SyncProtocol::sendSyncCmd(__cmd.m_stdin_fd, 0);
 
         // Send LOCK to response WAITLOCK command.
-        std::stringstream ss2;
-        ss2 << "[INTERCMD] LOCK " << 0 << " " << __cmd.m_src_x << " " << __cmd.m_src_y << " "
-            << __cmd.m_dst_x << " " << __cmd.m_dst_y << std::endl;
-        write(waitlock_cmd.m_stdin_fd, ss2.str().c_str(), ss2.str().size());
+        InterChiplet::SyncProtocol::sendLockCmd(waitlock_cmd.m_stdin_fd, __cmd.m_src_x,
+                                                __cmd.m_src_y, __cmd.m_dst_x, __cmd.m_dst_y);
     }
 }
 
 void handle_waitlock_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync_struct) {
-    std::cout << "[INTERCMD DBG] WAITLOCK command" << " from " << __cmd.m_src_x << " "
-              << __cmd.m_src_y << " to " << __cmd.m_dst_x << " " << __cmd.m_dst_y << ". ";
-
     // Check for unconfirmed waitlock command.
     bool has_lock_cmd = false;
     InterChiplet::SyncCommand lock_cmd;
@@ -228,32 +249,26 @@ void handle_waitlock_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __s
 
     // If there is not waitlock command, waitlock command.
     if (!has_lock_cmd) {
-        std::cout << "Register WAITLOCK command to pair with LOCK command." << std::endl;
+        spdlog::debug("{} Register WAITLOCK command to pair with LOCK command.", cmdToDebug(__cmd));
         __sync_struct->m_waitlock_cmd_list.push_back(__cmd);
     } else {
-        std::cout << "Pair with LOCK command from " << lock_cmd.m_src_x << " " << lock_cmd.m_src_y
-                  << " to " << lock_cmd.m_dst_x << " " << lock_cmd.m_dst_y << ". " << std::endl;
+        spdlog::debug("{} Pair with LOCK command from {},{} to {},{}.", cmdToDebug(__cmd),
+                      lock_cmd.m_src_x, lock_cmd.m_src_y, lock_cmd.m_dst_x, lock_cmd.m_dst_y);
 
         // Append to lock queue.
         __sync_struct->m_lock_cmd_list.push_back(lock_cmd);
 
         // Send SYNC to response LOCK command.
-        std::stringstream ss1;
-        ss1 << "[INTERCMD] SYNC " << 0 << std::endl;
-        write(lock_cmd.m_stdin_fd, ss1.str().c_str(), ss1.str().size());
+        InterChiplet::SyncProtocol::sendSyncCmd(lock_cmd.m_stdin_fd, 0);
 
         // Send LOCK to response WAITLOCK command.
-        std::stringstream ss2;
-        ss2 << "[INTERCMD] LOCK " << 0 << " " << lock_cmd.m_src_x << " " << lock_cmd.m_src_y << " "
-            << lock_cmd.m_dst_x << " " << lock_cmd.m_dst_y << std::endl;
-        write(__cmd.m_stdin_fd, ss2.str().c_str(), ss2.str().size());
+        InterChiplet::SyncProtocol::sendLockCmd(__cmd.m_stdin_fd, lock_cmd.m_src_x,
+                                                lock_cmd.m_src_y, lock_cmd.m_dst_x,
+                                                lock_cmd.m_dst_y);
     }
 }
 
 void handle_unlock_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync_struct) {
-    std::cout << "[INTERCMD DBG] UNLOCK command" << " from " << __cmd.m_src_x << " "
-              << __cmd.m_src_y << " to " << __cmd.m_dst_x << " " << __cmd.m_dst_y << ". ";
-
     // Unlock resources.
     for (std::size_t i = 0; i < __sync_struct->m_lock_cmd_list.size(); i++) {
         InterChiplet::SyncCommand& __lock_cmd = __sync_struct->m_lock_cmd_list[i];
@@ -261,48 +276,38 @@ void handle_unlock_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __syn
         if (__lock_cmd.m_src_x == __cmd.m_src_x && __lock_cmd.m_src_y == __cmd.m_src_y &&
             __lock_cmd.m_dst_x == __cmd.m_dst_x && __lock_cmd.m_dst_y == __cmd.m_dst_y) {
             __sync_struct->m_lock_cmd_list.erase(__sync_struct->m_lock_cmd_list.begin() + i);
-            std::cout << "UnLock from " << __cmd.m_src_x << " " << __cmd.m_src_y << " to "
-                      << __cmd.m_dst_x << " " << __cmd.m_dst_y << ". " << std::endl;
             break;
         }
     }
 
+    spdlog::debug("{}", cmdToDebug(__cmd));
+
     // Send synchronize command.
-    std::stringstream ss;
-    ss << "[INTERCMD] SYNC " << 0 << std::endl;
-    write(__cmd.m_stdin_fd, ss.str().c_str(), ss.str().size());
+    InterChiplet::SyncProtocol::sendSyncCmd(__cmd.m_stdin_fd, 0);
 }
 
 void handle_barrier_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync_struct) {
-    std::cout << "[INTERCMD DBG] BARRIER command" << " from " << __cmd.m_src_x << " "
-              << __cmd.m_src_y << " to " << __cmd.m_dst_x << ". ";
-
     int uid = __cmd.m_dst_x;
     int count = __cmd.m_nbytes;
 
     // New barrier.
     if (__sync_struct->m_barrier_count_map.find(uid) == __sync_struct->m_barrier_count_map.end()) {
-        std::cout << "Register new barrier. ";
         // Not specify the count of items, return sync directly.
         if (count == 0) {
-            std::cout << "Barrier overflow. " << std::endl;
-            std::stringstream ss;
-            ss << "[INTERCMD] SYNC " << 0 << std::endl;
-            write(__cmd.m_stdin_fd, ss.str().c_str(), ss.str().size());
+            spdlog::debug("{} Barrier overflow.", cmdToDebug(__cmd));
+            InterChiplet::SyncProtocol::sendSyncCmd(__cmd.m_stdin_fd, 0);
         }
         // If the count of items is 1, register barrier, return sync.
         else if (count == 1) {
-            std::cout << "Barrier overflow. " << std::endl;
+            spdlog::debug("{} Register new barrier. Barrier overflow.", cmdToDebug(__cmd));
             __sync_struct->m_barrier_count_map[uid] = count;
             __sync_struct->m_barrier_items_map[uid] = std::vector<InterChiplet::SyncCommand>();
 
-            std::stringstream ss;
-            ss << "[INTERCMD] SYNC " << 0 << std::endl;
-            write(__cmd.m_stdin_fd, ss.str().c_str(), ss.str().size());
+            InterChiplet::SyncProtocol::sendSyncCmd(__cmd.m_stdin_fd, 0);
         }
         // If the count of items is greater than 1, register barrier, add barrier item.
         else {
-            std::cout << "Add barrier item. " << std::endl;
+            spdlog::debug("{} Register new barrier. Add barrier item.", cmdToDebug(__cmd));
             __sync_struct->m_barrier_count_map[uid] = count;
             __sync_struct->m_barrier_items_map[uid] = std::vector<InterChiplet::SyncCommand>();
             __sync_struct->m_barrier_items_map[uid].push_back(__cmd);
@@ -316,7 +321,6 @@ void handle_barrier_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sy
             __sync_struct->m_barrier_items_map.end()) {
             __sync_struct->m_barrier_items_map[uid] = std::vector<InterChiplet::SyncCommand>();
         }
-        std::cout << "Add barrier item. ";
         __sync_struct->m_barrier_items_map[uid].push_back(__cmd);
 
         // Update counter.
@@ -327,15 +331,13 @@ void handle_barrier_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sy
         // If barrier override.
         if (__sync_struct->m_barrier_items_map[uid].size() >=
             __sync_struct->m_barrier_count_map[uid]) {
-            std::cout << "Barrier overflow. " << std::endl;
+            spdlog::debug("{} Add barrier item. Barrier overflow.", cmdToDebug(__cmd));
             for (InterChiplet::SyncCommand item : __sync_struct->m_barrier_items_map[uid]) {
-                std::stringstream ss;
-                ss << "[INTERCMD] SYNC " << 0 << std::endl;
-                write(item.m_stdin_fd, ss.str().c_str(), ss.str().size());
+                InterChiplet::SyncProtocol::sendSyncCmd(item.m_stdin_fd, 0);
             }
             __sync_struct->m_barrier_items_map[uid].clear();
         } else {
-            std::cout << std::endl;
+            spdlog::debug("{} Add barrier item.", cmdToDebug(__cmd));
         }
     }
 }
@@ -346,21 +348,16 @@ void handle_barrier_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sy
  * @param __sync_struct Pointer to global synchronize structure.
  */
 void handle_pipe_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync_struct) {
-    std::cout << "[INTERCMD DBG] PIPE command" << " from " << __cmd.m_src_x << " " << __cmd.m_src_y
-              << " to " << __cmd.m_dst_x << " " << __cmd.m_dst_y << ". ";
-
     // Create Pipe file and add the file to
     std::string file_name = InterChiplet::SyncProtocol::pipeNameMaster(
         __cmd.m_src_x, __cmd.m_src_y, __cmd.m_dst_x, __cmd.m_dst_y);
     if (create_fifo(file_name.c_str()) == 0) {
         __sync_struct->m_fifo_list.push_back(file_name);
     }
-    std::cout << "Create/Reuse pipe file " << file_name << "." << std::endl;
+    spdlog::debug("{} Create/Reuse pipe file {}.", cmdToDebug(__cmd), file_name);
 
     // Send synchronize command.
-    std::stringstream ss;
-    ss << "[INTERCMD] SYNC " << 0 << std::endl;
-    write(__cmd.m_stdin_fd, ss.str().c_str(), ss.str().size());
+    InterChiplet::SyncProtocol::sendSyncCmd(__cmd.m_stdin_fd, 0);
 }
 
 /**
@@ -369,11 +366,6 @@ void handle_pipe_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync_
  * @param __sync_struct Pointer to global synchronize structure.
  */
 void handle_read_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync_struct) {
-    std::cout << "[INTERCMD DBG] READ command at "
-              << static_cast<InterChiplet::TimeType>(__cmd.m_cycle) << " cycle" << " from "
-              << __cmd.m_src_x << " " << __cmd.m_src_y << " to " << __cmd.m_dst_x << " "
-              << __cmd.m_dst_y << ". ";
-
     // Check for paired write command.
     bool has_write_cmd = false;
     InterChiplet::SyncCommand write_cmd;
@@ -392,35 +384,30 @@ void handle_read_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync_
     if (!has_write_cmd) {
         // If there is no paired write command, add this command to read command queue to wait.
         __sync_struct->m_read_cmd_list.push_back(__cmd);
-        std::cout << "Register READ command to pair with WRITE command." << std::endl;
+        spdlog::debug("{} Register READ command to pair with WRITE command.", cmdToDebug(__cmd));
     } else {
         // If there is a paired write command, get the end cycle of transaction.
         std::tuple<InterChiplet::InnerTimeType, InterChiplet::InnerTimeType> end_cycle =
             __sync_struct->m_delay_list.getEndCycle(write_cmd, __cmd);
         InterChiplet::InnerTimeType write_end_cycle = std::get<0>(end_cycle);
         InterChiplet::InnerTimeType read_end_cycle = std::get<1>(end_cycle);
-        std::cout << "Pair with WRITE command and transation ends at " << "["
-                  << static_cast<InterChiplet::TimeType>(write_end_cycle) << ","
-                  << static_cast<InterChiplet::TimeType>(read_end_cycle) << "]" << " cycle."
-                  << std::endl;
+        spdlog::debug("{} Pair with WRITE command. Transation ends at [{},{}] cycle.",
+                      cmdToDebug(__cmd), static_cast<InterChiplet::TimeType>(write_end_cycle),
+                      static_cast<InterChiplet::TimeType>(read_end_cycle));
 
         // Insert event to benchmark list.
         InterChiplet::NetworkBenchItem bench_item(write_cmd, __cmd);
         __sync_struct->m_bench_list.insert(bench_item);
 
         // Send synchronize command to response READ command.
-        std::stringstream ss1;
-        ss1 << "[INTERCMD] SYNC "
-            << static_cast<InterChiplet::TimeType>(read_end_cycle * __cmd.m_clock_rate)
-            << std::endl;
-        write(__cmd.m_stdin_fd, ss1.str().c_str(), ss1.str().size());
+        InterChiplet::SyncProtocol::sendSyncCmd(
+            __cmd.m_stdin_fd,
+            static_cast<InterChiplet::TimeType>(read_end_cycle * __cmd.m_clock_rate));
 
         // Send synchronize command to response WRITE command.
-        std::stringstream ss2;
-        ss2 << "[INTERCMD] SYNC "
-            << static_cast<InterChiplet::TimeType>(write_end_cycle * write_cmd.m_clock_rate)
-            << std::endl;
-        write(write_cmd.m_stdin_fd, ss2.str().c_str(), ss2.str().size());
+        InterChiplet::SyncProtocol::sendSyncCmd(
+            write_cmd.m_stdin_fd,
+            static_cast<InterChiplet::TimeType>(write_end_cycle * write_cmd.m_clock_rate));
     }
 }
 
@@ -430,28 +417,20 @@ void handle_read_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync_
  * @param __sync_struct Pointer to global synchronize structure.
  */
 void handle_write_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync_struct) {
-    std::cout << "[INTERCMD DBG] WRITE command at "
-              << static_cast<InterChiplet::TimeType>(__cmd.m_cycle) << " cycle" << " from "
-              << __cmd.m_src_x << " " << __cmd.m_src_y << " to " << __cmd.m_dst_x << " "
-              << __cmd.m_dst_y << ". ";
-
     // One way command, do not need to check operation.
     if (__cmd.m_desc & InterChiplet::SPD_ONEWAY) {
         // If there is a paired read command, get the end cycle of transaction.
         InterChiplet::InnerTimeType end_cycle = __sync_struct->m_delay_list.getEndCycle(__cmd);
-        std::cout << "One way WRITE COMMAND and transation ends at " << "["
-                  << static_cast<InterChiplet::TimeType>(end_cycle) << "]" << " cycle."
-                  << std::endl;
+        spdlog::debug("{} One way WRITE COMMAND and transation ends at {} cycle.",
+                      cmdToDebug(__cmd), static_cast<InterChiplet::TimeType>(end_cycle));
 
         // Insert event to benchmark list.
         InterChiplet::NetworkBenchItem bench_item(__cmd);
         __sync_struct->m_bench_list.insert(bench_item);
 
         // Send synchronize command to response WRITE command.
-        std::stringstream ss;
-        ss << "[INTERCMD] SYNC "
-           << static_cast<InterChiplet::TimeType>(end_cycle * __cmd.m_clock_rate) << std::endl;
-        write(__cmd.m_stdin_fd, ss.str().c_str(), ss.str().size());
+        InterChiplet::SyncProtocol::sendSyncCmd(
+            __cmd.m_stdin_fd, static_cast<InterChiplet::TimeType>(end_cycle * __cmd.m_clock_rate));
     } else {
         // Check for paired read command.
         bool has_read_cmd = false;
@@ -471,35 +450,31 @@ void handle_write_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync
         if (!has_read_cmd) {
             // If there is no paired read command, add this command to write command queue to wait.
             __sync_struct->m_write_cmd_list.push_back(__cmd);
-            std::cout << "Register WRITE command to pair with READ command." << std::endl;
+            spdlog::debug("{} Register WRITE command to pair with READ command.",
+                          cmdToDebug(__cmd));
         } else {
             // If there is a paired read command, get the end cycle of transaction.
             std::tuple<InterChiplet::InnerTimeType, InterChiplet::InnerTimeType> end_cycle =
                 __sync_struct->m_delay_list.getEndCycle(__cmd, read_cmd);
             InterChiplet::InnerTimeType write_end_cycle = std::get<0>(end_cycle);
             InterChiplet::InnerTimeType read_end_cycle = std::get<1>(end_cycle);
-            std::cout << "Pair with READ command and transation ends at " << "["
-                      << static_cast<InterChiplet::TimeType>(write_end_cycle) << ","
-                      << static_cast<InterChiplet::TimeType>(read_end_cycle) << "]" << " cycle."
-                      << std::endl;
+            spdlog::debug("{} Pair with READ command. Transation ends at [{},{}] cycle.",
+                          cmdToDebug(__cmd), static_cast<InterChiplet::TimeType>(write_end_cycle),
+                          static_cast<InterChiplet::TimeType>(read_end_cycle));
 
             // Insert event to benchmark list.
             InterChiplet::NetworkBenchItem bench_item(__cmd, read_cmd);
             __sync_struct->m_bench_list.insert(bench_item);
 
             // Send synchronize command to response WRITE command.
-            std::stringstream ss1;
-            ss1 << "[INTERCMD] SYNC "
-                << static_cast<InterChiplet::TimeType>(write_end_cycle * __cmd.m_clock_rate)
-                << std::endl;
-            write(__cmd.m_stdin_fd, ss1.str().c_str(), ss1.str().size());
+            InterChiplet::SyncProtocol::sendSyncCmd(
+                __cmd.m_stdin_fd,
+                static_cast<InterChiplet::TimeType>(write_end_cycle * __cmd.m_clock_rate));
 
             // Send synchronize command to response READ command.
-            std::stringstream ss2;
-            ss2 << "[INTERCMD] SYNC "
-                << static_cast<InterChiplet::TimeType>(read_end_cycle * read_cmd.m_clock_rate)
-                << std::endl;
-            write(read_cmd.m_stdin_fd, ss2.str().c_str(), ss2.str().size());
+            InterChiplet::SyncProtocol::sendSyncCmd(
+                read_cmd.m_stdin_fd,
+                static_cast<InterChiplet::TimeType>(read_end_cycle * read_cmd.m_clock_rate));
         }
     }
 }
@@ -510,8 +485,7 @@ void handle_write_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync
  * @param __sync_struct Pointer to global synchronize structure.
  */
 void handle_cycle_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync_struct) {
-    std::cout << "[INTERCMD DBG] CYCLE command at "
-              << static_cast<InterChiplet::TimeType>(__cmd.m_cycle) << " cycle" << "." << std::endl;
+    spdlog::debug("{}", cmdToDebug(__cmd));
 
     // Update global cycle.
     InterChiplet::InnerTimeType new_cycle = __cmd.m_cycle;
@@ -594,6 +568,8 @@ void parse_command(char* __pipe_buf, ProcessStruct* __proc_struct, int __stdin_f
     }
 }
 
+#define PIPE_BUF_SIZE 1024
+
 void* bridge_thread(void* __args_ptr) {
     ProcessStruct* proc_struct = (ProcessStruct*)__args_ptr;
 
@@ -615,7 +591,7 @@ void* bridge_thread(void* __args_ptr) {
         mkdir(sub_dir_path, 0775);
     }
 
-    std::cout << "Enter bridge_thread " << proc_struct->m_command << std::endl;
+    spdlog::info("Enter bridge_thread {}", proc_struct->m_command);
     // Fork a child process
     pid_t pid = fork();
     if (pid == -1) {
@@ -635,13 +611,15 @@ void* bridge_thread(void* __args_ptr) {
         dup2(pipe_stderr[1], STDERR_FILENO);
 
         // Change directory to sub-process.
-        chdir(sub_dir_path);
-        perror("chdir");
+        if (chdir(sub_dir_path) < 0) {
+            perror("chdir");
+        }
         // TODO: Copy necessary configuration file.
         if (!proc_struct->m_pre_copy.empty()) {
             std::string cp_cmd = std::string("cp ") + proc_struct->m_pre_copy + " .";
-            system(cp_cmd.c_str());
-            perror("system");
+            if (system(cp_cmd.c_str()) != 0) {
+                perror("system");
+            }
         }
 
         std::cout << "CWD: " << get_current_dir_name() << std::endl;
@@ -672,7 +650,7 @@ void* bridge_thread(void* __args_ptr) {
         perror("execvp");
         exit(EXIT_FAILURE);
     } else {  // Parent process
-        std::cout << "Start simulation process " << pid << std::endl;
+        spdlog::info("Start simulation process {}.", pid);
         proc_struct->m_pid2 = pid;
 
         // Close unnecessary pipe ends
@@ -740,8 +718,13 @@ void* bridge_thread(void* __args_ptr) {
             int status;
             if (!has_stdout && (waitpid(pid, &status, WNOHANG) > 0)) {
                 // Optionally handle child process termination status
-                std::cout << "Simulation process " << proc_struct->m_pid2
-                          << " terminate with status = " << status << "." << std::endl;
+                if (status == 0) {
+                    spdlog::info("Simulation process {} terminate with status = {}.",
+                                 proc_struct->m_pid2, status);
+                } else {
+                    spdlog::error("Simulation process {} terminate with status = {}.",
+                                  proc_struct->m_pid2, status);
+                }
                 break;
             }
         }
@@ -761,7 +744,7 @@ InterChiplet::InnerTimeType __loop_phase_one(
     // Load delay record.
     g_sync_structure->m_delay_list.load_delay("delayInfo.txt",
                                               __proc_phase2_cfg_list[0].m_clock_rate);
-    std::cout << "Load " << g_sync_structure->m_delay_list.size() << " delay records." << std::endl;
+    spdlog::info("Load {} delay records.", g_sync_structure->m_delay_list.size());
 
     // Create multi-thread.
     int thread_i = 0;
@@ -788,7 +771,7 @@ InterChiplet::InnerTimeType __loop_phase_one(
         pthread_join(proc_struct->m_thread_id, NULL);
         delete proc_struct;
     }
-    std::cout << "All process has exit." << std::endl;
+    spdlog::info("All process has exit.");
 
     // Remove file.
     for (auto& __name : g_sync_structure->m_fifo_list) {
@@ -797,7 +780,7 @@ InterChiplet::InnerTimeType __loop_phase_one(
 
     // Dump benchmark record.
     g_sync_structure->m_bench_list.dump_bench("bench.txt", __proc_phase2_cfg_list[0].m_clock_rate);
-    std::cout << "Dump " << g_sync_structure->m_bench_list.size() << " bench records." << std::endl;
+    spdlog::info("Dump {} bench records.", g_sync_structure->m_bench_list.size());
 
     // Destory global synchronize structure, and return total cycle.
     InterChiplet::InnerTimeType res_cycle = g_sync_structure->m_cycle;
@@ -836,7 +819,7 @@ void __loop_phase_two(int __round,
         pthread_join(proc_struct->m_thread_id, NULL);
         delete proc_struct;
     }
-    std::cout << "All process has exit." << std::endl;
+    spdlog::info("All process has exit.");
 
     // Destory global synchronize structure.
     delete g_sync_structure;
@@ -844,25 +827,36 @@ void __loop_phase_two(int __round,
 
 int main(int argc, const char* argv[]) {
     // Parse command line.
-    InterChiplet::CmdLineOptions options(argc, argv);
+    InterChiplet::CmdLineOptions options;
+    if (options.parse(argc, argv) != 0) {
+        return 0;
+    };
+
+    // Initializate logging
+    if (options.m_debug) {
+        spdlog::set_level(spdlog::level::debug);
+    }
+    spdlog::info("==== LegoSim Chiplet Simulator ====");
 
     // Change working directory if --cwd is specified.
-    if (options.m_has_cwd) {
+    if (options.m_cwd != "") {
         if (access(options.m_cwd.c_str(), F_OK) == 0) {
-            chdir(options.m_cwd.c_str());
-            std::cout << "[INTERCMD] Change working directory " << get_current_dir_name() << ".\n";
+            if (chdir(options.m_cwd.c_str()) < 0) {
+                perror("chdir");
+            }
+            spdlog::info("Change working directory {}.", get_current_dir_name());
         }
     }
 
     // Check exist of benchmark configuration yaml.
     if (access(options.m_bench.c_str(), F_OK) < 0) {
-        std::cerr << "Error: Cannot find benchmark " << options.m_bench << "." << std::endl;
+        spdlog::error("Cannot find benchmark {}.", options.m_bench);
         exit(EXIT_FAILURE);
     }
 
     // Load benchmark configuration.
     InterChiplet::BenchmarkConfig configs(options.m_bench);
-    std::cout << "[INTERCMD] Load benchmark configuration from " << options.m_bench << ".\n";
+    spdlog::info("Load benchmark configuration from {}.", options.m_bench);
 
     // Get start time of simulation.
     struct timeval simstart, simend, roundstart, roundend;
@@ -872,48 +866,43 @@ int main(int argc, const char* argv[]) {
     for (int round = 1; round <= options.m_timeout_threshold; round++) {
         // Get start time of one round.
         gettimeofday(&roundstart, 0);
-        std::cout << "[COMMBRIDGE] *** Round " << round << " Phase 1 ***" << std::endl;
+        spdlog::info("**** Round {} Phase 1 ****", round);
         InterChiplet::InnerTimeType round_cycle =
             __loop_phase_one(round, configs.m_phase1_proc_cfg_list, configs.m_phase2_proc_cfg_list);
 
         // Get simulation cycle.
         // If simulation cycle this round is close to the previous one, quit iteration.
-        std::cout << "[COMMBRIDGE] Benchmark elapses "
-                  << static_cast<InterChiplet::TimeType>(round_cycle) << " cycle." << std::endl;
+        spdlog::info("Benchmark elapses {} cycle.",
+                     static_cast<InterChiplet::TimeType>(round_cycle));
         if (round > 1) {
             // Calculate error of simulation cycle.
             double err_rate = ((double)round_cycle - (double)sim_cycle) / (double)round_cycle;
             err_rate = err_rate < 0 ? -err_rate : err_rate;
-            std::cout << "[COMMBRIDGE] Difference related to pervious round is " << err_rate * 100
-                      << "%." << std::endl;
+            spdlog::info("Difference related to pervious round is {}%.", err_rate * 100);
             // If difference is small enough, quit loop.
             if (err_rate < options.m_err_rate_threshold) {
-                std::cout << "[COMMBRIDGE] Quit simulation because simulation cycle has converged."
-                          << std::endl;
+                spdlog::info("Quit simulation because simulation cycle has converged.");
                 sim_cycle = round_cycle;
                 break;
             }
         }
         sim_cycle = round_cycle;
 
-        std::cout << "[COMMBRIDGE] *** Round " << round << " Phase 2 ***" << std::endl;
+        spdlog::info("**** Round {} Phase 2 ***", round);
         __loop_phase_two(round, configs.m_phase2_proc_cfg_list);
 
         // Get end time of one round.
         gettimeofday(&roundend, 0);
         unsigned long elaped_sec = roundend.tv_sec - roundstart.tv_sec;
-        std::cout << "[COMMBRIDGE] Round " << round << " elapses " << elaped_sec / 3600 / 24 << "d "
-                  << (elaped_sec / 3600) % 24 << "h " << (elaped_sec / 60) % 60 << "m "
-                  << elaped_sec % 60 << "s." << std::endl;
+        spdlog::info("Round {} elapses {}d {}h {}m {}s.", round, elaped_sec / 3600 / 24,
+                     (elaped_sec / 3600) % 24, (elaped_sec / 60) % 60, elaped_sec % 60);
     }
 
     // Get end time of simulation.
-    std::cout << "[COMMBRIDGE] *** End of Simulation ***" << std::endl;
+    spdlog::info("**** End of Simulation ****");
     gettimeofday(&simend, 0);
     unsigned long elaped_sec = simend.tv_sec - simstart.tv_sec;
-    std::cout << "[COMMBRIDGE] Benchmark elapses " << static_cast<InterChiplet::TimeType>(sim_cycle)
-              << " cycle." << std::endl;
-    std::cout << "[COMMBRIDGE] Simulation elapseds " << elaped_sec / 3600 / 24 << "d "
-              << (elaped_sec / 3600) % 24 << "h " << (elaped_sec / 60) % 60 << "m "
-              << elaped_sec % 60 << "s." << std::endl;
+    spdlog::info("Benchmark elapses {} cycle.", static_cast<InterChiplet::TimeType>(sim_cycle));
+    spdlog::info("Simulation elapseds {}d {}h {}m {}s.", elaped_sec / 3600 / 24,
+                 (elaped_sec / 3600) % 24, (elaped_sec / 60) % 60, elaped_sec % 60);
 }

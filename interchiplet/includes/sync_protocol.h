@@ -170,6 +170,24 @@ class SyncProtocol {
     }
 
     /**
+     * @brief Send LOCK command. Cycle is ignored and treated as 0.
+     * @param __fd File descriptor.
+     * @param __src_x Source address in X-axis.
+     * @param __src_y Source address in Y-axis.
+     * @param __dst_x Destiantion address in X-axis.
+     * @param __dst_y Destination address in Y-axis.
+     */
+    static void sendLockCmd(int __fd, int __src_x, int __src_y, int __dst_x, int __dst_y) {
+        std::stringstream ss;
+        ss << NSINTERCHIPLET_CMD_HEAD << " LOCK " << 0 << " " << __src_x << " " << __src_y << " "
+           << __dst_x << " " << __dst_y << std::endl;
+        if (write(__fd, ss.str().c_str(), ss.str().size()) < 0) {
+            perror("write");
+            exit(EXIT_FAILURE);
+        };
+    }
+
+    /**
      * @brief Send UNLOCK command. Cycle is ignored and treated as 0.
      * @param __src_x Source address in X-axis.
      * @param __src_y Source address in Y-axis.
@@ -233,6 +251,20 @@ class SyncProtocol {
      */
     static void sendSyncCmd(TimeType __cycle) {
         std::cout << NSINTERCHIPLET_CMD_HEAD << " SYNC " << __cycle << std::endl;
+    }
+
+    /**
+     * @brief Send SYNC command to specified file descriptor.
+     * @param __fd File descriptor.
+     * @param __cycle Cycle to receive SYNC command.
+     */
+    static void sendSyncCmd(int __fd, TimeType __cycle) {
+        std::stringstream ss;
+        ss << NSINTERCHIPLET_CMD_HEAD << "SYNC" << __cycle << std::endl;
+        if (write(__fd, ss.str().c_str(), ss.str().size()) < 0) {
+            perror("write");
+            exit(EXIT_FAILURE);
+        };
     }
 
    public:
