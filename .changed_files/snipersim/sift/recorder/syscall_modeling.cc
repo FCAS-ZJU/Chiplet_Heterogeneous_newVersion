@@ -179,6 +179,25 @@ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
             thread_data[threadid].output->Syscall(syscall_number, (char*)args, sizeof(args));
             break;
 
+         // Barrier synchronization.
+         case InterChiplet::SYSCALL_BARRIER:
+         {
+            thread_data[threadid].last_syscall_number = syscall_number;
+            thread_data[threadid].last_syscall_emulated=true;
+
+            int uid = args[0];
+            int srcX = args[1];
+            int srcY = args[2];
+            int count = args[3];
+
+            printf("Enter Sniper barrier\n");
+            // InitBarrier sync
+            InterChiplet::SyncProtocol::barrierSync(srcX, srcY, uid, count);
+
+            thread_data[threadid].last_syscall_returnval = 1;
+            thread_data[threadid].output->Syscall(syscall_number, (char *)args, sizeof(args));
+            break;
+         }
          // Connect to remote chiplet. (lock resource)
          case InterChiplet::SYSCALL_CONNECT:
          {

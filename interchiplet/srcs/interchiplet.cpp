@@ -84,6 +84,15 @@ class SyncStruct {
      * @brief List of Pending Pipe commands.
      */
     std::vector<InterChiplet::SyncCommand> m_waitlock_cmd_list;
+
+    /**
+     * @brief Barrier count.
+     */
+    std::map<int, int> m_barrier_count_map;
+    /**
+     * @brief Barrier items.
+     */
+    std::map<int, std::vector<InterChiplet::SyncCommand> > m_barrier_items_map;
 };
 
 /**
@@ -262,6 +271,73 @@ void handle_unlock_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __syn
     std::stringstream ss;
     ss << "[INTERCMD] SYNC " << 0 << std::endl;
     write(__cmd.m_stdin_fd, ss.str().c_str(), ss.str().size());
+}
+
+void handle_barrier_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync_struct) {
+    std::cout << "[INTERCMD DBG] BARRIER command" << " from " << __cmd.m_src_x << " "
+              << __cmd.m_src_y << " to " << __cmd.m_dst_x << ". ";
+
+    int uid = __cmd.m_dst_x;
+    int count = __cmd.m_nbytes;
+
+    // New barrier.
+    if (__sync_struct->m_barrier_count_map.find(uid) == __sync_struct->m_barrier_count_map.end()) {
+        std::cout << "Register new barrier. ";
+        // Not specify the count of items, return sync directly.
+        if (count == 0) {
+            std::cout << "Barrier overflow. " << std::endl;
+            std::stringstream ss;
+            ss << "[INTERCMD] SYNC " << 0 << std::endl;
+            write(__cmd.m_stdin_fd, ss.str().c_str(), ss.str().size());
+        }
+        // If the count of items is 1, register barrier, return sync.
+        else if (count == 1) {
+            std::cout << "Barrier overflow. " << std::endl;
+            __sync_struct->m_barrier_count_map[uid] = count;
+            __sync_struct->m_barrier_items_map[uid] = std::vector<InterChiplet::SyncCommand>();
+
+            std::stringstream ss;
+            ss << "[INTERCMD] SYNC " << 0 << std::endl;
+            write(__cmd.m_stdin_fd, ss.str().c_str(), ss.str().size());
+        }
+        // If the count of items is greater than 1, register barrier, add barrier item.
+        else {
+            std::cout << "Add barrier item. " << std::endl;
+            __sync_struct->m_barrier_count_map[uid] = count;
+            __sync_struct->m_barrier_items_map[uid] = std::vector<InterChiplet::SyncCommand>();
+            __sync_struct->m_barrier_items_map[uid].push_back(__cmd);
+        }
+
+    }
+    // Exist barrier.
+    else {
+        // Add barrier item.
+        if (__sync_struct->m_barrier_items_map.find(uid) ==
+            __sync_struct->m_barrier_items_map.end()) {
+            __sync_struct->m_barrier_items_map[uid] = std::vector<InterChiplet::SyncCommand>();
+        }
+        std::cout << "Add barrier item. ";
+        __sync_struct->m_barrier_items_map[uid].push_back(__cmd);
+
+        // Update counter.
+        if (count > 0) {
+            __sync_struct->m_barrier_count_map[uid] = count;
+        }
+
+        // If barrier override.
+        if (__sync_struct->m_barrier_items_map[uid].size() >=
+            __sync_struct->m_barrier_count_map[uid]) {
+            std::cout << "Barrier overflow. " << std::endl;
+            for (InterChiplet::SyncCommand item : __sync_struct->m_barrier_items_map[uid]) {
+                std::stringstream ss;
+                ss << "[INTERCMD] SYNC " << 0 << std::endl;
+                write(item.m_stdin_fd, ss.str().c_str(), ss.str().size());
+            }
+            __sync_struct->m_barrier_items_map[uid].clear();
+        } else {
+            std::cout << std::endl;
+        }
+    }
 }
 
 /**
@@ -487,6 +563,9 @@ void parse_command(char* __pipe_buf, ProcessStruct* __proc_struct, int __stdin_f
             switch (cmd.m_type) {
                 case InterChiplet::SC_CYCLE:
                     handle_cycle_cmd(cmd, __proc_struct->m_sync_struct);
+                    break;
+                case InterChiplet::SC_BARRIER:
+                    handle_barrier_cmd(cmd, __proc_struct->m_sync_struct);
                     break;
                 case InterChiplet::SC_PIPE:
                     handle_pipe_cmd(cmd, __proc_struct->m_sync_struct);

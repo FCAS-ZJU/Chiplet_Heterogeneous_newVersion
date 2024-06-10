@@ -92,6 +92,10 @@ class SyncProtocol {
         if (cmd.m_type == SC_READ || cmd.m_type == SC_WRITE) {
             ss >> cmd.m_nbytes >> cmd.m_desc;
         }
+        // Read barrier.
+        if (cmd.m_type == SC_BARRIER) {
+            ss >> cmd.m_src_x >> cmd.m_src_y >> cmd.m_dst_x >> cmd.m_nbytes;
+        }
 
         return cmd;
     }
@@ -127,6 +131,18 @@ class SyncProtocol {
      */
     static void sendCycleCmd(TimeType __cycle) {
         std::cout << NSINTERCHIPLET_CMD_HEAD << " CYCLE " << __cycle << std::endl;
+    }
+
+    /**
+     * @brief Send BARRIER command.
+     * @param __src_x Source address in X-axis.
+     * @param __src_y Source address in Y-axis.
+     * @param __uid Barrier ID.
+     * @param __count Number of items in barrier.
+     */
+    static void sendBarrierCmd(int __src_x, int __src_y, int __uid, int __count) {
+        std::cout << NSINTERCHIPLET_CMD_HEAD << " BARRIER " << 0 << " " << __src_x << " " << __src_y
+                  << " " << __uid << " " << __count << std::endl;
     }
 
     /**
@@ -340,6 +356,23 @@ class SyncProtocol {
                               int __nbyte, long __desc) {
         // Send WRITE command.
         sendWriteCmd(__cycle, __src_x, __src_y, __dst_x, __dst_y, __nbyte, __desc);
+        // Read message from stdin.
+        SyncCommand resp_cmd = parseCmd();
+        // Only handle SYNC message, return cycle to receive SYNC command.
+        return resp_cmd.m_type == SC_SYNC ? resp_cmd.m_cycle : -1;
+    }
+
+    /**
+     * @brief Send BARRIER command and wait for SYNC command.
+     * @param __src_x Source address in X-axis.
+     * @param __src_y Source address in Y-axis.
+     * @param __uid Barrier ID.
+     * @param __count Number of items in barrier.
+     * @return Cycle to receive SYNC command.
+     */
+    static TimeType barrierSync(int __src_x, int __src_y, int __uid, int __count) {
+        // Send BARRIER command.
+        sendBarrierCmd(__src_x, __src_y, __uid, __count);
         // Read message from stdin.
         SyncCommand resp_cmd = parseCmd();
         // Only handle SYNC message, return cycle to receive SYNC command.

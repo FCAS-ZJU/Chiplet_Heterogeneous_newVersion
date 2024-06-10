@@ -305,7 +305,7 @@ index c336283..92f961a 100644
        default:
           break;
 diff --git a/sift/recorder/syscall_modeling.cc b/sift/recorder/syscall_modeling.cc
-index 4944127..ea4e93a 100644
+index 4944127..b655d9d 100644
 --- a/sift/recorder/syscall_modeling.cc
 +++ b/sift/recorder/syscall_modeling.cc
 @@ -7,6 +7,8 @@
@@ -326,11 +326,30 @@ index 4944127..ea4e93a 100644
  // Emulate all system calls
  // Do this as a regular callback (versus syscall enter/exit functions) as those hold the global pin lock
  VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
-@@ -174,6 +178,95 @@ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
+@@ -174,6 +178,114 @@ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
           case SYS_exit_group:
              thread_data[threadid].output->Syscall(syscall_number, (char*)args, sizeof(args));
              break;
 +
++         // Barrier synchronization.
++         case InterChiplet::SYSCALL_BARRIER:
++         {
++            thread_data[threadid].last_syscall_number = syscall_number;
++            thread_data[threadid].last_syscall_emulated=true;
++
++            int uid = args[0];
++            int srcX = args[1];
++            int srcY = args[2];
++            int count = args[3];
++
++            printf("Enter Sniper barrier\n");
++            // InitBarrier sync
++            InterChiplet::SyncProtocol::barrierSync(srcX, srcY, uid, count);
++
++            thread_data[threadid].last_syscall_returnval = 1;
++            thread_data[threadid].output->Syscall(syscall_number, (char *)args, sizeof(args));
++            break;
++         }
 +         // Connect to remote chiplet. (lock resource)
 +         case InterChiplet::SYSCALL_CONNECT:
 +         {

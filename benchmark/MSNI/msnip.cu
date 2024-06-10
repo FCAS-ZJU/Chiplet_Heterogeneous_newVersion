@@ -43,7 +43,7 @@ int main(int argc, char** argv) {
     int idX = atoi(argv[1]);
     int idY = atoi(argv[2]);
 
-    for (int round = 0; round < 3; round++) {
+    for (int round = 0; round < 6; round++) {
         int locker_x, locker_y;
         waitLocker(idX, idY, locker_x, locker_y);
 

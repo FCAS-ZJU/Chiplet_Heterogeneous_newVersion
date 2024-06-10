@@ -22,15 +22,20 @@ int main(int argc, char **argv) {
         B[i] = rand() % 51;
     }
 
-    // Create time gap between cycles.
-    usleep(idX * 2 + idY);
+    for (int i = 0; i < 2; i ++)
+    {
+        // Create time gap between cycles.
+        usleep(idX * 2 + idY);
 
-    InterChiplet::lockResource(1, 1, idX, idY);
+        InterChiplet::lockResource(1, 1, idX, idY);
 
-    InterChiplet::sendMessage(1, 1, idX, idY, A, 10000 * sizeof(int64_t));
-    InterChiplet::sendMessage(1, 1, idX, idY, B, 10000 * sizeof(int64_t));
+        InterChiplet::sendMessage(1, 1, idX, idY, A, 10000 * sizeof(int64_t));
+        InterChiplet::sendMessage(1, 1, idX, idY, B, 10000 * sizeof(int64_t));
 
-    InterChiplet::receiveMessage(idX, idY, 1, 1, C, 100 * sizeof(int64_t));
+        InterChiplet::receiveMessage(idX, idY, 1, 1, C, 100 * sizeof(int64_t));
 
-    InterChiplet::unlockResource(1, 1, idX, idY);
+        InterChiplet::unlockResource(1, 1, idX, idY);
+
+        InterChiplet::barrier(0xFF, idX, idY, 3);
+    }
 }

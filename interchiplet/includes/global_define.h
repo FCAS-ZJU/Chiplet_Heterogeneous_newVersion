@@ -15,6 +15,7 @@ enum SysCallID {
     SYSCALL_DISCONNECT = 505,         // Stop connection.
     SYSCALL_GET_LOCAL_ADDR = 506,     // Get address of current processor.
     SYSCALL_CHECK_REMOTE_READ = 507,  // Check remote read
+    SYSCALL_BARRIER = 508,            // Enter barrier.
 };
 
 /**
