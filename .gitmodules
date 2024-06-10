@@ -4,7 +4,6 @@
 [submodule "gpgpu-sim"]
 	path = gpgpu-sim
 	url = https://github.com/gpgpu-sim/gpgpu-sim_distribution.git
-
 [submodule "popnet_chiplet"]
 	path = popnet_chiplet
 	url = https://github.com/baikeina/popnet_chiplet.git

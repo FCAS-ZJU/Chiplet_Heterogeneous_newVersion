@@ -428,7 +428,7 @@ bool SyscallMdl::runEnter(IntPtr syscall_number, syscall_args_t &args)
          int src_x = args.arg2;
          int src_y = args.arg3;
          long long int end_time = InterChiplet::SyncProtocol::writeSync(
-            cycles, src_x, src_y, dst_x, dst_y, 1, InterChiplet::SyncProtocolDesc::SPD_ONEWAY);
+            cycles, src_x, src_y, dst_x, dst_y, 1, InterChiplet::SyncProtocolDesc::SPD_LOCKER);
 
          // Update simulator time.
          ComponentPeriod time_wake_period = *(Sim()->getDvfsManager()->getGlobalDomain()) * end_time;
@@ -444,7 +444,7 @@ bool SyscallMdl::runEnter(IntPtr syscall_number, syscall_args_t &args)
 
          break;
       }
-      case InterChiplet::SYSCALL_DISCONNECT:
+      /*case InterChiplet::SYSCALL_DISCONNECT:
       {
          // Get current cycle
          SubsecondTime start_time = m_thread->getCore()->getPerformanceModel()->getElapsedTime();
@@ -459,6 +459,36 @@ bool SyscallMdl::runEnter(IntPtr syscall_number, syscall_args_t &args)
          int src_y = args.arg3;
          long long int end_time = InterChiplet::SyncProtocol::writeSync(
             cycles, src_x, src_y, dst_x, dst_y, 1, InterChiplet::SyncProtocolDesc::SPD_ONEWAY);
+
+         // Update simulator time.
+         ComponentPeriod time_wake_period = *(Sim()->getDvfsManager()->getGlobalDomain()) * end_time;
+         SubsecondTime time_wake = time_wake_period.getPeriod();
+         SubsecondTime sleep_end_time;
+         Sim()->getSyscallServer()->handleSleepCall(m_thread->getId(), time_wake, start_time, sleep_end_time);
+
+         // Sleep core until specified time.
+         if (m_thread->reschedule(sleep_end_time, core))
+            core = m_thread->getCore();
+
+         core->getPerformanceModel()->queuePseudoInstruction(new SyncInstruction(sleep_end_time, SyncInstruction::SLEEP));
+
+         break;
+      }*/
+      case InterChiplet::SYSCALL_WAITLOCKER:
+      {
+         // Get current cycle
+         SubsecondTime start_time = m_thread->getCore()->getPerformanceModel()->getElapsedTime();
+         // Convert SubsecondTime to cycles in global clock domain
+         const ComponentPeriod *dom_global = Sim()->getDvfsManager()->getGlobalDomain();
+         UInt64 cycles = SubsecondTime::divideRounded(start_time, *dom_global);
+
+         // Send WRITE command and wait for SYNC.
+         int dst_x = args.arg0;
+         int dst_y = args.arg1;
+         int* src_x = (int*)args.arg2;
+         int* src_y = (int*)args.arg3;
+         long long int end_time = InterChiplet::SyncProtocol::readSync(
+            cycles, *src_x, *src_y, dst_x, dst_y, 1, InterChiplet::SyncProtocolDesc::SPD_LOCKER);
 
          // Update simulator time.
          ComponentPeriod time_wake_period = *(Sim()->getDvfsManager()->getGlobalDomain()) * end_time;

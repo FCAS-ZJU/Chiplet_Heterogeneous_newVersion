@@ -39,13 +39,13 @@ class NetworkDelayItem {
      */
     int m_dst_y;
     /**
+     * @brief Synchronization protocol descriptor.
+     */
+    long m_desc;
+    /**
      * @brief Package delay on the source side.
      */
-    InnerTimeType m_src_delay;
-    /**
-     * @brief Package delay on the destination side.
-     */
-    InnerTimeType m_dst_delay;
+    std::vector<InnerTimeType> m_delay_list;
 
    public:
     /**
@@ -60,18 +60,17 @@ class NetworkDelayItem {
      * @param __src_y Source address in Y-axis.
      * @param __dst_x Destination address in X-axis.
      * @param __dst_y Destination address in Y-axis.
-     * @param __src_delay Package delay on the source side.
-     * @param __dst_delay Package delay on the destination side.
+     * @param __desc Synchronization protocol descriptor.
+     * @param __delay_list List of package delays.
      */
     NetworkDelayItem(InnerTimeType __cycle, int __src_x, int __src_y, int __dst_x, int __dst_y,
-                     int __src_delay, int __dst_delay)
+                     long __desc, const std::vector<InnerTimeType>& __delay_list)
         : m_cycle(__cycle),
           m_dst_x(__dst_x),
           m_dst_y(__dst_y),
           m_src_x(__src_x),
           m_src_y(__src_y),
-          m_src_delay(__src_delay),
-          m_dst_delay(__dst_delay) {}
+          m_delay_list(__delay_list) {}
 
     /**
      * @brief Overloading operator <<.
@@ -80,8 +79,11 @@ class NetworkDelayItem {
      */
     friend std::ostream& operator<<(std::ostream& os, const NetworkDelayItem& __item) {
         os << __item.m_cycle << " " << __item.m_src_x << " " << __item.m_src_y << " "
-           << __item.m_dst_x << " " << __item.m_dst_y << " " << __item.m_src_delay << " "
-           << __item.m_dst_delay;
+           << __item.m_dst_x << " " << __item.m_dst_y << " " << __item.m_desc;
+        os << " " << __item.m_delay_list.size();
+        for (auto& delay : __item.m_delay_list) {
+            os << " " << delay;
+        }
         return os;
     }
 
@@ -92,7 +94,14 @@ class NetworkDelayItem {
      */
     friend std::istream& operator>>(std::istream& os, NetworkDelayItem& __item) {
         os >> __item.m_cycle >> __item.m_src_x >> __item.m_src_y >> __item.m_dst_x >>
-            __item.m_dst_y >> __item.m_src_delay >> __item.m_dst_delay;
+            __item.m_dst_y >> __item.m_desc;
+        int delay_cnt = 0;
+        os >> delay_cnt;
+        for (int i = 0; i < delay_cnt; i++) {
+            TimeType delay;
+            os >> delay;
+            __item.m_delay_list.push_back(delay);
+        }
         return os;
     }
 };
@@ -116,6 +125,14 @@ class NetworkDelayList : public std::multimap<InnerTimeType, NetworkDelayItem> {
     }
 
     /**
+     * @brief Insert item into list.
+     */
+    void insert(InnerTimeType __cycle, const NetworkDelayItem& __item) {
+        std::multimap<InnerTimeType, NetworkDelayItem>::insert(
+            std::pair<InnerTimeType, NetworkDelayItem>(__cycle, __item));
+    }
+
+    /**
      * @brief Load package delay list from specified file.
      * @param file_name Path to benchmark file.
      */
@@ -126,8 +143,9 @@ class NetworkDelayList : public std::multimap<InnerTimeType, NetworkDelayItem> {
             bench_if >> item;
             if (!bench_if) break;
             item.m_cycle = item.m_cycle / __clock_rate;
-            item.m_src_delay = item.m_src_delay / __clock_rate;
-            item.m_dst_delay = item.m_dst_delay / __clock_rate;
+            for (std::size_t i = 0; i < item.m_delay_list.size(); i++) {
+                item.m_delay_list[i] = item.m_delay_list[i] / __clock_rate;
+            }
             insert(item);
         }
     }
@@ -147,9 +165,36 @@ class NetworkDelayList : public std::multimap<InnerTimeType, NetworkDelayItem> {
             return getDefaultEndCycle(__write_cmd, __read_cmd);
         } else {
             erase(it);
-            return std::tuple<InnerTimeType, InnerTimeType>(
-                __write_cmd.m_cycle + it->second.m_src_delay,
-                __read_cmd.m_cycle + it->second.m_dst_delay);
+            // Locker communication.
+            if (__write_cmd.m_desc & SPD_LOCKER) {
+                // Forward packet.
+                InnerTimeType pac_delay_src = it->second.m_delay_list[0];
+                InnerTimeType pac_delay_dst = it->second.m_delay_list[1];
+                InnerTimeType write_end_time = __write_cmd.m_cycle + pac_delay_src;
+                InnerTimeType read_end_time = __write_cmd.m_cycle + pac_delay_dst;
+                if (__read_cmd.m_cycle > read_end_time) {
+                    read_end_time = __read_cmd.m_cycle;
+                }
+                // Acknowledge packet.
+                InnerTimeType ack_delay_src = it->second.m_delay_list[2];
+                InnerTimeType ack_delay_dst = it->second.m_delay_list[3];
+                read_end_time = read_end_time + ack_delay_src;
+                write_end_time = read_end_time - ack_delay_src + ack_delay_dst;
+
+                return std::tuple<InnerTimeType, InnerTimeType>(write_end_time, read_end_time);
+            }
+            // Normal communication.
+            else {
+                // Forward packet.
+                InnerTimeType pac_delay_src = it->second.m_delay_list[0];
+                InnerTimeType pac_delay_dst = it->second.m_delay_list[1];
+                InnerTimeType write_end_time = __write_cmd.m_cycle + pac_delay_src;
+                InnerTimeType read_end_time = __write_cmd.m_cycle + pac_delay_dst;
+                if (__read_cmd.m_cycle > read_end_time) {
+                    read_end_time = __read_cmd.m_cycle;
+                }
+                return std::tuple<InnerTimeType, InnerTimeType>(write_end_time, read_end_time);
+            }
         }
     }
 
@@ -166,11 +211,14 @@ class NetworkDelayList : public std::multimap<InnerTimeType, NetworkDelayItem> {
             return getDefaultEndCycle(__write_cmd);
         } else {
             erase(it);
-            return __write_cmd.m_cycle + it->second.m_src_delay;
+            // Forward packet.
+            InnerTimeType pac_delay_src = it->second.m_delay_list[0];
+            InnerTimeType write_end_time = __write_cmd.m_cycle + pac_delay_src;
+            return pac_delay_src;
         }
     }
 
-   private:
+   public:
     /**
      * @brief Return the pointer to the first item match specified source and destination.
      */
@@ -182,6 +230,19 @@ class NetworkDelayList : public std::multimap<InnerTimeType, NetworkDelayItem> {
              it++) {
             if (it->second.m_src_x == __src_x && it->second.m_src_y == __src_y &&
                 it->second.m_dst_x == __dst_x && it->second.m_dst_y == __dst_y) {
+                return it;
+            }
+        }
+        return end();
+    }
+    /**
+     * @brief Return the pointer to the first item match specified source and destination.
+     */
+    std::multimap<InnerTimeType, NetworkDelayItem>::iterator find_first_item(int __dst_x,
+                                                                             int __dst_y) {
+        for (std::multimap<InnerTimeType, NetworkDelayItem>::iterator it = begin(); it != end();
+             it++) {
+            if (it->second.m_dst_x == __dst_x && it->second.m_dst_y == __dst_y) {
                 return it;
             }
         }

@@ -260,7 +260,7 @@ class SyncProtocol {
      */
     static void sendSyncCmd(int __fd, TimeType __cycle) {
         std::stringstream ss;
-        ss << NSINTERCHIPLET_CMD_HEAD << "SYNC" << __cycle << std::endl;
+        ss << NSINTERCHIPLET_CMD_HEAD << " SYNC " << __cycle << std::endl;
         if (write(__fd, ss.str().c_str(), ss.str().size()) < 0) {
             perror("write");
             exit(EXIT_FAILURE);
@@ -341,13 +341,13 @@ class SyncProtocol {
      * @param __dst_y Destination address in Y-axis.
      * @return Cycle to receive SYNC command.
      */
-    static TimeType waitlockSync(int& __src_x, int& __src_y, int __dst_x, int __dst_y) {
+    static TimeType waitlockSync(int* __src_x, int* __src_y, int __dst_x, int __dst_y) {
         // Send LOCK command.
-        sendWaitlockCmd(__src_x, __src_y, __dst_x, __dst_y);
+        sendWaitlockCmd(*__src_x, *__src_y, __dst_x, __dst_y);
         // Read message from stdin.
         SyncCommand resp_cmd = parseCmd();
-        __src_x = resp_cmd.m_src_x;
-        __src_y = resp_cmd.m_src_y;
+        *__src_x = resp_cmd.m_src_x;
+        *__src_y = resp_cmd.m_src_y;
         // Only handle SYNC message, return cycle to receive SYNC command.
         return resp_cmd.m_type == SC_LOCK ? resp_cmd.m_cycle : -1;
     }

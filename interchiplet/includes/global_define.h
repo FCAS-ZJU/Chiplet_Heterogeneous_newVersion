@@ -16,6 +16,7 @@ enum SysCallID {
     SYSCALL_GET_LOCAL_ADDR = 506,     // Get address of current processor.
     SYSCALL_CHECK_REMOTE_READ = 507,  // Check remote read
     SYSCALL_BARRIER = 508,            // Enter barrier.
+    SYSCALL_WAITLOCKER = 509,         // Wait locker.
 };
 
 /**
@@ -69,9 +70,13 @@ enum SyncProtocolDesc {
      */
     SPD_POST_SYNC = 0x04,
     /**
-     * @brief Do not need pair with read operation.
+     * @brief Locker behavior.
      */
-    SPD_ONEWAY = 0x08
+    SPD_LOCKER = 0x10,
+    /**
+     * @brief Barrier behavior.
+     */
+    SPD_BARRIER = 0x20,
 };
 
 /**

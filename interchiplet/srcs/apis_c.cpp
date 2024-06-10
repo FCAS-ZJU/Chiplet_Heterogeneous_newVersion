@@ -20,6 +20,11 @@ syscall_return_t unlockResource(int64_t __dst_x, int64_t __dst_y, int64_t __src_
     return ret_code;
 }
 
+syscall_return_t waitLocker(int64_t __dst_x, int64_t __dst_y, int64_t* __src_x, int64_t* __src_y) {
+    int ret_code = syscall(SYSCALL_WAITLOCKER, __dst_x, __dst_y, __src_x, __src_y);
+    return ret_code;
+}
+
 syscall_return_t sendMessage(int64_t __dst_x, int64_t __dst_y, int64_t __src_x, int64_t __src_y,
                              void* __addr, int64_t __nbyte) {
     int ret_code =

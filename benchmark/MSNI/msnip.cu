@@ -44,8 +44,8 @@ int main(int argc, char** argv) {
     int idY = atoi(argv[2]);
 
     for (int round = 0; round < 6; round++) {
-        int locker_x, locker_y;
-        waitLocker(idX, idY, locker_x, locker_y);
+        int locker_x = -1, locker_y = -1;
+        waitLocker(idX, idY, &locker_x, &locker_y);
 
         int64_t *d_dataA, *d_dataB, *d_dataC;
         cudaMalloc((void**)&d_dataA, sizeof(int64_t) * Row * Col);

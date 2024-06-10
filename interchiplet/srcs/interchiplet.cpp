@@ -56,9 +56,13 @@ class SyncStruct {
      */
     InterChiplet::NetworkBenchList m_bench_list;
     /**
-     * @brief Delay list, recoding the delay of each communication transactions
+     * @brief Delay list, recording the delay of each communication transactions
      */
     InterChiplet::NetworkDelayList m_delay_list;
+    /**
+     * @brief Lock delay list. recording the delay of lock/waitlock transactions
+     */
+    InterChiplet::NetworkDelayList m_lock_delay_list;
 
     /**
      * @brief List of PIPE file names.
@@ -199,10 +203,21 @@ void handle_lock_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync_
     // Check for unconfirmed waitlock command.
     bool has_waitlock_cmd = false;
     InterChiplet::SyncCommand waitlock_cmd;
+
     for (std::size_t i = 0; i < __sync_struct->m_waitlock_cmd_list.size(); i++) {
         InterChiplet::SyncCommand& __waitlock_cmd = __sync_struct->m_waitlock_cmd_list[i];
         // If there is waitlock command, confirm the lock.
-        if (__waitlock_cmd.m_dst_x == __cmd.m_dst_x && __waitlock_cmd.m_dst_y == __cmd.m_dst_y) {
+        bool lock_match = false;
+        if (__waitlock_cmd.m_src_x < 0 || __waitlock_cmd.m_src_y < 0) {
+            lock_match =
+                __cmd.m_dst_x == __waitlock_cmd.m_dst_x && __cmd.m_dst_y == __waitlock_cmd.m_dst_y;
+        } else {
+            lock_match = __cmd.m_src_x == __waitlock_cmd.m_src_x &&
+                         __cmd.m_src_y == __waitlock_cmd.m_src_y &&
+                         __cmd.m_dst_x == __waitlock_cmd.m_dst_x &&
+                         __cmd.m_dst_y == __waitlock_cmd.m_dst_y;
+        }
+        if (lock_match) {
             has_waitlock_cmd = true;
             waitlock_cmd = __waitlock_cmd;
             __sync_struct->m_waitlock_cmd_list.erase(__sync_struct->m_waitlock_cmd_list.begin() +
@@ -235,10 +250,33 @@ void handle_waitlock_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __s
     // Check for unconfirmed waitlock command.
     bool has_lock_cmd = false;
     InterChiplet::SyncCommand lock_cmd;
+
+    // Check lock order and remove item..
+    InterChiplet::SyncCommand waitlock_cmd = __cmd;
+    std::multimap<InterChiplet::InnerTimeType, InterChiplet::NetworkDelayItem>::iterator it =
+        __sync_struct->m_lock_delay_list.find_first_item(waitlock_cmd.m_dst_x,
+                                                         waitlock_cmd.m_dst_y);
+    if (it != __sync_struct->m_lock_delay_list.end()) {
+        waitlock_cmd.m_src_x = it->second.m_src_x;
+        waitlock_cmd.m_src_y = it->second.m_src_y;
+        __sync_struct->m_lock_delay_list.erase(it);
+    }
+
+    // Try to pick with lock command.
     for (std::size_t i = 0; i < __sync_struct->m_pending_lock_cmd_list.size(); i++) {
         InterChiplet::SyncCommand& __lock_cmd = __sync_struct->m_pending_lock_cmd_list[i];
         // If there is lock command, confirm the lock.
-        if (__lock_cmd.m_dst_x == __cmd.m_dst_x && __lock_cmd.m_dst_y == __cmd.m_dst_y) {
+        bool lock_match = false;
+        if (waitlock_cmd.m_src_x < 0 || waitlock_cmd.m_src_y < 0) {
+            lock_match = __lock_cmd.m_dst_x == waitlock_cmd.m_dst_x &&
+                         __lock_cmd.m_dst_y == waitlock_cmd.m_dst_y;
+        } else {
+            lock_match = __lock_cmd.m_src_x == waitlock_cmd.m_src_x &&
+                         __lock_cmd.m_src_y == waitlock_cmd.m_src_y &&
+                         __lock_cmd.m_dst_x == waitlock_cmd.m_dst_x &&
+                         __lock_cmd.m_dst_y == waitlock_cmd.m_dst_y;
+        }
+        if (lock_match) {
             has_lock_cmd = true;
             lock_cmd = __lock_cmd;
             __sync_struct->m_pending_lock_cmd_list.erase(
@@ -249,10 +287,11 @@ void handle_waitlock_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __s
 
     // If there is not waitlock command, waitlock command.
     if (!has_lock_cmd) {
-        spdlog::debug("{} Register WAITLOCK command to pair with LOCK command.", cmdToDebug(__cmd));
-        __sync_struct->m_waitlock_cmd_list.push_back(__cmd);
+        spdlog::debug("{} Register WAITLOCK command to pair with LOCK command.",
+                      cmdToDebug(waitlock_cmd));
+        __sync_struct->m_waitlock_cmd_list.push_back(waitlock_cmd);
     } else {
-        spdlog::debug("{} Pair with LOCK command from {},{} to {},{}.", cmdToDebug(__cmd),
+        spdlog::debug("{} Pair with LOCK command from {},{} to {},{}.", cmdToDebug(waitlock_cmd),
                       lock_cmd.m_src_x, lock_cmd.m_src_y, lock_cmd.m_dst_x, lock_cmd.m_dst_y);
 
         // Append to lock queue.
@@ -262,7 +301,7 @@ void handle_waitlock_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __s
         InterChiplet::SyncProtocol::sendSyncCmd(lock_cmd.m_stdin_fd, 0);
 
         // Send LOCK to response WAITLOCK command.
-        InterChiplet::SyncProtocol::sendLockCmd(__cmd.m_stdin_fd, lock_cmd.m_src_x,
+        InterChiplet::SyncProtocol::sendLockCmd(waitlock_cmd.m_stdin_fd, lock_cmd.m_src_x,
                                                 lock_cmd.m_src_y, lock_cmd.m_dst_x,
                                                 lock_cmd.m_dst_y);
     }
@@ -417,65 +456,48 @@ void handle_read_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync_
  * @param __sync_struct Pointer to global synchronize structure.
  */
 void handle_write_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync_struct) {
-    // One way command, do not need to check operation.
-    if (__cmd.m_desc & InterChiplet::SPD_ONEWAY) {
+    // Check for paired read command.
+    bool has_read_cmd = false;
+    InterChiplet::SyncCommand read_cmd;
+    for (std::size_t i = 0; i < __sync_struct->m_read_cmd_list.size(); i++) {
+        InterChiplet::SyncCommand& __read_cmd = __sync_struct->m_read_cmd_list[i];
+        if (__read_cmd.m_src_x == __cmd.m_src_x && __read_cmd.m_src_y == __cmd.m_src_y &&
+            __read_cmd.m_dst_x == __cmd.m_dst_x && __read_cmd.m_dst_y == __cmd.m_dst_y &&
+            __read_cmd.m_nbytes == __cmd.m_nbytes) {
+            has_read_cmd = true;
+            read_cmd = __read_cmd;
+            __sync_struct->m_read_cmd_list.erase(__sync_struct->m_read_cmd_list.begin() + i);
+            break;
+        }
+    }
+
+    if (!has_read_cmd) {
+        // If there is no paired read command, add this command to write command queue to wait.
+        __sync_struct->m_write_cmd_list.push_back(__cmd);
+        spdlog::debug("{} Register WRITE command to pair with READ command.", cmdToDebug(__cmd));
+    } else {
         // If there is a paired read command, get the end cycle of transaction.
-        InterChiplet::InnerTimeType end_cycle = __sync_struct->m_delay_list.getEndCycle(__cmd);
-        spdlog::debug("{} One way WRITE COMMAND and transation ends at {} cycle.",
-                      cmdToDebug(__cmd), static_cast<InterChiplet::TimeType>(end_cycle));
+        std::tuple<InterChiplet::InnerTimeType, InterChiplet::InnerTimeType> end_cycle =
+            __sync_struct->m_delay_list.getEndCycle(__cmd, read_cmd);
+        InterChiplet::InnerTimeType write_end_cycle = std::get<0>(end_cycle);
+        InterChiplet::InnerTimeType read_end_cycle = std::get<1>(end_cycle);
+        spdlog::debug("{} Pair with READ command. Transation ends at [{},{}] cycle.",
+                      cmdToDebug(__cmd), static_cast<InterChiplet::TimeType>(write_end_cycle),
+                      static_cast<InterChiplet::TimeType>(read_end_cycle));
 
         // Insert event to benchmark list.
-        InterChiplet::NetworkBenchItem bench_item(__cmd);
+        InterChiplet::NetworkBenchItem bench_item(__cmd, read_cmd);
         __sync_struct->m_bench_list.insert(bench_item);
 
         // Send synchronize command to response WRITE command.
         InterChiplet::SyncProtocol::sendSyncCmd(
-            __cmd.m_stdin_fd, static_cast<InterChiplet::TimeType>(end_cycle * __cmd.m_clock_rate));
-    } else {
-        // Check for paired read command.
-        bool has_read_cmd = false;
-        InterChiplet::SyncCommand read_cmd;
-        for (std::size_t i = 0; i < __sync_struct->m_read_cmd_list.size(); i++) {
-            InterChiplet::SyncCommand& __read_cmd = __sync_struct->m_read_cmd_list[i];
-            if (__read_cmd.m_src_x == __cmd.m_src_x && __read_cmd.m_src_y == __cmd.m_src_y &&
-                __read_cmd.m_dst_x == __cmd.m_dst_x && __read_cmd.m_dst_y == __cmd.m_dst_y &&
-                __read_cmd.m_nbytes == __cmd.m_nbytes) {
-                has_read_cmd = true;
-                read_cmd = __read_cmd;
-                __sync_struct->m_read_cmd_list.erase(__sync_struct->m_read_cmd_list.begin() + i);
-                break;
-            }
-        }
+            __cmd.m_stdin_fd,
+            static_cast<InterChiplet::TimeType>(write_end_cycle * __cmd.m_clock_rate));
 
-        if (!has_read_cmd) {
-            // If there is no paired read command, add this command to write command queue to wait.
-            __sync_struct->m_write_cmd_list.push_back(__cmd);
-            spdlog::debug("{} Register WRITE command to pair with READ command.",
-                          cmdToDebug(__cmd));
-        } else {
-            // If there is a paired read command, get the end cycle of transaction.
-            std::tuple<InterChiplet::InnerTimeType, InterChiplet::InnerTimeType> end_cycle =
-                __sync_struct->m_delay_list.getEndCycle(__cmd, read_cmd);
-            InterChiplet::InnerTimeType write_end_cycle = std::get<0>(end_cycle);
-            InterChiplet::InnerTimeType read_end_cycle = std::get<1>(end_cycle);
-            spdlog::debug("{} Pair with READ command. Transation ends at [{},{}] cycle.",
-                          cmdToDebug(__cmd), static_cast<InterChiplet::TimeType>(write_end_cycle),
-                          static_cast<InterChiplet::TimeType>(read_end_cycle));
-
-            // Insert event to benchmark list.
-            InterChiplet::NetworkBenchItem bench_item(__cmd, read_cmd);
-            __sync_struct->m_bench_list.insert(bench_item);
-
-            // Send synchronize command to response WRITE command.
-            InterChiplet::SyncProtocol::sendSyncCmd(
-                __cmd.m_stdin_fd,
-                static_cast<InterChiplet::TimeType>(write_end_cycle * __cmd.m_clock_rate));
-
-            // Send synchronize command to response READ command.
-            InterChiplet::SyncProtocol::sendSyncCmd(
-                read_cmd.m_stdin_fd,
-                static_cast<InterChiplet::TimeType>(read_end_cycle * read_cmd.m_clock_rate));
-        }
+        // Send synchronize command to response READ command.
+        InterChiplet::SyncProtocol::sendSyncCmd(
+            read_cmd.m_stdin_fd,
+            static_cast<InterChiplet::TimeType>(read_end_cycle * read_cmd.m_clock_rate));
     }
 }
 
@@ -591,7 +613,6 @@ void* bridge_thread(void* __args_ptr) {
         mkdir(sub_dir_path, 0775);
     }
 
-    spdlog::info("Enter bridge_thread {}", proc_struct->m_command);
     // Fork a child process
     pid_t pid = fork();
     if (pid == -1) {
@@ -650,7 +671,7 @@ void* bridge_thread(void* __args_ptr) {
         perror("execvp");
         exit(EXIT_FAILURE);
     } else {  // Parent process
-        spdlog::info("Start simulation process {}.", pid);
+        spdlog::info("Start simulation process {}. Command: {}", pid, proc_struct->m_command);
         proc_struct->m_pid2 = pid;
 
         // Close unnecessary pipe ends
@@ -745,6 +766,14 @@ InterChiplet::InnerTimeType __loop_phase_one(
     g_sync_structure->m_delay_list.load_delay("delayInfo.txt",
                                               __proc_phase2_cfg_list[0].m_clock_rate);
     spdlog::info("Load {} delay records.", g_sync_structure->m_delay_list.size());
+
+    // Trace lock record.
+    for (auto& pair : g_sync_structure->m_delay_list) {
+        if (pair.second.m_desc & InterChiplet::SPD_LOCKER) {
+            g_sync_structure->m_lock_delay_list.insert(
+                pair.second.m_cycle + pair.second.m_delay_list[1], pair.second);
+        }
+    }
 
     // Create multi-thread.
     int thread_i = 0;

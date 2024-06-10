@@ -35,6 +35,15 @@ syscall_return_t lockResource(int64_t __dst_x, int64_t __dst_y, int64_t __src_x,
 syscall_return_t unlockResource(int64_t __dst_x, int64_t __dst_y, int64_t __src_x, int64_t __src_y);
 
 /**
+ * @brief Lock remote chiplet.
+ * @param __dst_x Destination address in X-axis.
+ * @param __dst_y Destination address in Y-axis.
+ * @param __src_x Source address in X-axis.
+ * @param __src_y Source address in Y-axis.
+ */
+syscall_return_t waitLocker(int __dst_x, int __dst_y, int* __src_x, int* __src_y);
+
+/**
  * @brief Send data to remote chiplet.
  * @param __dst_x Destination address in X-axis.
  * @param __dst_y Destination address in Y-axis.
