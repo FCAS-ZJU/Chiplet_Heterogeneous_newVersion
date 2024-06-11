@@ -1,29 +1,68 @@
 #pragma once
 
-#include "cuda_runtime.h"
+#include <tuple>
+
+#include "cuda_runtime_api.h"
 
 /**
- * @brief Send data from GPU to CPU.
- * @param __dst_x Destination address (CPU address) in X-axis.
- * @param __dst_y Destination address (CPU address) in Y-axis.
- * @param __src_x Source address (GPU address) in X-axis.
- * @param __src_y Source address (GPU address) in Y-axis.
- * @param __addr Data address.
- * @param __nbyte Number of bytes.
- * @param __res Return result value.
+ * @brief Enter Barrier.
+ * @param __uid Barrier ID.
+ * @param __src_x Source address in X-axis.
+ * @param __src_y Source address in Y-axis.
+ * @param __count Number of item in barrier.
  */
-__global__ void sendMessage(
-    int __dst_x, int __dst_y, int __src_x, int __srx_y, void* __addr, int __nbyte, int* __res);
+extern __host__ cudaError_t CUDARTAPI barrier(int __uid, int __src_x, int __src_y, int __count = 0);
 
 /**
- * @brief Read data from CPU to GPU.
- * @param __dst_x Destination address (GPU address) in X-axis.
- * @param __dst_y Destination address (GPU address) in Y-axis.
- * @param __src_x Source address (CPU address) in X-axis.
- * @param __src_y Source address (CPU address) in Y-axis.
+ * @brief Lock remote chiplet.
+ * @param __dst_x Destination address in X-axis.
+ * @param __dst_y Destination address in Y-axis.
+ * @param __src_x Source address in X-axis.
+ * @param __src_y Source address in Y-axis.
+ */
+extern __host__ cudaError_t CUDARTAPI lockResource(int __dst_x, int __dst_y, int __src_x,
+                                                   int __src_y);
+
+/**
+ * @brief Unlock remote chiplet.
+ * @param __dst_x Destination address in X-axis.
+ * @param __dst_y Destination address in Y-axis.
+ * @param __src_x Source address in X-axis.
+ * @param __src_y Source address in Y-axis.
+ */
+extern __host__ cudaError_t CUDARTAPI unlockResource(int __dst_x, int __dst_y, int __src_x,
+                                                     int __src_y);
+
+/**
+ * @brief Lock remote chiplet.
+ * @param __dst_x Destination address in X-axis.
+ * @param __dst_y Destination address in Y-axis.
+ * @param __src_x Source address in X-axis.
+ * @param __src_y Source address in Y-axis.
+ */
+extern __host__ cudaError_t CUDARTAPI waitLocker(int __dst_x, int __dst_y, int* __src_x,
+                                                 int* __src_y);
+
+/**
+ * @brief Send data to remote chiplet.
+ * @param __dst_x Destination address in X-axis.
+ * @param __dst_y Destination address in Y-axis.
+ * @param __src_x Source address in X-axis.
+ * @param __src_y Source address in Y-axis.
  * @param __addr Data address.
  * @param __nbyte Number of bytes.
- * @param __res Return result value.
  */
-__global__ void receiveMessage(
-    int __dst_x, int __dst_y, int __src_x, int __srx_y, void* __addr, int __nbyte, int* __res);
+extern __host__ cudaError_t CUDARTAPI sendMessage(int __dst_x, int __dst_y, int __src_x,
+                                                  int __srx_y, void* __addr, int __nbyte);
+
+/**
+ * @brief Read data from remote chiplet.
+ * @param __dst_x Destination address in X-axis.
+ * @param __dst_y Destination address in Y-axis.
+ * @param __src_x Source address in X-axis.
+ * @param __src_y Source address in Y-axis.
+ * @param __addr Data address.
+ * @param __nbyte Number of bytes.
+ */
+extern __host__ cudaError_t CUDARTAPI receiveMessage(int __dst_x, int __dst_y, int __src_x,
+                                                     int __srx_y, void* __addr, int __nbyte);
