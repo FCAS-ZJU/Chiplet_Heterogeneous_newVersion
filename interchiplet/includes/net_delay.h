@@ -243,11 +243,13 @@ class NetworkDelayList : public std::multimap<InnerTimeType, NetworkDelayItem> {
             std::multimap<InnerTimeType, NetworkDelayItem>::iterator it = find_first_item(
                 item.m_src_x, item.m_src_y, item.m_dst_x, item.m_dst_y);
 
+            InnerTimeType t_cycle = 0;
             if (it == end()) {
-                continue;
+                t_cycle = getDefaultEndCycle(item);
+            } else {
+                t_cycle = it->second.m_cycle + it->second.m_delay_list[1];
             }
 
-            InnerTimeType t_cycle = it->second.m_cycle + it->second.m_delay_list[1];
             if (t_cycle > barrier_cycle) {
                 barrier_cycle = t_cycle;
             }
