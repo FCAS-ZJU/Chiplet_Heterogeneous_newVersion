@@ -85,7 +85,7 @@ endif
 
 PROG     =cuda
 
-CXX_SRCS =  cuda_runtime_api.cc cuda_runtime_api_2.cc
+CXX_SRCS =  cuda_runtime_api.cc
 LEX_SRCS = cuobjdump.l
 YACC_SRCS = cuobjdump.y
 CXXFLAGS += -DCUDART_VERSION=$(CUDART_VERSION)

@@ -7010,3 +7010,105 @@ extern "C" CUresult CUDAAPI cuMemPrefetchAsync_ptsz(CUdeviceptr devPtr,
   printf("WARNING: this function has not been implemented yet.");
   return CUDA_SUCCESS;
 }
+
+#include "apis_cu.h"
+#include "global_define.h"
+#include "pipe_comm.h"
+
+InterChiplet::PipeComm global_pipe_comm;
+
+__host__ cudaError_t CUDARTAPI barrier(int __uid, int __src_x, int __src_y, int __count) {
+    std::cout << "Enter GPGPUSim barrier" << std::endl;
+    // Sync barrier
+    InterChiplet::SyncProtocol::barrierSync(__uid, __src_x, __src_y, __count);
+    // Sync clock.
+    gpgpu_sim* gpu = GPGPU_Context()->the_gpgpusim->the_context->get_device()->get_gpgpu();
+    long long unsigned int timeNow = gpu->gpu_sim_cycle + gpu->gpu_tot_sim_cycle;
+    long long int timeEnd = InterChiplet::SyncProtocol::writeSync(
+        timeNow, __src_x, __src_y, __uid, 0, 1, InterChiplet::SPD_BARRIER + __count);
+    gpu->gpu_tot_sim_cycle = timeEnd - gpu->gpu_sim_cycle;
+    return cudaSuccess;
+}
+
+__host__ cudaError_t CUDARTAPI lockResource(int __dst_x, int __dst_y, int __src_x, int __src_y) {
+    std::cout << "Enter GPGPUSim lockResource" << std::endl;
+    // Sync wait locker.
+    InterChiplet::SyncProtocol::lockSync(__src_x, __src_y, __dst_x, __dst_y);
+    // Sync clock.
+    gpgpu_sim* gpu = GPGPU_Context()->the_gpgpusim->the_context->get_device()->get_gpgpu();
+    long long unsigned int timeNow = gpu->gpu_sim_cycle + gpu->gpu_tot_sim_cycle;
+    long long int timeEnd = InterChiplet::SyncProtocol::writeSync(
+        timeNow, __src_x, __src_y, __dst_x, __dst_y, 1, InterChiplet::SPD_LOCKER);
+    gpu->gpu_tot_sim_cycle = timeEnd - gpu->gpu_sim_cycle;
+    return cudaSuccess;
+}
+
+__host__ cudaError_t CUDARTAPI unlockResource(int __dst_x, int __dst_y, int __src_x, int __src_y) {
+    // Sync wait locker.
+    InterChiplet::SyncProtocol::unlockSync(__src_x, __src_y, __dst_x, __dst_y);
+    return cudaSuccess;
+}
+
+__host__ cudaError_t CUDARTAPI waitLocker(int __dst_x, int __dst_y, int* __src_x, int* __src_y) {
+    std::cout << "Enter GPGPUSim waitLocker" << std::endl;
+    // Sync wait locker.
+    InterChiplet::SyncProtocol::waitlockSync(__src_x, __src_y, __dst_x, __dst_y);
+    // Sync clock.
+    gpgpu_sim* gpu = GPGPU_Context()->the_gpgpusim->the_context->get_device()->get_gpgpu();
+    long long unsigned int timeNow = gpu->gpu_sim_cycle + gpu->gpu_tot_sim_cycle;
+    long long int timeEnd = InterChiplet::SyncProtocol::readSync(
+        timeNow, *__src_x, *__src_y, __dst_x, __dst_y, 1, InterChiplet::SPD_LOCKER);
+    gpu->gpu_tot_sim_cycle = timeEnd - gpu->gpu_sim_cycle;
+    return cudaSuccess;
+}
+
+__host__ cudaError_t CUDARTAPI sendMessage(int __dst_x, int __dst_y, int __src_x, int __srx_y,
+                                           void* __addr, int __nbyte) {
+    // Read data from GPU memory.
+    uint8_t* interdata = new uint8_t[__nbyte];
+    cudaMemcpy(interdata, __addr, __nbyte, cudaMemcpyDeviceToHost);
+
+    // write data to chiplet.
+    std::cout << "Enter GPGPUSim sendMessage" << std::endl;
+    // Pipe
+    InterChiplet::SyncProtocol::pipeSync(__src_x, __srx_y, __dst_x, __dst_y);
+    // Write data
+    char* fileName = InterChiplet::SyncProtocol::pipeName(__src_x, __srx_y, __dst_x, __dst_y);
+    global_pipe_comm.write_data(fileName, interdata, __nbyte);
+    delete fileName;
+    // Sync clock.
+    gpgpu_sim* gpu = GPGPU_Context()->the_gpgpusim->the_context->get_device()->get_gpgpu();
+    long long unsigned int timeNow = gpu->gpu_sim_cycle + gpu->gpu_tot_sim_cycle;
+    long long int timeEnd = InterChiplet::SyncProtocol::writeSync(timeNow, __src_x, __srx_y,
+                                                                  __dst_x, __dst_y, __nbyte, 0);
+    gpu->gpu_tot_sim_cycle = timeEnd - gpu->gpu_sim_cycle;
+    // gpu->chiplet_direct_set_cycle(timeEnd - gpu->gpu_tot_sim_cycle);
+
+    return cudaSuccess;
+}
+
+__host__ cudaError_t CUDARTAPI receiveMessage(int __dst_x, int __dst_y, int __src_x, int __srx_y,
+                                              void* __addr, int __nbyte) {
+    // read data from chiplet.
+    uint8_t* interdata = new uint8_t[__nbyte];
+    std::cout << "Enter GPGPUSim receiveMessage" << std::endl;
+    // Pipe
+    InterChiplet::SyncProtocol::pipeSync(__src_x, __srx_y, __dst_x, __dst_y);
+    // Read data
+    char* fileName = InterChiplet::SyncProtocol::pipeName(__src_x, __srx_y, __dst_x, __dst_y);
+    global_pipe_comm.read_data(fileName, interdata, __nbyte);
+    delete fileName;
+    // Sync clock.
+    gpgpu_sim* gpu = GPGPU_Context()->the_gpgpusim->the_context->get_device()->get_gpgpu();
+    long long unsigned int timeNow = gpu->gpu_sim_cycle + gpu->gpu_tot_sim_cycle;
+    long long int timeEnd = InterChiplet::SyncProtocol::readSync(timeNow, __src_x, __srx_y, __dst_x,
+                                                                 __dst_y, __nbyte, 0);
+    gpu->gpu_tot_sim_cycle = timeEnd - gpu->gpu_sim_cycle;
+    // gpu->chiplet_direct_set_cycle(timeEnd - gpu->gpu_tot_sim_cycle);
+
+    // write data to GPU memory.
+    cudaMemcpy(__addr, interdata, __nbyte, cudaMemcpyHostToDevice);
+    delete interdata;
+
+    return cudaSuccess;
+}
