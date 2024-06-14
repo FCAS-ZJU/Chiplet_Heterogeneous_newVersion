@@ -20,7 +20,7 @@ extern __host__ cudaError_t CUDARTAPI barrier(int __uid, int __src_x, int __src_
  * @param __src_x Source address in X-axis.
  * @param __src_y Source address in Y-axis.
  */
-extern __host__ cudaError_t CUDARTAPI lockResource(int __dst_x, int __dst_y, int __src_x,
+extern __host__ cudaError_t CUDARTAPI launchResource(int __dst_x, int __dst_y, int __src_x,
                                                    int __src_y);
 
 /**
@@ -40,7 +40,7 @@ extern __host__ cudaError_t CUDARTAPI unlockResource(int __dst_x, int __dst_y, i
  * @param __src_x Source address in X-axis.
  * @param __src_y Source address in Y-axis.
  */
-extern __host__ cudaError_t CUDARTAPI waitLocker(int __dst_x, int __dst_y, int* __src_x,
+extern __host__ cudaError_t CUDARTAPI waitLauncher(int __dst_x, int __dst_y, int* __src_x,
                                                  int* __src_y);
 
 /**

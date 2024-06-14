@@ -26,7 +26,7 @@ index 33f7f92..25d789e 100644
     getMemoryManager()->disableModels();
     getNetwork()->disableModels();
 diff --git a/common/core/syscall_model.cc b/common/core/syscall_model.cc
-index c336283..4419f4a 100644
+index c336283..a9e8120 100644
 --- a/common/core/syscall_model.cc
 +++ b/common/core/syscall_model.cc
 @@ -14,6 +14,7 @@
@@ -222,7 +222,7 @@ index c336283..4419f4a 100644
 +         int src_x = args.arg2;
 +         int src_y = args.arg3;
 +         long long int end_time = InterChiplet::SyncProtocol::writeSync(
-+            cycles, src_x, src_y, dst_x, dst_y, 1, InterChiplet::SyncProtocolDesc::SPD_LOCKER);
++            cycles, src_x, src_y, dst_x, dst_y, 1, InterChiplet::SyncProtocolDesc::SPD_LAUNCHER);
 +
 +         // Update simulator time.
 +         ComponentPeriod time_wake_period = *(Sim()->getDvfsManager()->getGlobalDomain()) * end_time;
@@ -268,7 +268,7 @@ index c336283..4419f4a 100644
 +
 +         break;
 +      }*/
-+      case InterChiplet::SYSCALL_WAITLOCKER:
++      case InterChiplet::SYSCALL_WAITLAUNCHER:
 +      {
 +         // Get current cycle
 +         SubsecondTime start_time = m_thread->getCore()->getPerformanceModel()->getElapsedTime();
@@ -282,7 +282,7 @@ index c336283..4419f4a 100644
 +         int* src_x = (int*)args.arg2;
 +         int* src_y = (int*)args.arg3;
 +         long long int end_time = InterChiplet::SyncProtocol::readSync(
-+            cycles, *src_x, *src_y, dst_x, dst_y, 1, InterChiplet::SyncProtocolDesc::SPD_LOCKER);
++            cycles, *src_x, *src_y, dst_x, dst_y, 1, InterChiplet::SyncProtocolDesc::SPD_LAUNCHER);
 +
 +         // Update simulator time.
 +         ComponentPeriod time_wake_period = *(Sim()->getDvfsManager()->getGlobalDomain()) * end_time;
@@ -365,7 +365,7 @@ index c336283..4419f4a 100644
        default:
           break;
 diff --git a/sift/recorder/syscall_modeling.cc b/sift/recorder/syscall_modeling.cc
-index 4944127..83882a1 100644
+index 4944127..1511bc1 100644
 --- a/sift/recorder/syscall_modeling.cc
 +++ b/sift/recorder/syscall_modeling.cc
 @@ -7,6 +7,8 @@
@@ -421,9 +421,9 @@ index 4944127..83882a1 100644
 +            int srcX = args[2];
 +            int srcY = args[3];
 +
-+            printf("Enter Sniper lockResource\n");
++            printf("Enter Sniper launchResource\n");
 +            // Lock sync
-+            InterChiplet::SyncProtocol::lockSync(srcX, srcY, dstX, dstY);
++            InterChiplet::SyncProtocol::launchSync(srcX, srcY, dstX, dstY);
 +
 +            thread_data[threadid].last_syscall_returnval = 1;
 +            thread_data[threadid].output->Syscall(syscall_number, (char *)args, sizeof(args));
@@ -449,7 +449,7 @@ index 4944127..83882a1 100644
 +            break;
 +         }
 +         // Wait locker.
-+         case InterChiplet::SYSCALL_WAITLOCKER:
++         case InterChiplet::SYSCALL_WAITLAUNCHER:
 +         {
 +            thread_data[threadid].last_syscall_number = syscall_number;
 +            thread_data[threadid].last_syscall_emulated=true;
@@ -460,8 +460,8 @@ index 4944127..83882a1 100644
 +            int* srcY = (int*)args[3];
 +
 +            printf("Enter Sniper unlockResource\n");
-+            // Waitlocker sync
-+            InterChiplet::SyncProtocol::waitlockSync(srcX, srcY, dstX, dstY);
++            // waitLauncher sync
++            InterChiplet::SyncProtocol::waitlaunchSync(srcX, srcY, dstX, dstY);
 +
 +            thread_data[threadid].last_syscall_returnval = 1;
 +            thread_data[threadid].output->Syscall(syscall_number, (char *)args, sizeof(args));

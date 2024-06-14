@@ -7030,15 +7030,15 @@ __host__ cudaError_t CUDARTAPI barrier(int __uid, int __src_x, int __src_y, int 
     return cudaSuccess;
 }
 
-__host__ cudaError_t CUDARTAPI lockResource(int __dst_x, int __dst_y, int __src_x, int __src_y) {
-    std::cout << "Enter GPGPUSim lockResource" << std::endl;
+__host__ cudaError_t CUDARTAPI launchResource(int __dst_x, int __dst_y, int __src_x, int __src_y) {
+    std::cout << "Enter GPGPUSim launchResource" << std::endl;
     // Sync wait locker.
-    InterChiplet::SyncProtocol::lockSync(__src_x, __src_y, __dst_x, __dst_y);
+    InterChiplet::SyncProtocol::launchSync(__src_x, __src_y, __dst_x, __dst_y);
     // Sync clock.
     gpgpu_sim* gpu = GPGPU_Context()->the_gpgpusim->the_context->get_device()->get_gpgpu();
     long long unsigned int timeNow = gpu->gpu_sim_cycle + gpu->gpu_tot_sim_cycle;
     long long int timeEnd = InterChiplet::SyncProtocol::writeSync(
-        timeNow, __src_x, __src_y, __dst_x, __dst_y, 1, InterChiplet::SPD_LOCKER);
+        timeNow, __src_x, __src_y, __dst_x, __dst_y, 1, InterChiplet::SPD_LAUNCHER);
     gpu->gpu_tot_sim_cycle = timeEnd - gpu->gpu_sim_cycle;
     return cudaSuccess;
 }
@@ -7049,15 +7049,15 @@ __host__ cudaError_t CUDARTAPI unlockResource(int __dst_x, int __dst_y, int __sr
     return cudaSuccess;
 }
 
-__host__ cudaError_t CUDARTAPI waitLocker(int __dst_x, int __dst_y, int* __src_x, int* __src_y) {
-    std::cout << "Enter GPGPUSim waitLocker" << std::endl;
+__host__ cudaError_t CUDARTAPI waitLauncher(int __dst_x, int __dst_y, int* __src_x, int* __src_y) {
+    std::cout << "Enter GPGPUSim waitLauncher" << std::endl;
     // Sync wait locker.
-    InterChiplet::SyncProtocol::waitlockSync(__src_x, __src_y, __dst_x, __dst_y);
+    InterChiplet::SyncProtocol::waitlaunchSync(__src_x, __src_y, __dst_x, __dst_y);
     // Sync clock.
     gpgpu_sim* gpu = GPGPU_Context()->the_gpgpusim->the_context->get_device()->get_gpgpu();
     long long unsigned int timeNow = gpu->gpu_sim_cycle + gpu->gpu_tot_sim_cycle;
     long long int timeEnd = InterChiplet::SyncProtocol::readSync(
-        timeNow, *__src_x, *__src_y, __dst_x, __dst_y, 1, InterChiplet::SPD_LOCKER);
+        timeNow, *__src_x, *__src_y, __dst_x, __dst_y, 1, InterChiplet::SPD_LAUNCHER);
     gpu->gpu_tot_sim_cycle = timeEnd - gpu->gpu_sim_cycle;
     return cudaSuccess;
 }

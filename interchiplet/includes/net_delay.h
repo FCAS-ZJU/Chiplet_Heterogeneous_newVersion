@@ -166,7 +166,7 @@ class NetworkDelayList : public std::multimap<InnerTimeType, NetworkDelayItem> {
         } else {
             erase(it);
             // Locker communication.
-            if (__write_cmd.m_desc & SPD_LOCKER) {
+            if (__write_cmd.m_desc & SPD_LAUNCHER) {
                 // Forward packet.
                 InnerTimeType pac_delay_src = it->second.m_delay_list[0];
                 InnerTimeType pac_delay_dst = it->second.m_delay_list[1];

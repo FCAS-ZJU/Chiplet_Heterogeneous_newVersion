@@ -12,7 +12,7 @@ index c8ff2e3..81e2f9a 100644
  $(OUTPUT_DIR)/%.o: %.c
  	$(CPP) $(CCFLAGS) -I./ -I$(OUTPUT_DIR) -I$(CUDA_INSTALL_PATH)/include  -c $< -o $@
 diff --git a/libcuda/cuda_runtime_api.cc b/libcuda/cuda_runtime_api.cc
-index fd05f55..6592ae6 100644
+index fd05f55..8b99541 100644
 --- a/libcuda/cuda_runtime_api.cc
 +++ b/libcuda/cuda_runtime_api.cc
 @@ -606,10 +606,10 @@ void **cudaRegisterFatBinaryInternal(void *fatCubin,
@@ -54,15 +54,15 @@ index fd05f55..6592ae6 100644
 +    return cudaSuccess;
 +}
 +
-+__host__ cudaError_t CUDARTAPI lockResource(int __dst_x, int __dst_y, int __src_x, int __src_y) {
-+    std::cout << "Enter GPGPUSim lockResource" << std::endl;
++__host__ cudaError_t CUDARTAPI launchResource(int __dst_x, int __dst_y, int __src_x, int __src_y) {
++    std::cout << "Enter GPGPUSim launchResource" << std::endl;
 +    // Sync wait locker.
-+    InterChiplet::SyncProtocol::lockSync(__src_x, __src_y, __dst_x, __dst_y);
++    InterChiplet::SyncProtocol::launchSync(__src_x, __src_y, __dst_x, __dst_y);
 +    // Sync clock.
 +    gpgpu_sim* gpu = GPGPU_Context()->the_gpgpusim->the_context->get_device()->get_gpgpu();
 +    long long unsigned int timeNow = gpu->gpu_sim_cycle + gpu->gpu_tot_sim_cycle;
 +    long long int timeEnd = InterChiplet::SyncProtocol::writeSync(
-+        timeNow, __src_x, __src_y, __dst_x, __dst_y, 1, InterChiplet::SPD_LOCKER);
++        timeNow, __src_x, __src_y, __dst_x, __dst_y, 1, InterChiplet::SPD_LAUNCHER);
 +    gpu->gpu_tot_sim_cycle = timeEnd - gpu->gpu_sim_cycle;
 +    return cudaSuccess;
 +}
@@ -73,15 +73,15 @@ index fd05f55..6592ae6 100644
 +    return cudaSuccess;
 +}
 +
-+__host__ cudaError_t CUDARTAPI waitLocker(int __dst_x, int __dst_y, int* __src_x, int* __src_y) {
-+    std::cout << "Enter GPGPUSim waitLocker" << std::endl;
++__host__ cudaError_t CUDARTAPI waitLauncher(int __dst_x, int __dst_y, int* __src_x, int* __src_y) {
++    std::cout << "Enter GPGPUSim waitLauncher" << std::endl;
 +    // Sync wait locker.
-+    InterChiplet::SyncProtocol::waitlockSync(__src_x, __src_y, __dst_x, __dst_y);
++    InterChiplet::SyncProtocol::waitlaunchSync(__src_x, __src_y, __dst_x, __dst_y);
 +    // Sync clock.
 +    gpgpu_sim* gpu = GPGPU_Context()->the_gpgpusim->the_context->get_device()->get_gpgpu();
 +    long long unsigned int timeNow = gpu->gpu_sim_cycle + gpu->gpu_tot_sim_cycle;
 +    long long int timeEnd = InterChiplet::SyncProtocol::readSync(
-+        timeNow, *__src_x, *__src_y, __dst_x, __dst_y, 1, InterChiplet::SPD_LOCKER);
++        timeNow, *__src_x, *__src_y, __dst_x, __dst_y, 1, InterChiplet::SPD_LAUNCHER);
 +    gpu->gpu_tot_sim_cycle = timeEnd - gpu->gpu_sim_cycle;
 +    return cudaSuccess;
 +}

@@ -16,7 +16,7 @@ enum SysCallID {
     SYSCALL_GET_LOCAL_ADDR = 506,     // Get address of current processor.
     SYSCALL_CHECK_REMOTE_READ = 507,  // Check remote read
     SYSCALL_BARRIER = 508,            // Enter barrier.
-    SYSCALL_WAITLOCKER = 509,         // Wait locker.
+    SYSCALL_WAITLAUNCHER = 509,         // Wait launcher.
 };
 
 /**
@@ -46,9 +46,9 @@ enum SyncCommType {
     SC_READ,
     SC_WRITE,
     SC_BARRIER,
-    SC_LOCK,
+    SC_LAUNCH,
     SC_UNLOCK,
-    SC_WAITLOCK,
+    SC_WAITLAUNCH,
     SC_SYNC,
     SC_RESULT,
 };
@@ -72,7 +72,7 @@ enum SyncProtocolDesc {
     /**
      * @brief Locker behavior.
      */
-    SPD_LOCKER = 0x10000,
+    SPD_LAUNCHER = 0x10000,
     /**
      * @brief Barrier behavior.
      */

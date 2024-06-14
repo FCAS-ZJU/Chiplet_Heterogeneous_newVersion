@@ -72,20 +72,20 @@ class SyncProtocol {
         // Decode command to enumerate.
         SyncCommand cmd;
         cmd.m_cycle = cycle;
-        cmd.m_type = command == "CYCLE"      ? SC_CYCLE
-                     : command == "PIPE"     ? SC_PIPE
-                     : command == "READ"     ? SC_READ
-                     : command == "WRITE"    ? SC_WRITE
-                     : command == "BARRIER"  ? SC_BARRIER
-                     : command == "LOCK"     ? SC_LOCK
-                     : command == "UNLOCK"   ? SC_UNLOCK
-                     : command == "WAITLOCK" ? SC_WAITLOCK
-                     : command == "SYNC"     ? SC_SYNC
-                                             : SC_CYCLE;
+        cmd.m_type = command == "CYCLE"        ? SC_CYCLE
+                     : command == "PIPE"       ? SC_PIPE
+                     : command == "READ"       ? SC_READ
+                     : command == "WRITE"      ? SC_WRITE
+                     : command == "BARRIER"    ? SC_BARRIER
+                     : command == "LAUNCH"     ? SC_LAUNCH
+                     : command == "UNLOCK"     ? SC_UNLOCK
+                     : command == "WAITLAUNCH" ? SC_WAITLAUNCH
+                     : command == "SYNC"       ? SC_SYNC
+                                               : SC_CYCLE;
 
         // Read source/destination address.
-        if (cmd.m_type == SC_PIPE || cmd.m_type == SC_LOCK || cmd.m_type == SC_UNLOCK ||
-            cmd.m_type == SC_WAITLOCK || cmd.m_type == SC_READ || cmd.m_type == SC_WRITE) {
+        if (cmd.m_type == SC_PIPE || cmd.m_type == SC_LAUNCH || cmd.m_type == SC_UNLOCK ||
+            cmd.m_type == SC_WAITLAUNCH || cmd.m_type == SC_READ || cmd.m_type == SC_WRITE) {
             ss >> cmd.m_src_x >> cmd.m_src_y >> cmd.m_dst_x >> cmd.m_dst_y;
         }
         // Read number of bytes.
@@ -158,28 +158,28 @@ class SyncProtocol {
     }
 
     /**
-     * @brief Send LOCK command. Cycle is ignored and treated as 0.
+     * @brief Send LAUNCH command. Cycle is ignored and treated as 0.
      * @param __src_x Source address in X-axis.
      * @param __src_y Source address in Y-axis.
      * @param __dst_x Destiantion address in X-axis.
      * @param __dst_y Destination address in Y-axis.
      */
-    static void sendLockCmd(int __src_x, int __src_y, int __dst_x, int __dst_y) {
-        std::cout << NSINTERCHIPLET_CMD_HEAD << " LOCK " << 0 << " " << __src_x << " " << __src_y
+    static void sendLaunchCmd(int __src_x, int __src_y, int __dst_x, int __dst_y) {
+        std::cout << NSINTERCHIPLET_CMD_HEAD << " LAUNCH " << 0 << " " << __src_x << " " << __src_y
                   << " " << __dst_x << " " << __dst_y << std::endl;
     }
 
     /**
-     * @brief Send LOCK command. Cycle is ignored and treated as 0.
+     * @brief Send LAUNCH command. Cycle is ignored and treated as 0.
      * @param __fd File descriptor.
      * @param __src_x Source address in X-axis.
      * @param __src_y Source address in Y-axis.
      * @param __dst_x Destiantion address in X-axis.
      * @param __dst_y Destination address in Y-axis.
      */
-    static void sendLockCmd(int __fd, int __src_x, int __src_y, int __dst_x, int __dst_y) {
+    static void sendLaunchCmd(int __fd, int __src_x, int __src_y, int __dst_x, int __dst_y) {
         std::stringstream ss;
-        ss << NSINTERCHIPLET_CMD_HEAD << " LOCK " << 0 << " " << __src_x << " " << __src_y << " "
+        ss << NSINTERCHIPLET_CMD_HEAD << " LAUNCH " << 0 << " " << __src_x << " " << __src_y << " "
            << __dst_x << " " << __dst_y << std::endl;
         if (write(__fd, ss.str().c_str(), ss.str().size()) < 0) {
             perror("write");
@@ -200,14 +200,14 @@ class SyncProtocol {
     }
 
     /**
-     * @brief Send WAITLOCK command.
+     * @brief Send WAITLAUNCH command.
      * @param __src_x Source address in X-axis.
      * @param __src_y Source address in Y-axis.
      * @param __dst_x Destiantion address in X-axis.
      * @param __dst_y Destination address in Y-axis.
      */
-    static void sendWaitlockCmd(int __src_x, int __src_y, int __dst_x, int __dst_y) {
-        std::cout << NSINTERCHIPLET_CMD_HEAD << " WAITLOCK " << 0 << " " << __src_x << " "
+    static void sendWaitlaunchCmd(int __src_x, int __src_y, int __dst_x, int __dst_y) {
+        std::cout << NSINTERCHIPLET_CMD_HEAD << " WAITLAUNCH " << 0 << " " << __src_x << " "
                   << __src_y << " " << __dst_x << " " << __dst_y << std::endl;
     }
 
@@ -300,16 +300,16 @@ class SyncProtocol {
     }
 
     /**
-     * @brief Send LOCK command and wait for SYNC command.
+     * @brief Send LAUNCH command and wait for SYNC command.
      * @param __src_x Source address in X-axis.
      * @param __src_y Source address in Y-axis.
      * @param __dst_x Destiantion address in X-axis.
      * @param __dst_y Destination address in Y-axis.
      * @return Cycle to receive SYNC command.
      */
-    static TimeType lockSync(int __src_x, int __src_y, int __dst_x, int __dst_y) {
-        // Send LOCK command.
-        sendLockCmd(__src_x, __src_y, __dst_x, __dst_y);
+    static TimeType launchSync(int __src_x, int __src_y, int __dst_x, int __dst_y) {
+        // Send LAUNCH command.
+        sendLaunchCmd(__src_x, __src_y, __dst_x, __dst_y);
         // Read message from stdin.
         SyncCommand resp_cmd = parseCmd();
         // Only handle SYNC message, return cycle to receive SYNC command.
@@ -325,7 +325,7 @@ class SyncProtocol {
      * @return Cycle to receive SYNC command.
      */
     static TimeType unlockSync(int __src_x, int __src_y, int __dst_x, int __dst_y) {
-        // Send LOCK command.
+        // Send UNLOCK command.
         sendUnlockCmd(__src_x, __src_y, __dst_x, __dst_y);
         // Read message from stdin.
         SyncCommand resp_cmd = parseCmd();
@@ -334,22 +334,22 @@ class SyncProtocol {
     }
 
     /**
-     * @brief Send WAITLOCK command and wait for LOCK command.
+     * @brief Send WAITLAUNCH command and wait for LAUNCH command.
      * @param __src_x Source address in X-axis.
      * @param __src_y Source address in Y-axis.
      * @param __dst_x Destiantion address in X-axis.
      * @param __dst_y Destination address in Y-axis.
      * @return Cycle to receive SYNC command.
      */
-    static TimeType waitlockSync(int* __src_x, int* __src_y, int __dst_x, int __dst_y) {
-        // Send LOCK command.
-        sendWaitlockCmd(*__src_x, *__src_y, __dst_x, __dst_y);
+    static TimeType waitlaunchSync(int* __src_x, int* __src_y, int __dst_x, int __dst_y) {
+        // Send LAUNCH command.
+        sendWaitlaunchCmd(*__src_x, *__src_y, __dst_x, __dst_y);
         // Read message from stdin.
         SyncCommand resp_cmd = parseCmd();
         *__src_x = resp_cmd.m_src_x;
         *__src_y = resp_cmd.m_src_y;
         // Only handle SYNC message, return cycle to receive SYNC command.
-        return resp_cmd.m_type == SC_LOCK ? resp_cmd.m_cycle : -1;
+        return resp_cmd.m_type == SC_LAUNCH ? resp_cmd.m_cycle : -1;
     }
 
     /**
