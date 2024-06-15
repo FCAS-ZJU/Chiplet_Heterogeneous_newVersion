@@ -60,9 +60,9 @@ class SyncStruct {
      */
     InterChiplet::NetworkDelayList m_delay_list;
     /**
-     * @brief Lock delay list. recording the delay of lock/waitlock transactions
+     * @brief Launch delay list. recording the delay of launch/waitlaunch transactions
      */
-    InterChiplet::NetworkDelayList m_lock_delay_list;
+    InterChiplet::NetworkDelayList m_launch_delay_list;
 
     /**
      * @brief List of PIPE file names.
@@ -80,15 +80,15 @@ class SyncStruct {
     /**
      * @brief List of Pipe commands.
      */
-    std::vector<InterChiplet::SyncCommand> m_lock_cmd_list;
+    std::vector<InterChiplet::SyncCommand> m_launch_cmd_list;
     /**
      * @brief List of Pending Pipe commands.
      */
-    std::vector<InterChiplet::SyncCommand> m_pending_lock_cmd_list;
+    std::vector<InterChiplet::SyncCommand> m_pending_launch_cmd_list;
     /**
      * @brief List of Pending Pipe commands.
      */
-    std::vector<InterChiplet::SyncCommand> m_waitlock_cmd_list;
+    std::vector<InterChiplet::SyncCommand> m_waitlaunch_cmd_list;
 
     /**
      * @brief Barrier count.
@@ -173,11 +173,11 @@ int create_fifo(std::string __fifo_name) {
 
 static std::string cmdToDebug(const InterChiplet::SyncCommand& __cmd) {
     std::stringstream ss;
-    if (__cmd.m_type == InterChiplet::SC_LOCK) {
-        ss << "LOCK command from " << __cmd.m_src_x << "," << __cmd.m_src_y << " to "
+    if (__cmd.m_type == InterChiplet::SC_LAUNCH) {
+        ss << "LAUNCH command from " << __cmd.m_src_x << "," << __cmd.m_src_y << " to "
            << __cmd.m_dst_x << "," << __cmd.m_dst_y << ".";
-    } else if (__cmd.m_type == InterChiplet::SC_WAITLOCK) {
-        ss << "WAITLOCK command from " << __cmd.m_src_x << "," << __cmd.m_src_y << " to "
+    } else if (__cmd.m_type == InterChiplet::SC_WAITLAUNCH) {
+        ss << "WAITLAUNCH command from " << __cmd.m_src_x << "," << __cmd.m_src_y << " to "
            << __cmd.m_dst_x << "," << __cmd.m_dst_y << ".";
     } else if (__cmd.m_type == InterChiplet::SC_UNLOCK) {
         ss << "UNLOCK command from " << __cmd.m_src_x << "," << __cmd.m_src_y << " to "
@@ -203,122 +203,122 @@ static std::string cmdToDebug(const InterChiplet::SyncCommand& __cmd) {
     return ss.str();
 }
 
-void handle_lock_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync_struct) {
-    // Check for unconfirmed waitlock command.
-    bool has_waitlock_cmd = false;
-    InterChiplet::SyncCommand waitlock_cmd;
+void handle_launch_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync_struct) {
+    // Check for unconfirmed waitlaunch command.
+    bool has_waitlaunch_cmd = false;
+    InterChiplet::SyncCommand waitlaunch_cmd;
 
-    for (std::size_t i = 0; i < __sync_struct->m_waitlock_cmd_list.size(); i++) {
-        InterChiplet::SyncCommand& __waitlock_cmd = __sync_struct->m_waitlock_cmd_list[i];
-        // If there is waitlock command, confirm the lock.
-        bool lock_match = false;
-        if (__waitlock_cmd.m_src_x < 0 || __waitlock_cmd.m_src_y < 0) {
-            lock_match =
-                __cmd.m_dst_x == __waitlock_cmd.m_dst_x && __cmd.m_dst_y == __waitlock_cmd.m_dst_y;
+    for (std::size_t i = 0; i < __sync_struct->m_waitlaunch_cmd_list.size(); i++) {
+        InterChiplet::SyncCommand& __waitlaunch_cmd = __sync_struct->m_waitlaunch_cmd_list[i];
+        // If there is waitlaunch command, confirm the launch.
+        bool launch_match = false;
+        if (__waitlaunch_cmd.m_src_x < 0 || __waitlaunch_cmd.m_src_y < 0) {
+            launch_match =
+                __cmd.m_dst_x == __waitlaunch_cmd.m_dst_x && __cmd.m_dst_y == __waitlaunch_cmd.m_dst_y;
         } else {
-            lock_match = __cmd.m_src_x == __waitlock_cmd.m_src_x &&
-                         __cmd.m_src_y == __waitlock_cmd.m_src_y &&
-                         __cmd.m_dst_x == __waitlock_cmd.m_dst_x &&
-                         __cmd.m_dst_y == __waitlock_cmd.m_dst_y;
+            launch_match = __cmd.m_src_x == __waitlaunch_cmd.m_src_x &&
+                         __cmd.m_src_y == __waitlaunch_cmd.m_src_y &&
+                         __cmd.m_dst_x == __waitlaunch_cmd.m_dst_x &&
+                         __cmd.m_dst_y == __waitlaunch_cmd.m_dst_y;
         }
-        if (lock_match) {
-            has_waitlock_cmd = true;
-            waitlock_cmd = __waitlock_cmd;
-            __sync_struct->m_waitlock_cmd_list.erase(__sync_struct->m_waitlock_cmd_list.begin() +
+        if (launch_match) {
+            has_waitlaunch_cmd = true;
+            waitlaunch_cmd = __waitlaunch_cmd;
+            __sync_struct->m_waitlaunch_cmd_list.erase(__sync_struct->m_waitlaunch_cmd_list.begin() +
                                                      i);
             break;
         }
     }
 
-    // If there is not waitlock command, waitlock command.
-    if (!has_waitlock_cmd) {
-        spdlog::debug("{} Register LOCK command to pair with WAITLOCK command.", cmdToDebug(__cmd));
-        __sync_struct->m_pending_lock_cmd_list.push_back(__cmd);
-        // If there is waitlock command, response lock and waitlock command.
+    // If there is not waitlaunch command, waitlaunch command.
+    if (!has_waitlaunch_cmd) {
+        spdlog::debug("{} Register LAUNCH command to pair with WAITLAUNCH command.", cmdToDebug(__cmd));
+        __sync_struct->m_pending_launch_cmd_list.push_back(__cmd);
+        // If there is waitlaunch command, response launch and waitlaunch command.
     } else {
-        spdlog::debug("{} Pair with WAITLOCK command.", cmdToDebug(__cmd));
+        spdlog::debug("{} Pair with WAITLAUNCH command.", cmdToDebug(__cmd));
 
-        // Append to lock queue.
-        __sync_struct->m_lock_cmd_list.push_back(__cmd);
+        // Append to launch queue.
+        __sync_struct->m_launch_cmd_list.push_back(__cmd);
 
-        // Send SYNC to response LOCK command.
+        // Send SYNC to response LAUNCH command.
         InterChiplet::SyncProtocol::sendSyncCmd(__cmd.m_stdin_fd, 0);
 
-        // Send LOCK to response WAITLOCK command.
-        InterChiplet::SyncProtocol::sendLockCmd(waitlock_cmd.m_stdin_fd, __cmd.m_src_x,
+        // Send LAUNCH to response WAITLAUNCH command.
+        InterChiplet::SyncProtocol::sendLaunchCmd(waitlaunch_cmd.m_stdin_fd, __cmd.m_src_x,
                                                 __cmd.m_src_y, __cmd.m_dst_x, __cmd.m_dst_y);
     }
 }
 
-void handle_waitlock_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync_struct) {
-    // Check for unconfirmed waitlock command.
-    bool has_lock_cmd = false;
-    InterChiplet::SyncCommand lock_cmd;
+void handle_waitlaunch_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync_struct) {
+    // Check for unconfirmed waitlaunch command.
+    bool has_launch_cmd = false;
+    InterChiplet::SyncCommand launch_cmd;
 
-    // Check lock order and remove item..
-    InterChiplet::SyncCommand waitlock_cmd = __cmd;
+    // Check launch order and remove item..
+    InterChiplet::SyncCommand waitlaunch_cmd = __cmd;
     std::multimap<InterChiplet::InnerTimeType, InterChiplet::NetworkDelayItem>::iterator it =
-        __sync_struct->m_lock_delay_list.find_first_item(waitlock_cmd.m_dst_x,
-                                                         waitlock_cmd.m_dst_y);
-    if (it != __sync_struct->m_lock_delay_list.end()) {
-        waitlock_cmd.m_src_x = it->second.m_src_x;
-        waitlock_cmd.m_src_y = it->second.m_src_y;
-        __sync_struct->m_lock_delay_list.erase(it);
+        __sync_struct->m_launch_delay_list.find_first_item(waitlaunch_cmd.m_dst_x,
+                                                         waitlaunch_cmd.m_dst_y);
+    if (it != __sync_struct->m_launch_delay_list.end()) {
+        waitlaunch_cmd.m_src_x = it->second.m_src_x;
+        waitlaunch_cmd.m_src_y = it->second.m_src_y;
+        __sync_struct->m_launch_delay_list.erase(it);
     }
 
-    // Try to pick with lock command.
-    for (std::size_t i = 0; i < __sync_struct->m_pending_lock_cmd_list.size(); i++) {
-        InterChiplet::SyncCommand& __lock_cmd = __sync_struct->m_pending_lock_cmd_list[i];
-        // If there is lock command, confirm the lock.
-        bool lock_match = false;
-        if (waitlock_cmd.m_src_x < 0 || waitlock_cmd.m_src_y < 0) {
-            lock_match = __lock_cmd.m_dst_x == waitlock_cmd.m_dst_x &&
-                         __lock_cmd.m_dst_y == waitlock_cmd.m_dst_y;
+    // Try to pick with launch command.
+    for (std::size_t i = 0; i < __sync_struct->m_pending_launch_cmd_list.size(); i++) {
+        InterChiplet::SyncCommand& __launch_cmd = __sync_struct->m_pending_launch_cmd_list[i];
+        // If there is launch command, confirm the launch.
+        bool launch_match = false;
+        if (waitlaunch_cmd.m_src_x < 0 || waitlaunch_cmd.m_src_y < 0) {
+            launch_match = __launch_cmd.m_dst_x == waitlaunch_cmd.m_dst_x &&
+                         __launch_cmd.m_dst_y == waitlaunch_cmd.m_dst_y;
         } else {
-            lock_match = __lock_cmd.m_src_x == waitlock_cmd.m_src_x &&
-                         __lock_cmd.m_src_y == waitlock_cmd.m_src_y &&
-                         __lock_cmd.m_dst_x == waitlock_cmd.m_dst_x &&
-                         __lock_cmd.m_dst_y == waitlock_cmd.m_dst_y;
+            launch_match = __launch_cmd.m_src_x == waitlaunch_cmd.m_src_x &&
+                         __launch_cmd.m_src_y == waitlaunch_cmd.m_src_y &&
+                         __launch_cmd.m_dst_x == waitlaunch_cmd.m_dst_x &&
+                         __launch_cmd.m_dst_y == waitlaunch_cmd.m_dst_y;
         }
-        if (lock_match) {
-            has_lock_cmd = true;
-            lock_cmd = __lock_cmd;
-            __sync_struct->m_pending_lock_cmd_list.erase(
-                __sync_struct->m_pending_lock_cmd_list.begin() + i);
+        if (launch_match) {
+            has_launch_cmd = true;
+            launch_cmd = __launch_cmd;
+            __sync_struct->m_pending_launch_cmd_list.erase(
+                __sync_struct->m_pending_launch_cmd_list.begin() + i);
             break;
         }
     }
 
-    // If there is not waitlock command, waitlock command.
-    if (!has_lock_cmd) {
-        spdlog::debug("{} Register WAITLOCK command to pair with LOCK command.",
-                      cmdToDebug(waitlock_cmd));
-        __sync_struct->m_waitlock_cmd_list.push_back(waitlock_cmd);
+    // If there is not waitlaunch command, waitlaunch command.
+    if (!has_launch_cmd) {
+        spdlog::debug("{} Register WAITLAUNCH command to pair with LAUNCH command.",
+                      cmdToDebug(waitlaunch_cmd));
+        __sync_struct->m_waitlaunch_cmd_list.push_back(waitlaunch_cmd);
     } else {
-        spdlog::debug("{} Pair with LOCK command from {},{} to {},{}.", cmdToDebug(waitlock_cmd),
-                      lock_cmd.m_src_x, lock_cmd.m_src_y, lock_cmd.m_dst_x, lock_cmd.m_dst_y);
+        spdlog::debug("{} Pair with LAUNCH command from {},{} to {},{}.", cmdToDebug(waitlaunch_cmd),
+                      launch_cmd.m_src_x, launch_cmd.m_src_y, launch_cmd.m_dst_x, launch_cmd.m_dst_y);
 
-        // Append to lock queue.
-        __sync_struct->m_lock_cmd_list.push_back(lock_cmd);
+        // Append to launch queue.
+        __sync_struct->m_launch_cmd_list.push_back(launch_cmd);
 
-        // Send SYNC to response LOCK command.
-        InterChiplet::SyncProtocol::sendSyncCmd(lock_cmd.m_stdin_fd, 0);
+        // Send SYNC to response LAUNCH command.
+        InterChiplet::SyncProtocol::sendSyncCmd(launch_cmd.m_stdin_fd, 0);
 
-        // Send LOCK to response WAITLOCK command.
-        InterChiplet::SyncProtocol::sendLockCmd(waitlock_cmd.m_stdin_fd, lock_cmd.m_src_x,
-                                                lock_cmd.m_src_y, lock_cmd.m_dst_x,
-                                                lock_cmd.m_dst_y);
+        // Send LAUNCH to response WAITLAUNCH command.
+        InterChiplet::SyncProtocol::sendLaunchCmd(waitlaunch_cmd.m_stdin_fd, launch_cmd.m_src_x,
+                                                launch_cmd.m_src_y, launch_cmd.m_dst_x,
+                                                launch_cmd.m_dst_y);
     }
 }
 
 void handle_unlock_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync_struct) {
     // Unlock resources.
-    for (std::size_t i = 0; i < __sync_struct->m_lock_cmd_list.size(); i++) {
-        InterChiplet::SyncCommand& __lock_cmd = __sync_struct->m_lock_cmd_list[i];
-        // Remove lock_cmd from lock command queue.
-        if (__lock_cmd.m_src_x == __cmd.m_src_x && __lock_cmd.m_src_y == __cmd.m_src_y &&
-            __lock_cmd.m_dst_x == __cmd.m_dst_x && __lock_cmd.m_dst_y == __cmd.m_dst_y) {
-            __sync_struct->m_lock_cmd_list.erase(__sync_struct->m_lock_cmd_list.begin() + i);
+    for (std::size_t i = 0; i < __sync_struct->m_launch_cmd_list.size(); i++) {
+        InterChiplet::SyncCommand& __launch_cmd = __sync_struct->m_launch_cmd_list[i];
+        // Remove launch_cmd from launch command queue.
+        if (__launch_cmd.m_src_x == __cmd.m_src_x && __launch_cmd.m_src_y == __cmd.m_src_y &&
+            __launch_cmd.m_dst_x == __cmd.m_dst_x && __launch_cmd.m_dst_y == __cmd.m_dst_y) {
+            __sync_struct->m_launch_cmd_list.erase(__sync_struct->m_launch_cmd_list.begin() + i);
             break;
         }
     }
@@ -631,14 +631,14 @@ void parse_command(char* __pipe_buf, ProcessStruct* __proc_struct, int __stdin_f
                 case InterChiplet::SC_PIPE:
                     handle_pipe_cmd(cmd, __proc_struct->m_sync_struct);
                     break;
-                case InterChiplet::SC_LOCK:
-                    handle_lock_cmd(cmd, __proc_struct->m_sync_struct);
+                case InterChiplet::SC_LAUNCH:
+                    handle_launch_cmd(cmd, __proc_struct->m_sync_struct);
                     break;
                 case InterChiplet::SC_UNLOCK:
                     handle_unlock_cmd(cmd, __proc_struct->m_sync_struct);
                     break;
-                case InterChiplet::SC_WAITLOCK:
-                    handle_waitlock_cmd(cmd, __proc_struct->m_sync_struct);
+                case InterChiplet::SC_WAITLAUNCH:
+                    handle_waitlaunch_cmd(cmd, __proc_struct->m_sync_struct);
                     break;
                 case InterChiplet::SC_READ:
                     handle_read_cmd(cmd, __proc_struct->m_sync_struct);
@@ -832,10 +832,10 @@ InterChiplet::InnerTimeType __loop_phase_one(
                                               __proc_phase2_cfg_list[0].m_clock_rate);
     spdlog::info("Load {} delay records.", g_sync_structure->m_delay_list.size());
 
-    // Trace lock record.
+    // Trace launch record.
     for (auto& pair : g_sync_structure->m_delay_list) {
-        if (pair.second.m_desc & InterChiplet::SPD_LOCKER) {
-            g_sync_structure->m_lock_delay_list.insert(
+        if (pair.second.m_desc & InterChiplet::SPD_LAUNCHER) {
+            g_sync_structure->m_launch_delay_list.insert(
                 pair.second.m_cycle + pair.second.m_delay_list[1], pair.second);
         }
     }

@@ -209,9 +209,9 @@ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
             int srcX = args[2];
             int srcY = args[3];
 
-            printf("Enter Sniper lockResource\n");
+            printf("Enter Sniper launchResource\n");
             // Lock sync
-            InterChiplet::SyncProtocol::lockSync(srcX, srcY, dstX, dstY);
+            InterChiplet::SyncProtocol::launchSync(srcX, srcY, dstX, dstY);
 
             thread_data[threadid].last_syscall_returnval = 1;
             thread_data[threadid].output->Syscall(syscall_number, (char *)args, sizeof(args));
@@ -237,7 +237,7 @@ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
             break;
          }
          // Wait locker.
-         case InterChiplet::SYSCALL_WAITLOCKER:
+         case InterChiplet::SYSCALL_WAITLAUNCHER:
          {
             thread_data[threadid].last_syscall_number = syscall_number;
             thread_data[threadid].last_syscall_emulated=true;
@@ -248,8 +248,8 @@ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
             int* srcY = (int*)args[3];
 
             printf("Enter Sniper unlockResource\n");
-            // Waitlocker sync
-            InterChiplet::SyncProtocol::waitlockSync(srcX, srcY, dstX, dstY);
+            // waitLauncher sync
+            InterChiplet::SyncProtocol::waitlaunchSync(srcX, srcY, dstX, dstY);
 
             thread_data[threadid].last_syscall_returnval = 1;
             thread_data[threadid].output->Syscall(syscall_number, (char *)args, sizeof(args));

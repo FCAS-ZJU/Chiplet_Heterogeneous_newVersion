@@ -27,7 +27,7 @@ int main(int argc, char **argv) {
         // Create time gap between cycles.
         usleep((idX * 2 + idY) * 100);
 
-        InterChiplet::lockResource(1, 1, idX, idY);
+        InterChiplet::launchResource(1, 1, idX, idY);
 
         InterChiplet::sendMessage(1, 1, idX, idY, A, 10000 * sizeof(int64_t));
         InterChiplet::sendMessage(1, 1, idX, idY, B, 10000 * sizeof(int64_t));

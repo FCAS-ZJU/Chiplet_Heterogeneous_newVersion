@@ -458,7 +458,7 @@ bool SyscallMdl::runEnter(IntPtr syscall_number, syscall_args_t &args)
          int src_x = args.arg2;
          int src_y = args.arg3;
          long long int end_time = InterChiplet::SyncProtocol::writeSync(
-            cycles, src_x, src_y, dst_x, dst_y, 1, InterChiplet::SyncProtocolDesc::SPD_LOCKER);
+            cycles, src_x, src_y, dst_x, dst_y, 1, InterChiplet::SyncProtocolDesc::SPD_LAUNCHER);
 
          // Update simulator time.
          ComponentPeriod time_wake_period = *(Sim()->getDvfsManager()->getGlobalDomain()) * end_time;
@@ -504,7 +504,7 @@ bool SyscallMdl::runEnter(IntPtr syscall_number, syscall_args_t &args)
 
          break;
       }*/
-      case InterChiplet::SYSCALL_WAITLOCKER:
+      case InterChiplet::SYSCALL_WAITLAUNCHER:
       {
          // Get current cycle
          SubsecondTime start_time = m_thread->getCore()->getPerformanceModel()->getElapsedTime();
@@ -518,7 +518,7 @@ bool SyscallMdl::runEnter(IntPtr syscall_number, syscall_args_t &args)
          int* src_x = (int*)args.arg2;
          int* src_y = (int*)args.arg3;
          long long int end_time = InterChiplet::SyncProtocol::readSync(
-            cycles, *src_x, *src_y, dst_x, dst_y, 1, InterChiplet::SyncProtocolDesc::SPD_LOCKER);
+            cycles, *src_x, *src_y, dst_x, dst_y, 1, InterChiplet::SyncProtocolDesc::SPD_LAUNCHER);
 
          // Update simulator time.
          ComponentPeriod time_wake_period = *(Sim()->getDvfsManager()->getGlobalDomain()) * end_time;
