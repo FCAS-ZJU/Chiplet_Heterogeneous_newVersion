@@ -9,19 +9,25 @@ syscall_return_t barrier(int64_t __uid, int64_t __src_x, int64_t __src_y, int64_
     return ret_code;
 }
 
-syscall_return_t launchResource(int64_t __dst_x, int64_t __dst_y, int64_t __src_x, int64_t __src_y) {
-    int ret_code = syscall(SYSCALL_CONNECT, __dst_x, __dst_y, __src_x, __src_y);
+syscall_return_t lock(int64_t __uid, int64_t __src_x, int64_t __src_y) {
+    int ret_code = syscall(SYSCALL_LOCK, __uid, __src_x, __src_y);
     return ret_code;
 }
 
-syscall_return_t unlockResource(int64_t __dst_x, int64_t __dst_y, int64_t __src_x,
+syscall_return_t unlock(int64_t __uid, int64_t __src_x, int64_t __src_y) {
+    int ret_code = syscall(SYSCALL_UNLOCK, __uid, __src_x, __src_y);
+    return ret_code;
+}
+
+syscall_return_t launch(int64_t __dst_x, int64_t __dst_y, int64_t __src_x,
                                 int64_t __src_y) {
-    int ret_code = syscall(SYSCALL_DISCONNECT, __dst_x, __dst_y, __src_x, __src_y);
+    int ret_code = syscall(SYSCALL_LAUNCH, __dst_x, __dst_y, __src_x, __src_y);
     return ret_code;
 }
 
-syscall_return_t waitLauncher(int64_t __dst_x, int64_t __dst_y, int64_t* __src_x, int64_t* __src_y) {
-    int ret_code = syscall(SYSCALL_WAITLAUNCHER, __dst_x, __dst_y, __src_x, __src_y);
+syscall_return_t waitLaunch(int64_t __dst_x, int64_t __dst_y, int64_t* __src_x,
+                              int64_t* __src_y) {
+    int ret_code = syscall(SYSCALL_WAITLAUNCH, __dst_x, __dst_y, __src_x, __src_y);
     return ret_code;
 }
 

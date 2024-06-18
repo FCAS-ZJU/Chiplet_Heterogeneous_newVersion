@@ -28,9 +28,7 @@
 #include "../../../interchiplet/includes/pipe_comm.h"
 #include <unordered_map>
 #include <cstdint>
-//#include<atomic>
 #include <map>
-//#include<mutex>
 
 const char *SyscallMdl::futex_names[] =
 {
@@ -45,11 +43,9 @@ struct SPortInfo
 {
    int64_t localPort, remoteAddr, remotePort;
 };
-//typedef std::map<int64_t,int64_t> des_addr_map_t;
 typedef std::unordered_map<int64_t, SPortInfo> des_addr_map_t;
 des_addr_map_t des_addr_map;
 std::ofstream msg_record("message_record.txt");
-//pthread_mutex_t mtx;
 
 SyscallMdl::SyscallMdl(Thread *thread)
       : m_thread(thread)
@@ -79,6 +75,8 @@ SyscallMdl::~SyscallMdl()
 {
    free(futex_counters);
 }
+
+// static int lock_fd = -1;
 
 bool SyscallMdl::runEnter(IntPtr syscall_number, syscall_args_t &args)
 {
@@ -310,230 +308,12 @@ bool SyscallMdl::runEnter(IntPtr syscall_number, syscall_args_t &args)
          break;
       }
 
-      //changed at 2020-3-27
-      //syscall numbers on inter-chiplet operations
-      case InterChiplet::SYSCALL_TEST_CHANGE:
-         //testing
-         std::cout << "Test succeeds(core)\n";
-         break;
-
-      // case InterChiplet::SYSCALL_REMOTE_READ:
-      // {
-      //    //TODO: 跨芯粒读
-      //    //read from other chiplet
-      //    ScopedLock sl(Sim()->getThreadManager()->getLock());
-      //    auto cur_time = m_thread->getCore()->getPerformanceModel()->getElapsedTime();
-      //    des_addr_map_t::iterator it = des_addr_map.find(args.arg0);
-      //    //recv (local port) (remote address) (remote port) (local core) (time by nanosecond)
-      //    if (it != des_addr_map.end())
-      //    {
-      //       msg_record << "recv "
-      //                << args.arg0 << ' '
-      //                << it->second.remoteAddr << ' '
-      //                << it->second.remotePort << ' '
-      //                << m_thread->getCore()->getId() << ' '
-      //                << cur_time.getNS() << std::endl;
-      //    }
-      //    Sim()->getThreadManager()->stallThread_async(
-      //       m_thread->getId(),
-      //       ThreadManager::STALL_SYSCALL,
-      //       cur_time);
-      //    m_stalled = true;
-      //    break;
-      // }
-
-      // case InterChiplet::SYSCALL_REMOTE_WRITE:
-      // {
-      //    //TODO: 跨芯粒写
-      //    ScopedLock sl(Sim()->getThreadManager()->getLock());
-      //    auto cur_time = m_thread->getCore()->getPerformanceModel()->getElapsedTime();
-      //    des_addr_map_t::iterator it = des_addr_map.find(args.arg0);
-      //    //send 本地端口 远程地址 远程端口 本地核心 时间（按纳秒计）
-      //    if (it != des_addr_map.end())
-      //    {
-      //       msg_record << "send "
-      //                << args.arg0 << ' '
-      //                << it->second.remoteAddr << ' '
-      //                << it->second.remotePort << ' '
-      //                << m_thread->getCore()->getId() << ' '
-      //                << cur_time.getNS() << std::endl;
-      //    }
-      //    Sim()->getThreadManager()->stallThread_async(
-      //       m_thread->getId(),
-      //       ThreadManager::STALL_SYSCALL,
-      //       cur_time);
-      //    m_stalled = true;
-      //    break;
-      // }
-
-      case InterChiplet::SYSCALL_REG_FUNC:
-      {
-         ScopedLock sl(Sim()->getThreadManager()->getLock());
-         Sim()->getThreadManager()->stallThread_async(
-            m_thread->getId(),
-            ThreadManager::STALL_SYSCALL,
-            m_thread->getCore()->getPerformanceModel()->getElapsedTime());
-         m_stalled = true;
-         break;
-      }
-      // case InterChiplet::SYSCALL_CONNECT:
-      // {
-      //    ScopedLock sl(Sim()->getThreadManager()->getLock());
-      //    des_addr_map_t::iterator it = des_addr_map.find(args.arg0);
-      //    //本地端口 远程地址 远程端口
-      //    if (it == des_addr_map.end())
-      //       des_addr_map.insert(std::pair<int64_t, SPortInfo>(args.arg0,
-      //                                                       {args.arg0, args.arg1, args.arg2}));
-      //    Sim()->getThreadManager()->stallThread_async(
-      //       m_thread->getId(),
-      //       ThreadManager::STALL_SYSCALL,
-      //       m_thread->getCore()->getPerformanceModel()->getElapsedTime());
-      //    m_stalled = true;
-      //    break;
-      // }
-      // case InterChiplet::SYSCALL_DISCONNECT:
-      // {
-      //    ScopedLock sl(Sim()->getThreadManager()->getLock());
-      //    //本地端口
-      //    des_addr_map.erase(args.arg0);
-      //    Sim()->getThreadManager()->stallThread_async(
-      //       m_thread->getId(),
-      //       ThreadManager::STALL_SYSCALL,
-      //       m_thread->getCore()->getPerformanceModel()->getElapsedTime());
-      //    m_stalled = true;
-      //    break;
-      // }
-      case InterChiplet::SYSCALL_GET_LOCAL_ADDR:
-      {
-         ScopedLock sl(Sim()->getThreadManager()->getLock());
-         Sim()->getThreadManager()->stallThread_async(
-            m_thread->getId(),
-            ThreadManager::STALL_SYSCALL,
-            m_thread->getCore()->getPerformanceModel()->getElapsedTime());
-         m_stalled = true;
-         break;
-      }
-
       case InterChiplet::SYSCALL_BARRIER:
-      {
-         // Get current cycle
-         SubsecondTime start_time = m_thread->getCore()->getPerformanceModel()->getElapsedTime();
-         // Convert SubsecondTime to cycles in global clock domain
-         const ComponentPeriod *dom_global = Sim()->getDvfsManager()->getGlobalDomain();
-         UInt64 cycles = SubsecondTime::divideRounded(start_time, *dom_global);
-
-         // Send WRITE command and wait for SYNC.
-         int uid = args.arg0;
-         int src_x = args.arg1;
-         int src_y = args.arg2;
-         int count = args.arg3;
-         long long int end_time = InterChiplet::SyncProtocol::writeSync(
-            cycles, src_x, src_y, uid, 0, 1, InterChiplet::SyncProtocolDesc::SPD_BARRIER + count);
-
-         // Update simulator time.
-         ComponentPeriod time_wake_period = *(Sim()->getDvfsManager()->getGlobalDomain()) * end_time;
-         SubsecondTime time_wake = time_wake_period.getPeriod();
-         SubsecondTime sleep_end_time;
-         Sim()->getSyscallServer()->handleSleepCall(m_thread->getId(), time_wake, start_time, sleep_end_time);
-
-         // Sleep core until specified time.
-         if (m_thread->reschedule(sleep_end_time, core))
-            core = m_thread->getCore();
-
-         core->getPerformanceModel()->queuePseudoInstruction(new SyncInstruction(sleep_end_time, SyncInstruction::SLEEP));
-
-         break;
-      }
-      case InterChiplet::SYSCALL_CONNECT:
-      {
-         // Get current cycle
-         SubsecondTime start_time = m_thread->getCore()->getPerformanceModel()->getElapsedTime();
-         // Convert SubsecondTime to cycles in global clock domain
-         const ComponentPeriod *dom_global = Sim()->getDvfsManager()->getGlobalDomain();
-         UInt64 cycles = SubsecondTime::divideRounded(start_time, *dom_global);
-
-         // Send WRITE command and wait for SYNC.
-         int dst_x = args.arg0;
-         int dst_y = args.arg1;
-         int src_x = args.arg2;
-         int src_y = args.arg3;
-         long long int end_time = InterChiplet::SyncProtocol::writeSync(
-            cycles, src_x, src_y, dst_x, dst_y, 1, InterChiplet::SyncProtocolDesc::SPD_LAUNCHER);
-
-         // Update simulator time.
-         ComponentPeriod time_wake_period = *(Sim()->getDvfsManager()->getGlobalDomain()) * end_time;
-         SubsecondTime time_wake = time_wake_period.getPeriod();
-         SubsecondTime sleep_end_time;
-         Sim()->getSyscallServer()->handleSleepCall(m_thread->getId(), time_wake, start_time, sleep_end_time);
-
-         // Sleep core until specified time.
-         if (m_thread->reschedule(sleep_end_time, core))
-            core = m_thread->getCore();
-
-         core->getPerformanceModel()->queuePseudoInstruction(new SyncInstruction(sleep_end_time, SyncInstruction::SLEEP));
-
-         break;
-      }
-      /*case InterChiplet::SYSCALL_DISCONNECT:
-      {
-         // Get current cycle
-         SubsecondTime start_time = m_thread->getCore()->getPerformanceModel()->getElapsedTime();
-         // Convert SubsecondTime to cycles in global clock domain
-         const ComponentPeriod *dom_global = Sim()->getDvfsManager()->getGlobalDomain();
-         UInt64 cycles = SubsecondTime::divideRounded(start_time, *dom_global);
-
-         // Send WRITE command and wait for SYNC.
-         int dst_x = args.arg0;
-         int dst_y = args.arg1;
-         int src_x = args.arg2;
-         int src_y = args.arg3;
-         long long int end_time = InterChiplet::SyncProtocol::writeSync(
-            cycles, src_x, src_y, dst_x, dst_y, 1, InterChiplet::SyncProtocolDesc::SPD_ONEWAY);
-
-         // Update simulator time.
-         ComponentPeriod time_wake_period = *(Sim()->getDvfsManager()->getGlobalDomain()) * end_time;
-         SubsecondTime time_wake = time_wake_period.getPeriod();
-         SubsecondTime sleep_end_time;
-         Sim()->getSyscallServer()->handleSleepCall(m_thread->getId(), time_wake, start_time, sleep_end_time);
-
-         // Sleep core until specified time.
-         if (m_thread->reschedule(sleep_end_time, core))
-            core = m_thread->getCore();
-
-         core->getPerformanceModel()->queuePseudoInstruction(new SyncInstruction(sleep_end_time, SyncInstruction::SLEEP));
-
-         break;
-      }*/
-      case InterChiplet::SYSCALL_WAITLAUNCHER:
-      {
-         // Get current cycle
-         SubsecondTime start_time = m_thread->getCore()->getPerformanceModel()->getElapsedTime();
-         // Convert SubsecondTime to cycles in global clock domain
-         const ComponentPeriod *dom_global = Sim()->getDvfsManager()->getGlobalDomain();
-         UInt64 cycles = SubsecondTime::divideRounded(start_time, *dom_global);
-
-         // Send WRITE command and wait for SYNC.
-         int dst_x = args.arg0;
-         int dst_y = args.arg1;
-         int* src_x = (int*)args.arg2;
-         int* src_y = (int*)args.arg3;
-         long long int end_time = InterChiplet::SyncProtocol::readSync(
-            cycles, *src_x, *src_y, dst_x, dst_y, 1, InterChiplet::SyncProtocolDesc::SPD_LAUNCHER);
-
-         // Update simulator time.
-         ComponentPeriod time_wake_period = *(Sim()->getDvfsManager()->getGlobalDomain()) * end_time;
-         SubsecondTime time_wake = time_wake_period.getPeriod();
-         SubsecondTime sleep_end_time;
-         Sim()->getSyscallServer()->handleSleepCall(m_thread->getId(), time_wake, start_time, sleep_end_time);
-
-         // Sleep core until specified time.
-         if (m_thread->reschedule(sleep_end_time, core))
-            core = m_thread->getCore();
-
-         core->getPerformanceModel()->queuePseudoInstruction(new SyncInstruction(sleep_end_time, SyncInstruction::SLEEP));
-
-         break;
-      }
+      case InterChiplet::SYSCALL_LOCK:
+      case InterChiplet::SYSCALL_UNLOCK:
+      case InterChiplet::SYSCALL_LAUNCH:
+      case InterChiplet::SYSCALL_WAITLAUNCH:
+      case InterChiplet::SYSCALL_REMOTE_READ:
       case InterChiplet::SYSCALL_REMOTE_WRITE:
       {
          // Get current cycle
@@ -542,57 +322,95 @@ bool SyscallMdl::runEnter(IntPtr syscall_number, syscall_args_t &args)
          const ComponentPeriod *dom_global = Sim()->getDvfsManager()->getGlobalDomain();
          UInt64 cycles = SubsecondTime::divideRounded(start_time, *dom_global);
 
-         // Send WRITE command and wait for SYNC.
-         int dst_x = args.arg0;
-         int dst_y = args.arg1;
-         int src_x = args.arg2;
-         int src_y = args.arg3;
-         int nbytes = args.arg5;
-         long long int end_time = InterChiplet::SyncProtocol::writeSync(
-            cycles, src_x, src_y, dst_x, dst_y, nbytes, 0);
+         UInt64 end_time = cycles;
+         switch (syscall_number)
+         {
+            case InterChiplet::SYSCALL_BARRIER:
+            {
+               int uid = args.arg0;
+               int src_x = args.arg1;
+               int src_y = args.arg2;
+               int count = args.arg3;
+               end_time = InterChiplet::writeSync(
+                  cycles, src_x, src_y, uid, 0, 1, InterChiplet::SPD_BARRIER + count);
+               break;
+            }
+            case InterChiplet::SYSCALL_LOCK:
+            {
+               int uid = args.arg0;
+               int src_x = args.arg1;
+               int src_y = args.arg2;
+               end_time = InterChiplet::writeSync(
+                  cycles, src_x, src_y, uid, 0, 1, InterChiplet::SPD_LOCK);
+               break;
+            }
+            case InterChiplet::SYSCALL_UNLOCK:
+            {
+               int uid = args.arg0;
+               int src_x = args.arg1;
+               int src_y = args.arg2;
+               end_time = InterChiplet::writeSync(
+                  cycles, src_x, src_y, uid, 0, 1, InterChiplet::SPD_UNLOCK);
+               break;
+            }
+            case InterChiplet::SYSCALL_LAUNCH:
+            {
+               int dst_x = args.arg0;
+               int dst_y = args.arg1;
+               int src_x = args.arg2;
+               int src_y = args.arg3;
+               end_time = InterChiplet::writeSync(
+                  cycles, src_x, src_y, dst_x, dst_y, 1, InterChiplet::SPD_LAUNCH);
+               break;
+            }
+            case InterChiplet::SYSCALL_WAITLAUNCH:
+            {
+               int dst_x = args.arg0;
+               int dst_y = args.arg1;
+               int src_x = args.arg2;
+               int src_y = args.arg3;
+               end_time = InterChiplet::readSync(
+                  cycles, src_x, src_y, dst_x, dst_y, 1, InterChiplet::SPD_LAUNCH);
+               break;
+            }
+            case InterChiplet::SYSCALL_REMOTE_WRITE:
+            {
+               int dst_x = args.arg0;
+               int dst_y = args.arg1;
+               int src_x = args.arg2;
+               int src_y = args.arg3;
+               int nbytes = args.arg5;
+               end_time = InterChiplet::writeSync(cycles, src_x, src_y, dst_x, dst_y, nbytes, 0);
+               break;
+            }
+            case InterChiplet::SYSCALL_REMOTE_READ:
+            {
+               // Send WRITE command and wait for SYNC.
+               int dst_x = args.arg0;
+               int dst_y = args.arg1;
+               int src_x = args.arg2;
+               int src_y = args.arg3;
+               int nbytes = args.arg5;
+               end_time = InterChiplet::readSync(cycles, src_x, src_y, dst_x, dst_y, nbytes, 0);
+               break;
+            }
+         }
+
+         fflush(stdout);
 
          // Update simulator time.
-         ComponentPeriod time_wake_period = *(Sim()->getDvfsManager()->getGlobalDomain()) * end_time;
+         ComponentPeriod time_wake_period =
+               *(Sim()->getDvfsManager()->getGlobalDomain()) * end_time;
          SubsecondTime time_wake = time_wake_period.getPeriod();
          SubsecondTime sleep_end_time;
-         Sim()->getSyscallServer()->handleSleepCall(m_thread->getId(), time_wake, start_time, sleep_end_time);
+         Sim()->getSyscallServer()->handleSleepCall(m_thread->getId(), time_wake, start_time,
+                                                      sleep_end_time);
 
          // Sleep core until specified time.
-         if (m_thread->reschedule(sleep_end_time, core))
-            core = m_thread->getCore();
+         if (m_thread->reschedule(sleep_end_time, core)) core = m_thread->getCore();
 
-         core->getPerformanceModel()->queuePseudoInstruction(new SyncInstruction(sleep_end_time, SyncInstruction::SLEEP));
-
-         break;
-      }
-      case InterChiplet::SYSCALL_REMOTE_READ:
-      {
-         // Get current cycle
-         SubsecondTime start_time = m_thread->getCore()->getPerformanceModel()->getElapsedTime();
-         // Convert SubsecondTime to cycles in global clock domain
-         const ComponentPeriod *dom_global = Sim()->getDvfsManager()->getGlobalDomain();
-         UInt64 cycles = SubsecondTime::divideRounded(start_time, *dom_global);
-
-         // Send WRITE command and wait for SYNC.
-         int dst_x = args.arg0;
-         int dst_y = args.arg1;
-         int src_x = args.arg2;
-         int src_y = args.arg3;
-         int nbytes = args.arg5;
-         long long int end_time = InterChiplet::SyncProtocol::readSync(
-            cycles, src_x, src_y, dst_x, dst_y, nbytes, 0);
-
-         // Update simulator time.
-         ComponentPeriod time_wake_period = *(Sim()->getDvfsManager()->getGlobalDomain()) * end_time;
-         SubsecondTime time_wake = time_wake_period.getPeriod();
-         SubsecondTime sleep_end_time;
-         Sim()->getSyscallServer()->handleSleepCall(m_thread->getId(), time_wake, start_time, sleep_end_time);
-
-         // Sleep core until specified time.
-         if (m_thread->reschedule(sleep_end_time, core))
-            core = m_thread->getCore();
-
-         core->getPerformanceModel()->queuePseudoInstruction(new SyncInstruction(sleep_end_time, SyncInstruction::SLEEP));
+         core->getPerformanceModel()->queuePseudoInstruction(
+               new SyncInstruction(sleep_end_time, SyncInstruction::SLEEP));
 
          break;
       }

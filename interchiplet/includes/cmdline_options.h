@@ -14,16 +14,14 @@ class CmdLineOptions {
      * @brief Constructor.
      */
     CmdLineOptions()
-        : m_bench(), m_cwd(), m_timeout_threshold(5), m_err_rate_threshold(0.005), m_debug(false) {
-    }
+        : m_bench(), m_cwd(), m_timeout_threshold(5), m_err_rate_threshold(0.005), m_debug(false) {}
 
     /**
      * @brief Read options from command line.
      * @param argc Number of argument.
      * @param argv String of argument.
      */
-    int parse(int argc, const char* argv[])
-    {
+    int parse(int argc, const char* argv[]) {
         CLI::App app{"Lego Chiplet Simulator"};
         app.add_option("bench", m_bench, "Benchmark configuration file (.yml)")
             ->required()
@@ -37,7 +35,7 @@ class CmdLineOptions {
 
         try {
             app.parse(argc, argv);
-        } catch(const CLI::ParseError &e) {
+        } catch (const CLI::ParseError& e) {
             int ret = app.exit(e);
             exit(ret);
         }

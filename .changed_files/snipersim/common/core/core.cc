@@ -134,7 +134,7 @@ void Core::disablePerformanceModels()
    const ComponentPeriod *dom_global = Sim()->getDvfsManager()->getGlobalDomain();
    UInt64 cycles = SubsecondTime::divideRounded(start_time, *dom_global);
    // Send cycle command.
-   InterChiplet::SyncProtocol::sendCycleCmd(cycles);
+   InterChiplet::sendCycleCmd(cycles);
 
    getShmemPerfModel()->disable();
    getMemoryManager()->disableModels();
