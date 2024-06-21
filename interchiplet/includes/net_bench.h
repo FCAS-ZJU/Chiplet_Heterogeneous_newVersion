@@ -27,21 +27,13 @@ class NetworkBenchItem {
      */
     uint64_t m_id;
     /**
-     * @brief Source address in X-axis.
+     * @brief Source address.
      */
-    int m_src_x;
+    AddrType m_src;
     /**
-     * @brief Source address in Y-axis.
+     * @brief Destination address.
      */
-    int m_src_y;
-    /**
-     * @brief Destination address in X-axis.
-     */
-    int m_dst_x;
-    /**
-     * @brief Destination address in Y-axis.
-     */
-    int m_dst_y;
+    AddrType m_dst;
     /**
      * @brief Size of package in bytes.
      */
@@ -58,40 +50,15 @@ class NetworkBenchItem {
     NetworkBenchItem() {}
 
     /**
-     * @brief Construct NetworkBenchItem.
-     * @param __src_cycle Package injection cycle from the source side.
-     * @param __dst_cycle Package injection cycle from the destination side.
-     * @param __src_x Source address in X-axis.
-     * @param __src_y Source address in Y-axis.
-     * @param __dst_x Destination address in X-axis.
-     * @param __dst_y Destination address in Y-axis.
-     * @param __pac_size Size of package in bytes.
-     * @param __desc Synchronization protocol descriptor.
-     */
-    NetworkBenchItem(TimeType __src_cycle, TimeType __dst_cycle, int __src_x, int __src_y,
-                     int __dst_x, int __dst_y, int __pac_size, long __desc)
-        : m_src_cycle(__src_cycle),
-          m_dst_cycle(__dst_cycle),
-          m_dst_x(__dst_x),
-          m_dst_y(__dst_y),
-          m_src_x(__src_x),
-          m_src_y(__src_y),
-          m_pac_size(__pac_size),
-          m_desc(__desc) {}
-
-    /**
      * @brief Construct NetworkBenchItem from SyncCommand.
      * @param __src_cmd Structure of source command.
      * @param __dst_cmd Structure of destination command.
      */
-    NetworkBenchItem(const InterChiplet::SyncCommand& __src_cmd,
-                     const InterChiplet::SyncCommand& __dst_cmd)
+    NetworkBenchItem(const SyncCommand& __src_cmd, const SyncCommand& __dst_cmd)
         : m_src_cycle(__src_cmd.m_cycle),
           m_dst_cycle(__dst_cmd.m_cycle),
-          m_dst_x(__src_cmd.m_dst_x),
-          m_dst_y(__src_cmd.m_dst_y),
-          m_src_x(__src_cmd.m_src_x),
-          m_src_y(__src_cmd.m_src_y),
+          m_dst(__src_cmd.m_dst),
+          m_src(__src_cmd.m_src),
           m_pac_size(1),
           m_desc(__src_cmd.m_desc | __dst_cmd.m_desc) {
         // Calculate the number of flit.
@@ -104,13 +71,11 @@ class NetworkBenchItem {
      * @brief Construct NetworkBenchItem from SyncCommand.
      * @param __src_cmd Structure of source command.
      */
-    NetworkBenchItem(const InterChiplet::SyncCommand& __src_cmd)
+    NetworkBenchItem(const SyncCommand& __src_cmd)
         : m_src_cycle(__src_cmd.m_cycle),
           m_dst_cycle(__src_cmd.m_cycle),
-          m_dst_x(__src_cmd.m_dst_x),
-          m_dst_y(__src_cmd.m_dst_y),
-          m_src_x(__src_cmd.m_src_x),
-          m_src_y(__src_cmd.m_src_y),
+          m_dst(__src_cmd.m_dst),
+          m_src(__src_cmd.m_src),
           m_pac_size(1),
           m_desc(__src_cmd.m_desc) {
         // Calculate the number of flit.
@@ -125,8 +90,8 @@ class NetworkBenchItem {
      * Write NetworkBenchItem to output stream.
      */
     friend std::ostream& operator<<(std::ostream& os, const NetworkBenchItem& __item) {
-        os << __item.m_src_cycle << " " << __item.m_dst_cycle << " " << __item.m_src_x << " "
-           << __item.m_src_y << " " << __item.m_dst_x << " " << __item.m_dst_y << " "
+        os << __item.m_src_cycle << " " << __item.m_dst_cycle << " " << DIM_X(__item.m_src) << " "
+           << DIM_Y(__item.m_src) << " " << DIM_X(__item.m_dst) << " " << DIM_Y(__item.m_dst) << " "
            << __item.m_pac_size << " " << __item.m_desc;
         return os;
     }
@@ -137,8 +102,14 @@ class NetworkBenchItem {
      * Read NetworkBenchItem from input stream.
      */
     friend std::istream& operator>>(std::istream& os, NetworkBenchItem& __item) {
-        os >> __item.m_src_cycle >> __item.m_dst_cycle >> __item.m_src_x >> __item.m_src_y >>
-            __item.m_dst_x >> __item.m_dst_y >> __item.m_pac_size >> __item.m_desc;
+        os >> __item.m_src_cycle >> __item.m_dst_cycle;
+        long src_x, src_y, dst_x, dst_y;
+        os >> src_x >> src_y >> dst_x >> dst_y;
+        __item.m_src.push_back(src_x);
+        __item.m_src.push_back(src_y);
+        __item.m_dst.push_back(dst_x);
+        __item.m_dst.push_back(dst_y);
+        os >> __item.m_pac_size >> __item.m_desc;
         return os;
     }
 };
@@ -155,6 +126,8 @@ class NetworkBenchList : public std::multimap<InnerTimeType, NetworkBenchItem> {
 
     /**
      * @brief Insert item into list.
+     *
+     * Take the start cycle on source side as ordering key.
      */
     void insert(const NetworkBenchItem& __item) {
         std::multimap<InnerTimeType, NetworkBenchItem>::insert(
@@ -163,16 +136,17 @@ class NetworkBenchList : public std::multimap<InnerTimeType, NetworkBenchItem> {
 
     /**
      * @brief Dump benchmark list to specified file.
-     * @param file_name Path to benchmark file.
+     * @param __file_name Path to benchmark file.
+     * @param __clock_rate Clock ratio (Simulator clock/Interchiplet clock).
      */
-    void dump_bench(const std::string& __file_name, const double __clock_rate) {
+    void dumpBench(const std::string& __file_name, double __clock_rate) {
         std::ofstream bench_of(__file_name, std::ios::out);
         for (auto& it : *this) {
             bench_of << static_cast<TimeType>(it.second.m_src_cycle * __clock_rate) << " "
                      << static_cast<TimeType>(it.second.m_dst_cycle * __clock_rate) << " "
-                     << it.second.m_src_x << " " << it.second.m_src_y << " " << it.second.m_dst_x
-                     << " " << it.second.m_dst_y << " " << it.second.m_pac_size << " "
-                     << it.second.m_desc << std::endl;
+                     << DIM_X(it.second.m_src) << " " << DIM_Y(it.second.m_src) << " "
+                     << DIM_X(it.second.m_dst) << " " << DIM_Y(it.second.m_dst) << " "
+                     << it.second.m_pac_size << " " << it.second.m_desc << std::endl;
         }
         bench_of.flush();
         bench_of.close();

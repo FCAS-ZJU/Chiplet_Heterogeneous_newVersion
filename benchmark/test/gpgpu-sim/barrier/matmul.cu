@@ -45,7 +45,7 @@ int main(int argc, char** argv) {
 
     for (int round = 0; round < 6; round++) {
         int locker_x = -1, locker_y = -1;
-        waitLauncher(idX, idY, &locker_x, &locker_y);
+        waitLaunch(idX, idY, &locker_x, &locker_y);
 
         int64_t *d_dataA, *d_dataB, *d_dataC;
         cudaMalloc((void**)&d_dataA, sizeof(int64_t) * Row * Col);

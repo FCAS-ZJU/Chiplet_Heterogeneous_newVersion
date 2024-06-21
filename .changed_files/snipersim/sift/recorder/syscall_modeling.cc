@@ -179,127 +179,106 @@ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
             thread_data[threadid].output->Syscall(syscall_number, (char*)args, sizeof(args));
             break;
 
-         // Barrier synchronization.
          case InterChiplet::SYSCALL_BARRIER:
-         {
-            thread_data[threadid].last_syscall_number = syscall_number;
-            thread_data[threadid].last_syscall_emulated=true;
-
-            int uid = args[0];
-            int srcX = args[1];
-            int srcY = args[2];
-            int count = args[3];
-
-            printf("Enter Sniper barrier\n");
-            // Barrier sync
-            InterChiplet::SyncProtocol::barrierSync(srcX, srcY, uid, count);
-
-            thread_data[threadid].last_syscall_returnval = 1;
-            thread_data[threadid].output->Syscall(syscall_number, (char *)args, sizeof(args));
-            break;
-         }
-         // Connect to remote chiplet. (lock resource)
-         case InterChiplet::SYSCALL_CONNECT:
-         {
-            thread_data[threadid].last_syscall_number = syscall_number;
-            thread_data[threadid].last_syscall_emulated=true;
-
-            int dstX = args[0];
-            int dstY = args[1];
-            int srcX = args[2];
-            int srcY = args[3];
-
-            printf("Enter Sniper launchResource\n");
-            // Lock sync
-            InterChiplet::SyncProtocol::launchSync(srcX, srcY, dstX, dstY);
-
-            thread_data[threadid].last_syscall_returnval = 1;
-            thread_data[threadid].output->Syscall(syscall_number, (char *)args, sizeof(args));
-            break;
-         }
-         // Disconnect to remote chiplet. (unlock resource)
-         case InterChiplet::SYSCALL_DISCONNECT:
-         {
-            thread_data[threadid].last_syscall_number = syscall_number;
-            thread_data[threadid].last_syscall_emulated=true;
-
-            int dstX = args[0];
-            int dstY = args[1];
-            int srcX = args[2];
-            int srcY = args[3];
-
-            printf("Enter Sniper unlockResource\n");
-            // Unlock sync
-            InterChiplet::SyncProtocol::unlockSync(srcX, srcY, dstX, dstY);
-
-            thread_data[threadid].last_syscall_returnval = 1;
-            thread_data[threadid].output->Syscall(syscall_number, (char *)args, sizeof(args));
-            break;
-         }
-         // Wait locker.
-         case InterChiplet::SYSCALL_WAITLAUNCHER:
-         {
-            thread_data[threadid].last_syscall_number = syscall_number;
-            thread_data[threadid].last_syscall_emulated=true;
-
-            int dstX = args[0];
-            int dstY = args[1];
-            int* srcX = (int*)args[2];
-            int* srcY = (int*)args[3];
-
-            printf("Enter Sniper unlockResource\n");
-            // waitLauncher sync
-            InterChiplet::SyncProtocol::waitlaunchSync(srcX, srcY, dstX, dstY);
-
-            thread_data[threadid].last_syscall_returnval = 1;
-            thread_data[threadid].output->Syscall(syscall_number, (char *)args, sizeof(args));
-            break;
-         }
-         // Send data to remote chiplet.
+         case InterChiplet::SYSCALL_LOCK:
+         case InterChiplet::SYSCALL_UNLOCK:
+         case InterChiplet::SYSCALL_LAUNCH:
+         case InterChiplet::SYSCALL_WAITLAUNCH:
+         case InterChiplet::SYSCALL_REMOTE_READ:
          case InterChiplet::SYSCALL_REMOTE_WRITE:
          {
             thread_data[threadid].last_syscall_number = syscall_number;
             thread_data[threadid].last_syscall_emulated=true;
 
-            int dstX = args[0];
-            int dstY = args[1];
-            int srcX = args[2];
-            int srcY = args[3];
-            int* data = (int*)args[4];
-            int nbytes = args[5];
+            switch (syscall_number)
+            {
+               case InterChiplet::SYSCALL_BARRIER:
+               {
+                  int uid = args[0];
+                  int srcX = args[1];
+                  int srcY = args[2];
+                  int count = args[3];
 
-            printf("Enter Sniper sendMessage\n");
-            // Pipe sync
-            InterChiplet::SyncProtocol::pipeSync(srcX, srcY, dstX, dstY);
-            // Write data
-            char * fileName = InterChiplet::SyncProtocol::pipeName(srcX, srcY, dstX, dstY);
-            global_pipe_comm.write_data(fileName, data, nbytes);
-            delete fileName;
+                  printf("Enter Sniper barrier\n");
+                  InterChiplet::barrierSync(srcX, srcY, uid, count);
+                  break;
+               }
+               case InterChiplet::SYSCALL_LOCK:
+               {
+                  int uid = args[0];
+                  int srcX = args[1];
+                  int srcY = args[2];
 
-            thread_data[threadid].last_syscall_returnval = 1;
-            thread_data[threadid].output->Syscall(syscall_number, (char *)args, sizeof(args));
-            break;
-         }
-         // Read data from remote chiplet.
-         case InterChiplet::SYSCALL_REMOTE_READ:
-         {
-            thread_data[threadid].last_syscall_number = syscall_number;
-            thread_data[threadid].last_syscall_emulated=true;
+                  printf("Enter Sniper lock\n");
+                  InterChiplet::lockSync(srcX, srcY, uid);
+                  break;
+               }
+               case InterChiplet::SYSCALL_UNLOCK:
+               {
+                  int uid = args[0];
+                  int srcX = args[1];
+                  int srcY = args[2];
 
-            int dstX = args[0];
-            int dstY = args[1];
-            int srcX = args[2];
-            int srcY = args[3];
-            int* data = (int*)args[4];
-            int nbytes = args[5];
+                  printf("Enter Sniper unlock\n");
+                  InterChiplet::unlockSync(srcX, srcY, uid);
+                  break;
+               }
+               case InterChiplet::SYSCALL_LAUNCH:
+               {
+                  int dstX = args[0];
+                  int dstY = args[1];
+                  int srcX = args[2];
+                  int srcY = args[3];
 
-            printf("Enter Sniper receiveMessage\n");
-            // Pipe sync
-            InterChiplet::SyncProtocol::pipeSync(srcX, srcY, dstX, dstY);
-            // Read data
-            char * fileName = InterChiplet::SyncProtocol::pipeName(srcX, srcY, dstX, dstY);
-            global_pipe_comm.read_data(fileName, data, nbytes);
-            delete fileName;
+                  printf("Enter Sniper launch\n");
+                  InterChiplet::launchSync(srcX, srcY, dstX, dstY);
+                  break;
+               }
+               case InterChiplet::SYSCALL_WAITLAUNCH:
+               {
+                  int dstX = args[0];
+                  int dstY = args[1];
+                  int* srcX = (int*)args[2];
+                  int* srcY = (int*)args[3];
+
+                  printf("Enter Sniper waitLaunch\n");
+                  InterChiplet::waitlaunchSync(srcX, srcY, dstX, dstY);
+
+                  args[2] = *srcX;
+                  args[3] = *srcY;
+                  break;
+               }
+               case InterChiplet::SYSCALL_REMOTE_WRITE:
+               {
+                  int dstX = args[0];
+                  int dstY = args[1];
+                  int srcX = args[2];
+                  int srcY = args[3];
+                  int* data = (int*)args[4];
+                  int nbytes = args[5];
+
+                  printf("Enter Sniper sendMessage\n");
+                  std::string fileName = InterChiplet::sendSync(srcX, srcY, dstX, dstY);
+                  global_pipe_comm.write_data(fileName.c_str(), data, nbytes);
+                  break;
+               }
+               case InterChiplet::SYSCALL_REMOTE_READ:
+               {
+                  int dstX = args[0];
+                  int dstY = args[1];
+                  int srcX = args[2];
+                  int srcY = args[3];
+                  int* data = (int*)args[4];
+                  int nbytes = args[5];
+
+                  printf("Enter Sniper receiveMessage\n");
+                  std::string fileName = InterChiplet::receiveSync(srcX, srcY, dstX, dstY);
+                  global_pipe_comm.read_data(fileName.c_str(), data, nbytes);
+                  break;
+               }
+            }
+
+            fflush(stdout);
 
             thread_data[threadid].last_syscall_returnval = 1;
             thread_data[threadid].output->Syscall(syscall_number, (char *)args, sizeof(args));
