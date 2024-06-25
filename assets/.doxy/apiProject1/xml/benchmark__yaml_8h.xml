@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="benchmark__yaml_8h" kind="file" language="C++">
+    <compoundname>benchmark_yaml.h</compoundname>
+    <includes local="no">boost/filesystem.hpp</includes>
+    <includes local="no">iostream</includes>
+    <includes local="yes">yaml-cpp/yaml.h</includes>
+    <includedby refid="interchiplet_8cpp" local="yes">/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp</includedby>
+    <incdepgraph>
+      <node id="4">
+        <label>yaml-cpp/yaml.h</label>
+      </node>
+      <node id="2">
+        <label>boost/filesystem.hpp</label>
+      </node>
+      <node id="1">
+        <label>/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h</label>
+        <link refid="benchmark__yaml_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>iostream</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="classInterChiplet_1_1ProcessConfig" prot="public">InterChiplet::ProcessConfig</innerclass>
+    <innerclass refid="classInterChiplet_1_1BenchmarkConfig" prot="public">InterChiplet::BenchmarkConfig</innerclass>
+    <innernamespace refid="namespaceInterChiplet">InterChiplet</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/filesystem.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;yaml-cpp/yaml.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">fs<sp/>=<sp/>boost::filesystem;</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">InterChiplet<sp/>{</highlight></codeline>
+<codeline lineno="13" refid="classInterChiplet_1_1ProcessConfig" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classInterChiplet_1_1ProcessConfig" kindref="compound">ProcessConfig</ref><sp/>{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="24" refid="classInterChiplet_1_1ProcessConfig_1ae84683fca980b81d1fabcf6454de0992" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classInterChiplet_1_1ProcessConfig_1ae84683fca980b81d1fabcf6454de0992" kindref="member">ProcessConfig</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>__cmd,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;std::string&gt;&amp;<sp/>__args,</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>__log,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>__to_stdout,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>__clock_rate,</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>__pre_copy)</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="classInterChiplet_1_1ProcessConfig_1a09d838ffa12b0c28176a59261f24f42a" kindref="member">m_command</ref>(__cmd),</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classInterChiplet_1_1ProcessConfig_1af68c86e773c75090dff4cf433f8bb6a5" kindref="member">m_args</ref>(__args),</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classInterChiplet_1_1ProcessConfig_1ac183e7bdfe867918a205d0daccaf8606" kindref="member">m_log_file</ref>(__log),</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classInterChiplet_1_1ProcessConfig_1a2fa27cf6858cb329f9fb7f24bd08ce43" kindref="member">m_to_stdout</ref>(__to_stdout),</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classInterChiplet_1_1ProcessConfig_1ad82d336e66b36f6d8c6502bc5b0bb448" kindref="member">m_clock_rate</ref>(__clock_rate),</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classInterChiplet_1_1ProcessConfig_1a9ef4e7783db599c3f77b06465dbce65c" kindref="member">m_pre_copy</ref>(__pre_copy)<sp/>{}</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="38" refid="classInterChiplet_1_1ProcessConfig_1a09d838ffa12b0c28176a59261f24f42a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="classInterChiplet_1_1ProcessConfig_1a09d838ffa12b0c28176a59261f24f42a" kindref="member">m_command</ref>;</highlight></codeline>
+<codeline lineno="42" refid="classInterChiplet_1_1ProcessConfig_1af68c86e773c75090dff4cf433f8bb6a5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;std::string&gt;<sp/><ref refid="classInterChiplet_1_1ProcessConfig_1af68c86e773c75090dff4cf433f8bb6a5" kindref="member">m_args</ref>;</highlight></codeline>
+<codeline lineno="46" refid="classInterChiplet_1_1ProcessConfig_1ac183e7bdfe867918a205d0daccaf8606" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="classInterChiplet_1_1ProcessConfig_1ac183e7bdfe867918a205d0daccaf8606" kindref="member">m_log_file</ref>;</highlight></codeline>
+<codeline lineno="50" refid="classInterChiplet_1_1ProcessConfig_1a2fa27cf6858cb329f9fb7f24bd08ce43" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classInterChiplet_1_1ProcessConfig_1a2fa27cf6858cb329f9fb7f24bd08ce43" kindref="member">m_to_stdout</ref>;</highlight></codeline>
+<codeline lineno="54" refid="classInterChiplet_1_1ProcessConfig_1ad82d336e66b36f6d8c6502bc5b0bb448" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classInterChiplet_1_1ProcessConfig_1ad82d336e66b36f6d8c6502bc5b0bb448" kindref="member">m_clock_rate</ref>;</highlight></codeline>
+<codeline lineno="58" refid="classInterChiplet_1_1ProcessConfig_1a9ef4e7783db599c3f77b06465dbce65c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="classInterChiplet_1_1ProcessConfig_1a9ef4e7783db599c3f77b06465dbce65c" kindref="member">m_pre_copy</ref>;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64" refid="classInterChiplet_1_1BenchmarkConfig" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classInterChiplet_1_1BenchmarkConfig" kindref="compound">BenchmarkConfig</ref><sp/>{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="70" refid="classInterChiplet_1_1BenchmarkConfig_1ab5f99437fdd84e9601f3c72c7188cc8d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classInterChiplet_1_1BenchmarkConfig_1ab5f99437fdd84e9601f3c72c7188cc8d" kindref="member">BenchmarkConfig</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>file_name)<sp/>{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Get<sp/>environment<sp/>variables.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classInterChiplet_1_1BenchmarkConfig_1a3467f8689d45bfab60f93a2b5b21b3b5" kindref="member">m_benchmark_root</ref><sp/>=<sp/>fs::canonical(fs::path(file_name)).parent_path().string();</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(getenv(</highlight><highlight class="stringliteral">&quot;SIMULATOR_ROOT&quot;</highlight><highlight class="normal">)<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cerr<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;The<sp/>environment<sp/>variable<sp/>SIMULATOR_ROOT<sp/>is<sp/>not<sp/>defined.\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>exit(EXIT_FAILURE);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>m_simulator_root<sp/>=<sp/>getenv(</highlight><highlight class="stringliteral">&quot;SIMULATOR_ROOT&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Parse<sp/>YAML<sp/>file.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YAML::Node<sp/>config;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>config<sp/>=<sp/>YAML::LoadFile(file_name);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">catch</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::exception&amp;<sp/>e)<sp/>{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cerr<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Error:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>e.what()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>exit(EXIT_FAILURE);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Parse<sp/>YAML<sp/>Tree.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classInterChiplet_1_1BenchmarkConfig_1a07bdb90567a8a76365b85891c8f12b9c" kindref="member">yaml_parse</ref>(config);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Extend<sp/>environment<sp/>variables.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>extend_env_var();</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100" refid="classInterChiplet_1_1BenchmarkConfig_1a07bdb90567a8a76365b85891c8f12b9c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classInterChiplet_1_1BenchmarkConfig_1a07bdb90567a8a76365b85891c8f12b9c" kindref="member">yaml_parse</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>YAML::Node&amp;<sp/>config)<sp/>{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classInterChiplet_1_1BenchmarkConfig_1a7af2a0152d65110de7de35614d424da6" kindref="member">m_phase1_proc_cfg_list</ref><sp/>=<sp/>yaml_parse_phase(config[</highlight><highlight class="stringliteral">&quot;phase1&quot;</highlight><highlight class="normal">]);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classInterChiplet_1_1BenchmarkConfig_1ab0d1fcd93ad876303a8066aa8639ef8a" kindref="member">m_phase2_proc_cfg_list</ref><sp/>=<sp/>yaml_parse_phase(config[</highlight><highlight class="stringliteral">&quot;phase2&quot;</highlight><highlight class="normal">]);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;ProcessConfig&gt;<sp/>yaml_parse_phase(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>YAML::Node&amp;<sp/>config)<sp/>{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;ProcessConfig&gt;<sp/>proc_list;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(YAML::const_iterator<sp/>it<sp/>=<sp/>config.begin();<sp/>it<sp/>!=<sp/>config.end();<sp/>it++)<sp/>{</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>proc_list.push_back(yaml_parse_process(*it));</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>proc_list;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/>ProcessConfig<sp/>yaml_parse_process(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>YAML::Node&amp;<sp/>config)<sp/>{</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>pre_copy;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(config[</highlight><highlight class="stringliteral">&quot;pre_copy&quot;</highlight><highlight class="normal">])<sp/>{</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pre_copy<sp/>=<sp/>config[</highlight><highlight class="stringliteral">&quot;pre_copy&quot;</highlight><highlight class="normal">].as&lt;std::string&gt;();</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ProcessConfig(config[</highlight><highlight class="stringliteral">&quot;cmd&quot;</highlight><highlight class="normal">].as&lt;std::string&gt;(),</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>config[</highlight><highlight class="stringliteral">&quot;args&quot;</highlight><highlight class="normal">].as&lt;std::vector&lt;std::string&gt;<sp/>&gt;(),</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>config[</highlight><highlight class="stringliteral">&quot;log&quot;</highlight><highlight class="normal">].as&lt;std::string&gt;(),<sp/>config[</highlight><highlight class="stringliteral">&quot;is_to_stdout&quot;</highlight><highlight class="normal">].as&lt;bool&gt;(),</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>config[</highlight><highlight class="stringliteral">&quot;clock_rate&quot;</highlight><highlight class="normal">].as&lt;double&gt;(),<sp/>pre_copy);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>extend_env_var()<sp/>{</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(ProcessConfig&amp;<sp/>config<sp/>:<sp/><ref refid="classInterChiplet_1_1BenchmarkConfig_1a7af2a0152d65110de7de35614d424da6" kindref="member">m_phase1_proc_cfg_list</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>extend_env_var_proc(config);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(ProcessConfig&amp;<sp/>config<sp/>:<sp/><ref refid="classInterChiplet_1_1BenchmarkConfig_1ab0d1fcd93ad876303a8066aa8639ef8a" kindref="member">m_phase2_proc_cfg_list</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>extend_env_var_proc(config);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>extend_env_var_proc(ProcessConfig&amp;<sp/>proc_config)<sp/>{</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>extend_env_var_string(proc_config.m_command);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>extend_env_var_string(proc_config.m_log_file);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(std::string&amp;<sp/>arg<sp/>:<sp/>proc_config.m_args)<sp/>{</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>extend_env_var_string(arg);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>extend_env_var_string(std::string&amp;<sp/>__str)<sp/>{</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::size_t<sp/>find_pos;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((find_pos<sp/>=<sp/>__str.find(</highlight><highlight class="stringliteral">&quot;$SIMULATOR_ROOT&quot;</highlight><highlight class="normal">))<sp/>!=<sp/>std::string::npos)<sp/>{</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>__str<sp/>=<sp/>__str.replace(find_pos,<sp/>15,<sp/>m_simulator_root);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((find_pos<sp/>=<sp/>__str.find(</highlight><highlight class="stringliteral">&quot;$BENCHMARK_ROOT&quot;</highlight><highlight class="normal">))<sp/>!=<sp/>std::string::npos)<sp/>{</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>__str<sp/>=<sp/>__str.replace(find_pos,<sp/>15,<sp/><ref refid="classInterChiplet_1_1BenchmarkConfig_1a3467f8689d45bfab60f93a2b5b21b3b5" kindref="member">m_benchmark_root</ref>);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="179" refid="classInterChiplet_1_1BenchmarkConfig_1a3467f8689d45bfab60f93a2b5b21b3b5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="classInterChiplet_1_1BenchmarkConfig_1a3467f8689d45bfab60f93a2b5b21b3b5" kindref="member">m_benchmark_root</ref>;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>m_simulator_root;</highlight></codeline>
+<codeline lineno="184" refid="classInterChiplet_1_1BenchmarkConfig_1a7af2a0152d65110de7de35614d424da6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;ProcessConfig&gt;<sp/><ref refid="classInterChiplet_1_1BenchmarkConfig_1a7af2a0152d65110de7de35614d424da6" kindref="member">m_phase1_proc_cfg_list</ref>;</highlight></codeline>
+<codeline lineno="188" refid="classInterChiplet_1_1BenchmarkConfig_1ab0d1fcd93ad876303a8066aa8639ef8a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;ProcessConfig&gt;<sp/><ref refid="classInterChiplet_1_1BenchmarkConfig_1ab0d1fcd93ad876303a8066aa8639ef8a" kindref="member">m_phase2_proc_cfg_list</ref>;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="190"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>InterChiplet</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h"/>
+  </compounddef>
+</doxygen>

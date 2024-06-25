@@ -1,0 +1,520 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="apis__cu_8h" kind="file" language="C++">
+    <compoundname>apis_cu.h</compoundname>
+    <includes local="yes">cuda_runtime_api.h</includes>
+    <incdepgraph>
+      <node id="1">
+        <label>/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h</label>
+        <link refid="apis__cu_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>cuda_runtime_api.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="apis__cu_8h_1a62b3334fbd1d131961ff59345f3ad362" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>__host__ cudaError_t CUDARTAPI</type>
+        <definition>__host__ cudaError_t CUDARTAPI launch</definition>
+        <argsstring>(int __dst_x, int __dst_y, int __src_x, int __src_y)</argsstring>
+        <name>launch</name>
+        <param>
+          <type>int</type>
+          <declname>__dst_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__dst_y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__src_y</declname>
+        </param>
+        <briefdescription>
+<para>Launch application to remote chiplet. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__dst_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" line="12" column="39" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" declline="12" declcolumn="39"/>
+      </memberdef>
+      <memberdef kind="function" id="apis__cu_8h_1aec6f9a695bd49f101888b9d7699bec99" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>__host__ cudaError_t CUDARTAPI</type>
+        <definition>__host__ cudaError_t CUDARTAPI waitLaunch</definition>
+        <argsstring>(int __dst_x, int __dst_y, int *__src_x, int *__src_y)</argsstring>
+        <name>waitLaunch</name>
+        <param>
+          <type>int</type>
+          <declname>__dst_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__dst_y</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>__src_y</declname>
+        </param>
+        <briefdescription>
+<para>Wait launch from remote chiplet. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__dst_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" line="21" column="39" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" declline="21" declcolumn="39"/>
+      </memberdef>
+      <memberdef kind="function" id="apis__cu_8h_1a4aa9fa9625dd63d39227f0e16b511e36" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>__host__ cudaError_t CUDARTAPI</type>
+        <definition>__host__ cudaError_t CUDARTAPI barrier</definition>
+        <argsstring>(int __uid, int __src_x, int __src_y, int __count=0)</argsstring>
+        <name>barrier</name>
+        <param>
+          <type>int</type>
+          <declname>__uid</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__src_y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__count</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Barrier. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__uid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Barrier ID. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of threads to barrier. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" line="31" column="39" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" declline="31" declcolumn="39"/>
+      </memberdef>
+      <memberdef kind="function" id="apis__cu_8h_1afdd40ada4175ae29956682ceca8936dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>__host__ cudaError_t CUDARTAPI</type>
+        <definition>__host__ cudaError_t CUDARTAPI lock</definition>
+        <argsstring>(int __uid, int __src_x, int __src_y)</argsstring>
+        <name>lock</name>
+        <param>
+          <type>int</type>
+          <declname>__uid</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__src_y</declname>
+        </param>
+        <briefdescription>
+<para>Lock mutex. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__uid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mutex ID. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" line="39" column="39" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" declline="39" declcolumn="39"/>
+      </memberdef>
+      <memberdef kind="function" id="apis__cu_8h_1a3373e5cdb7eeb27f20822abb964fdc58" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>__host__ cudaError_t CUDARTAPI</type>
+        <definition>__host__ cudaError_t CUDARTAPI unlock</definition>
+        <argsstring>(int __uid, int __src_x, int __src_y)</argsstring>
+        <name>unlock</name>
+        <param>
+          <type>int</type>
+          <declname>__uid</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__src_y</declname>
+        </param>
+        <briefdescription>
+<para>Unlock mutex. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__uid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mutex ID. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" line="47" column="39" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" declline="47" declcolumn="39"/>
+      </memberdef>
+      <memberdef kind="function" id="apis__cu_8h_1a67e03bf33a0e807915bfd0e6e65da1ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>__host__ cudaError_t CUDARTAPI</type>
+        <definition>__host__ cudaError_t CUDARTAPI sendMessage</definition>
+        <argsstring>(int __dst_x, int __dst_y, int __src_x, int __srx_y, void *__addr, int __nbyte)</argsstring>
+        <name>sendMessage</name>
+        <param>
+          <type>int</type>
+          <declname>__dst_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__dst_y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__srx_y</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>__addr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__nbyte</declname>
+        </param>
+        <briefdescription>
+<para>Send data to remote chiplet. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__dst_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Data address. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__nbyte</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" line="58" column="39" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" declline="58" declcolumn="39"/>
+      </memberdef>
+      <memberdef kind="function" id="apis__cu_8h_1ac5c661565ac7b798fbe3eab3a4763951" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>__host__ cudaError_t CUDARTAPI</type>
+        <definition>__host__ cudaError_t CUDARTAPI receiveMessage</definition>
+        <argsstring>(int __dst_x, int __dst_y, int __src_x, int __srx_y, void *__addr, int __nbyte)</argsstring>
+        <name>receiveMessage</name>
+        <param>
+          <type>int</type>
+          <declname>__dst_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__dst_y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__srx_y</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>__addr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__nbyte</declname>
+        </param>
+        <briefdescription>
+<para>Read data from remote chiplet. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__dst_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Data address. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__nbyte</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" line="70" column="39" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" declline="70" declcolumn="39"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;cuda_runtime_api.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>__host__<sp/>cudaError_t<sp/>CUDARTAPI<sp/>launch(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__dst_x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__dst_y,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__src_x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__src_y);</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>__host__<sp/>cudaError_t<sp/>CUDARTAPI<sp/>waitLaunch(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__dst_x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__dst_y,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">*<sp/>__src_x,</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">*<sp/>__src_y);</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>__host__<sp/>cudaError_t<sp/>CUDARTAPI<sp/>barrier(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__uid,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__src_x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__src_y,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__count<sp/>=<sp/>0);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>__host__<sp/>cudaError_t<sp/>CUDARTAPI<sp/>lock(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__uid,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__src_x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__src_y);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>__host__<sp/>cudaError_t<sp/>CUDARTAPI<sp/>unlock(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__uid,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__src_x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__src_y);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>__host__<sp/>cudaError_t<sp/>CUDARTAPI<sp/>sendMessage(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__dst_x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__dst_y,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__src_x,</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__srx_y,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>__addr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__nbyte);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>__host__<sp/>cudaError_t<sp/>CUDARTAPI<sp/>receiveMessage(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__dst_x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__dst_y,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__src_x,</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__srx_y,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>__addr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__nbyte);</highlight></codeline>
+    </programlisting>
+    <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h"/>
+  </compounddef>
+</doxygen>

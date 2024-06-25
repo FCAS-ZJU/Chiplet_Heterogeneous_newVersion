@@ -1,0 +1,200 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="global__define_8h" kind="file" language="C++">
+    <compoundname>global_define.h</compoundname>
+    <includes local="no">cstdint</includes>
+    <includes local="no">string</includes>
+    <includes local="no">vector</includes>
+    <includedby refid="net__bench_8h" local="yes">/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h</includedby>
+    <includedby refid="net__delay_8h" local="yes">/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h</includedby>
+    <includedby refid="sync__protocol_8h" local="yes">/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h</includedby>
+    <includedby refid="pipe__comm_8h" local="yes">/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h</includedby>
+    <includedby refid="apis__c_8cpp" local="yes">/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/apis_c.cpp</includedby>
+    <incdepgraph>
+      <node id="2">
+        <label>cstdint</label>
+      </node>
+      <node id="3">
+        <label>string</label>
+      </node>
+      <node id="4">
+        <label>vector</label>
+      </node>
+      <node id="1">
+        <label>/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h</label>
+        <link refid="global__define_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4">
+        <label>/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h</label>
+        <link refid="net__delay_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h</label>
+        <link refid="cmd__handler_8h_source"/>
+      </node>
+      <node id="6">
+        <label>/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h</label>
+        <link refid="pipe__comm_8h_source"/>
+      </node>
+      <node id="5">
+        <label>/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h</label>
+        <link refid="sync__protocol_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h</label>
+        <link refid="net__bench_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h</label>
+        <link refid="global__define_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classInterChiplet_1_1SyncCommand" prot="public">InterChiplet::SyncCommand</innerclass>
+    <innernamespace refid="namespaceInterChiplet">InterChiplet</innernamespace>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="global__define_8h_1a7e63b843e7348584c7e0c92949848f36" prot="public" static="no">
+        <name>DIM_X</name>
+        <param><defname>addr</defname></param>
+        <initializer>(addr[0])</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" line="43" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="global__define_8h_1aab41c3929357c55b8d46afd60bd7c4f2" prot="public" static="no">
+        <name>DIM_Y</name>
+        <param><defname>addr</defname></param>
+        <initializer>(addr[1])</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" line="44" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="global__define_8h_1a55903d45f8ce286c8f293b4bc73d44bd" prot="public" static="no">
+        <name>UNSPECIFIED_ADDR</name>
+        <param><defname>addr</defname></param>
+        <initializer>((addr[0]) &lt; 0 &amp;&amp; (addr[1]) &lt; 0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" line="45" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cstdint&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">InterChiplet<sp/>{</highlight></codeline>
+<codeline lineno="11"><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>SysCallID<sp/>{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>SYSCALL_TEST_CHANGE<sp/>=<sp/>500,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Test</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>SYSCALL_REG_FUNC<sp/>=<sp/>503,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Send<sp/>register<sp/>function<sp/>to<sp/>pin<sp/>(depreciate)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>SYSCALL_CONNECT<sp/>=<sp/>504,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Setup<sp/>connection.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>SYSCALL_DISCONNECT<sp/>=<sp/>505,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Stop<sp/>connection.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>SYSCALL_GET_LOCAL_ADDR<sp/>=<sp/>506,<sp/><sp/><sp/><sp/><sp/>//<sp/>Get<sp/>address<sp/>of<sp/>current<sp/>processor.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>SYSCALL_CHECK_REMOTE_READ<sp/>=<sp/>507,<sp/><sp/>//<sp/>Check<sp/>remote<sp/>read</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>SYSCALL_LAUNCH<sp/>=<sp/>501,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Launch<sp/>request.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/>SYSCALL_WAITLAUNCH<sp/>=<sp/>502,<sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Waiit<sp/>launch<sp/>request.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>SYSCALL_BARRIER<sp/>=<sp/>503,<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Enter<sp/>barrier.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>SYSCALL_LOCK<sp/>=<sp/>504,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Lock<sp/>mutex.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>SYSCALL_UNLOCK<sp/>=<sp/>505,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Unlock<sp/>mutex.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>SYSCALL_REMOTE_READ<sp/>=<sp/>506,<sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Read<sp/>cross<sp/>chiplet</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>SYSCALL_REMOTE_WRITE<sp/>=<sp/>507,<sp/><sp/></highlight><highlight class="comment">//<sp/>Write<sp/>cross<sp/>chiplet</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>TimeType;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>InnerTimeType;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::vector&lt;long&gt;<sp/>AddrType;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DIM_X(addr)<sp/>(addr[0])</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DIM_Y(addr)<sp/>(addr[1])</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>UNSPECIFIED_ADDR(addr)<sp/>((addr[0])<sp/>&lt;<sp/>0<sp/>&amp;&amp;<sp/>(addr[1])<sp/>&lt;<sp/>0)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>SyncCommType<sp/>{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>SC_CYCLE,</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/>SC_SEND,</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/>SC_RECEIVE,</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/>SC_BARRIER,</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/>SC_LOCK,</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>SC_UNLOCK,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>SC_LAUNCH,</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/>SC_WAITLAUNCH,</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/>SC_READ,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/>SC_WRITE,</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>SC_SYNC,</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/>SC_RESULT,</highlight></codeline>
+<codeline lineno="63"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>SyncProtocolDesc<sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/>SPD_ACK<sp/>=<sp/>0x01,</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/>SPD_PRE_SYNC<sp/>=<sp/>0x02,</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/>SPD_POST_SYNC<sp/>=<sp/>0x04,</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/>SPD_LAUNCH<sp/>=<sp/>0x10000,</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/>SPD_BARRIER<sp/>=<sp/>0x20000,</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/>SPD_LOCK<sp/>=<sp/>0x40000,</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>SPD_UNLOCK<sp/>=<sp/>0x80000,</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102" refid="classInterChiplet_1_1SyncCommand" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">SyncCommand</ref><sp/>{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="107" refid="classInterChiplet_1_1SyncCommand_1aee3265d5555a2c582591b859ccde068b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>SyncCommType<sp/><ref refid="classInterChiplet_1_1SyncCommand_1aee3265d5555a2c582591b859ccde068b" kindref="member">m_type</ref>;</highlight></codeline>
+<codeline lineno="111" refid="classInterChiplet_1_1SyncCommand_1aff99dff1a8a7a9736f85bbdf01b0f70a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>InnerTimeType<sp/><ref refid="classInterChiplet_1_1SyncCommand_1aff99dff1a8a7a9736f85bbdf01b0f70a" kindref="member">m_cycle</ref>;</highlight></codeline>
+<codeline lineno="115" refid="classInterChiplet_1_1SyncCommand_1a1f222e5414af5fd0d4cf6977236086bc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classInterChiplet_1_1SyncCommand_1a1f222e5414af5fd0d4cf6977236086bc" kindref="member">m_clock_rate</ref>;</highlight></codeline>
+<codeline lineno="119" refid="classInterChiplet_1_1SyncCommand_1a1d0460fb9ad0590948de03987a29c222" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>AddrType<sp/><ref refid="classInterChiplet_1_1SyncCommand_1a1d0460fb9ad0590948de03987a29c222" kindref="member">m_src</ref>;</highlight></codeline>
+<codeline lineno="123" refid="classInterChiplet_1_1SyncCommand_1a6b92e06047a471a5c1360027b2af6fd0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>AddrType<sp/><ref refid="classInterChiplet_1_1SyncCommand_1a6b92e06047a471a5c1360027b2af6fd0" kindref="member">m_dst</ref>;</highlight></codeline>
+<codeline lineno="127" refid="classInterChiplet_1_1SyncCommand_1a6af7e29a25c5ac6adabfcedb2674e2d5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classInterChiplet_1_1SyncCommand_1a6af7e29a25c5ac6adabfcedb2674e2d5" kindref="member">m_nbytes</ref>;</highlight></codeline>
+<codeline lineno="131" refid="classInterChiplet_1_1SyncCommand_1a08963d12f859e9816d3c94fb4cee69e6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="classInterChiplet_1_1SyncCommand_1a08963d12f859e9816d3c94fb4cee69e6" kindref="member">m_desc</ref>;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136" refid="classInterChiplet_1_1SyncCommand_1a8a25436fca1b7e9c170664703c4341a1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;std::string&gt;<sp/><ref refid="classInterChiplet_1_1SyncCommand_1a8a25436fca1b7e9c170664703c4341a1" kindref="member">m_res_list</ref>;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144" refid="classInterChiplet_1_1SyncCommand_1a37493b977cb7901455e9780e750455a6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classInterChiplet_1_1SyncCommand_1a37493b977cb7901455e9780e750455a6" kindref="member">m_stdin_fd</ref>;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::vector&lt;SyncCommand&gt;<sp/>SyncCmdList;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>InterChiplet</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h"/>
+  </compounddef>
+</doxygen>

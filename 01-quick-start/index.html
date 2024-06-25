@@ -1,0 +1,3079 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../02-benchmarks/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.21">
+    
+    
+      
+        <title>Quick Start - Documents for LegoSim</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#quick-start" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Documents for LegoSim" class="md-header__button md-logo" aria-label="Documents for LegoSim" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documents for LegoSim
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Quick Start
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Documents for LegoSim" class="md-nav__button md-logo" aria-label="Documents for LegoSim" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Documents for LegoSim
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Quick Start
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Quick Start
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#execute-benchmark" class="md-nav__link">
+    <span class="md-ellipsis">
+      Execute Benchmark
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-line-interface-of-interchiplet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command Line Interface of interchiplet
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-benchmarks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Benchmarks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../03-sync-proto/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Synchronization Protocol
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Synchronization Protocol
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-sync-proto/030-net-proto/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Interconnection Simulation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-sync-proto/031-communication/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Communication
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-sync-proto/032-barrier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Barrier
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-sync-proto/033-lock/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lock and Unlock
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-sync-proto/034-launch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Launch
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-sync-proto/035-cycle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cycle
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../04-import-sim/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Importing Simulators
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Importing Simulators
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-import-sim/041-snipersim/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Importing SniperSim
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-import-sim/042-gpgpusim/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Importing GPGPUSim
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    API Documents
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            API Documents
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_1" id="__nav_6_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Namespaces
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_1">
+            <span class="md-nav__icon md-icon"></span>
+            Namespaces
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/namespaceInterChiplet/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    InterChiplet
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Classes
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            Classes
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/classInterChiplet_1_1SyncCommand/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SyncCommand
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/classInterChiplet_1_1PipeCommUnit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PipeCommUnit
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/classInterChiplet_1_1PipeComm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PipeComm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    interchiplet Documents
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            interchiplet Documents
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_1" id="__nav_7_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Classes
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_1">
+            <span class="md-nav__icon md-icon"></span>
+            Classes
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_1_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_1_1" id="__nav_7_1_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Command line
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_7_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            Command line
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/classInterChiplet_1_1CmdLineOptions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CmdLineOptions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_1_2" id="__nav_7_1_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Configuration
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_7_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            Configuration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/classInterChiplet_1_1BenchmarkConfig/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BenchmarkConfig
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/classProcessStruct/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ProcessStruct
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_1_3" id="__nav_7_1_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Network benchmark
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_7_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            Network benchmark
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/classInterChiplet_1_1NetworkBenchItem/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NetworkBenchItem
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/classInterChiplet_1_1NetworkBenchList/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NetworkBenchList
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_1_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_1_4" id="__nav_7_1_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Network delay information
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_7_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            Network delay information
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/classInterChiplet_1_1NetworkDelayItem/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NetworkDelayItem
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/classInterChiplet_1_1NetworkDelayMap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NetworkDelayMap
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/classInterChiplet_1_1NetworkDelayStruct/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NetworkDelayStruct
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_1_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_1_5" id="__nav_7_1_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Command line handler
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_7_1_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_1_5">
+            <span class="md-nav__icon md-icon"></span>
+            Command line handler
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/classInterChiplet_1_1ProcessConfig/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ProcessConfig
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/classSyncStruct/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SyncStruct
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/classInterChiplet_1_1SyncBarrierStruct/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SyncBarrierStruct
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/classInterChiplet_1_1SyncClockStruct/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SyncClockStruct
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/classInterChiplet_1_1SyncCommStruct/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SyncCommStruct
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/classInterChiplet_1_1SyncLaunchStruct/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SyncLaunchStruct
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/classInterChiplet_1_1SyncLockStruct/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SyncLockStruct
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/classInterChiplet_1_1SyncPipeStruct/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SyncPipeStruct
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Source Codes
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Source Codes
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/pages/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    pages list
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/annotated/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    classes list
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/namespaces/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    namespaces list
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/files/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    file list
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/classes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    classes index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/hierarchy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    classes hierarchy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/modules/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    modules list
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/class_members/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    class_members
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/class_member_functions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    class_member_functions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/class_member_variables/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    class_member_variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/class_member_typedefs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    class_member_typedefs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/class_member_enums/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    class_member_enums
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/namespace_members/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    namespace_members
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/namespace_member_functions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    namespace_member_functions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/namespace_member_variables/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    namespace_member_variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/namespace_member_typedefs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    namespace_member_typedefs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/namespace_member_enums/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    namespace_member_enums
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/functions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    functions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/macros/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    macros
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/variables/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/links/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Links
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_22" >
+        
+          
+          <label class="md-nav__link" for="__nav_8_22" id="__nav_8_22_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    files
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_22_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_22">
+            <span class="md-nav__icon md-icon"></span>
+            files
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/dir_a2025b34133129e5724d121abe9a4a4a/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    interchiplet
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/dir_943fa6db2bfb09b7dcf1f02346dde40e/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    interchiplet/includes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/dir_b94c70d771af9f161858c2c4e7b3d1c5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    interchiplet/srcs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/apis__c_8h/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    apis_c.h
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/apis__cu_8h/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    apis_cu.h
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/benchmark__yaml_8h/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    benchmark_yaml.h
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/cmd__handler_8h/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cmd_handler.h
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/cmdline__options_8h/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cmdline_options.h
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/global__define_8h/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    global_define.h
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/net__bench_8h/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    net_bench.h
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/net__delay_8h/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    net_delay.h
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/pipe__comm_8h/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    pipe_comm.h
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/sync__protocol_8h/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    sync_protocol.h
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/apis__c_8cpp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    apis_c.cpp
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/cmd__handler_8cpp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cmd_handler.cpp
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/interchiplet_8cpp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    interchiplet.cpp
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_23" >
+        
+          
+          <label class="md-nav__link" for="__nav_8_23" id="__nav_8_23_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    sources
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_23_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_23">
+            <span class="md-nav__icon md-icon"></span>
+            sources
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/apis__c_8h_source/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    apis_c.h
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/apis__cu_8h_source/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    apis_cu.h
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/benchmark__yaml_8h_source/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    benchmark_yaml.h
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/cmd__handler_8h_source/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cmd_handler.h
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/cmdline__options_8h_source/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cmdline_options.h
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/global__define_8h_source/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    global_define.h
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/net__bench_8h_source/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    net_bench.h
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/net__delay_8h_source/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    net_delay.h
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/pipe__comm_8h_source/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    pipe_comm.h
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/sync__protocol_8h_source/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    sync_protocol.h
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/apis__c_8cpp_source/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    apis_c.h
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/cmd__handler_8cpp_source/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cmd_handler.h
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiProject1/interchiplet_8cpp_source/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    interchiplet.h
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#execute-benchmark" class="md-nav__link">
+    <span class="md-ellipsis">
+      Execute Benchmark
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-line-interface-of-interchiplet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command Line Interface of interchiplet
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="quick-start">Quick Start</h1>
+<p>You can learn the following topics from this page:</p>
+<ol>
+<li>Install the LegoSim.</li>
+<li>Execute benchmarks provided in the LegoSim.</li>
+</ol>
+<h2 id="installation">Installation</h2>
+<p><strong>1. Clone the repository from GitHub and enter the downloaded repository.</strong></p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/FCAS-SCUT/Chiplet_Heterogeneous_newVersion.git
+<span class="nb">cd</span><span class="w"> </span>Chiplet_Heterogeneous_newVersion
+</code></pre></div>
+<p>The following commands are executed under the root folder. The root folder is defined as <code>$SIMULATOR_ROOT</code> in the environment variables.</p>
+<p><strong>2. Initialize and update submodules.</strong> Third-parity repositories such as SniperSim and GPGPUSim will be downloaded and updated.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>submodule<span class="w"> </span>init
+git<span class="w"> </span>submodule<span class="w"> </span>update
+</code></pre></div>
+<p><strong>3. Setup environment.</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>setup_env.sh
+</code></pre></div>
+<p>If the operation succeeds, <code>setup_environment succeeded</code> is printed to the terminal.</p>
+<p><strong>4. Apply modifications to SniperSim and GPGPUSim.</strong> The simulator can still execute benchmarks if Step 4 is skipped, but no interactions between chiplets are performed.</p>
+<div class="highlight"><pre><span></span><code>./apply_path.sh
+</code></pre></div>
+<p><strong>5. Compile SniperSim.</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>snipersim
+make<span class="w"> </span>-j4
+</code></pre></div>
+<p><strong>6. Compile GPGPUSim.</strong> Installation of GPGPUSim requires the following conditions:</p>
+<ul>
+<li>CUDA environment is correctly installed and configured. Imported GPGPUSim supports CUDA versions from 4.0 to 11.0. See README within <em>gpgpu-sim</em> for details.</li>
+<li>GPGPUSim has a limitation on the compiler version. According to our experiment, GCC7 is recommended.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>gpgpu-sim
+make<span class="w"> </span>-j4
+</code></pre></div>
+<p><strong>7. Compile Popnet.</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>popnet
+mkdir<span class="w"> </span>build
+<span class="nb">cd</span><span class="w"> </span>build
+cmake<span class="w"> </span>..
+make<span class="w"> </span>-j4
+</code></pre></div>
+<p><strong>8. Compile the LegoSim.</strong> The compile process is managed by CMake.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>interchiplet
+mkdir<span class="w"> </span>build
+<span class="nb">cd</span><span class="w"> </span>build
+cmake<span class="w"> </span>..
+make
+</code></pre></div>
+<p>If the operation succeeds, <em>interchiplet</em> can be found under <em>interchiplet/bin</em>, while <em>libinterchiplet_c.a</em> and <em>libinterchiplet_cu.a</em> can be found under <em>interchiplet/lib</em>.</p>
+<h2 id="execute-benchmark">Execute Benchmark</h2>
+<p>To check whether the LegoSim is installed and configured correctly, you can execute the demo benchmark <em>matmul</em>.</p>
+<p><strong>1. Setup environment.</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>setup_env.sh
+</code></pre></div>
+<p>If the operation succeeds, <code>setup_environment succeeded</code> is printed to the terminal.</p>
+<p><strong>2. Compile execution files for benchmark.</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>benchmark/matmul
+make
+</code></pre></div>
+<p>If operation successes, <em>matmul_c</em> and <em>matmul_cu</em> can be found under <em>benchmark/matmul/bin</em>.</p>
+<p><strong>3. Execute simulation.</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nv">$SIMULATOR_ROOT</span>/interchiplet/bin/interchiplet<span class="w"> </span>./matmul.yml
+</code></pre></div>
+<p>The <em>matmul</em> benchmark launches four processes, which are 1 CPU process and 3 GPGPU processes.</p>
+<p>If the benchmark executes correctly, you will find it experiences two rounds of simulation. Also, the following information can be found on your terminal.</p>
+<div class="highlight"><pre><span></span><code>[2024-06-23 14:48:59.546] [info] ==== LegoSim Chiplet Simulator ====
+[2024-06-23 14:48:59.547] [info] Load benchmark configuration from matmul.yml.
+[2024-06-23 14:48:59.547] [info] **** Round 1 Phase 1 ****
+[2024-06-23 14:48:59.547] [info] Load 0 delay records.
+[2024-06-23 14:48:59.548] [info] Start simulation process 1617365. Command: /data_sda/junwan02/Chiplet_Heterogeneous_newVersion/benchmark/matmul/bin/matmul_cu
+[2024-06-23 14:48:59.548] [info] Start simulation process 1617366. Command: /data_sda/junwan02/Chiplet_Heterogeneous_newVersion/benchmark/matmul/bin/matmul_cu
+[2024-06-23 14:48:59.549] [info] Start simulation process 1617368. Command: /data_sda/junwan02/Chiplet_Heterogeneous_newVersion/benchmark/matmul/bin/matmul_cu
+[2024-06-23 14:48:59.549] [info] Start simulation process 1617370. Command: /data_sda/junwan02/Chiplet_Heterogeneous_newVersion/snipersim/run-sniper
+[2024-06-23 14:49:14.522] [info] Simulation process 1617366 terminate with status = 0.
+[2024-06-23 14:49:14.522] [info] Simulation process 1617365 terminate with status = 0.
+[2024-06-23 14:49:15.520] [info] Simulation process 1617368 terminate with status = 0.
+[2024-06-23 14:49:16.807] [info] Simulation process 1617370 terminate with status = 0.
+[2024-06-23 14:49:16.807] [info] All process has exit.
+[2024-06-23 14:49:16.807] [info] Dump 9 bench records.
+[2024-06-23 14:49:16.807] [info] Benchmark elapses 2910097 cycle.
+[2024-06-23 14:49:16.807] [info] **** Round 1 Phase 2 ***
+[2024-06-23 14:49:16.808] [info] Start simulation process 1618141. Command: /data_sda/junwan02/Chiplet_Heterogeneous_newVersion/popnet_chiplet/build/popnet
+[2024-06-23 14:49:16.961] [info] Simulation process 1618141 terminate with status = 0.
+[2024-06-23 14:49:16.961] [info] All process has exit.
+[2024-06-23 14:49:16.961] [info] Round 1 elapses 0d 0h 0m 17s.
+[2024-06-23 14:49:16.961] [info] **** Round 2 Phase 1 ****
+[2024-06-23 14:49:16.962] [info] Load 9 delay records.
+[2024-06-23 14:49:16.962] [info] Start simulation process 1618146. Command: /data_sda/junwan02/Chiplet_Heterogeneous_newVersion/benchmark/matmul/bin/matmul_cu
+[2024-06-23 14:49:16.963] [info] Start simulation process 1618147. Command: /data_sda/junwan02/Chiplet_Heterogeneous_newVersion/benchmark/matmul/bin/matmul_cu
+[2024-06-23 14:49:16.963] [info] Start simulation process 1618149. Command: /data_sda/junwan02/Chiplet_Heterogeneous_newVersion/benchmark/matmul/bin/matmul_cu
+[2024-06-23 14:49:16.964] [info] Start simulation process 1618151. Command: /data_sda/junwan02/Chiplet_Heterogeneous_newVersion/snipersim/run-sniper
+[2024-06-23 14:49:30.816] [info] Simulation process 1618146 terminate with status = 0.
+[2024-06-23 14:49:30.816] [info] Simulation process 1618147 terminate with status = 0.
+[2024-06-23 14:49:31.811] [info] Simulation process 1618149 terminate with status = 0.
+[2024-06-23 14:49:32.219] [info] Simulation process 1618151 terminate with status = 0.
+[2024-06-23 14:49:32.219] [info] All process has exit.
+[2024-06-23 14:49:32.219] [info] Dump 9 bench records.
+[2024-06-23 14:49:32.219] [info] Benchmark elapses 2909345 cycle.
+[2024-06-23 14:49:32.219] [info] Difference related to pervious round is 0.025847742361253135%.
+[2024-06-23 14:49:32.219] [info] Quit simulation because simulation cycle has converged.
+[2024-06-23 14:49:32.219] [info] **** End of Simulation ****
+[2024-06-23 14:49:32.219] [info] Benchmark elapses 2909345 cycle.
+[2024-06-23 14:49:32.219] [info] Simulation elapseds 0d 0h 0m 33s.
+</code></pre></div>
+<p>The cycle elapsed by benchmark is about 5.77M cycles with a minor error on different platforms. The time elapsed by the simulator depends on the performance of the host machines, so it varies across different platforms.
+ 
+<strong>4. Clear executable files and output files.</strong></p>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>clean
+</code></pre></div>
+<h2 id="command-line-interface-of-interchiplet">Command Line Interface of <em>interchiplet</em></h2>
+<p>The user interface of the LegoSim is <strong>interchiplet</strong> that is provided in <em>$SIMULATOR_ROOT/interchiplet/bin</em>. The command line format of <em>interchiplet</em> is shown below:</p>
+<div class="highlight"><pre><span></span><code>interchiplet<span class="w"> </span>&lt;bench&gt;.yml<span class="w"> </span><span class="o">[</span>--cwd<span class="w"> </span>&lt;string&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>-t<span class="p">|</span>--timeout<span class="w"> </span>&lt;int&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>-e<span class="p">|</span>--error<span class="w"> </span>&lt;float&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>--debug<span class="o">]</span><span class="w"> </span><span class="o">[</span>-h<span class="o">]</span>
+</code></pre></div>
+<p>Command line options:</p>
+<ul>
+<li><code>&lt;bench&gt;.yml</code> specifies the configuration file of the benchmark. This option is mandatory.</li>
+<li><code>--cwd &lt;string&gt;</code> specifies the execution directory of the simulation. This option is optional. If not provided, the simulation is executed in the current working directory.</li>
+<li><code>-t &lt;int&gt;</code> or <code>--timeout &lt;int&gt;</code> specifies the time-out threshold of simulation in units of simulation rounds. No matter whether the cycle elapsed by the benchmark has converged, the simulation will quit after a certain account of simulation rounds specified by this option. This option is optional. A default value of 5 is used if not provided.</li>
+<li><code>e &lt;float&gt;</code> or <code>--error &lt;float&gt;</code> specifies the convergence condition of the cycle elapsed by the benchmark. If the error of cycle elapsed by the benchmark between simulation rounds is lower than the specified value, the simulation will stop. This option is optional. A default value of 0.05 is used if not provided.</li>
+<li><code>--debug</code> defines the verbosity of the output log. If <code>--debug</code> appears, the details of the synchronization protocol are printed on the stand output.</li>
+</ul>
+<p>For example,</p>
+<div class="highlight"><pre><span></span><code><span class="nv">$SIMULATOR_ROOT</span>/interchiplet/bin/interchiplet<span class="w"> </span><span class="nv">$SIMULATOR_ROOT</span>/benchmark/matmul/matmul.yml
+</code></pre></div>
+<p>The above command starts the simulation of <em>matmul</em> in the current directory. The simulation will last at most five iterations and quit if the error of cycle elapsed by benchmark is lower than 0.5%.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.indexes"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.a7c05c9e.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,309 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="classProcessStruct" kind="class" language="C++" prot="public">
+    <compoundname>ProcessStruct</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classProcessStruct_1a1534041cceee5691e3bec4550c5efe34" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string ProcessStruct::m_command</definition>
+        <argsstring></argsstring>
+        <name>m_command</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp" line="37" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classProcessStruct_1aa771596a03794081a54651eddc50a20c" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; std::string &gt;</type>
+        <definition>std::vector&lt;std::string&gt; ProcessStruct::m_args</definition>
+        <argsstring></argsstring>
+        <name>m_args</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp" line="38" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classProcessStruct_1ad7be81e7fff9977b6260a8c9fce948a1" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string ProcessStruct::m_log_file</definition>
+        <argsstring></argsstring>
+        <name>m_log_file</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp" line="39" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classProcessStruct_1a9db6b8fedb2827c9f33108121569c21a" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool ProcessStruct::m_to_stdout</definition>
+        <argsstring></argsstring>
+        <name>m_to_stdout</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp" line="40" column="10" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classProcessStruct_1a8cd48d97c89acbd77d3f582fcea1972c" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double ProcessStruct::m_clock_rate</definition>
+        <argsstring></argsstring>
+        <name>m_clock_rate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp" line="41" column="12" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classProcessStruct_1ac3fcdc21cf30b2a2ac37d1762391474c" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string ProcessStruct::m_pre_copy</definition>
+        <argsstring></argsstring>
+        <name>m_pre_copy</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp" line="42" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classProcessStruct_1acc417b68f64641cbdbd24c536064b2f5" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string ProcessStruct::m_unfinished_line</definition>
+        <argsstring></argsstring>
+        <name>m_unfinished_line</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp" line="44" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classProcessStruct_1ad1ad5b9715828341d5959193cca19674" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ProcessStruct::m_round</definition>
+        <argsstring></argsstring>
+        <name>m_round</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp" line="47" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classProcessStruct_1a619963821cae885323250701bca8bd23" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ProcessStruct::m_phase</definition>
+        <argsstring></argsstring>
+        <name>m_phase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp" line="48" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classProcessStruct_1a95023cd4bbb10167ac5a0ff266c566ae" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ProcessStruct::m_thread</definition>
+        <argsstring></argsstring>
+        <name>m_thread</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp" line="49" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classProcessStruct_1aa7c2d9709ea50a62e01b9c4f1c4d0d93" prot="public" static="no" mutable="no">
+        <type>pthread_t</type>
+        <definition>pthread_t ProcessStruct::m_thread_id</definition>
+        <argsstring></argsstring>
+        <name>m_thread_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp" line="51" column="15" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classProcessStruct_1a6814c3ab7ac3293bfa6fc2fae58800ac" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ProcessStruct::m_pid</definition>
+        <argsstring></argsstring>
+        <name>m_pid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp" line="52" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classProcessStruct_1a5d879956f620759608eb105072d5619e" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ProcessStruct::m_pid2</definition>
+        <argsstring></argsstring>
+        <name>m_pid2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp" line="53" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classProcessStruct_1a4746f445292e2a2649e69da833f439d8" prot="public" static="no" mutable="no">
+        <type><ref refid="classSyncStruct" kindref="compound">SyncStruct</ref> *</type>
+        <definition>SyncStruct* ProcessStruct::m_sync_struct</definition>
+        <argsstring></argsstring>
+        <name>m_sync_struct</name>
+        <briefdescription>
+<para>Pointer to synchronize structure. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp" line="58" column="16" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classProcessStruct_1a330ae2cf7cd29c6cb9fcb4cea1ca631a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ProcessStruct::ProcessStruct</definition>
+        <argsstring>(const InterChiplet::ProcessConfig &amp;__config)</argsstring>
+        <name>ProcessStruct</name>
+        <param>
+          <type>const <ref refid="classInterChiplet_1_1ProcessConfig" kindref="compound">InterChiplet::ProcessConfig</ref> &amp;</type>
+          <declname>__config</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp" line="22" column="5" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp" bodystart="22" bodyend="33"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Data structure of process configuration. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="4">
+        <label>InterChiplet::NetworkBenchList</label>
+        <link refid="classInterChiplet_1_1NetworkBenchList"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>InterChiplet::SyncPipeStruct</label>
+        <link refid="classInterChiplet_1_1SyncPipeStruct"/>
+      </node>
+      <node id="2">
+        <label>SyncStruct</label>
+        <link refid="classSyncStruct"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>m_cycle_struct</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>m_bench_list</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>m_barrier_struct</edgelabel>
+          <edgelabel>m_barrier_timing_struct</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>m_pipe_struct</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>m_delay_list</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>m_comm_struct</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>m_launch_struct</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>m_lock_struct</edgelabel>
+          <edgelabel>m_lock_timing_struct</edgelabel>
+        </childnode>
+      </node>
+      <node id="11">
+        <label>InterChiplet::SyncLockStruct</label>
+        <link refid="classInterChiplet_1_1SyncLockStruct"/>
+      </node>
+      <node id="3">
+        <label>InterChiplet::SyncClockStruct</label>
+        <link refid="classInterChiplet_1_1SyncClockStruct"/>
+      </node>
+      <node id="5">
+        <label>std::multimap&lt; InnerTimeType, NetworkBenchItem &gt;</label>
+      </node>
+      <node id="1">
+        <label>ProcessStruct</label>
+        <link refid="classProcessStruct"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>m_sync_struct</edgelabel>
+        </childnode>
+      </node>
+      <node id="10">
+        <label>InterChiplet::SyncLaunchStruct</label>
+        <link refid="classInterChiplet_1_1SyncLaunchStruct"/>
+      </node>
+      <node id="6">
+        <label>InterChiplet::SyncBarrierStruct</label>
+        <link refid="classInterChiplet_1_1SyncBarrierStruct"/>
+      </node>
+      <node id="9">
+        <label>InterChiplet::SyncCommStruct</label>
+        <link refid="classInterChiplet_1_1SyncCommStruct"/>
+      </node>
+      <node id="8">
+        <label>InterChiplet::NetworkDelayStruct</label>
+        <link refid="classInterChiplet_1_1NetworkDelayStruct"/>
+      </node>
+    </collaborationgraph>
+    <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp" line="20" column="20" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp" bodystart="20" bodyend="59"/>
+    <listofallmembers>
+      <member refid="classProcessStruct_1aa771596a03794081a54651eddc50a20c" prot="public" virt="non-virtual"><scope>ProcessStruct</scope><name>m_args</name></member>
+      <member refid="classProcessStruct_1a8cd48d97c89acbd77d3f582fcea1972c" prot="public" virt="non-virtual"><scope>ProcessStruct</scope><name>m_clock_rate</name></member>
+      <member refid="classProcessStruct_1a1534041cceee5691e3bec4550c5efe34" prot="public" virt="non-virtual"><scope>ProcessStruct</scope><name>m_command</name></member>
+      <member refid="classProcessStruct_1ad7be81e7fff9977b6260a8c9fce948a1" prot="public" virt="non-virtual"><scope>ProcessStruct</scope><name>m_log_file</name></member>
+      <member refid="classProcessStruct_1a619963821cae885323250701bca8bd23" prot="public" virt="non-virtual"><scope>ProcessStruct</scope><name>m_phase</name></member>
+      <member refid="classProcessStruct_1a6814c3ab7ac3293bfa6fc2fae58800ac" prot="public" virt="non-virtual"><scope>ProcessStruct</scope><name>m_pid</name></member>
+      <member refid="classProcessStruct_1a5d879956f620759608eb105072d5619e" prot="public" virt="non-virtual"><scope>ProcessStruct</scope><name>m_pid2</name></member>
+      <member refid="classProcessStruct_1ac3fcdc21cf30b2a2ac37d1762391474c" prot="public" virt="non-virtual"><scope>ProcessStruct</scope><name>m_pre_copy</name></member>
+      <member refid="classProcessStruct_1ad1ad5b9715828341d5959193cca19674" prot="public" virt="non-virtual"><scope>ProcessStruct</scope><name>m_round</name></member>
+      <member refid="classProcessStruct_1a4746f445292e2a2649e69da833f439d8" prot="public" virt="non-virtual"><scope>ProcessStruct</scope><name>m_sync_struct</name></member>
+      <member refid="classProcessStruct_1a95023cd4bbb10167ac5a0ff266c566ae" prot="public" virt="non-virtual"><scope>ProcessStruct</scope><name>m_thread</name></member>
+      <member refid="classProcessStruct_1aa7c2d9709ea50a62e01b9c4f1c4d0d93" prot="public" virt="non-virtual"><scope>ProcessStruct</scope><name>m_thread_id</name></member>
+      <member refid="classProcessStruct_1a9db6b8fedb2827c9f33108121569c21a" prot="public" virt="non-virtual"><scope>ProcessStruct</scope><name>m_to_stdout</name></member>
+      <member refid="classProcessStruct_1acc417b68f64641cbdbd24c536064b2f5" prot="public" virt="non-virtual"><scope>ProcessStruct</scope><name>m_unfinished_line</name></member>
+      <member refid="classProcessStruct_1a330ae2cf7cd29c6cb9fcb4cea1ca631a" prot="public" virt="non-virtual"><scope>ProcessStruct</scope><name>ProcessStruct</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

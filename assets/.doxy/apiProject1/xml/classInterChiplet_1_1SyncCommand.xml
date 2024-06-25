@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="classInterChiplet_1_1SyncCommand" kind="class" language="C++" prot="public">
+    <compoundname>InterChiplet::SyncCommand</compoundname>
+    <includes refid="global__define_8h" local="no">global_define.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classInterChiplet_1_1SyncCommand_1aee3265d5555a2c582591b859ccde068b" prot="public" static="no" mutable="no">
+        <type>SyncCommType</type>
+        <definition>SyncCommType InterChiplet::SyncCommand::m_type</definition>
+        <argsstring></argsstring>
+        <name>m_type</name>
+        <briefdescription>
+<para>Type of synchronization command. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" line="107" column="18" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classInterChiplet_1_1SyncCommand_1aff99dff1a8a7a9736f85bbdf01b0f70a" prot="public" static="no" mutable="no">
+        <type>InnerTimeType</type>
+        <definition>InnerTimeType InterChiplet::SyncCommand::m_cycle</definition>
+        <argsstring></argsstring>
+        <name>m_cycle</name>
+        <briefdescription>
+<para>Cycle to send/receive command. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" line="111" column="19" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classInterChiplet_1_1SyncCommand_1a1f222e5414af5fd0d4cf6977236086bc" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double InterChiplet::SyncCommand::m_clock_rate</definition>
+        <argsstring></argsstring>
+        <name>m_clock_rate</name>
+        <briefdescription>
+<para>Cycle convert rate. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" line="115" column="12" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classInterChiplet_1_1SyncCommand_1a1d0460fb9ad0590948de03987a29c222" prot="public" static="no" mutable="no">
+        <type>AddrType</type>
+        <definition>AddrType InterChiplet::SyncCommand::m_src</definition>
+        <argsstring></argsstring>
+        <name>m_src</name>
+        <briefdescription>
+<para>Source address. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" line="119" column="14" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classInterChiplet_1_1SyncCommand_1a6b92e06047a471a5c1360027b2af6fd0" prot="public" static="no" mutable="no">
+        <type>AddrType</type>
+        <definition>AddrType InterChiplet::SyncCommand::m_dst</definition>
+        <argsstring></argsstring>
+        <name>m_dst</name>
+        <briefdescription>
+<para>Destiantion address in X-axis. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" line="123" column="14" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classInterChiplet_1_1SyncCommand_1a6af7e29a25c5ac6adabfcedb2674e2d5" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int InterChiplet::SyncCommand::m_nbytes</definition>
+        <argsstring></argsstring>
+        <name>m_nbytes</name>
+        <briefdescription>
+<para>Number of bytes to write. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" line="127" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classInterChiplet_1_1SyncCommand_1a08963d12f859e9816d3c94fb4cee69e6" prot="public" static="no" mutable="no">
+        <type>long</type>
+        <definition>long InterChiplet::SyncCommand::m_desc</definition>
+        <argsstring></argsstring>
+        <name>m_desc</name>
+        <briefdescription>
+<para>Descriptor of synchronization behavior. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" line="131" column="10" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classInterChiplet_1_1SyncCommand_1a8a25436fca1b7e9c170664703c4341a1" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; std::string &gt;</type>
+        <definition>std::vector&lt;std::string&gt; InterChiplet::SyncCommand::m_res_list</definition>
+        <argsstring></argsstring>
+        <name>m_res_list</name>
+        <briefdescription>
+<para>List of result strings. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" line="136" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classInterChiplet_1_1SyncCommand_1a37493b977cb7901455e9780e750455a6" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int InterChiplet::SyncCommand::m_stdin_fd</definition>
+        <argsstring></argsstring>
+        <name>m_stdin_fd</name>
+        <briefdescription>
+<para>File descriptor to write response of this command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>For example, if one entity presents READ command, the SYNC command to response this READ command should to send to this file descriptor. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" line="144" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure of synchronization command. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" line="102" column="18" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" bodystart="102" bodyend="145"/>
+    <listofallmembers>
+      <member refid="classInterChiplet_1_1SyncCommand_1a1f222e5414af5fd0d4cf6977236086bc" prot="public" virt="non-virtual"><scope>InterChiplet::SyncCommand</scope><name>m_clock_rate</name></member>
+      <member refid="classInterChiplet_1_1SyncCommand_1aff99dff1a8a7a9736f85bbdf01b0f70a" prot="public" virt="non-virtual"><scope>InterChiplet::SyncCommand</scope><name>m_cycle</name></member>
+      <member refid="classInterChiplet_1_1SyncCommand_1a08963d12f859e9816d3c94fb4cee69e6" prot="public" virt="non-virtual"><scope>InterChiplet::SyncCommand</scope><name>m_desc</name></member>
+      <member refid="classInterChiplet_1_1SyncCommand_1a6b92e06047a471a5c1360027b2af6fd0" prot="public" virt="non-virtual"><scope>InterChiplet::SyncCommand</scope><name>m_dst</name></member>
+      <member refid="classInterChiplet_1_1SyncCommand_1a6af7e29a25c5ac6adabfcedb2674e2d5" prot="public" virt="non-virtual"><scope>InterChiplet::SyncCommand</scope><name>m_nbytes</name></member>
+      <member refid="classInterChiplet_1_1SyncCommand_1a8a25436fca1b7e9c170664703c4341a1" prot="public" virt="non-virtual"><scope>InterChiplet::SyncCommand</scope><name>m_res_list</name></member>
+      <member refid="classInterChiplet_1_1SyncCommand_1a1d0460fb9ad0590948de03987a29c222" prot="public" virt="non-virtual"><scope>InterChiplet::SyncCommand</scope><name>m_src</name></member>
+      <member refid="classInterChiplet_1_1SyncCommand_1a37493b977cb7901455e9780e750455a6" prot="public" virt="non-virtual"><scope>InterChiplet::SyncCommand</scope><name>m_stdin_fd</name></member>
+      <member refid="classInterChiplet_1_1SyncCommand_1aee3265d5555a2c582591b859ccde068b" prot="public" virt="non-virtual"><scope>InterChiplet::SyncCommand</scope><name>m_type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

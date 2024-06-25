@@ -1,0 +1,285 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="classSyncStruct" kind="class" language="C++" prot="public">
+    <compoundname>SyncStruct</compoundname>
+    <includes refid="cmd__handler_8h" local="no">cmd_handler.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classSyncStruct_1ab0784758232d1077d94e7b3f6f1e04d8" prot="public" static="no" mutable="no">
+        <type>pthread_mutex_t</type>
+        <definition>pthread_mutex_t SyncStruct::m_mutex</definition>
+        <argsstring></argsstring>
+        <name>m_mutex</name>
+        <briefdescription>
+<para>Mutex to access this structure. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="496" column="21" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="496" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSyncStruct_1a02090571fd56f15d4e0c9ee2b2aac906" prot="public" static="no" mutable="no">
+        <type><ref refid="classInterChiplet_1_1NetworkBenchList" kindref="compound">InterChiplet::NetworkBenchList</ref></type>
+        <definition>InterChiplet::NetworkBenchList SyncStruct::m_bench_list</definition>
+        <argsstring></argsstring>
+        <name>m_bench_list</name>
+        <briefdescription>
+<para>Benchmark list, recording the communication transactions have sent out. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="501" column="36" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="501" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSyncStruct_1a82bd706195fcab7791b119b4cf336380" prot="public" static="no" mutable="no">
+        <type><ref refid="classInterChiplet_1_1NetworkDelayStruct" kindref="compound">InterChiplet::NetworkDelayStruct</ref></type>
+        <definition>InterChiplet::NetworkDelayStruct SyncStruct::m_delay_list</definition>
+        <argsstring></argsstring>
+        <name>m_delay_list</name>
+        <briefdescription>
+<para>Delay list, recording the delay of each communication transactions. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="505" column="38" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="505" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSyncStruct_1a211671b42dda80bc3fd56f60515d1de9" prot="public" static="no" mutable="no">
+        <type><ref refid="classInterChiplet_1_1SyncClockStruct" kindref="compound">InterChiplet::SyncClockStruct</ref></type>
+        <definition>InterChiplet::SyncClockStruct SyncStruct::m_cycle_struct</definition>
+        <argsstring></argsstring>
+        <name>m_cycle_struct</name>
+        <briefdescription>
+<para>Global simulation cycle, which is the largest notified cycle count. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="510" column="35" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="510" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSyncStruct_1a6f55842c8d4d0f9476b79d4dfb7997a4" prot="public" static="no" mutable="no">
+        <type><ref refid="classInterChiplet_1_1SyncPipeStruct" kindref="compound">InterChiplet::SyncPipeStruct</ref></type>
+        <definition>InterChiplet::SyncPipeStruct SyncStruct::m_pipe_struct</definition>
+        <argsstring></argsstring>
+        <name>m_pipe_struct</name>
+        <briefdescription>
+<para>Pipe behavior. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="515" column="34" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="515" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSyncStruct_1a00cb50c1f5c03ce50b43bdc31f9db511" prot="public" static="no" mutable="no">
+        <type><ref refid="classInterChiplet_1_1SyncBarrierStruct" kindref="compound">InterChiplet::SyncBarrierStruct</ref></type>
+        <definition>InterChiplet::SyncBarrierStruct SyncStruct::m_barrier_struct</definition>
+        <argsstring></argsstring>
+        <name>m_barrier_struct</name>
+        <briefdescription>
+<para>Barrier behavior. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="519" column="37" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="519" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSyncStruct_1af7c650516318007616f6b240b1eda1de" prot="public" static="no" mutable="no">
+        <type><ref refid="classInterChiplet_1_1SyncLockStruct" kindref="compound">InterChiplet::SyncLockStruct</ref></type>
+        <definition>InterChiplet::SyncLockStruct SyncStruct::m_lock_struct</definition>
+        <argsstring></argsstring>
+        <name>m_lock_struct</name>
+        <briefdescription>
+<para>Lock behavior. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="523" column="34" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="523" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSyncStruct_1a5b819b026086ed35e2f336a8d72d89ef" prot="public" static="no" mutable="no">
+        <type><ref refid="classInterChiplet_1_1SyncLaunchStruct" kindref="compound">InterChiplet::SyncLaunchStruct</ref></type>
+        <definition>InterChiplet::SyncLaunchStruct SyncStruct::m_launch_struct</definition>
+        <argsstring></argsstring>
+        <name>m_launch_struct</name>
+        <briefdescription>
+<para>Launch behavior. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="527" column="36" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="527" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSyncStruct_1a6d89c2ca5e58dc8c9dd57ca73ce36de6" prot="public" static="no" mutable="no">
+        <type><ref refid="classInterChiplet_1_1SyncCommStruct" kindref="compound">InterChiplet::SyncCommStruct</ref></type>
+        <definition>InterChiplet::SyncCommStruct SyncStruct::m_comm_struct</definition>
+        <argsstring></argsstring>
+        <name>m_comm_struct</name>
+        <briefdescription>
+<para>Communication behavior. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="532" column="34" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="532" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSyncStruct_1a6e8e1007522396c43bfa0b7f479a3d17" prot="public" static="no" mutable="no">
+        <type><ref refid="classInterChiplet_1_1SyncBarrierStruct" kindref="compound">InterChiplet::SyncBarrierStruct</ref></type>
+        <definition>InterChiplet::SyncBarrierStruct SyncStruct::m_barrier_timing_struct</definition>
+        <argsstring></argsstring>
+        <name>m_barrier_timing_struct</name>
+        <briefdescription>
+<para>Barrier timing behavior. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="536" column="37" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="536" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSyncStruct_1afa97486f7505c3986c6fb545d2eb7fdb" prot="public" static="no" mutable="no">
+        <type><ref refid="classInterChiplet_1_1SyncLockStruct" kindref="compound">InterChiplet::SyncLockStruct</ref></type>
+        <definition>InterChiplet::SyncLockStruct SyncStruct::m_lock_timing_struct</definition>
+        <argsstring></argsstring>
+        <name>m_lock_timing_struct</name>
+        <briefdescription>
+<para>Lock behavior. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="540" column="34" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="540" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classSyncStruct_1aef6affcf15b1fbed554705dd2a96eea9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>SyncStruct::SyncStruct</definition>
+        <argsstring>()</argsstring>
+        <name>SyncStruct</name>
+        <briefdescription>
+<para>Construct synchronize stucture. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Initializete mutex. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="478" column="5" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="478" bodyend="483"/>
+      </memberdef>
+      <memberdef kind="function" id="classSyncStruct_1a49ede67e9da5394d01f24686f0b189d6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>SyncStruct::~SyncStruct</definition>
+        <argsstring>()</argsstring>
+        <name>~SyncStruct</name>
+        <briefdescription>
+<para>Destory synchronize structure. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Destory mutex. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="490" column="5" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="490" bodyend="490"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Data structure of synchronize operation. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3">
+        <label>InterChiplet::NetworkBenchList</label>
+        <link refid="classInterChiplet_1_1NetworkBenchList"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>InterChiplet::SyncPipeStruct</label>
+        <link refid="classInterChiplet_1_1SyncPipeStruct"/>
+      </node>
+      <node id="1">
+        <label>SyncStruct</label>
+        <link refid="classSyncStruct"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>m_cycle_struct</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>m_bench_list</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>m_barrier_struct</edgelabel>
+          <edgelabel>m_barrier_timing_struct</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>m_pipe_struct</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>m_delay_list</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>m_comm_struct</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>m_launch_struct</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>m_lock_struct</edgelabel>
+          <edgelabel>m_lock_timing_struct</edgelabel>
+        </childnode>
+      </node>
+      <node id="10">
+        <label>InterChiplet::SyncLockStruct</label>
+        <link refid="classInterChiplet_1_1SyncLockStruct"/>
+      </node>
+      <node id="2">
+        <label>InterChiplet::SyncClockStruct</label>
+        <link refid="classInterChiplet_1_1SyncClockStruct"/>
+      </node>
+      <node id="4">
+        <label>std::multimap&lt; InnerTimeType, NetworkBenchItem &gt;</label>
+      </node>
+      <node id="9">
+        <label>InterChiplet::SyncLaunchStruct</label>
+        <link refid="classInterChiplet_1_1SyncLaunchStruct"/>
+      </node>
+      <node id="5">
+        <label>InterChiplet::SyncBarrierStruct</label>
+        <link refid="classInterChiplet_1_1SyncBarrierStruct"/>
+      </node>
+      <node id="8">
+        <label>InterChiplet::SyncCommStruct</label>
+        <link refid="classInterChiplet_1_1SyncCommStruct"/>
+      </node>
+      <node id="7">
+        <label>InterChiplet::NetworkDelayStruct</label>
+        <link refid="classInterChiplet_1_1NetworkDelayStruct"/>
+      </node>
+    </collaborationgraph>
+    <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="471" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="471" bodyend="541"/>
+    <listofallmembers>
+      <member refid="classSyncStruct_1a00cb50c1f5c03ce50b43bdc31f9db511" prot="public" virt="non-virtual"><scope>SyncStruct</scope><name>m_barrier_struct</name></member>
+      <member refid="classSyncStruct_1a6e8e1007522396c43bfa0b7f479a3d17" prot="public" virt="non-virtual"><scope>SyncStruct</scope><name>m_barrier_timing_struct</name></member>
+      <member refid="classSyncStruct_1a02090571fd56f15d4e0c9ee2b2aac906" prot="public" virt="non-virtual"><scope>SyncStruct</scope><name>m_bench_list</name></member>
+      <member refid="classSyncStruct_1a6d89c2ca5e58dc8c9dd57ca73ce36de6" prot="public" virt="non-virtual"><scope>SyncStruct</scope><name>m_comm_struct</name></member>
+      <member refid="classSyncStruct_1a211671b42dda80bc3fd56f60515d1de9" prot="public" virt="non-virtual"><scope>SyncStruct</scope><name>m_cycle_struct</name></member>
+      <member refid="classSyncStruct_1a82bd706195fcab7791b119b4cf336380" prot="public" virt="non-virtual"><scope>SyncStruct</scope><name>m_delay_list</name></member>
+      <member refid="classSyncStruct_1a5b819b026086ed35e2f336a8d72d89ef" prot="public" virt="non-virtual"><scope>SyncStruct</scope><name>m_launch_struct</name></member>
+      <member refid="classSyncStruct_1af7c650516318007616f6b240b1eda1de" prot="public" virt="non-virtual"><scope>SyncStruct</scope><name>m_lock_struct</name></member>
+      <member refid="classSyncStruct_1afa97486f7505c3986c6fb545d2eb7fdb" prot="public" virt="non-virtual"><scope>SyncStruct</scope><name>m_lock_timing_struct</name></member>
+      <member refid="classSyncStruct_1ab0784758232d1077d94e7b3f6f1e04d8" prot="public" virt="non-virtual"><scope>SyncStruct</scope><name>m_mutex</name></member>
+      <member refid="classSyncStruct_1a6f55842c8d4d0f9476b79d4dfb7997a4" prot="public" virt="non-virtual"><scope>SyncStruct</scope><name>m_pipe_struct</name></member>
+      <member refid="classSyncStruct_1aef6affcf15b1fbed554705dd2a96eea9" prot="public" virt="non-virtual"><scope>SyncStruct</scope><name>SyncStruct</name></member>
+      <member refid="classSyncStruct_1a49ede67e9da5394d01f24686f0b189d6" prot="public" virt="non-virtual"><scope>SyncStruct</scope><name>~SyncStruct</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

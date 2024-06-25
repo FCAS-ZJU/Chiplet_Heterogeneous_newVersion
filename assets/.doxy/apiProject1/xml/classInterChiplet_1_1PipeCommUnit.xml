@@ -1,0 +1,193 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="classInterChiplet_1_1PipeCommUnit" kind="class" language="C++" prot="public">
+    <compoundname>InterChiplet::PipeCommUnit</compoundname>
+    <includes refid="pipe__comm_8h" local="no">pipe_comm.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classInterChiplet_1_1PipeCommUnit_1a124587f3e2cd6c91bd7eac35c25c582f" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string InterChiplet::PipeCommUnit::m_file_name</definition>
+        <argsstring></argsstring>
+        <name>m_file_name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" line="154" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classInterChiplet_1_1PipeCommUnit_1aaa4e4862480c3e0f7b7252604d062dd5" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int InterChiplet::PipeCommUnit::m_file_id</definition>
+        <argsstring></argsstring>
+        <name>m_file_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" line="155" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classInterChiplet_1_1PipeCommUnit_1a172af4866e5e79c3042512a80d1ee067" prot="private" static="no" mutable="no">
+        <type>uint8_t *</type>
+        <definition>uint8_t* InterChiplet::PipeCommUnit::mp_buf</definition>
+        <argsstring></argsstring>
+        <name>mp_buf</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" line="156" column="13" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classInterChiplet_1_1PipeCommUnit_1a72ab4ce7808b25e8576534035fee30f9" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int InterChiplet::PipeCommUnit::m_read_ptr</definition>
+        <argsstring></argsstring>
+        <name>m_read_ptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" line="157" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classInterChiplet_1_1PipeCommUnit_1a038e4a57d56a5a777300877e0d8fb971" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int InterChiplet::PipeCommUnit::m_size</definition>
+        <argsstring></argsstring>
+        <name>m_size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" line="158" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classInterChiplet_1_1PipeCommUnit_1a0c7045d6a8f75a007ed476eee1330e06" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>InterChiplet::PipeCommUnit::PipeCommUnit</definition>
+        <argsstring>(const char *file_name, bool read)</argsstring>
+        <name>PipeCommUnit</name>
+        <param>
+          <type>const char *</type>
+          <declname>file_name</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>read</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" line="26" column="5" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" bodystart="26" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="classInterChiplet_1_1PipeCommUnit_1ad1fde9934c6d6a54a6d5eb8cb3794677" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool InterChiplet::PipeCommUnit::valid</definition>
+        <argsstring>() const</argsstring>
+        <name>valid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" line="49" column="10" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" bodystart="49" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="classInterChiplet_1_1PipeCommUnit_1a6a8c0fe982bb57e941ee9d8940a5955c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int InterChiplet::PipeCommUnit::read_data</definition>
+        <argsstring>(void *dst_buf, int nbyte)</argsstring>
+        <name>read_data</name>
+        <param>
+          <type>void *</type>
+          <declname>dst_buf</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nbyte</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" line="51" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" bodystart="51" bodyend="75"/>
+      </memberdef>
+      <memberdef kind="function" id="classInterChiplet_1_1PipeCommUnit_1a53e31b7ec893f89eb82c93955df2bbff" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int InterChiplet::PipeCommUnit::write_data</definition>
+        <argsstring>(void *src_buf, int nbyte)</argsstring>
+        <name>write_data</name>
+        <param>
+          <type>void *</type>
+          <declname>src_buf</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nbyte</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" line="77" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" bodystart="77" bodyend="121"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classInterChiplet_1_1PipeCommUnit_1a04b9a2252965f1f533de180673751fc8" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int InterChiplet::PipeCommUnit::read_data_iter</definition>
+        <argsstring>(uint8_t *dst_buf, int nbyte)</argsstring>
+        <name>read_data_iter</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>dst_buf</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nbyte</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" line="124" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" bodystart="124" bodyend="151"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure for Single Pipe communication. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" line="24" column="19" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" bodystart="24" bodyend="163"/>
+    <listofallmembers>
+      <member refid="classInterChiplet_1_1PipeCommUnit_1aaa4e4862480c3e0f7b7252604d062dd5" prot="private" virt="non-virtual"><scope>InterChiplet::PipeCommUnit</scope><name>m_file_id</name></member>
+      <member refid="classInterChiplet_1_1PipeCommUnit_1a124587f3e2cd6c91bd7eac35c25c582f" prot="private" virt="non-virtual"><scope>InterChiplet::PipeCommUnit</scope><name>m_file_name</name></member>
+      <member refid="classInterChiplet_1_1PipeCommUnit_1a72ab4ce7808b25e8576534035fee30f9" prot="private" virt="non-virtual"><scope>InterChiplet::PipeCommUnit</scope><name>m_read_ptr</name></member>
+      <member refid="classInterChiplet_1_1PipeCommUnit_1a038e4a57d56a5a777300877e0d8fb971" prot="private" virt="non-virtual"><scope>InterChiplet::PipeCommUnit</scope><name>m_size</name></member>
+      <member refid="classInterChiplet_1_1PipeCommUnit_1a172af4866e5e79c3042512a80d1ee067" prot="private" virt="non-virtual"><scope>InterChiplet::PipeCommUnit</scope><name>mp_buf</name></member>
+      <member refid="classInterChiplet_1_1PipeCommUnit_1a0c7045d6a8f75a007ed476eee1330e06" prot="public" virt="non-virtual"><scope>InterChiplet::PipeCommUnit</scope><name>PipeCommUnit</name></member>
+      <member refid="classInterChiplet_1_1PipeCommUnit_1a6a8c0fe982bb57e941ee9d8940a5955c" prot="public" virt="non-virtual"><scope>InterChiplet::PipeCommUnit</scope><name>read_data</name></member>
+      <member refid="classInterChiplet_1_1PipeCommUnit_1a04b9a2252965f1f533de180673751fc8" prot="private" virt="non-virtual"><scope>InterChiplet::PipeCommUnit</scope><name>read_data_iter</name></member>
+      <member refid="classInterChiplet_1_1PipeCommUnit_1ad1fde9934c6d6a54a6d5eb8cb3794677" prot="public" virt="non-virtual"><scope>InterChiplet::PipeCommUnit</scope><name>valid</name></member>
+      <member refid="classInterChiplet_1_1PipeCommUnit_1a53e31b7ec893f89eb82c93955df2bbff" prot="public" virt="non-virtual"><scope>InterChiplet::PipeCommUnit</scope><name>write_data</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

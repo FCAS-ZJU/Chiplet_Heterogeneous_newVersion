@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="classInterChiplet_1_1SyncPipeStruct" kind="class" language="C++" prot="public">
+    <compoundname>InterChiplet::SyncPipeStruct</compoundname>
+    <includes refid="cmd__handler_8h" local="no">cmd_handler.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classInterChiplet_1_1SyncPipeStruct_1a1bf4fd71cb695669f0cda77f822c3d01" prot="private" static="no" mutable="no">
+        <type>std::set&lt; std::string &gt;</type>
+        <definition>std::set&lt;std::string&gt; InterChiplet::SyncPipeStruct::m_pipe_set</definition>
+        <argsstring></argsstring>
+        <name>m_pipe_set</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="39" column="14" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classInterChiplet_1_1SyncPipeStruct_1a643639234fb188d9d0f12a165dead8ab" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void InterChiplet::SyncPipeStruct::insert</definition>
+        <argsstring>(std::string &amp;__name)</argsstring>
+        <name>insert</name>
+        <param>
+          <type>std::string &amp;</type>
+          <declname>__name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="42" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="42" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="classInterChiplet_1_1SyncPipeStruct_1aaebe4ef43a333d4bb5c840b71bb0aaf2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void InterChiplet::SyncPipeStruct::insert</definition>
+        <argsstring>(const std::string &amp;__name)</argsstring>
+        <name>insert</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>__name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="44" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="44" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classInterChiplet_1_1SyncPipeStruct_1a198f1bdcac17a8e331e49a0a1a4aa121" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::set&lt; std::string &gt;</type>
+        <definition>std::set&lt;std::string&gt; InterChiplet::SyncPipeStruct::pipeSet</definition>
+        <argsstring>()</argsstring>
+        <name>pipeSet</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="46" column="21" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="46" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="classInterChiplet_1_1SyncPipeStruct_1af9fea344e325cb665eaacec3b1e2be12" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::set&lt; std::string &gt; &amp;</type>
+        <definition>const std::set&lt;std::string&gt;&amp; InterChiplet::SyncPipeStruct::pipeSet</definition>
+        <argsstring>() const</argsstring>
+        <name>pipeSet</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="48" column="27" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="48" bodyend="48"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure for Pipe synchronization. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="37" column="21" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="37" bodyend="49"/>
+    <listofallmembers>
+      <member refid="classInterChiplet_1_1SyncPipeStruct_1a643639234fb188d9d0f12a165dead8ab" prot="public" virt="non-virtual"><scope>InterChiplet::SyncPipeStruct</scope><name>insert</name></member>
+      <member refid="classInterChiplet_1_1SyncPipeStruct_1aaebe4ef43a333d4bb5c840b71bb0aaf2" prot="public" virt="non-virtual"><scope>InterChiplet::SyncPipeStruct</scope><name>insert</name></member>
+      <member refid="classInterChiplet_1_1SyncPipeStruct_1a1bf4fd71cb695669f0cda77f822c3d01" prot="private" virt="non-virtual"><scope>InterChiplet::SyncPipeStruct</scope><name>m_pipe_set</name></member>
+      <member refid="classInterChiplet_1_1SyncPipeStruct_1a198f1bdcac17a8e331e49a0a1a4aa121" prot="public" virt="non-virtual"><scope>InterChiplet::SyncPipeStruct</scope><name>pipeSet</name></member>
+      <member refid="classInterChiplet_1_1SyncPipeStruct_1af9fea344e325cb665eaacec3b1e2be12" prot="public" virt="non-virtual"><scope>InterChiplet::SyncPipeStruct</scope><name>pipeSet</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

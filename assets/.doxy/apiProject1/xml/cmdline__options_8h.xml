@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="cmdline__options_8h" kind="file" language="C++">
+    <compoundname>cmdline_options.h</compoundname>
+    <includes local="no">iostream</includes>
+    <includes local="yes">CLI/CLI.hpp</includes>
+    <includedby refid="interchiplet_8cpp" local="yes">/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp</includedby>
+    <incdepgraph>
+      <node id="3">
+        <label>CLI/CLI.hpp</label>
+      </node>
+      <node id="1">
+        <label>/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmdline_options.h</label>
+        <link refid="cmdline__options_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>iostream</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="classInterChiplet_1_1CmdLineOptions" prot="public">InterChiplet::CmdLineOptions</innerclass>
+    <innernamespace refid="namespaceInterChiplet">InterChiplet</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;CLI/CLI.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">InterChiplet<sp/>{</highlight></codeline>
+<codeline lineno="11" refid="classInterChiplet_1_1CmdLineOptions" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classInterChiplet_1_1CmdLineOptions" kindref="compound">CmdLineOptions</ref><sp/>{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="16" refid="classInterChiplet_1_1CmdLineOptions_1ad490e8821ba4dc63a8b3e18655a1acb8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classInterChiplet_1_1CmdLineOptions_1ad490e8821ba4dc63a8b3e18655a1acb8" kindref="member">CmdLineOptions</ref>()</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="classInterChiplet_1_1CmdLineOptions_1ad42027833f26f43fcf52bd25d8245164" kindref="member">m_bench</ref>(),<sp/><ref refid="classInterChiplet_1_1CmdLineOptions_1af65d1b7685d14e517465a72915818572" kindref="member">m_cwd</ref>(),<sp/><ref refid="classInterChiplet_1_1CmdLineOptions_1a86a68795dc277c308402743479ce017e" kindref="member">m_timeout_threshold</ref>(5),<sp/><ref refid="classInterChiplet_1_1CmdLineOptions_1afd600ce39eb8a629f9f2693c5f684b3e" kindref="member">m_err_rate_threshold</ref>(0.005),<sp/><ref refid="classInterChiplet_1_1CmdLineOptions_1a14293751e535fd4bbc24d34cdc5dca93" kindref="member">m_debug</ref>(false)<sp/>{}</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24" refid="classInterChiplet_1_1CmdLineOptions_1af8ec2f6eecf970df488500ca2c35eb56" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classInterChiplet_1_1CmdLineOptions_1af8ec2f6eecf970df488500ca2c35eb56" kindref="member">parse</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argc,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>argv[])<sp/>{</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CLI::App<sp/>app{</highlight><highlight class="stringliteral">&quot;Lego<sp/>Chiplet<sp/>Simulator&quot;</highlight><highlight class="normal">};</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>app.add_option(</highlight><highlight class="stringliteral">&quot;bench&quot;</highlight><highlight class="normal">,<sp/><ref refid="classInterChiplet_1_1CmdLineOptions_1ad42027833f26f43fcf52bd25d8245164" kindref="member">m_bench</ref>,<sp/></highlight><highlight class="stringliteral">&quot;Benchmark<sp/>configuration<sp/>file<sp/>(.yml)&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-&gt;required()</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-&gt;check(CLI::ExistingFile);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>app.add_option(</highlight><highlight class="stringliteral">&quot;-t,--timeout&quot;</highlight><highlight class="normal">,<sp/><ref refid="classInterChiplet_1_1CmdLineOptions_1a86a68795dc277c308402743479ce017e" kindref="member">m_timeout_threshold</ref>,<sp/></highlight><highlight class="stringliteral">&quot;Time<sp/>out<sp/>threshold,<sp/>in<sp/>time<sp/>of<sp/>round.&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-&gt;check(CLI::PositiveNumber);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>app.add_option(</highlight><highlight class="stringliteral">&quot;-e,--error&quot;</highlight><highlight class="normal">,<sp/><ref refid="classInterChiplet_1_1CmdLineOptions_1afd600ce39eb8a629f9f2693c5f684b3e" kindref="member">m_err_rate_threshold</ref>,<sp/></highlight><highlight class="stringliteral">&quot;Error<sp/>rate<sp/>when<sp/>quit<sp/>simulation.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>app.add_option(</highlight><highlight class="stringliteral">&quot;--cwd&quot;</highlight><highlight class="normal">,<sp/><ref refid="classInterChiplet_1_1CmdLineOptions_1af65d1b7685d14e517465a72915818572" kindref="member">m_cwd</ref>,<sp/></highlight><highlight class="stringliteral">&quot;Woring<sp/>directory<sp/>for<sp/>simulation.&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-&gt;check(CLI::ExistingPath);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>app.add_flag(</highlight><highlight class="stringliteral">&quot;--debug&quot;</highlight><highlight class="normal">,<sp/><ref refid="classInterChiplet_1_1CmdLineOptions_1a14293751e535fd4bbc24d34cdc5dca93" kindref="member">m_debug</ref>,<sp/></highlight><highlight class="stringliteral">&quot;Print<sp/>debug<sp/>information.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>app.parse(argc,<sp/>argv);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">catch</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>CLI::ParseError&amp;<sp/>e)<sp/>{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ret<sp/>=<sp/>app.exit(e);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>exit(ret);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="50" refid="classInterChiplet_1_1CmdLineOptions_1ad42027833f26f43fcf52bd25d8245164" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="classInterChiplet_1_1CmdLineOptions_1ad42027833f26f43fcf52bd25d8245164" kindref="member">m_bench</ref>;</highlight></codeline>
+<codeline lineno="54" refid="classInterChiplet_1_1CmdLineOptions_1af65d1b7685d14e517465a72915818572" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="classInterChiplet_1_1CmdLineOptions_1af65d1b7685d14e517465a72915818572" kindref="member">m_cwd</ref>;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59" refid="classInterChiplet_1_1CmdLineOptions_1a86a68795dc277c308402743479ce017e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="classInterChiplet_1_1CmdLineOptions_1a86a68795dc277c308402743479ce017e" kindref="member">m_timeout_threshold</ref>;</highlight></codeline>
+<codeline lineno="63" refid="classInterChiplet_1_1CmdLineOptions_1afd600ce39eb8a629f9f2693c5f684b3e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classInterChiplet_1_1CmdLineOptions_1afd600ce39eb8a629f9f2693c5f684b3e" kindref="member">m_err_rate_threshold</ref>;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68" refid="classInterChiplet_1_1CmdLineOptions_1a14293751e535fd4bbc24d34cdc5dca93" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classInterChiplet_1_1CmdLineOptions_1a14293751e535fd4bbc24d34cdc5dca93" kindref="member">m_debug</ref>;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="70"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>InterChiplet</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmdline_options.h"/>
+  </compounddef>
+</doxygen>

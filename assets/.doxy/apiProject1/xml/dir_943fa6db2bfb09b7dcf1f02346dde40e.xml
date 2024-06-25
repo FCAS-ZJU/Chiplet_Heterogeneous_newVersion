@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="dir_943fa6db2bfb09b7dcf1f02346dde40e" kind="dir">
+    <compoundname>/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes</compoundname>
+    <innerfile refid="apis__c_8h">apis_c.h</innerfile>
+    <innerfile refid="apis__cu_8h">apis_cu.h</innerfile>
+    <innerfile refid="benchmark__yaml_8h">benchmark_yaml.h</innerfile>
+    <innerfile refid="cmd__handler_8h">cmd_handler.h</innerfile>
+    <innerfile refid="cmdline__options_8h">cmdline_options.h</innerfile>
+    <innerfile refid="global__define_8h">global_define.h</innerfile>
+    <innerfile refid="net__bench_8h">net_bench.h</innerfile>
+    <innerfile refid="net__delay_8h">net_delay.h</innerfile>
+    <innerfile refid="pipe__comm_8h">pipe_comm.h</innerfile>
+    <innerfile refid="sync__protocol_8h">sync_protocol.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,540 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="classInterChiplet_1_1NetworkDelayStruct" kind="class" language="C++" prot="public">
+    <compoundname>InterChiplet::NetworkDelayStruct</compoundname>
+    <includes refid="net__delay_8h" local="no">net_delay.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classInterChiplet_1_1NetworkDelayStruct_1a9adb282af9e408857154f7b3e4c99969" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int InterChiplet::NetworkDelayStruct::m_item_count</definition>
+        <argsstring></argsstring>
+        <name>m_item_count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="498" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="498" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classInterChiplet_1_1NetworkDelayStruct_1a3815d16475989a18a23c1c9724eb6259" prot="private" static="no" mutable="no">
+        <type><ref refid="classInterChiplet_1_1NetworkDelayMap" kindref="compound">NetworkDelayMap</ref></type>
+        <definition>NetworkDelayMap InterChiplet::NetworkDelayStruct::m_src_delay_map</definition>
+        <argsstring></argsstring>
+        <name>m_src_delay_map</name>
+        <briefdescription>
+<para>Launch delay list. Key is the destination address and value is a list of delay item. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="503" column="21" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="503" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classInterChiplet_1_1NetworkDelayStruct_1a93bc4a6d7e6539c131586901bfba3b50" prot="private" static="no" mutable="no">
+        <type><ref refid="classInterChiplet_1_1NetworkDelayMap" kindref="compound">NetworkDelayMap</ref></type>
+        <definition>NetworkDelayMap InterChiplet::NetworkDelayStruct::m_launch_delay_map</definition>
+        <argsstring></argsstring>
+        <name>m_launch_delay_map</name>
+        <briefdescription>
+<para>Launch order. Key is the destination address and value is a list of delay item. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="507" column="21" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="507" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classInterChiplet_1_1NetworkDelayStruct_1af044399410ce4f247d274b1c7744317f" prot="private" static="no" mutable="no">
+        <type><ref refid="classInterChiplet_1_1NetworkDelayMap" kindref="compound">NetworkDelayMap</ref></type>
+        <definition>NetworkDelayMap InterChiplet::NetworkDelayStruct::m_barrier_delay_map</definition>
+        <argsstring></argsstring>
+        <name>m_barrier_delay_map</name>
+        <briefdescription>
+<para>Barrier order. Key is the destination address and value is a list of delay item. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="511" column="21" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="511" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classInterChiplet_1_1NetworkDelayStruct_1a15a9081330f168f2587e2f4bf03909f5" prot="private" static="no" mutable="no">
+        <type><ref refid="classInterChiplet_1_1NetworkDelayMap" kindref="compound">NetworkDelayMap</ref></type>
+        <definition>NetworkDelayMap InterChiplet::NetworkDelayStruct::m_lock_delay_map</definition>
+        <argsstring></argsstring>
+        <name>m_lock_delay_map</name>
+        <briefdescription>
+<para>Lock order. Key is the destination address and value is a list of delay item. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="515" column="21" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="515" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classInterChiplet_1_1NetworkDelayStruct_1a46e14296ee10ac1588e6c8897566370b" prot="private" static="no" mutable="no">
+        <type><ref refid="classInterChiplet_1_1NetworkDelayMap" kindref="compound">NetworkDelayMap</ref></type>
+        <definition>NetworkDelayMap InterChiplet::NetworkDelayStruct::m_unlock_delay_map</definition>
+        <argsstring></argsstring>
+        <name>m_unlock_delay_map</name>
+        <briefdescription>
+<para>Unlock order. Key is the destination address and value is a list of delay item. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="519" column="21" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="519" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classInterChiplet_1_1NetworkDelayStruct_1affa9552f3f2de13204bbdd985f7f8104" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>InterChiplet::NetworkDelayStruct::NetworkDelayStruct</definition>
+        <argsstring>()</argsstring>
+        <name>NetworkDelayStruct</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="279" column="5" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="279" bodyend="279"/>
+      </memberdef>
+      <memberdef kind="function" id="classInterChiplet_1_1NetworkDelayStruct_1adea618ced1b0f5cdc464f49f16a33433" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int InterChiplet::NetworkDelayStruct::size</definition>
+        <argsstring>() const</argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="281" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="281" bodyend="281"/>
+      </memberdef>
+      <memberdef kind="function" id="classInterChiplet_1_1NetworkDelayStruct_1a130d5694631393d080571a30b8989cb6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void InterChiplet::NetworkDelayStruct::loadDelayInfo</definition>
+        <argsstring>(const std::string &amp;__file_name, double __clock_rate)</argsstring>
+        <name>loadDelayInfo</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>__file_name</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>__clock_rate</declname>
+        </param>
+        <briefdescription>
+<para>Load package delay list from specified file. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__file_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Path to benchmark file. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__clock_rate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Clock ratio (Simulator clock/Interchiplet clock). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="289" column="10" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="289" bodyend="320"/>
+      </memberdef>
+      <memberdef kind="function" id="classInterChiplet_1_1NetworkDelayStruct_1a8e46736311bf4fba7e19035354797634" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool InterChiplet::NetworkDelayStruct::checkOrderOfCommand</definition>
+        <argsstring>(const InterChiplet::SyncCommand &amp;__cmd)</argsstring>
+        <name>checkOrderOfCommand</name>
+        <param>
+          <type>const <ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">InterChiplet::SyncCommand</ref> &amp;</type>
+          <declname>__cmd</declname>
+        </param>
+        <briefdescription>
+<para>Check the order of write/read commands. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Command to check. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>If the order of command matches the order of delay infomation, return True. Otherwise return False. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="328" column="10" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="328" bodyend="330"/>
+      </memberdef>
+      <memberdef kind="function" id="classInterChiplet_1_1NetworkDelayStruct_1ab5031f5ba12c78d6f9b9e5155e526d13" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void InterChiplet::NetworkDelayStruct::clearDelayInfo</definition>
+        <argsstring>()</argsstring>
+        <name>clearDelayInfo</name>
+        <briefdescription>
+<para>Clear delay information. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="335" column="10" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="335" bodyend="346"/>
+      </memberdef>
+      <memberdef kind="function" id="classInterChiplet_1_1NetworkDelayStruct_1af77f4a956d61486fbf02e66515241e59" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool InterChiplet::NetworkDelayStruct::hasLaunch</definition>
+        <argsstring>(const AddrType &amp;__dst)</argsstring>
+        <name>hasLaunch</name>
+        <param>
+          <type>const AddrType &amp;</type>
+          <declname>__dst</declname>
+        </param>
+        <briefdescription>
+<para>Check whether there is LAUNCH command in order. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__dst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>If there is LAUNCH command to the specified destination address, return True. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="354" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="354" bodyend="354"/>
+      </memberdef>
+      <memberdef kind="function" id="classInterChiplet_1_1NetworkDelayStruct_1a1bfe8f2a1383ce4066c65b325b958e34" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>AddrType</type>
+        <definition>AddrType InterChiplet::NetworkDelayStruct::frontLaunchSrc</definition>
+        <argsstring>(const AddrType &amp;__dst)</argsstring>
+        <name>frontLaunchSrc</name>
+        <param>
+          <type>const AddrType &amp;</type>
+          <declname>__dst</declname>
+        </param>
+        <briefdescription>
+<para>Return the source address of the first LAUNCH command to the specified destination address. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__dst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The source address of the first LAUNCH command. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="363" column="21" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="363" bodyend="365"/>
+      </memberdef>
+      <memberdef kind="function" id="classInterChiplet_1_1NetworkDelayStruct_1a0250ce37f77eee4ed27c784444f58709" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void InterChiplet::NetworkDelayStruct::popLaunch</definition>
+        <argsstring>(const AddrType &amp;__dst)</argsstring>
+        <name>popLaunch</name>
+        <param>
+          <type>const AddrType &amp;</type>
+          <declname>__dst</declname>
+        </param>
+        <briefdescription>
+<para>Pop the first LAUNCH command to the specified destination address. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__dst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="371" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="371" bodyend="371"/>
+      </memberdef>
+      <memberdef kind="function" id="classInterChiplet_1_1NetworkDelayStruct_1a3e4f909a39d0df8a002f5da643e6a920" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool InterChiplet::NetworkDelayStruct::hasLock</definition>
+        <argsstring>(const AddrType &amp;__dst)</argsstring>
+        <name>hasLock</name>
+        <param>
+          <type>const AddrType &amp;</type>
+          <declname>__dst</declname>
+        </param>
+        <briefdescription>
+<para>Check whether there is LOCK command in order. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__dst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>If there is LOCK command to the specified destination address, return True. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="378" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="378" bodyend="378"/>
+      </memberdef>
+      <memberdef kind="function" id="classInterChiplet_1_1NetworkDelayStruct_1aa868a3f2848c1a18476cb769fd449946" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>AddrType</type>
+        <definition>AddrType InterChiplet::NetworkDelayStruct::frontLockSrc</definition>
+        <argsstring>(const AddrType &amp;__dst)</argsstring>
+        <name>frontLockSrc</name>
+        <param>
+          <type>const AddrType &amp;</type>
+          <declname>__dst</declname>
+        </param>
+        <briefdescription>
+<para>Return the source address of the first LOCK command to the specified destination address. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__dst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The source address of the first LOCK command. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="387" column="21" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="387" bodyend="389"/>
+      </memberdef>
+      <memberdef kind="function" id="classInterChiplet_1_1NetworkDelayStruct_1af92e27edc0d28a8670a47e14ddd93461" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void InterChiplet::NetworkDelayStruct::popLock</definition>
+        <argsstring>(const AddrType &amp;__dst)</argsstring>
+        <name>popLock</name>
+        <param>
+          <type>const AddrType &amp;</type>
+          <declname>__dst</declname>
+        </param>
+        <briefdescription>
+<para>Pop the first LOCK command to the specified destination address. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__dst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="395" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="395" bodyend="395"/>
+      </memberdef>
+      <memberdef kind="function" id="classInterChiplet_1_1NetworkDelayStruct_1ae2764b301540a58833cb8b29fb6427c2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>CmdDelayPair</type>
+        <definition>CmdDelayPair InterChiplet::NetworkDelayStruct::getEndCycle</definition>
+        <argsstring>(const SyncCommand &amp;__write_cmd, const SyncCommand &amp;__read_cmd)</argsstring>
+        <name>getEndCycle</name>
+        <param>
+          <type>const <ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">SyncCommand</ref> &amp;</type>
+          <declname>__write_cmd</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">SyncCommand</ref> &amp;</type>
+          <declname>__read_cmd</declname>
+        </param>
+        <briefdescription>
+<para>Get end cycle of one communication. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__write_cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Write command </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__read_cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Read command. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>End cycle of this communication, used to acknowledge SYNC command. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="404" column="18" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="404" bodyend="443"/>
+      </memberdef>
+      <memberdef kind="function" id="classInterChiplet_1_1NetworkDelayStruct_1a2df3cabb3b428b667673e481ee6ee2ce" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>InnerTimeType</type>
+        <definition>InnerTimeType InterChiplet::NetworkDelayStruct::getBarrierCycle</definition>
+        <argsstring>(const std::vector&lt; InterChiplet::SyncCommand &gt; &amp;barrier_items)</argsstring>
+        <name>getBarrierCycle</name>
+        <param>
+          <type>const std::vector&lt; <ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">InterChiplet::SyncCommand</ref> &gt; &amp;</type>
+          <declname>barrier_items</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="445" column="19" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="445" bodyend="462"/>
+      </memberdef>
+      <memberdef kind="function" id="classInterChiplet_1_1NetworkDelayStruct_1a04cdab02c3b7200162ef92d1fe4f5981" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>InnerTimeType</type>
+        <definition>InnerTimeType InterChiplet::NetworkDelayStruct::getDefaultEndCycle</definition>
+        <argsstring>(const SyncCommand &amp;write_cmd)</argsstring>
+        <name>getDefaultEndCycle</name>
+        <param>
+          <type>const <ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">SyncCommand</ref> &amp;</type>
+          <declname>write_cmd</declname>
+        </param>
+        <briefdescription>
+<para>Get end cycle of one communication if cannot find this communication from delay list. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__write_cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Write command </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>End cycle of this communication, used to acknowledge SYNC command. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="471" column="19" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="471" bodyend="477"/>
+      </memberdef>
+      <memberdef kind="function" id="classInterChiplet_1_1NetworkDelayStruct_1a5f4bb6f1fecac6654e76176603acf451" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>CmdDelayPair</type>
+        <definition>CmdDelayPair InterChiplet::NetworkDelayStruct::getDefaultEndCycle</definition>
+        <argsstring>(const SyncCommand &amp;write_cmd, const SyncCommand &amp;read_cmd)</argsstring>
+        <name>getDefaultEndCycle</name>
+        <param>
+          <type>const <ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">SyncCommand</ref> &amp;</type>
+          <declname>write_cmd</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">SyncCommand</ref> &amp;</type>
+          <declname>read_cmd</declname>
+        </param>
+        <briefdescription>
+<para>Get end cycle of one communication if cannot find this communication from delay list. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__write_cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Write command </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__read_cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Read command. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>End cycle of this communication, used to acknowledge SYNC command. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="485" column="18" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="485" bodyend="495"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>List of network delay item. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="277" column="25" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="277" bodyend="520"/>
+    <listofallmembers>
+      <member refid="classInterChiplet_1_1NetworkDelayStruct_1a8e46736311bf4fba7e19035354797634" prot="public" virt="non-virtual"><scope>InterChiplet::NetworkDelayStruct</scope><name>checkOrderOfCommand</name></member>
+      <member refid="classInterChiplet_1_1NetworkDelayStruct_1ab5031f5ba12c78d6f9b9e5155e526d13" prot="public" virt="non-virtual"><scope>InterChiplet::NetworkDelayStruct</scope><name>clearDelayInfo</name></member>
+      <member refid="classInterChiplet_1_1NetworkDelayStruct_1a1bfe8f2a1383ce4066c65b325b958e34" prot="public" virt="non-virtual"><scope>InterChiplet::NetworkDelayStruct</scope><name>frontLaunchSrc</name></member>
+      <member refid="classInterChiplet_1_1NetworkDelayStruct_1aa868a3f2848c1a18476cb769fd449946" prot="public" virt="non-virtual"><scope>InterChiplet::NetworkDelayStruct</scope><name>frontLockSrc</name></member>
+      <member refid="classInterChiplet_1_1NetworkDelayStruct_1a2df3cabb3b428b667673e481ee6ee2ce" prot="public" virt="non-virtual"><scope>InterChiplet::NetworkDelayStruct</scope><name>getBarrierCycle</name></member>
+      <member refid="classInterChiplet_1_1NetworkDelayStruct_1a04cdab02c3b7200162ef92d1fe4f5981" prot="public" virt="non-virtual"><scope>InterChiplet::NetworkDelayStruct</scope><name>getDefaultEndCycle</name></member>
+      <member refid="classInterChiplet_1_1NetworkDelayStruct_1a5f4bb6f1fecac6654e76176603acf451" prot="public" virt="non-virtual"><scope>InterChiplet::NetworkDelayStruct</scope><name>getDefaultEndCycle</name></member>
+      <member refid="classInterChiplet_1_1NetworkDelayStruct_1ae2764b301540a58833cb8b29fb6427c2" prot="public" virt="non-virtual"><scope>InterChiplet::NetworkDelayStruct</scope><name>getEndCycle</name></member>
+      <member refid="classInterChiplet_1_1NetworkDelayStruct_1af77f4a956d61486fbf02e66515241e59" prot="public" virt="non-virtual"><scope>InterChiplet::NetworkDelayStruct</scope><name>hasLaunch</name></member>
+      <member refid="classInterChiplet_1_1NetworkDelayStruct_1a3e4f909a39d0df8a002f5da643e6a920" prot="public" virt="non-virtual"><scope>InterChiplet::NetworkDelayStruct</scope><name>hasLock</name></member>
+      <member refid="classInterChiplet_1_1NetworkDelayStruct_1a130d5694631393d080571a30b8989cb6" prot="public" virt="non-virtual"><scope>InterChiplet::NetworkDelayStruct</scope><name>loadDelayInfo</name></member>
+      <member refid="classInterChiplet_1_1NetworkDelayStruct_1af044399410ce4f247d274b1c7744317f" prot="private" virt="non-virtual"><scope>InterChiplet::NetworkDelayStruct</scope><name>m_barrier_delay_map</name></member>
+      <member refid="classInterChiplet_1_1NetworkDelayStruct_1a9adb282af9e408857154f7b3e4c99969" prot="private" virt="non-virtual"><scope>InterChiplet::NetworkDelayStruct</scope><name>m_item_count</name></member>
+      <member refid="classInterChiplet_1_1NetworkDelayStruct_1a93bc4a6d7e6539c131586901bfba3b50" prot="private" virt="non-virtual"><scope>InterChiplet::NetworkDelayStruct</scope><name>m_launch_delay_map</name></member>
+      <member refid="classInterChiplet_1_1NetworkDelayStruct_1a15a9081330f168f2587e2f4bf03909f5" prot="private" virt="non-virtual"><scope>InterChiplet::NetworkDelayStruct</scope><name>m_lock_delay_map</name></member>
+      <member refid="classInterChiplet_1_1NetworkDelayStruct_1a3815d16475989a18a23c1c9724eb6259" prot="private" virt="non-virtual"><scope>InterChiplet::NetworkDelayStruct</scope><name>m_src_delay_map</name></member>
+      <member refid="classInterChiplet_1_1NetworkDelayStruct_1a46e14296ee10ac1588e6c8897566370b" prot="private" virt="non-virtual"><scope>InterChiplet::NetworkDelayStruct</scope><name>m_unlock_delay_map</name></member>
+      <member refid="classInterChiplet_1_1NetworkDelayStruct_1affa9552f3f2de13204bbdd985f7f8104" prot="public" virt="non-virtual"><scope>InterChiplet::NetworkDelayStruct</scope><name>NetworkDelayStruct</name></member>
+      <member refid="classInterChiplet_1_1NetworkDelayStruct_1a0250ce37f77eee4ed27c784444f58709" prot="public" virt="non-virtual"><scope>InterChiplet::NetworkDelayStruct</scope><name>popLaunch</name></member>
+      <member refid="classInterChiplet_1_1NetworkDelayStruct_1af92e27edc0d28a8670a47e14ddd93461" prot="public" virt="non-virtual"><scope>InterChiplet::NetworkDelayStruct</scope><name>popLock</name></member>
+      <member refid="classInterChiplet_1_1NetworkDelayStruct_1adea618ced1b0f5cdc464f49f16a33433" prot="public" virt="non-virtual"><scope>InterChiplet::NetworkDelayStruct</scope><name>size</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

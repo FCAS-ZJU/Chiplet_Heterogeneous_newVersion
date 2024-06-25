@@ -1,0 +1,186 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="net__bench_8h" kind="file" language="C++">
+    <compoundname>net_bench.h</compoundname>
+    <includes local="no">fstream</includes>
+    <includes local="no">map</includes>
+    <includes refid="global__define_8h" local="yes">global_define.h</includes>
+    <includedby refid="cmd__handler_8h" local="yes">/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h</includedby>
+    <incdepgraph>
+      <node id="5">
+        <label>cstdint</label>
+      </node>
+      <node id="6">
+        <label>string</label>
+      </node>
+      <node id="3">
+        <label>map</label>
+      </node>
+      <node id="2">
+        <label>fstream</label>
+      </node>
+      <node id="7">
+        <label>vector</label>
+      </node>
+      <node id="1">
+        <label>/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h</label>
+        <link refid="net__bench_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>global_define.h</label>
+        <link refid="global__define_8h_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h</label>
+        <link refid="cmd__handler_8h_source"/>
+      </node>
+      <node id="1">
+        <label>/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h</label>
+        <link refid="net__bench_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classInterChiplet_1_1NetworkBenchItem" prot="public">InterChiplet::NetworkBenchItem</innerclass>
+    <innerclass refid="classInterChiplet_1_1NetworkBenchList" prot="public">InterChiplet::NetworkBenchList</innerclass>
+    <innernamespace refid="namespaceInterChiplet">InterChiplet</innernamespace>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="net__bench_8h_1a8685de6e6074df3e62c767fcf0b8d886" prot="public" static="no">
+        <name>PAC_PAYLOAD_BIT</name>
+        <initializer>512</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" line="8" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net__bench_8h_1a48db85544f7162f62541900922dd71ab" prot="public" static="no">
+        <name>PAC_PAYLOAD_BYTE</name>
+        <initializer>(PAC_PAYLOAD_BIT / 8)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" line="9" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;fstream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;map&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;global_define.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PAC_PAYLOAD_BIT<sp/>512</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PAC_PAYLOAD_BYTE<sp/>(PAC_PAYLOAD_BIT<sp/>/<sp/>8)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">InterChiplet<sp/>{</highlight></codeline>
+<codeline lineno="15" refid="classInterChiplet_1_1NetworkBenchItem" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classInterChiplet_1_1NetworkBenchItem" kindref="compound">NetworkBenchItem</ref><sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="20" refid="classInterChiplet_1_1NetworkBenchItem_1af25335ba06b82c19c7ee3cd50c122aea" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>InnerTimeType<sp/><ref refid="classInterChiplet_1_1NetworkBenchItem_1af25335ba06b82c19c7ee3cd50c122aea" kindref="member">m_src_cycle</ref>;</highlight></codeline>
+<codeline lineno="24" refid="classInterChiplet_1_1NetworkBenchItem_1a324fe4be24a39afa3c3a39acf9d4e9cc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>InnerTimeType<sp/><ref refid="classInterChiplet_1_1NetworkBenchItem_1a324fe4be24a39afa3c3a39acf9d4e9cc" kindref="member">m_dst_cycle</ref>;</highlight></codeline>
+<codeline lineno="28" refid="classInterChiplet_1_1NetworkBenchItem_1aa661ee76ac7fbdc8064cf305d750547a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/><ref refid="classInterChiplet_1_1NetworkBenchItem_1aa661ee76ac7fbdc8064cf305d750547a" kindref="member">m_id</ref>;</highlight></codeline>
+<codeline lineno="32" refid="classInterChiplet_1_1NetworkBenchItem_1ac066fb2a23a136d4c9ca324362d35cf6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>AddrType<sp/><ref refid="classInterChiplet_1_1NetworkBenchItem_1ac066fb2a23a136d4c9ca324362d35cf6" kindref="member">m_src</ref>;</highlight></codeline>
+<codeline lineno="36" refid="classInterChiplet_1_1NetworkBenchItem_1a0189ab725ffdd3ab0f8845c9fa9f68d8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>AddrType<sp/><ref refid="classInterChiplet_1_1NetworkBenchItem_1a0189ab725ffdd3ab0f8845c9fa9f68d8" kindref="member">m_dst</ref>;</highlight></codeline>
+<codeline lineno="40" refid="classInterChiplet_1_1NetworkBenchItem_1ae726753b751658db23701e8a19cc91a7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classInterChiplet_1_1NetworkBenchItem_1ae726753b751658db23701e8a19cc91a7" kindref="member">m_pac_size</ref>;</highlight></codeline>
+<codeline lineno="44" refid="classInterChiplet_1_1NetworkBenchItem_1ab94f3ff73969f849ff440b30e4302e0e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="classInterChiplet_1_1NetworkBenchItem_1ab94f3ff73969f849ff440b30e4302e0e" kindref="member">m_desc</ref>;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="50" refid="classInterChiplet_1_1NetworkBenchItem_1a9ff67008f22d94de1d403f330abf94ab" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classInterChiplet_1_1NetworkBenchItem_1a9ff67008f22d94de1d403f330abf94ab" kindref="member">NetworkBenchItem</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57" refid="classInterChiplet_1_1NetworkBenchItem_1a0e843ed82a1b9d8df770010a5a1532c4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classInterChiplet_1_1NetworkBenchItem_1a0e843ed82a1b9d8df770010a5a1532c4" kindref="member">NetworkBenchItem</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">SyncCommand</ref>&amp;<sp/>__src_cmd,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">SyncCommand</ref>&amp;<sp/>__dst_cmd)</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="classInterChiplet_1_1NetworkBenchItem_1af25335ba06b82c19c7ee3cd50c122aea" kindref="member">m_src_cycle</ref>(__src_cmd.m_cycle),</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classInterChiplet_1_1NetworkBenchItem_1a324fe4be24a39afa3c3a39acf9d4e9cc" kindref="member">m_dst_cycle</ref>(__dst_cmd.m_cycle),</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classInterChiplet_1_1NetworkBenchItem_1a0189ab725ffdd3ab0f8845c9fa9f68d8" kindref="member">m_dst</ref>(__src_cmd.<ref refid="classInterChiplet_1_1NetworkBenchItem_1a0189ab725ffdd3ab0f8845c9fa9f68d8" kindref="member">m_dst</ref>),</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classInterChiplet_1_1NetworkBenchItem_1ac066fb2a23a136d4c9ca324362d35cf6" kindref="member">m_src</ref>(__src_cmd.<ref refid="classInterChiplet_1_1NetworkBenchItem_1ac066fb2a23a136d4c9ca324362d35cf6" kindref="member">m_src</ref>),</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classInterChiplet_1_1NetworkBenchItem_1ae726753b751658db23701e8a19cc91a7" kindref="member">m_pac_size</ref>(1),</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classInterChiplet_1_1NetworkBenchItem_1ab94f3ff73969f849ff440b30e4302e0e" kindref="member">m_desc</ref>(__src_cmd.<ref refid="classInterChiplet_1_1NetworkBenchItem_1ab94f3ff73969f849ff440b30e4302e0e" kindref="member">m_desc</ref><sp/>|<sp/>__dst_cmd.<ref refid="classInterChiplet_1_1NetworkBenchItem_1ab94f3ff73969f849ff440b30e4302e0e" kindref="member">m_desc</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculate<sp/>the<sp/>number<sp/>of<sp/>flit.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>One<sp/>head<sp/>flit<sp/>is<sp/>required<sp/>any<sp/>way.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classInterChiplet_1_1NetworkBenchItem_1ae726753b751658db23701e8a19cc91a7" kindref="member">m_pac_size</ref><sp/>=<sp/>__src_cmd.<ref refid="classInterChiplet_1_1SyncCommand_1a6af7e29a25c5ac6adabfcedb2674e2d5" kindref="member">m_nbytes</ref><sp/>/<sp/>PAC_PAYLOAD_BYTE<sp/>+</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((__src_cmd.<ref refid="classInterChiplet_1_1SyncCommand_1a6af7e29a25c5ac6adabfcedb2674e2d5" kindref="member">m_nbytes</ref><sp/>%<sp/>PAC_PAYLOAD_BYTE)<sp/>&gt;<sp/>0<sp/>?<sp/>1<sp/>:<sp/>0)<sp/>+<sp/>1;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74" refid="classInterChiplet_1_1NetworkBenchItem_1a1fca2bdd24b992a60ea615c27c87295b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classInterChiplet_1_1NetworkBenchItem_1a1fca2bdd24b992a60ea615c27c87295b" kindref="member">NetworkBenchItem</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">SyncCommand</ref>&amp;<sp/>__src_cmd)</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="classInterChiplet_1_1NetworkBenchItem_1af25335ba06b82c19c7ee3cd50c122aea" kindref="member">m_src_cycle</ref>(__src_cmd.m_cycle),</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classInterChiplet_1_1NetworkBenchItem_1a324fe4be24a39afa3c3a39acf9d4e9cc" kindref="member">m_dst_cycle</ref>(__src_cmd.m_cycle),</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classInterChiplet_1_1NetworkBenchItem_1a0189ab725ffdd3ab0f8845c9fa9f68d8" kindref="member">m_dst</ref>(__src_cmd.<ref refid="classInterChiplet_1_1NetworkBenchItem_1a0189ab725ffdd3ab0f8845c9fa9f68d8" kindref="member">m_dst</ref>),</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classInterChiplet_1_1NetworkBenchItem_1ac066fb2a23a136d4c9ca324362d35cf6" kindref="member">m_src</ref>(__src_cmd.<ref refid="classInterChiplet_1_1NetworkBenchItem_1ac066fb2a23a136d4c9ca324362d35cf6" kindref="member">m_src</ref>),</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classInterChiplet_1_1NetworkBenchItem_1ae726753b751658db23701e8a19cc91a7" kindref="member">m_pac_size</ref>(1),</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classInterChiplet_1_1NetworkBenchItem_1ab94f3ff73969f849ff440b30e4302e0e" kindref="member">m_desc</ref>(__src_cmd.<ref refid="classInterChiplet_1_1NetworkBenchItem_1ab94f3ff73969f849ff440b30e4302e0e" kindref="member">m_desc</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculate<sp/>the<sp/>number<sp/>of<sp/>flit.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>One<sp/>head<sp/>flit<sp/>is<sp/>required<sp/>any<sp/>way.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classInterChiplet_1_1NetworkBenchItem_1ae726753b751658db23701e8a19cc91a7" kindref="member">m_pac_size</ref><sp/>=<sp/>__src_cmd.<ref refid="classInterChiplet_1_1SyncCommand_1a6af7e29a25c5ac6adabfcedb2674e2d5" kindref="member">m_nbytes</ref><sp/>/<sp/>PAC_PAYLOAD_BYTE<sp/>+</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((__src_cmd.<ref refid="classInterChiplet_1_1SyncCommand_1a6af7e29a25c5ac6adabfcedb2674e2d5" kindref="member">m_nbytes</ref><sp/>%<sp/>PAC_PAYLOAD_BYTE)<sp/>&gt;<sp/>0<sp/>?<sp/>1<sp/>:<sp/>0)<sp/>+<sp/>1;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92" refid="classInterChiplet_1_1NetworkBenchItem_1af05ae396deadd9d2d16b6a9ba628b161" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/>std::ostream&amp;<sp/><ref refid="classInterChiplet_1_1NetworkBenchItem_1af05ae396deadd9d2d16b6a9ba628b161" kindref="member">operator&lt;&lt;</ref>(std::ostream&amp;<sp/>os,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classInterChiplet_1_1NetworkBenchItem" kindref="compound">NetworkBenchItem</ref>&amp;<sp/>__item)<sp/>{</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>os<sp/>&lt;&lt;<sp/>__item.<ref refid="classInterChiplet_1_1NetworkBenchItem_1af25335ba06b82c19c7ee3cd50c122aea" kindref="member">m_src_cycle</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>__item.<ref refid="classInterChiplet_1_1NetworkBenchItem_1a324fe4be24a39afa3c3a39acf9d4e9cc" kindref="member">m_dst_cycle</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>DIM_X(__item.<ref refid="classInterChiplet_1_1NetworkBenchItem_1ac066fb2a23a136d4c9ca324362d35cf6" kindref="member">m_src</ref>)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/>DIM_Y(__item.<ref refid="classInterChiplet_1_1NetworkBenchItem_1ac066fb2a23a136d4c9ca324362d35cf6" kindref="member">m_src</ref>)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>DIM_X(__item.<ref refid="classInterChiplet_1_1NetworkBenchItem_1a0189ab725ffdd3ab0f8845c9fa9f68d8" kindref="member">m_dst</ref>)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>DIM_Y(__item.<ref refid="classInterChiplet_1_1NetworkBenchItem_1a0189ab725ffdd3ab0f8845c9fa9f68d8" kindref="member">m_dst</ref>)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/>__item.<ref refid="classInterChiplet_1_1NetworkBenchItem_1ae726753b751658db23701e8a19cc91a7" kindref="member">m_pac_size</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>__item.<ref refid="classInterChiplet_1_1NetworkBenchItem_1ab94f3ff73969f849ff440b30e4302e0e" kindref="member">m_desc</ref>;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>os;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104" refid="classInterChiplet_1_1NetworkBenchItem_1ac8720b467b180b5fda1ecaac1464db94" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/>std::istream&amp;<sp/><ref refid="classInterChiplet_1_1NetworkBenchItem_1ac8720b467b180b5fda1ecaac1464db94" kindref="member">operator&gt;&gt;</ref>(std::istream&amp;<sp/>os,<sp/><ref refid="classInterChiplet_1_1NetworkBenchItem" kindref="compound">NetworkBenchItem</ref>&amp;<sp/>__item)<sp/>{</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>os<sp/>&gt;&gt;<sp/>__item.<ref refid="classInterChiplet_1_1NetworkBenchItem_1af25335ba06b82c19c7ee3cd50c122aea" kindref="member">m_src_cycle</ref><sp/>&gt;&gt;<sp/>__item.<ref refid="classInterChiplet_1_1NetworkBenchItem_1a324fe4be24a39afa3c3a39acf9d4e9cc" kindref="member">m_dst_cycle</ref>;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>src_x,<sp/>src_y,<sp/>dst_x,<sp/>dst_y;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>os<sp/>&gt;&gt;<sp/>src_x<sp/>&gt;&gt;<sp/>src_y<sp/>&gt;&gt;<sp/>dst_x<sp/>&gt;&gt;<sp/>dst_y;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>__item.<ref refid="classInterChiplet_1_1NetworkBenchItem_1ac066fb2a23a136d4c9ca324362d35cf6" kindref="member">m_src</ref>.push_back(src_x);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>__item.<ref refid="classInterChiplet_1_1NetworkBenchItem_1ac066fb2a23a136d4c9ca324362d35cf6" kindref="member">m_src</ref>.push_back(src_y);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>__item.<ref refid="classInterChiplet_1_1NetworkBenchItem_1a0189ab725ffdd3ab0f8845c9fa9f68d8" kindref="member">m_dst</ref>.push_back(dst_x);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>__item.<ref refid="classInterChiplet_1_1NetworkBenchItem_1a0189ab725ffdd3ab0f8845c9fa9f68d8" kindref="member">m_dst</ref>.push_back(dst_y);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>os<sp/>&gt;&gt;<sp/>__item.<ref refid="classInterChiplet_1_1NetworkBenchItem_1ae726753b751658db23701e8a19cc91a7" kindref="member">m_pac_size</ref><sp/>&gt;&gt;<sp/>__item.<ref refid="classInterChiplet_1_1NetworkBenchItem_1ab94f3ff73969f849ff440b30e4302e0e" kindref="member">m_desc</ref>;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>os;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="115"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120" refid="classInterChiplet_1_1NetworkBenchList" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classInterChiplet_1_1NetworkBenchList" kindref="compound">NetworkBenchList</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>std::multimap&lt;InnerTimeType,<sp/>NetworkBenchItem&gt;<sp/>{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="125" refid="classInterChiplet_1_1NetworkBenchList_1a6a4edc6297a8fbff3ca00b6653fae8a2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classInterChiplet_1_1NetworkBenchList_1a6a4edc6297a8fbff3ca00b6653fae8a2" kindref="member">NetworkBenchList</ref>()<sp/>:<sp/>std::multimap&lt;InnerTimeType,<sp/><ref refid="classInterChiplet_1_1NetworkBenchItem" kindref="compound">NetworkBenchItem</ref>&gt;()<sp/>{}</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132" refid="classInterChiplet_1_1NetworkBenchList_1a15eaf30b1268f85bc8d5474b43437da0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classInterChiplet_1_1NetworkBenchList_1a15eaf30b1268f85bc8d5474b43437da0" kindref="member">insert</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classInterChiplet_1_1NetworkBenchItem" kindref="compound">NetworkBenchItem</ref>&amp;<sp/>__item)<sp/>{</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::multimap&lt;InnerTimeType,<sp/>NetworkBenchItem&gt;::insert(</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::pair&lt;InnerTimeType,<sp/>NetworkBenchItem&gt;(__item.<ref refid="classInterChiplet_1_1NetworkBenchItem_1af25335ba06b82c19c7ee3cd50c122aea" kindref="member">m_src_cycle</ref>,<sp/>__item));</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142" refid="classInterChiplet_1_1NetworkBenchList_1a0166ba32ffba557197edbceef6b07fd6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classInterChiplet_1_1NetworkBenchList_1a0166ba32ffba557197edbceef6b07fd6" kindref="member">dumpBench</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>__file_name,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>__clock_rate)<sp/>{</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::ofstream<sp/>bench_of(__file_name,<sp/>std::ios::out);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>it<sp/>:<sp/>*</highlight><highlight class="keyword">this</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bench_of<sp/>&lt;&lt;<sp/>static_cast&lt;TimeType&gt;(it.second.m_src_cycle<sp/>*<sp/>__clock_rate)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">TimeType</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(it.second.m_dst_cycle<sp/>*<sp/>__clock_rate)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/>DIM_X(it.second.m_src)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>DIM_Y(it.second.m_src)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/>DIM_X(it.second.m_dst)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>DIM_Y(it.second.m_dst)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/>it.second.m_pac_size<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>it.second.m_desc<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bench_of.flush();</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bench_of.close();</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="154"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="155"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>InterChiplet</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h"/>
+  </compounddef>
+</doxygen>

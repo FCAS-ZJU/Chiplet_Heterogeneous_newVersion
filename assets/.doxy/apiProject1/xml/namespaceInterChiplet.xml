@@ -1,0 +1,2534 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="namespaceInterChiplet" kind="namespace" language="C++">
+    <compoundname>InterChiplet</compoundname>
+    <innerclass refid="classInterChiplet_1_1BenchmarkConfig" prot="public">InterChiplet::BenchmarkConfig</innerclass>
+    <innerclass refid="classInterChiplet_1_1CmdLineOptions" prot="public">InterChiplet::CmdLineOptions</innerclass>
+    <innerclass refid="classInterChiplet_1_1NetworkBenchItem" prot="public">InterChiplet::NetworkBenchItem</innerclass>
+    <innerclass refid="classInterChiplet_1_1NetworkBenchList" prot="public">InterChiplet::NetworkBenchList</innerclass>
+    <innerclass refid="classInterChiplet_1_1NetworkDelayItem" prot="public">InterChiplet::NetworkDelayItem</innerclass>
+    <innerclass refid="classInterChiplet_1_1NetworkDelayMap" prot="public">InterChiplet::NetworkDelayMap</innerclass>
+    <innerclass refid="classInterChiplet_1_1NetworkDelayStruct" prot="public">InterChiplet::NetworkDelayStruct</innerclass>
+    <innerclass refid="classInterChiplet_1_1PipeComm" prot="public">InterChiplet::PipeComm</innerclass>
+    <innerclass refid="classInterChiplet_1_1PipeCommUnit" prot="public">InterChiplet::PipeCommUnit</innerclass>
+    <innerclass refid="classInterChiplet_1_1ProcessConfig" prot="public">InterChiplet::ProcessConfig</innerclass>
+    <innerclass refid="classInterChiplet_1_1SyncBarrierStruct" prot="public">InterChiplet::SyncBarrierStruct</innerclass>
+    <innerclass refid="classInterChiplet_1_1SyncClockStruct" prot="public">InterChiplet::SyncClockStruct</innerclass>
+    <innerclass refid="classInterChiplet_1_1SyncCommand" prot="public">InterChiplet::SyncCommand</innerclass>
+    <innerclass refid="classInterChiplet_1_1SyncCommStruct" prot="public">InterChiplet::SyncCommStruct</innerclass>
+    <innerclass refid="classInterChiplet_1_1SyncLaunchStruct" prot="public">InterChiplet::SyncLaunchStruct</innerclass>
+    <innerclass refid="classInterChiplet_1_1SyncLockStruct" prot="public">InterChiplet::SyncLockStruct</innerclass>
+    <innerclass refid="classInterChiplet_1_1SyncPipeStruct" prot="public">InterChiplet::SyncPipeStruct</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="global__define_8h_1a2dc3a980724ad1303f9ad7e6cf4cb906" prot="public" static="no" strong="no">
+        <type></type>
+        <name>SysCallID</name>
+        <enumvalue id="global__define_8h_1a2dc3a980724ad1303f9ad7e6cf4cb906ab50fa5d71600beac4fa7ceaeaa44c0dc" prot="public">
+          <name>SYSCALL_LAUNCH</name>
+          <initializer>= 501</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="global__define_8h_1a2dc3a980724ad1303f9ad7e6cf4cb906a28e9f649748f09b07dbdddfaa310e3b3" prot="public">
+          <name>SYSCALL_WAITLAUNCH</name>
+          <initializer>= 502</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="global__define_8h_1a2dc3a980724ad1303f9ad7e6cf4cb906adc96b56a75ba4c43e9902606e339d307" prot="public">
+          <name>SYSCALL_BARRIER</name>
+          <initializer>= 503</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="global__define_8h_1a2dc3a980724ad1303f9ad7e6cf4cb906add6f1cf61e9878ad7ccb10bb1232ffe9" prot="public">
+          <name>SYSCALL_LOCK</name>
+          <initializer>= 504</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="global__define_8h_1a2dc3a980724ad1303f9ad7e6cf4cb906a808992c502d2321a3807fe89b0db21de" prot="public">
+          <name>SYSCALL_UNLOCK</name>
+          <initializer>= 505</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="global__define_8h_1a2dc3a980724ad1303f9ad7e6cf4cb906a15451b8a5ede6ecfb0ed63665bd32f2b" prot="public">
+          <name>SYSCALL_REMOTE_READ</name>
+          <initializer>= 506</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="global__define_8h_1a2dc3a980724ad1303f9ad7e6cf4cb906a1424060fbbf4a8cb95861e5de96d07d7" prot="public">
+          <name>SYSCALL_REMOTE_WRITE</name>
+          <initializer>= 507</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Syscall ID used in CPU/GPU. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" line="11" column="15" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" bodystart="11" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="enum" id="global__define_8h_1ab760e40f2c5a9573089e3f9cb4a4ac96" prot="public" static="no" strong="no">
+        <type></type>
+        <name>SyncCommType</name>
+        <enumvalue id="global__define_8h_1ab760e40f2c5a9573089e3f9cb4a4ac96a474eeb569c760b6c3bc867a45ab8d8d1" prot="public">
+          <name>SC_CYCLE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="global__define_8h_1ab760e40f2c5a9573089e3f9cb4a4ac96a09181298105fe8cfa7629010dccb4614" prot="public">
+          <name>SC_SEND</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="global__define_8h_1ab760e40f2c5a9573089e3f9cb4a4ac96ad809d71acdd635d5f9a1aa8497bf7eb1" prot="public">
+          <name>SC_RECEIVE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="global__define_8h_1ab760e40f2c5a9573089e3f9cb4a4ac96a4f43f7463c2c695e89ed6265012d4d15" prot="public">
+          <name>SC_BARRIER</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="global__define_8h_1ab760e40f2c5a9573089e3f9cb4a4ac96a9066b35cf67f8d0d1d0fd48af5b6b754" prot="public">
+          <name>SC_LOCK</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="global__define_8h_1ab760e40f2c5a9573089e3f9cb4a4ac96ad47537dd427b28226fd288802cc8bf3f" prot="public">
+          <name>SC_UNLOCK</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="global__define_8h_1ab760e40f2c5a9573089e3f9cb4a4ac96ab0d504a6784f5ac18b54703daa84dfdf" prot="public">
+          <name>SC_LAUNCH</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="global__define_8h_1ab760e40f2c5a9573089e3f9cb4a4ac96ad3d6a052bdfc96ed1db12d1b549d7cdb" prot="public">
+          <name>SC_WAITLAUNCH</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="global__define_8h_1ab760e40f2c5a9573089e3f9cb4a4ac96ab083bae1972a82da87c22176731110d5" prot="public">
+          <name>SC_READ</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="global__define_8h_1ab760e40f2c5a9573089e3f9cb4a4ac96a309f8fe0c02a1457c890b03e0640f457" prot="public">
+          <name>SC_WRITE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="global__define_8h_1ab760e40f2c5a9573089e3f9cb4a4ac96ad8d5e299af9a3775d0366666e94839f3" prot="public">
+          <name>SC_SYNC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="global__define_8h_1ab760e40f2c5a9573089e3f9cb4a4ac96a2b9c5b96870d1e44db4ed69f37cbf21e" prot="public">
+          <name>SC_RESULT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Type of synchronization command between simulators. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" line="50" column="18" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" bodystart="50" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="enum" id="global__define_8h_1a2dfe8f69010ee60b762d921ebc48d681" prot="public" static="no" strong="no">
+        <type></type>
+        <name>SyncProtocolDesc</name>
+        <enumvalue id="global__define_8h_1a2dfe8f69010ee60b762d921ebc48d681a41d82746800b09ec11b852da4004bf98" prot="public">
+          <name>SPD_ACK</name>
+          <initializer>= 0x01</initializer>
+          <briefdescription>
+<para>Acknowledge. bit 0. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="global__define_8h_1a2dfe8f69010ee60b762d921ebc48d681aa624fadb7b60a955e72e59fcf9e55969" prot="public">
+          <name>SPD_PRE_SYNC</name>
+          <initializer>= 0x02</initializer>
+          <briefdescription>
+<para>Synchronization before data transmission. bit 1. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="global__define_8h_1a2dfe8f69010ee60b762d921ebc48d681a8c9c1bca9213ad9ff65717505fb68413" prot="public">
+          <name>SPD_POST_SYNC</name>
+          <initializer>= 0x04</initializer>
+          <briefdescription>
+<para>Synchronization after data transmission. bit 2. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="global__define_8h_1a2dfe8f69010ee60b762d921ebc48d681a562b8d51c54a32bcee9696fe6fc9f169" prot="public">
+          <name>SPD_LAUNCH</name>
+          <initializer>= 0x10000</initializer>
+          <briefdescription>
+<para>Launch behavior. bit 16. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="global__define_8h_1a2dfe8f69010ee60b762d921ebc48d681a804d372869c93a311a7a9744ed4965c8" prot="public">
+          <name>SPD_BARRIER</name>
+          <initializer>= 0x20000</initializer>
+          <briefdescription>
+<para>Barrier behavior. bit 17. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="global__define_8h_1a2dfe8f69010ee60b762d921ebc48d681a451fbbfa514f8c1f06a0174eb15f3026" prot="public">
+          <name>SPD_LOCK</name>
+          <initializer>= 0x40000</initializer>
+          <briefdescription>
+<para>Lock behavior. bit 18. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="global__define_8h_1a2dfe8f69010ee60b762d921ebc48d681a15ee74cb035718102f960a0b2b439c52" prot="public">
+          <name>SPD_UNLOCK</name>
+          <initializer>= 0x80000</initializer>
+          <briefdescription>
+<para>Lock behavior. bit 19. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Behavior descriptor of synchronization protocol. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" line="68" column="22" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" bodystart="68" bodyend="97"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="global__define_8h_1ac26ba9ae14605dea73b771e8a2ecef23" prot="public" static="no">
+        <type>unsigned long long</type>
+        <definition>typedef unsigned long long InterChiplet::TimeType</definition>
+        <argsstring></argsstring>
+        <name>TimeType</name>
+        <briefdescription>
+<para>Time type used between simulators. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" line="31" column="28" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="global__define_8h_1afe68d5ebd60351f36fc0ccffd95d883e" prot="public" static="no">
+        <type>double</type>
+        <definition>typedef double InterChiplet::InnerTimeType</definition>
+        <argsstring></argsstring>
+        <name>InnerTimeType</name>
+        <briefdescription>
+<para>Time type used by interchiplet module. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" line="36" column="16" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="global__define_8h_1a789537ce52539cce9db909442ed285a6" prot="public" static="no">
+        <type>std::vector&lt; long &gt;</type>
+        <definition>typedef std::vector&lt;long&gt; InterChiplet::AddrType</definition>
+        <argsstring></argsstring>
+        <name>AddrType</name>
+        <briefdescription>
+<para>Address type;. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" line="41" column="21" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="global__define_8h_1ad13aae279631dbc2044a8bf2f5374f82" prot="public" static="no">
+        <type>std::vector&lt; <ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">SyncCommand</ref> &gt;</type>
+        <definition>typedef std::vector&lt;SyncCommand&gt; InterChiplet::SyncCmdList</definition>
+        <argsstring></argsstring>
+        <name>SyncCmdList</name>
+        <briefdescription>
+<para>List of synchronization commands. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" line="150" column="21" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="net__delay_8h_1a0249444479f72caca9d74a7ef968b06d" prot="public" static="no">
+        <type>std::tuple&lt; InnerTimeType, InnerTimeType &gt;</type>
+        <definition>typedef std::tuple&lt;InnerTimeType, InnerTimeType&gt; InterChiplet::CmdDelayPair</definition>
+        <argsstring></argsstring>
+        <name>CmdDelayPair</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="104" column="20" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="net__delay_8h_1a33f3e10fcd207b70552a4da5a12d1f15" prot="public" static="no">
+        <type>std::multimap&lt; InnerTimeType, <ref refid="classInterChiplet_1_1NetworkDelayItem" kindref="compound">NetworkDelayItem</ref> &gt;</type>
+        <definition>typedef std::multimap&lt;InnerTimeType, NetworkDelayItem&gt; InterChiplet::NetworkDelayOrder</definition>
+        <argsstring></argsstring>
+        <name>NetworkDelayOrder</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="107" column="23" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="apis__c_8h_1a8fee9627cecac00867246765b7b8c52c" prot="public" static="no" mutable="no">
+        <type>decltype(syscall(0)) typedef</type>
+        <definition>decltype(syscall(0)) typedef InterChiplet::syscall_return_t</definition>
+        <argsstring></argsstring>
+        <name>syscall_return_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_c.h" line="8" column="18" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_c.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="apis__c_8h_1a927dfb0ba007d73b1f1a21c88d413371" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>syscall_return_t</type>
+        <definition>syscall_return_t InterChiplet::launch</definition>
+        <argsstring>(int64_t __dst_x, int64_t __dst_y, int64_t __src_x, int64_t __src_y)</argsstring>
+        <name>launch</name>
+        <param>
+          <type>int64_t</type>
+          <declname>__dst_x</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__dst_y</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__src_y</declname>
+        </param>
+        <briefdescription>
+<para>Launch application to remote chiplet. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__dst_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/apis_c.cpp" line="22" column="18" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/apis_c.cpp" bodystart="22" bodyend="26" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_c.h" declline="17" declcolumn="18"/>
+      </memberdef>
+      <memberdef kind="function" id="apis__c_8h_1a94130236ada1ae228e2457584b742af7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>syscall_return_t</type>
+        <definition>syscall_return_t InterChiplet::waitLaunch</definition>
+        <argsstring>(int64_t __dst_x, int64_t __dst_y, int64_t *__src_x, int64_t *__src_y)</argsstring>
+        <name>waitLaunch</name>
+        <param>
+          <type>int64_t</type>
+          <declname>__dst_x</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__dst_y</declname>
+        </param>
+        <param>
+          <type>int64_t *</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int64_t *</type>
+          <declname>__src_y</declname>
+        </param>
+        <briefdescription>
+<para>Wait launch from remote chiplet. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__dst_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. Return value. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. Return value. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/apis_c.cpp" line="28" column="18" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/apis_c.cpp" bodystart="28" bodyend="32" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_c.h" declline="26" declcolumn="18"/>
+      </memberdef>
+      <memberdef kind="function" id="apis__c_8h_1aeb3707406a2d83fe064841f35b4bd22a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>syscall_return_t</type>
+        <definition>syscall_return_t InterChiplet::barrier</definition>
+        <argsstring>(int64_t __uid, int64_t __src_x, int64_t __src_y, int64_t __count=0)</argsstring>
+        <name>barrier</name>
+        <param>
+          <type>int64_t</type>
+          <declname>__uid</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__src_y</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__count</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Barrier. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__uid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Barrier ID. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of threads to barrier. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/apis_c.cpp" line="7" column="18" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/apis_c.cpp" bodystart="7" bodyend="10" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_c.h" declline="35" declcolumn="18"/>
+      </memberdef>
+      <memberdef kind="function" id="apis__c_8h_1a87cc83b5f4b4c4a7b8aefabc1f1f958d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>syscall_return_t</type>
+        <definition>syscall_return_t InterChiplet::lock</definition>
+        <argsstring>(int64_t __uid, int64_t __src_x, int64_t __src_y)</argsstring>
+        <name>lock</name>
+        <param>
+          <type>int64_t</type>
+          <declname>__uid</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__src_y</declname>
+        </param>
+        <briefdescription>
+<para>Lock mutex. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__uid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mutex ID. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/apis_c.cpp" line="12" column="18" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/apis_c.cpp" bodystart="12" bodyend="15" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_c.h" declline="43" declcolumn="18"/>
+      </memberdef>
+      <memberdef kind="function" id="apis__c_8h_1ab4c0e279e100e03537de6dce106b3491" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>syscall_return_t</type>
+        <definition>syscall_return_t InterChiplet::unlock</definition>
+        <argsstring>(int64_t __uid, int64_t __src_x, int64_t __src_y)</argsstring>
+        <name>unlock</name>
+        <param>
+          <type>int64_t</type>
+          <declname>__uid</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__src_y</declname>
+        </param>
+        <briefdescription>
+<para>Unlock mutex. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__uid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mutex ID. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/apis_c.cpp" line="17" column="18" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/apis_c.cpp" bodystart="17" bodyend="20" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_c.h" declline="51" declcolumn="18"/>
+      </memberdef>
+      <memberdef kind="function" id="apis__c_8h_1a2d35ee14cc369f561a719ef750b0abb7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>syscall_return_t</type>
+        <definition>syscall_return_t InterChiplet::sendMessage</definition>
+        <argsstring>(int64_t __dst_x, int64_t __dst_y, int64_t __src_x, int64_t __src_y, void *__addr, int64_t __nbyte)</argsstring>
+        <name>sendMessage</name>
+        <param>
+          <type>int64_t</type>
+          <declname>__dst_x</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__dst_y</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__src_y</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>__addr</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__nbyte</declname>
+        </param>
+        <briefdescription>
+<para>Send data to remote chiplet. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__dst_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Data address. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__nbyte</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/apis_c.cpp" line="34" column="18" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/apis_c.cpp" bodystart="34" bodyend="39" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_c.h" declline="62" declcolumn="18"/>
+      </memberdef>
+      <memberdef kind="function" id="apis__c_8h_1a739ef4d1091f3ae3f911ebf5fabd2a4b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>syscall_return_t</type>
+        <definition>syscall_return_t InterChiplet::receiveMessage</definition>
+        <argsstring>(int64_t __dst_x, int64_t __dst_y, int64_t __src_x, int64_t __src_y, void *__addr, int64_t __nbyte)</argsstring>
+        <name>receiveMessage</name>
+        <param>
+          <type>int64_t</type>
+          <declname>__dst_x</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__dst_y</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__src_y</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>__addr</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__nbyte</declname>
+        </param>
+        <briefdescription>
+<para>Read data from remote chiplet. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__dst_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Data address. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__nbyte</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/apis_c.cpp" line="40" column="18" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/apis_c.cpp" bodystart="40" bodyend="45" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_c.h" declline="74" declcolumn="18"/>
+      </memberdef>
+      <memberdef kind="function" id="sync__protocol_8h_1a6f8d9486e2e33b99028e35f40a4c5def" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string InterChiplet::pipeName</definition>
+        <argsstring>(const AddrType &amp;__src, const AddrType &amp;__dst)</argsstring>
+        <name>pipeName</name>
+        <param>
+          <type>const AddrType &amp;</type>
+          <declname>__src</declname>
+        </param>
+        <param>
+          <type>const AddrType &amp;</type>
+          <declname>__dst</declname>
+        </param>
+        <briefdescription>
+<para>Return name of file name in a std::string. Return directory related to the directory of main process. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__src</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destiantion address. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" line="22" column="20" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" bodystart="22" bodyend="27"/>
+      </memberdef>
+      <memberdef kind="function" id="sync__protocol_8h_1a81af9954ebf153d700c1abd97e420614" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">SyncCommand</ref></type>
+        <definition>SyncCommand InterChiplet::parseCmd</definition>
+        <argsstring>(const std::string &amp;__message)</argsstring>
+        <name>parseCmd</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>__message</declname>
+        </param>
+        <briefdescription>
+<para>Parse command from string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>String of message. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Structure of synchronization command. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" line="34" column="20" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" bodystart="34" bodyend="128"/>
+      </memberdef>
+      <memberdef kind="function" id="sync__protocol_8h_1afa61e22fe5db340196133c439091dbcb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">SyncCommand</ref></type>
+        <definition>SyncCommand InterChiplet::parseCmd</definition>
+        <argsstring>(int __fd_in=STDIN_FILENO)</argsstring>
+        <name>parseCmd</name>
+        <param>
+          <type>int</type>
+          <declname>__fd_in</declname>
+          <defval>STDIN_FILENO</defval>
+        </param>
+        <briefdescription>
+<para>Receive command from stdin and parse the message. Used by simulator only. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__fd_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input file descriptor. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Structure of synchronization command. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" line="135" column="20" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" bodystart="135" bodyend="152"/>
+      </memberdef>
+      <memberdef kind="function" id="sync__protocol_8h_1a76e24d6520267de649c465e6b21f4e38" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string InterChiplet::dumpCmd</definition>
+        <argsstring>(const SyncCommand &amp;__cmd)</argsstring>
+        <name>dumpCmd</name>
+        <param>
+          <type>const <ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">SyncCommand</ref> &amp;</type>
+          <declname>__cmd</declname>
+        </param>
+        <briefdescription>
+<para>Dump command to a string for debugging. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Structure of synchronization command. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>String of message. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" line="159" column="20" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" bodystart="159" bodyend="205"/>
+      </memberdef>
+      <memberdef kind="function" id="sync__protocol_8h_1a0bef6e329fcfe31346f02817892c3ace" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void InterChiplet::sendCycleCmd</definition>
+        <argsstring>(TimeType __cycle)</argsstring>
+        <name>sendCycleCmd</name>
+        <param>
+          <type>TimeType</type>
+          <declname>__cycle</declname>
+        </param>
+        <briefdescription>
+<para>Send CYCLE command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__cycle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cycle to send CYCLE command. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" line="211" column="13" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" bodystart="211" bodyend="213"/>
+      </memberdef>
+      <memberdef kind="function" id="sync__protocol_8h_1aee66313b502dedf1a3c8afd40ee5313e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void InterChiplet::sendSendCmd</definition>
+        <argsstring>(int __src_x, int __src_y, int __dst_x, int __dst_y)</argsstring>
+        <name>sendSendCmd</name>
+        <param>
+          <type>int</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__src_y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__dst_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__dst_y</declname>
+        </param>
+        <briefdescription>
+<para>Send SEND command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destiantion address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" line="222" column="13" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" bodystart="222" bodyend="225"/>
+      </memberdef>
+      <memberdef kind="function" id="sync__protocol_8h_1a543d48123daae3a9ec109ca057ac68d2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void InterChiplet::sendReceiveCmd</definition>
+        <argsstring>(int __src_x, int __src_y, int __dst_x, int __dst_y)</argsstring>
+        <name>sendReceiveCmd</name>
+        <param>
+          <type>int</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__src_y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__dst_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__dst_y</declname>
+        </param>
+        <briefdescription>
+<para>Send RECEIVE command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destiantion address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" line="234" column="13" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" bodystart="234" bodyend="237"/>
+      </memberdef>
+      <memberdef kind="function" id="sync__protocol_8h_1aec69fde1956e97c4fccd88cf8b2203f6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void InterChiplet::sendBarrierCmd</definition>
+        <argsstring>(int __src_x, int __src_y, int __uid, int __count)</argsstring>
+        <name>sendBarrierCmd</name>
+        <param>
+          <type>int</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__src_y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__uid</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__count</declname>
+        </param>
+        <briefdescription>
+<para>Send BARRIER command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__uid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Barrier ID. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of items in barrier. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" line="246" column="13" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" bodystart="246" bodyend="249"/>
+      </memberdef>
+      <memberdef kind="function" id="sync__protocol_8h_1a0d2985651bc96b14664bcf8edf275483" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void InterChiplet::sendLockCmd</definition>
+        <argsstring>(int __src_x, int __src_y, int __uid)</argsstring>
+        <name>sendLockCmd</name>
+        <param>
+          <type>int</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__src_y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__uid</declname>
+        </param>
+        <briefdescription>
+<para>Send LOCK command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__uid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Barrier ID. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" line="257" column="13" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" bodystart="257" bodyend="260"/>
+      </memberdef>
+      <memberdef kind="function" id="sync__protocol_8h_1a0298681373ee86853db7302c0b9ba4c5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void InterChiplet::sendUnlockCmd</definition>
+        <argsstring>(int __src_x, int __src_y, int __uid)</argsstring>
+        <name>sendUnlockCmd</name>
+        <param>
+          <type>int</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__src_y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__uid</declname>
+        </param>
+        <briefdescription>
+<para>Send UNLOCK command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__uid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Barrier ID. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" line="268" column="13" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" bodystart="268" bodyend="271"/>
+      </memberdef>
+      <memberdef kind="function" id="sync__protocol_8h_1a69975d33c784e73739deb5d96b5b4f5f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void InterChiplet::sendLaunchCmd</definition>
+        <argsstring>(int __src_x, int __src_y, int __dst_x, int __dst_y)</argsstring>
+        <name>sendLaunchCmd</name>
+        <param>
+          <type>int</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__src_y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__dst_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__dst_y</declname>
+        </param>
+        <briefdescription>
+<para>Send LAUNCH command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destiantion address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" line="280" column="13" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" bodystart="280" bodyend="283"/>
+      </memberdef>
+      <memberdef kind="function" id="sync__protocol_8h_1ab161f23f03e99f29a90ca3f2a6268261" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void InterChiplet::sendWaitlaunchCmd</definition>
+        <argsstring>(int __src_x, int __src_y, int __dst_x, int __dst_y)</argsstring>
+        <name>sendWaitlaunchCmd</name>
+        <param>
+          <type>int</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__src_y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__dst_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__dst_y</declname>
+        </param>
+        <briefdescription>
+<para>Send WAITLAUNCH command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destiantion address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" line="292" column="13" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" bodystart="292" bodyend="295"/>
+      </memberdef>
+      <memberdef kind="function" id="sync__protocol_8h_1ac71ec629bd3ee40a415b3de09978cab6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void InterChiplet::sendReadCmd</definition>
+        <argsstring>(TimeType __cycle, int __src_x, int __src_y, int __dst_x, int __dst_y, int __nbyte, long __desc)</argsstring>
+        <name>sendReadCmd</name>
+        <param>
+          <type>TimeType</type>
+          <declname>__cycle</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__src_y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__dst_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__dst_y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__nbyte</declname>
+        </param>
+        <param>
+          <type>long</type>
+          <declname>__desc</declname>
+        </param>
+        <briefdescription>
+<para>Send READ command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__cycle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cycle to send READ command. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destiantion address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__nbyte</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to read. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__desc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Synchronization protocol descriptor. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" line="307" column="13" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" bodystart="307" bodyend="311"/>
+      </memberdef>
+      <memberdef kind="function" id="sync__protocol_8h_1ad6f2545142eba5bd3de96b25f12e5417" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void InterChiplet::sendWriteCmd</definition>
+        <argsstring>(TimeType __cycle, int __src_x, int __src_y, int __dst_x, int __dst_y, int __nbyte, long __desc)</argsstring>
+        <name>sendWriteCmd</name>
+        <param>
+          <type>TimeType</type>
+          <declname>__cycle</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__src_y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__dst_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__dst_y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__nbyte</declname>
+        </param>
+        <param>
+          <type>long</type>
+          <declname>__desc</declname>
+        </param>
+        <briefdescription>
+<para>Send WRITE command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__cycle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cycle to send WRITE command. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destiantion address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__nbyte</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to write. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__desc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Synchronization protocol descriptor. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" line="323" column="13" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" bodystart="323" bodyend="327"/>
+      </memberdef>
+      <memberdef kind="function" id="sync__protocol_8h_1aa77b140ec02e80ee343d8bb37c55784e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void InterChiplet::sendSyncCmd</definition>
+        <argsstring>(TimeType __cycle)</argsstring>
+        <name>sendSyncCmd</name>
+        <param>
+          <type>TimeType</type>
+          <declname>__cycle</declname>
+        </param>
+        <briefdescription>
+<para>Send SYNC command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__cycle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cycle to receive SYNC command. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" line="333" column="13" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" bodystart="333" bodyend="335"/>
+      </memberdef>
+      <memberdef kind="function" id="sync__protocol_8h_1a1da54da150c1eb2acccec7859ae4dd7f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void InterChiplet::sendSyncCmd</definition>
+        <argsstring>(int __fd, TimeType __cycle)</argsstring>
+        <name>sendSyncCmd</name>
+        <param>
+          <type>int</type>
+          <declname>__fd</declname>
+        </param>
+        <param>
+          <type>TimeType</type>
+          <declname>__cycle</declname>
+        </param>
+        <briefdescription>
+<para>Send SYNC command to specified file descriptor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__fd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>File descriptor. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__cycle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cycle to receive SYNC command. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" line="342" column="13" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" bodystart="342" bodyend="349"/>
+      </memberdef>
+      <memberdef kind="function" id="sync__protocol_8h_1ad5774a911d55626e5b9ca25d475ecb96" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void InterChiplet::sendResultCmd</definition>
+        <argsstring>()</argsstring>
+        <name>sendResultCmd</name>
+        <briefdescription>
+<para>Send RESULT command. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" line="354" column="13" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" bodystart="354" bodyend="356"/>
+      </memberdef>
+      <memberdef kind="function" id="sync__protocol_8h_1adb8bbab09b627f7dc7cfde226b922c04" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void InterChiplet::sendResultCmd</definition>
+        <argsstring>(const std::vector&lt; std::string &gt; &amp;__res_list)</argsstring>
+        <name>sendResultCmd</name>
+        <param>
+          <type>const std::vector&lt; std::string &gt; &amp;</type>
+          <declname>__res_list</declname>
+        </param>
+        <briefdescription>
+<para>Send RESULT command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__res_list</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Result list. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" line="362" column="13" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" bodystart="362" bodyend="368"/>
+      </memberdef>
+      <memberdef kind="function" id="sync__protocol_8h_1a69d14e5e65c3505aee919b468e1dd91f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void InterChiplet::sendResultCmd</definition>
+        <argsstring>(const std::vector&lt; long &gt; &amp;__res_list)</argsstring>
+        <name>sendResultCmd</name>
+        <param>
+          <type>const std::vector&lt; long &gt; &amp;</type>
+          <declname>__res_list</declname>
+        </param>
+        <briefdescription>
+<para>Send RESULT command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__res_list</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Result list. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" line="374" column="13" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" bodystart="374" bodyend="380"/>
+      </memberdef>
+      <memberdef kind="function" id="sync__protocol_8h_1a4debdab3ba74b1b7329d742b6bdeaa57" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void InterChiplet::sendResultCmd</definition>
+        <argsstring>(int __fd)</argsstring>
+        <name>sendResultCmd</name>
+        <param>
+          <type>int</type>
+          <declname>__fd</declname>
+        </param>
+        <briefdescription>
+<para>Send RESULT command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__fd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>File descriptor. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" line="386" column="13" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" bodystart="386" bodyend="393"/>
+      </memberdef>
+      <memberdef kind="function" id="sync__protocol_8h_1a25c2e7433e61a350a678a35737827126" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void InterChiplet::sendResultCmd</definition>
+        <argsstring>(int __fd, const std::vector&lt; std::string &gt; &amp;__res_list)</argsstring>
+        <name>sendResultCmd</name>
+        <param>
+          <type>int</type>
+          <declname>__fd</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; std::string &gt; &amp;</type>
+          <declname>__res_list</declname>
+        </param>
+        <briefdescription>
+<para>Send RESULT command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__fd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>File descriptor. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__res_list</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Result list. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" line="400" column="13" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" bodystart="400" bodyend="411"/>
+      </memberdef>
+      <memberdef kind="function" id="sync__protocol_8h_1a2c9b408d4ffcac9d78395db5fa849873" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void InterChiplet::sendResultCmd</definition>
+        <argsstring>(int __fd, const std::vector&lt; long &gt; &amp;__res_list)</argsstring>
+        <name>sendResultCmd</name>
+        <param>
+          <type>int</type>
+          <declname>__fd</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; long &gt; &amp;</type>
+          <declname>__res_list</declname>
+        </param>
+        <briefdescription>
+<para>Send RESULT command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__fd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>File descriptor. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__res_list</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Result list. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" line="418" column="13" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" bodystart="418" bodyend="429"/>
+      </memberdef>
+      <memberdef kind="function" id="sync__protocol_8h_1aaff9043fca81dba50f4ad34bc6f7f52f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TimeType</type>
+        <definition>TimeType InterChiplet::cycleSync</definition>
+        <argsstring>(TimeType __cycle)</argsstring>
+        <name>cycleSync</name>
+        <param>
+          <type>TimeType</type>
+          <declname>__cycle</declname>
+        </param>
+        <briefdescription>
+<para>Send CYCLE command and wait for SYNC command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__cycle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cycle to send CYCLE command. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Cycle to receive SYNC command. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" line="436" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" bodystart="436" bodyend="443"/>
+      </memberdef>
+      <memberdef kind="function" id="sync__protocol_8h_1a9d721097777530c0d965f4a18f231ed3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string InterChiplet::sendSync</definition>
+        <argsstring>(int __src_x, int __src_y, int __dst_x, int __dst_y)</argsstring>
+        <name>sendSync</name>
+        <param>
+          <type>int</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__src_y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__dst_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__dst_y</declname>
+        </param>
+        <briefdescription>
+<para>Send SEND command and wait for SYNC command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destiantion address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pipe name. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" line="453" column="20" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" bodystart="453" bodyend="460"/>
+      </memberdef>
+      <memberdef kind="function" id="sync__protocol_8h_1add1d52bbf41f3dad6f4fde0fcaca92a2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string InterChiplet::receiveSync</definition>
+        <argsstring>(int __src_x, int __src_y, int __dst_x, int __dst_y)</argsstring>
+        <name>receiveSync</name>
+        <param>
+          <type>int</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__src_y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__dst_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__dst_y</declname>
+        </param>
+        <briefdescription>
+<para>Send RECEIVE command and wait for SYNC command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destiantion address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pipe name. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" line="470" column="20" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" bodystart="470" bodyend="477"/>
+      </memberdef>
+      <memberdef kind="function" id="sync__protocol_8h_1acbfd6f34fea6acce3d0320f4cc232b91" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void InterChiplet::launchSync</definition>
+        <argsstring>(int __src_x, int __src_y, int __dst_x, int __dst_y)</argsstring>
+        <name>launchSync</name>
+        <param>
+          <type>int</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__src_y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__dst_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__dst_y</declname>
+        </param>
+        <briefdescription>
+<para>Send LAUNCH command and wait for SYNC command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destiantion address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" line="486" column="13" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" bodystart="486" bodyend="493"/>
+      </memberdef>
+      <memberdef kind="function" id="sync__protocol_8h_1a0ba2e3130532f04c9ae3b5082402a1bc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void InterChiplet::waitlaunchSync</definition>
+        <argsstring>(int *__src_x, int *__src_y, int __dst_x, int __dst_y)</argsstring>
+        <name>waitlaunchSync</name>
+        <param>
+          <type>int *</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>__src_y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__dst_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__dst_y</declname>
+        </param>
+        <briefdescription>
+<para>Send WAITLAUNCH command and wait for LAUNCH command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destiantion address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" line="502" column="13" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" bodystart="502" bodyend="511"/>
+      </memberdef>
+      <memberdef kind="function" id="sync__protocol_8h_1a6dde3d09867aa7e376baab3f39de5ff8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void InterChiplet::barrierSync</definition>
+        <argsstring>(int __src_x, int __src_y, int __uid, int __count)</argsstring>
+        <name>barrierSync</name>
+        <param>
+          <type>int</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__src_y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__uid</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__count</declname>
+        </param>
+        <briefdescription>
+<para>Send BARRIER command and wait for SYNC command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__uid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Barrier ID. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of items in barrier. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" line="520" column="13" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" bodystart="520" bodyend="527"/>
+      </memberdef>
+      <memberdef kind="function" id="sync__protocol_8h_1ac6fa4c3d7dd48af6193bb2d91a0f0094" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void InterChiplet::lockSync</definition>
+        <argsstring>(int __src_x, int __src_y, int __uid)</argsstring>
+        <name>lockSync</name>
+        <param>
+          <type>int</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__src_y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__uid</declname>
+        </param>
+        <briefdescription>
+<para>Send UNLOCK command and wait for SYNC command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__uid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mutex ID. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" line="535" column="13" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" bodystart="535" bodyend="542"/>
+      </memberdef>
+      <memberdef kind="function" id="sync__protocol_8h_1aed6597f918e06b570e0a78764df40605" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void InterChiplet::unlockSync</definition>
+        <argsstring>(int __src_x, int __src_y, int __uid)</argsstring>
+        <name>unlockSync</name>
+        <param>
+          <type>int</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__src_y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__uid</declname>
+        </param>
+        <briefdescription>
+<para>Send UNLOCK command and wait for SYNC command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__uid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mutex ID. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" line="550" column="13" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" bodystart="550" bodyend="557"/>
+      </memberdef>
+      <memberdef kind="function" id="sync__protocol_8h_1aef900fd4a6120e00025eadaf5d6648f8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TimeType</type>
+        <definition>TimeType InterChiplet::readSync</definition>
+        <argsstring>(TimeType __cycle, int __src_x, int __src_y, int __dst_x, int __dst_y, int __nbyte, long __desc)</argsstring>
+        <name>readSync</name>
+        <param>
+          <type>TimeType</type>
+          <declname>__cycle</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__src_y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__dst_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__dst_y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__nbyte</declname>
+        </param>
+        <param>
+          <type>long</type>
+          <declname>__desc</declname>
+        </param>
+        <briefdescription>
+<para>Send READ command and wait for SYNC command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__cycle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cycle to send READ command. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destiantion address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__nbyte</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to read. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__desc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Synchronization protocol descriptor. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Cycle to receive SYNC command. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" line="570" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" bodystart="570" bodyend="578"/>
+      </memberdef>
+      <memberdef kind="function" id="sync__protocol_8h_1adc410728c7847c4d31ff392fff3c67ea" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TimeType</type>
+        <definition>TimeType InterChiplet::writeSync</definition>
+        <argsstring>(TimeType __cycle, int __src_x, int __src_y, int __dst_x, int __dst_y, int __nbyte, long __desc)</argsstring>
+        <name>writeSync</name>
+        <param>
+          <type>TimeType</type>
+          <declname>__cycle</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__src_y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__dst_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__dst_y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__nbyte</declname>
+        </param>
+        <param>
+          <type>long</type>
+          <declname>__desc</declname>
+        </param>
+        <briefdescription>
+<para>Send WRITE command and wait for SYNC command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__cycle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cycle to send WRITE command. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destiantion address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__nbyte</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to write. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__desc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Synchronization protocol descriptor. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Cycle to receive SYNC command. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" line="591" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/sync_protocol.h" bodystart="591" bodyend="599"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_c.h" line="7" column="22"/>
+  </compounddef>
+</doxygen>

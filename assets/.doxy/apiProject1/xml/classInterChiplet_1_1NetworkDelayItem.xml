@@ -1,0 +1,252 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="classInterChiplet_1_1NetworkDelayItem" kind="class" language="C++" prot="public">
+    <compoundname>InterChiplet::NetworkDelayItem</compoundname>
+    <includes refid="net__delay_8h" local="no">net_delay.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classInterChiplet_1_1NetworkDelayItem_1a4101b476942b4851887e434ba8d83173" prot="public" static="no" mutable="no">
+        <type>InnerTimeType</type>
+        <definition>InnerTimeType InterChiplet::NetworkDelayItem::m_cycle</definition>
+        <argsstring></argsstring>
+        <name>m_cycle</name>
+        <briefdescription>
+<para>Package injection cycle. Used to order packages. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="21" column="19" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classInterChiplet_1_1NetworkDelayItem_1a27d75951b13fa561db905b1552d92190" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t InterChiplet::NetworkDelayItem::m_id</definition>
+        <argsstring></argsstring>
+        <name>m_id</name>
+        <briefdescription>
+<para>Packate id. (Not used yet.) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="25" column="14" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classInterChiplet_1_1NetworkDelayItem_1a90d4997668a891f3a59653a5db916f2a" prot="public" static="no" mutable="no">
+        <type>AddrType</type>
+        <definition>AddrType InterChiplet::NetworkDelayItem::m_src</definition>
+        <argsstring></argsstring>
+        <name>m_src</name>
+        <briefdescription>
+<para>Source address. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="29" column="14" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classInterChiplet_1_1NetworkDelayItem_1a33821017829355a4ef367190339c9736" prot="public" static="no" mutable="no">
+        <type>AddrType</type>
+        <definition>AddrType InterChiplet::NetworkDelayItem::m_dst</definition>
+        <argsstring></argsstring>
+        <name>m_dst</name>
+        <briefdescription>
+<para>Destination address. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="33" column="14" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classInterChiplet_1_1NetworkDelayItem_1a6494c45ddeca438d9411473d4e369e51" prot="public" static="no" mutable="no">
+        <type>long</type>
+        <definition>long InterChiplet::NetworkDelayItem::m_desc</definition>
+        <argsstring></argsstring>
+        <name>m_desc</name>
+        <briefdescription>
+<para>Synchronization protocol descriptor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="37" column="10" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classInterChiplet_1_1NetworkDelayItem_1a37291ac73f584c1d8bff0834546e8c44" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; InnerTimeType &gt;</type>
+        <definition>std::vector&lt;InnerTimeType&gt; InterChiplet::NetworkDelayItem::m_delay_list</definition>
+        <argsstring></argsstring>
+        <name>m_delay_list</name>
+        <briefdescription>
+<para>Delay of packages. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Each package has two delay values. The first value is the delay from the write side, and the second value is the delay from the read side. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="44" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classInterChiplet_1_1NetworkDelayItem_1ab8e54d5746990e58cdb1476831ffc3ba" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>InterChiplet::NetworkDelayItem::NetworkDelayItem</definition>
+        <argsstring>()</argsstring>
+        <name>NetworkDelayItem</name>
+        <briefdescription>
+<para>Construct Empty <ref refid="classInterChiplet_1_1NetworkDelayItem" kindref="compound">NetworkDelayItem</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="50" column="5" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="50" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="classInterChiplet_1_1NetworkDelayItem_1aead03120cd7a91dfb12cfba836fe96ef" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>InterChiplet::NetworkDelayItem::NetworkDelayItem</definition>
+        <argsstring>(InnerTimeType __cycle, const AddrType &amp;__src, const AddrType &amp;__dst, long __desc, const std::vector&lt; InnerTimeType &gt; &amp;__delay_list)</argsstring>
+        <name>NetworkDelayItem</name>
+        <param>
+          <type>InnerTimeType</type>
+          <declname>__cycle</declname>
+        </param>
+        <param>
+          <type>const AddrType &amp;</type>
+          <declname>__src</declname>
+        </param>
+        <param>
+          <type>const AddrType &amp;</type>
+          <declname>__dst</declname>
+        </param>
+        <param>
+          <type>long</type>
+          <declname>__desc</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; InnerTimeType &gt; &amp;</type>
+          <declname>__delay_list</declname>
+        </param>
+        <briefdescription>
+<para>Construct <ref refid="classInterChiplet_1_1NetworkDelayItem" kindref="compound">NetworkDelayItem</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__cycle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Package injection cycle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__desc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Synchronization protocol descriptor. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__delay_list</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>List of package delays. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="60" column="5" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="60" bodyend="62"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="classInterChiplet_1_1NetworkDelayItem_1a136796f32b6f19e903b10633ba782fbd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>friend std::ostream &amp;</type>
+        <definition>std::ostream&amp; operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;os, const NetworkDelayItem &amp;__item)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classInterChiplet_1_1NetworkDelayItem" kindref="compound">NetworkDelayItem</ref> &amp;</type>
+          <declname>__item</declname>
+        </param>
+        <briefdescription>
+<para>Overloading operator &lt;&lt;. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Write <ref refid="classInterChiplet_1_1NetworkDelayItem" kindref="compound">NetworkDelayItem</ref> to output stream. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="69" column="12" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="69" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="friend" id="classInterChiplet_1_1NetworkDelayItem_1af4f074546559613383491525a7c47038" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>friend std::istream &amp;</type>
+        <definition>std::istream&amp; operator&gt;&gt;</definition>
+        <argsstring>(std::istream &amp;os, NetworkDelayItem &amp;__item)</argsstring>
+        <name>operator&gt;&gt;</name>
+        <param>
+          <type>std::istream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <param>
+          <type><ref refid="classInterChiplet_1_1NetworkDelayItem" kindref="compound">NetworkDelayItem</ref> &amp;</type>
+          <declname>__item</declname>
+        </param>
+        <briefdescription>
+<para>Overloading operator &gt;&gt;. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Read <ref refid="classInterChiplet_1_1NetworkDelayItem" kindref="compound">NetworkDelayItem</ref> from input stream. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="84" column="25" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="84" bodyend="101"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure presents delay of one package in network. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="16" column="23" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="16" bodyend="102"/>
+    <listofallmembers>
+      <member refid="classInterChiplet_1_1NetworkDelayItem_1a4101b476942b4851887e434ba8d83173" prot="public" virt="non-virtual"><scope>InterChiplet::NetworkDelayItem</scope><name>m_cycle</name></member>
+      <member refid="classInterChiplet_1_1NetworkDelayItem_1a37291ac73f584c1d8bff0834546e8c44" prot="public" virt="non-virtual"><scope>InterChiplet::NetworkDelayItem</scope><name>m_delay_list</name></member>
+      <member refid="classInterChiplet_1_1NetworkDelayItem_1a6494c45ddeca438d9411473d4e369e51" prot="public" virt="non-virtual"><scope>InterChiplet::NetworkDelayItem</scope><name>m_desc</name></member>
+      <member refid="classInterChiplet_1_1NetworkDelayItem_1a33821017829355a4ef367190339c9736" prot="public" virt="non-virtual"><scope>InterChiplet::NetworkDelayItem</scope><name>m_dst</name></member>
+      <member refid="classInterChiplet_1_1NetworkDelayItem_1a27d75951b13fa561db905b1552d92190" prot="public" virt="non-virtual"><scope>InterChiplet::NetworkDelayItem</scope><name>m_id</name></member>
+      <member refid="classInterChiplet_1_1NetworkDelayItem_1a90d4997668a891f3a59653a5db916f2a" prot="public" virt="non-virtual"><scope>InterChiplet::NetworkDelayItem</scope><name>m_src</name></member>
+      <member refid="classInterChiplet_1_1NetworkDelayItem_1ab8e54d5746990e58cdb1476831ffc3ba" prot="public" virt="non-virtual"><scope>InterChiplet::NetworkDelayItem</scope><name>NetworkDelayItem</name></member>
+      <member refid="classInterChiplet_1_1NetworkDelayItem_1aead03120cd7a91dfb12cfba836fe96ef" prot="public" virt="non-virtual"><scope>InterChiplet::NetworkDelayItem</scope><name>NetworkDelayItem</name></member>
+      <member refid="classInterChiplet_1_1NetworkDelayItem_1a136796f32b6f19e903b10633ba782fbd" prot="public" virt="non-virtual"><scope>InterChiplet::NetworkDelayItem</scope><name>operator&lt;&lt;</name></member>
+      <member refid="classInterChiplet_1_1NetworkDelayItem_1af4f074546559613383491525a7c47038" prot="public" virt="non-virtual"><scope>InterChiplet::NetworkDelayItem</scope><name>operator&gt;&gt;</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

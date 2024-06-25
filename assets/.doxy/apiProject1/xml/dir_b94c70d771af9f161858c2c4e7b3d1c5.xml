@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="dir_b94c70d771af9f161858c2c4e7b3d1c5" kind="dir">
+    <compoundname>/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs</compoundname>
+    <innerfile refid="apis__c_8cpp">apis_c.cpp</innerfile>
+    <innerfile refid="cmd__handler_8cpp">cmd_handler.cpp</innerfile>
+    <innerfile refid="interchiplet_8cpp">interchiplet.cpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/"/>
+  </compounddef>
+</doxygen>

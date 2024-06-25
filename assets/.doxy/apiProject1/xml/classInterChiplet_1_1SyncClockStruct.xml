@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="classInterChiplet_1_1SyncClockStruct" kind="class" language="C++" prot="public">
+    <compoundname>InterChiplet::SyncClockStruct</compoundname>
+    <includes refid="cmd__handler_8h" local="no">cmd_handler.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classInterChiplet_1_1SyncClockStruct_1a12776db86da5eed68e3c8eb87731b43e" prot="private" static="no" mutable="no">
+        <type>InnerTimeType</type>
+        <definition>InnerTimeType InterChiplet::SyncClockStruct::m_cycle</definition>
+        <argsstring></argsstring>
+        <name>m_cycle</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="20" column="19" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classInterChiplet_1_1SyncClockStruct_1aa156e38ae55e4b7fe03658063c7f8868" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>InterChiplet::SyncClockStruct::SyncClockStruct</definition>
+        <argsstring>()</argsstring>
+        <name>SyncClockStruct</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="23" column="5" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="23" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="classInterChiplet_1_1SyncClockStruct_1ac88f8decd1f34c6039c20b1f93a3a6b0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void InterChiplet::SyncClockStruct::update</definition>
+        <argsstring>(InnerTimeType __cycle)</argsstring>
+        <name>update</name>
+        <param>
+          <type>InnerTimeType</type>
+          <declname>__cycle</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="25" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="25" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classInterChiplet_1_1SyncClockStruct_1adc90323c457c5685a4a0746f26bbf6d3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>InnerTimeType</type>
+        <definition>InnerTimeType InterChiplet::SyncClockStruct::cycle</definition>
+        <argsstring>()</argsstring>
+        <name>cycle</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="31" column="26" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="31" bodyend="31"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure for Clock synchronization. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="18" column="22" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="18" bodyend="32"/>
+    <listofallmembers>
+      <member refid="classInterChiplet_1_1SyncClockStruct_1adc90323c457c5685a4a0746f26bbf6d3" prot="public" virt="non-virtual"><scope>InterChiplet::SyncClockStruct</scope><name>cycle</name></member>
+      <member refid="classInterChiplet_1_1SyncClockStruct_1a12776db86da5eed68e3c8eb87731b43e" prot="private" virt="non-virtual"><scope>InterChiplet::SyncClockStruct</scope><name>m_cycle</name></member>
+      <member refid="classInterChiplet_1_1SyncClockStruct_1aa156e38ae55e4b7fe03658063c7f8868" prot="public" virt="non-virtual"><scope>InterChiplet::SyncClockStruct</scope><name>SyncClockStruct</name></member>
+      <member refid="classInterChiplet_1_1SyncClockStruct_1ac88f8decd1f34c6039c20b1f93a3a6b0" prot="public" virt="non-virtual"><scope>InterChiplet::SyncClockStruct</scope><name>update</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
