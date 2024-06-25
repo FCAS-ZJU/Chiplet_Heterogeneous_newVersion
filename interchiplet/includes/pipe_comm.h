@@ -18,6 +18,9 @@
 #define NSINTERCHIPLET_CMD_HEAD "[INTERCMD]"
 
 namespace InterChiplet {
+/**
+ * @brief Structure for Single Pipe communication.
+ */
 class PipeCommUnit {
    public:
     PipeCommUnit(const char *file_name, bool read) {
@@ -159,6 +162,9 @@ class PipeCommUnit {
 #endif
 };
 
+/**
+ * @brief Pipe communication structure.
+ */
 class PipeComm {
    public:
     PipeComm() : m_named_fifo_map() {}

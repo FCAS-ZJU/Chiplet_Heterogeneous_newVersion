@@ -106,6 +106,9 @@ typedef std::tuple<InnerTimeType, InnerTimeType> CmdDelayPair;
 #define DST_DELAY(pair) std::get<1>(pair)
 typedef std::multimap<InnerTimeType, NetworkDelayItem> NetworkDelayOrder;
 
+/**
+ * @brief Map for network delay information.
+ */
 class NetworkDelayMap : public std::map<AddrType, NetworkDelayOrder> {
    public:
     /**

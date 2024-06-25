@@ -12,6 +12,9 @@
 
 namespace InterChiplet {
 
+/**
+ * @brief Structure for Clock synchronization.
+ */
 class SyncClockStruct {
    private:
     InnerTimeType m_cycle;
@@ -28,6 +31,9 @@ class SyncClockStruct {
     inline InnerTimeType cycle() { return m_cycle; }
 };
 
+/**
+ * @brief Structure for Pipe synchronization.
+ */
 class SyncPipeStruct {
    private:
     std::set<std::string> m_pipe_set;
@@ -42,6 +48,9 @@ class SyncPipeStruct {
     inline const std::set<std::string>& pipeSet() const { return m_pipe_set; }
 };
 
+/**
+ * @brief Structure for Barrier synchronization.
+ */
 class SyncBarrierStruct {
    private:
     /**
@@ -105,6 +114,9 @@ class SyncBarrierStruct {
     }
 };
 
+/**
+ * @brief Structure for Lock and Unlock synchronization.
+ */
 class SyncLockStruct {
    private:
     /**
@@ -210,6 +222,9 @@ class SyncLockStruct {
     }
 };
 
+/**
+ * @brief Structure for Launch and Wait-launch synchronization.
+ */
 class SyncLaunchStruct {
    private:
     /**
@@ -341,6 +356,9 @@ class SyncLaunchStruct {
     }
 };
 
+/**
+ * @brief Structure for Communication synchronization.
+ */
 class SyncCommStruct {
    private:
     /**
