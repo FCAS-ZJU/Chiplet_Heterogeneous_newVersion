@@ -65,7 +65,7 @@ A4 -.-> B4 -.-> C4
 ```mermaid
 flowchart TB
 
-subgraph waitLaunch 
+subgraph waitLaunch
 D1[__src_x]
 D2[__src_y]
 D3[__dst_x]
@@ -164,7 +164,7 @@ The RESULT command to the WAITLAUNCH command also provides the source address of
 RESULT 2 <src_x> <src_y>
 ```
 
-In the above example, Simulator Process 0 is the computing resources controlled by Simulator Process 1. *interchiplet* pairs the WAITLAUNCH command (1) with the LAUNCH command (2) and sends RESULT commands to Simulator Process 0 (3) and Simulator Process 1 (4). 
+In the above example, Simulator Process 0 is the computing resources controlled by Simulator Process 1. *interchiplet* pairs the WAITLAUNCH command (1) with the LAUNCH command (2) and sends RESULT commands to Simulator Process 0 (3) and Simulator Process 1 (4).
 
 With valid timing information, the WAITLAUNCH command should pair with the specified LAUNCH command. The same scenario results in different timing sequences, as shown below.
 
@@ -249,7 +249,7 @@ The request package is injected at `src_cycle`. Hence, the request package arriv
 If `dst_cycle` is earlier than `src_cycle`, the timing sequence is shown below:
 
 ```mermaid
-sequenceDiagram    
+sequenceDiagram
 autonumber
 
 participant SP0 as Simulator<br/>Process 0
@@ -266,7 +266,7 @@ note left of SP0: src_cycle + lat_1 + lat_3
 If `dst_cycle` is later than `src_cycle`, the timing sequence is shown below:
 
 ```mermaid
-sequenceDiagram    
+sequenceDiagram
 autonumber
 
 participant SP0 as Simulator<br/>Process 0

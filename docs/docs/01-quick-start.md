@@ -11,13 +11,13 @@ You can learn the following topics from this page:
 **1. Clone the repository from GitHub and enter the downloaded repository.**
 
 ```shell
-git clone https://github.com/FCAS-SCUT/Chiplet_Heterogeneous_newVersion.git
+git clone --single-branch --branch master_v2 https://github.com/FCAS-SCUT/Chiplet_Heterogeneous_newVersion.git
 cd Chiplet_Heterogeneous_newVersion
 ```
 
 The following commands are executed under the root folder. The root folder is defined as `$SIMULATOR_ROOT` in the environment variables.
 
-**2. Initialize and update submodules.** Third-parity repositories such as SniperSim and GPGPUSim will be downloaded and updated.
+**2. Initialize and update submodules.** Third-party repositories such as SniperSim and GPGPUSim will be downloaded and updated.
 
 ```shell
 git submodule init

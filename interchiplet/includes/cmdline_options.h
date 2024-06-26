@@ -4,7 +4,11 @@
 
 #include "CLI/CLI.hpp"
 
-namespace InterChiplet {
+/**
+ * @defgroup cmdline
+ * @brief Command line parser.
+ * @{
+ */
 /**
  * @brief Options from command line.
  */
@@ -67,4 +71,6 @@ class CmdLineOptions {
      */
     bool m_debug;
 };
-}  // namespace InterChiplet
+/**
+ * @}
+ */

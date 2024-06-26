@@ -19,6 +19,11 @@
 
 namespace InterChiplet {
 /**
+ * @defgroup pipe_comm
+ * @brief Pipe communication interface.
+ * @{
+ */
+/**
  * @brief Structure for Single Pipe communication.
  */
 class PipeCommUnit {
@@ -196,4 +201,7 @@ class PipeComm {
    private:
     std::map<std::string, PipeCommUnit *> m_named_fifo_map;
 };
+/**
+ * @}
+ */
 }  // namespace InterChiplet

@@ -143,9 +143,4 @@ class SyncCommand {
      */
     int m_stdin_fd;
 };
-
-/**
- * @brief List of synchronization commands.
- */
-typedef std::vector<SyncCommand> SyncCmdList;
 }  // namespace InterChiplet

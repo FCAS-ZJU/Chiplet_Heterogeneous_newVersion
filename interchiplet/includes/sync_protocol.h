@@ -14,6 +14,11 @@
 
 namespace InterChiplet {
 /**
+ * @defgroup sync_proto
+ * @brief Synchronization protocol interface.
+ * @{
+ */
+/**
  * @brief Return name of file name in a std::string.
  * Return directory related to the directory of main process.
  * @param __src Source address.
@@ -597,4 +602,7 @@ inline TimeType writeSync(TimeType __cycle, int __src_x, int __src_y, int __dst_
     // Only handle SYNC message, return cycle to receive SYNC command.
     return resp_cmd.m_type == SC_SYNC ? resp_cmd.m_cycle : -1;
 }
+/**
+ * @}
+ */
 }  // namespace InterChiplet
