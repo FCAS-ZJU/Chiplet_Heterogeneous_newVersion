@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="classCmdLineOptions" kind="class" language="C++" prot="public">
+    <compoundname>CmdLineOptions</compoundname>
+    <includes refid="cmdline__options_8h" local="no">cmdline_options.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classCmdLineOptions_1aaf94d12d4de2d50e136e113be60cb36e" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string CmdLineOptions::m_bench</definition>
+        <argsstring></argsstring>
+        <name>m_bench</name>
+        <briefdescription>
+<para>Path of benchmark configuration yaml. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmdline_options.h" line="54" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmdline_options.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classCmdLineOptions_1ad2a012b35e5f3ac4e3c4c606b973fd35" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string CmdLineOptions::m_cwd</definition>
+        <argsstring></argsstring>
+        <name>m_cwd</name>
+        <briefdescription>
+<para>New working directory. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmdline_options.h" line="58" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmdline_options.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classCmdLineOptions_1a65435c9375c64504530db1dae72bf781" prot="public" static="no" mutable="no">
+        <type>long</type>
+        <definition>long CmdLineOptions::m_timeout_threshold</definition>
+        <argsstring></argsstring>
+        <name>m_timeout_threshold</name>
+        <briefdescription>
+<para>Timeout threshold, in term of round. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmdline_options.h" line="63" column="10" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmdline_options.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classCmdLineOptions_1a3945bf49304982426cd44fad4952cc81" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double CmdLineOptions::m_err_rate_threshold</definition>
+        <argsstring></argsstring>
+        <name>m_err_rate_threshold</name>
+        <briefdescription>
+<para>Error rate threshold, used to quit iteration. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmdline_options.h" line="67" column="12" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmdline_options.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classCmdLineOptions_1acac45bddc33293d5f0076de4c14ca0a8" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool CmdLineOptions::m_debug</definition>
+        <argsstring></argsstring>
+        <name>m_debug</name>
+        <briefdescription>
+<para>Print debug information. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmdline_options.h" line="72" column="10" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmdline_options.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classCmdLineOptions_1a02b74af1e9b4ba3cec6cdc9401f26e13" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CmdLineOptions::CmdLineOptions</definition>
+        <argsstring>()</argsstring>
+        <name>CmdLineOptions</name>
+        <briefdescription>
+<para>Constructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmdline_options.h" line="20" column="5" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmdline_options.h" bodystart="20" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classCmdLineOptions_1ad09cca78f6b7046fe9936b131654a8ff" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int CmdLineOptions::parse</definition>
+        <argsstring>(int argc, const char *argv[])</argsstring>
+        <name>parse</name>
+        <param>
+          <type>int</type>
+          <declname>argc</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>argv</declname>
+          <array>[]</array>
+        </param>
+        <briefdescription>
+<para>Read options from command line. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>argc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of argument. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>argv</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>String of argument. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmdline_options.h" line="28" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmdline_options.h" bodystart="28" bodyend="48"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Options from command line. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmdline_options.h" line="15" column="21" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmdline_options.h" bodystart="15" bodyend="73"/>
+    <listofallmembers>
+      <member refid="classCmdLineOptions_1a02b74af1e9b4ba3cec6cdc9401f26e13" prot="public" virt="non-virtual"><scope>CmdLineOptions</scope><name>CmdLineOptions</name></member>
+      <member refid="classCmdLineOptions_1aaf94d12d4de2d50e136e113be60cb36e" prot="public" virt="non-virtual"><scope>CmdLineOptions</scope><name>m_bench</name></member>
+      <member refid="classCmdLineOptions_1ad2a012b35e5f3ac4e3c4c606b973fd35" prot="public" virt="non-virtual"><scope>CmdLineOptions</scope><name>m_cwd</name></member>
+      <member refid="classCmdLineOptions_1acac45bddc33293d5f0076de4c14ca0a8" prot="public" virt="non-virtual"><scope>CmdLineOptions</scope><name>m_debug</name></member>
+      <member refid="classCmdLineOptions_1a3945bf49304982426cd44fad4952cc81" prot="public" virt="non-virtual"><scope>CmdLineOptions</scope><name>m_err_rate_threshold</name></member>
+      <member refid="classCmdLineOptions_1a65435c9375c64504530db1dae72bf781" prot="public" virt="non-virtual"><scope>CmdLineOptions</scope><name>m_timeout_threshold</name></member>
+      <member refid="classCmdLineOptions_1ad09cca78f6b7046fe9936b131654a8ff" prot="public" virt="non-virtual"><scope>CmdLineOptions</scope><name>parse</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

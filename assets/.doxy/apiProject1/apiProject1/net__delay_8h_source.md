@@ -18,21 +18,21 @@
 #define PAC_PAYLOAD_BIT 512
 #define PAC_PAYLOAD_BYTE (PAC_PAYLOAD_BIT / 8)
 
-namespace InterChiplet {
 class NetworkDelayItem {
    public:
-    InnerTimeType m_cycle;
+    InterChiplet::InnerTimeType m_cycle;
     uint64_t m_id;
-    AddrType m_src;
-    AddrType m_dst;
+    InterChiplet::AddrType m_src;
+    InterChiplet::AddrType m_dst;
     long m_desc;
-    std::vector<InnerTimeType> m_delay_list;
+    std::vector<InterChiplet::InnerTimeType> m_delay_list;
 
    public:
     NetworkDelayItem() {}
 
-    NetworkDelayItem(InnerTimeType __cycle, const AddrType& __src, const AddrType& __dst,
-                     long __desc, const std::vector<InnerTimeType>& __delay_list)
+    NetworkDelayItem(InterChiplet::InnerTimeType __cycle, const InterChiplet::AddrType& __src,
+                     const InterChiplet::AddrType& __dst, long __desc,
+                     const std::vector<InterChiplet::InnerTimeType>& __delay_list)
         : m_cycle(__cycle), m_dst(__dst), m_src(__src), m_delay_list(__delay_list) {}
 
     friend std::ostream& operator<<(std::ostream& os, const NetworkDelayItem& __item) {
@@ -57,7 +57,7 @@ class NetworkDelayItem {
         int delay_cnt = 0;
         os >> delay_cnt;
         for (int i = 0; i < delay_cnt; i++) {
-            TimeType delay;
+            InterChiplet::TimeType delay;
             os >> delay;
             __item.m_delay_list.push_back(delay);
         }
@@ -65,21 +65,23 @@ class NetworkDelayItem {
     }
 };
 
-typedef std::tuple<InnerTimeType, InnerTimeType> CmdDelayPair;
+typedef std::tuple<InterChiplet::InnerTimeType, InterChiplet::InnerTimeType> CmdDelayPair;
 #define SRC_DELAY(pair) std::get<0>(pair)
 #define DST_DELAY(pair) std::get<1>(pair)
-typedef std::multimap<InnerTimeType, NetworkDelayItem> NetworkDelayOrder;
+typedef std::multimap<InterChiplet::InnerTimeType, NetworkDelayItem> NetworkDelayOrder;
 
-class NetworkDelayMap : public std::map<AddrType, NetworkDelayOrder> {
+class NetworkDelayMap : public std::map<InterChiplet::AddrType, NetworkDelayOrder> {
    public:
-    void insert(const AddrType& __addr, InnerTimeType __cycle, const NetworkDelayItem& __item) {
+    void insert(const InterChiplet::AddrType& __addr, InterChiplet::InnerTimeType __cycle,
+                const NetworkDelayItem& __item) {
         if (find(__addr) == end()) {
             (*this)[__addr] = NetworkDelayOrder();
         }
-        (*this)[__addr].insert(std::pair<InnerTimeType, NetworkDelayItem>(__cycle, __item));
+        (*this)[__addr].insert(
+            std::pair<InterChiplet::InnerTimeType, NetworkDelayItem>(__cycle, __item));
     }
 
-    bool hasAddr(const AddrType& __addr) {
+    bool hasAddr(const InterChiplet::AddrType& __addr) {
         // If there is no address, return false.
         if (find(__addr) == end()) {
             return false;
@@ -88,7 +90,8 @@ class NetworkDelayMap : public std::map<AddrType, NetworkDelayOrder> {
         return at(__addr).size() > 0;
     }
 
-    bool hasAddr(const AddrType& __addr, const AddrType& __src, const AddrType& __dst) {
+    bool hasAddr(const InterChiplet::AddrType& __addr, const InterChiplet::AddrType& __src,
+                 const InterChiplet::AddrType& __dst) {
         // If there is no address, return false.
         if (find(__addr) == end()) {
             return false;
@@ -103,7 +106,7 @@ class NetworkDelayMap : public std::map<AddrType, NetworkDelayOrder> {
         return false;
     }
 
-    NetworkDelayItem front(const AddrType& __addr) {
+    NetworkDelayItem front(const InterChiplet::AddrType& __addr) {
         // If there is no destination address, return empty.
         if (find(__addr) == end()) {
             return NetworkDelayItem();
@@ -116,7 +119,9 @@ class NetworkDelayMap : public std::map<AddrType, NetworkDelayOrder> {
         return at(__addr).begin()->second;
     }
 
-    NetworkDelayItem front(const AddrType& __addr, const AddrType& __src, const AddrType& __dst) {
+    NetworkDelayItem front(const InterChiplet::AddrType& __addr,
+                           const InterChiplet::AddrType& __src,
+                           const InterChiplet::AddrType& __dst) {
         // If there is no destination address, return empty.
         if (find(__addr) == end()) {
             return NetworkDelayItem();
@@ -131,7 +136,7 @@ class NetworkDelayMap : public std::map<AddrType, NetworkDelayOrder> {
         return NetworkDelayItem();
     }
 
-    void pop(const AddrType& __addr) {
+    void pop(const InterChiplet::AddrType& __addr) {
         // If there is no destination address, do nothing.
         if (find(__addr) == end()) {
             return;
@@ -144,7 +149,8 @@ class NetworkDelayMap : public std::map<AddrType, NetworkDelayOrder> {
         at(__addr).erase(at(__addr).begin());
     }
 
-    void pop(const AddrType& __addr, const AddrType& __src, const AddrType& __dst) {
+    void pop(const InterChiplet::AddrType& __addr, const InterChiplet::AddrType& __src,
+             const InterChiplet::AddrType& __dst) {
         // If there is no destination address, do nothing.
         if (find(__addr) == end()) {
             return;
@@ -212,14 +218,14 @@ class NetworkDelayStruct {
             m_src_delay_map.insert(item.m_src, item.m_cycle, item);
             // Ordering of barrier, launch, lock and unlock.
             if (item.m_desc & 0xF0000) {
-                InnerTimeType end_cycle = item.m_cycle + item.m_delay_list[1];
-                if (item.m_desc & SPD_BARRIER) {
+                InterChiplet::InnerTimeType end_cycle = item.m_cycle + item.m_delay_list[1];
+                if (item.m_desc & InterChiplet::SPD_BARRIER) {
                     m_barrier_delay_map.insert(item.m_dst, end_cycle, item);
-                } else if (item.m_desc & SPD_LAUNCH) {
+                } else if (item.m_desc & InterChiplet::SPD_LAUNCH) {
                     m_launch_delay_map.insert(item.m_dst, end_cycle, item);
-                } else if (item.m_desc & SPD_LOCK) {
+                } else if (item.m_desc & InterChiplet::SPD_LOCK) {
                     m_lock_delay_map.insert(item.m_dst, end_cycle, item);
-                } else if (item.m_desc & SPD_UNLOCK) {
+                } else if (item.m_desc & InterChiplet::SPD_UNLOCK) {
                     m_unlock_delay_map.insert(item.m_dst, end_cycle, item);
                 }
             }
@@ -244,24 +250,29 @@ class NetworkDelayStruct {
     }
 
    public:
-    inline bool hasLaunch(const AddrType& __dst) { return m_launch_delay_map.hasAddr(__dst); }
+    inline bool hasLaunch(const InterChiplet::AddrType& __dst) {
+        return m_launch_delay_map.hasAddr(__dst);
+    }
 
-    inline AddrType frontLaunchSrc(const AddrType& __dst) {
+    inline InterChiplet::AddrType frontLaunchSrc(const InterChiplet::AddrType& __dst) {
         return m_launch_delay_map.front(__dst).m_src;
     }
 
-    inline void popLaunch(const AddrType& __dst) { m_launch_delay_map.pop(__dst); }
+    inline void popLaunch(const InterChiplet::AddrType& __dst) { m_launch_delay_map.pop(__dst); }
 
-    inline bool hasLock(const AddrType& __dst) { return m_lock_delay_map.hasAddr(__dst); }
+    inline bool hasLock(const InterChiplet::AddrType& __dst) {
+        return m_lock_delay_map.hasAddr(__dst);
+    }
 
-    inline AddrType frontLockSrc(const AddrType& __dst) {
+    inline InterChiplet::AddrType frontLockSrc(const InterChiplet::AddrType& __dst) {
         return m_lock_delay_map.front(__dst).m_src;
     }
 
-    inline void popLock(const AddrType& __dst) { m_lock_delay_map.pop(__dst); }
+    inline void popLock(const InterChiplet::AddrType& __dst) { m_lock_delay_map.pop(__dst); }
 
    public:
-    CmdDelayPair getEndCycle(const SyncCommand& __write_cmd, const SyncCommand& __read_cmd) {
+    CmdDelayPair getEndCycle(const InterChiplet::SyncCommand& __write_cmd,
+                             const InterChiplet::SyncCommand& __read_cmd) {
         if (!m_src_delay_map.hasAddr(__write_cmd.m_src, __write_cmd.m_src, __write_cmd.m_dst)) {
             return getDefaultEndCycle(__write_cmd, __read_cmd);
         }
@@ -271,18 +282,19 @@ class NetworkDelayStruct {
 
         m_src_delay_map.pop(__write_cmd.m_src, __write_cmd.m_src, __write_cmd.m_dst);
         // Launch/Barrier/Lock/Unlock communication.
-        if (__write_cmd.m_desc & (SPD_LAUNCH | SPD_BARRIER | SPD_LOCK | SPD_UNLOCK)) {
+        if (__write_cmd.m_desc & (InterChiplet::SPD_LAUNCH | InterChiplet::SPD_BARRIER |
+                                  InterChiplet::SPD_LOCK | InterChiplet::SPD_UNLOCK)) {
             // Forward packet.
-            InnerTimeType pac_delay_src = delay_info.m_delay_list[0];
-            InnerTimeType pac_delay_dst = delay_info.m_delay_list[1];
-            InnerTimeType write_end_time = __write_cmd.m_cycle + pac_delay_src;
-            InnerTimeType read_end_time = __write_cmd.m_cycle + pac_delay_dst;
+            InterChiplet::InnerTimeType pac_delay_src = delay_info.m_delay_list[0];
+            InterChiplet::InnerTimeType pac_delay_dst = delay_info.m_delay_list[1];
+            InterChiplet::InnerTimeType write_end_time = __write_cmd.m_cycle + pac_delay_src;
+            InterChiplet::InnerTimeType read_end_time = __write_cmd.m_cycle + pac_delay_dst;
             if (__read_cmd.m_cycle > read_end_time) {
                 read_end_time = __read_cmd.m_cycle;
             }
             // Acknowledge packet.
-            InnerTimeType ack_delay_src = delay_info.m_delay_list[2];
-            InnerTimeType ack_delay_dst = delay_info.m_delay_list[3];
+            InterChiplet::InnerTimeType ack_delay_src = delay_info.m_delay_list[2];
+            InterChiplet::InnerTimeType ack_delay_dst = delay_info.m_delay_list[3];
             read_end_time = read_end_time + ack_delay_src;
             write_end_time = read_end_time - ack_delay_src + ack_delay_dst;
 
@@ -291,10 +303,10 @@ class NetworkDelayStruct {
         // Normal communication.
         else {
             // Forward packet.
-            InnerTimeType pac_delay_src = delay_info.m_delay_list[0];
-            InnerTimeType pac_delay_dst = delay_info.m_delay_list[1];
-            InnerTimeType write_end_time = __write_cmd.m_cycle + pac_delay_src;
-            InnerTimeType read_end_time = __write_cmd.m_cycle + pac_delay_dst;
+            InterChiplet::InnerTimeType pac_delay_src = delay_info.m_delay_list[0];
+            InterChiplet::InnerTimeType pac_delay_dst = delay_info.m_delay_list[1];
+            InterChiplet::InnerTimeType write_end_time = __write_cmd.m_cycle + pac_delay_src;
+            InterChiplet::InnerTimeType read_end_time = __write_cmd.m_cycle + pac_delay_dst;
             if (__read_cmd.m_cycle > read_end_time) {
                 read_end_time = __read_cmd.m_cycle;
             }
@@ -302,10 +314,11 @@ class NetworkDelayStruct {
         }
     }
 
-    InnerTimeType getBarrierCycle(const std::vector<InterChiplet::SyncCommand>& barrier_items) {
-        InnerTimeType barrier_cycle = 0;
+    InterChiplet::InnerTimeType getBarrierCycle(
+        const std::vector<InterChiplet::SyncCommand>& barrier_items) {
+        InterChiplet::InnerTimeType barrier_cycle = 0;
         for (auto& item : barrier_items) {
-            InnerTimeType t_cycle = 0;
+            InterChiplet::InnerTimeType t_cycle = 0;
             if (!m_src_delay_map.hasAddr(item.m_src, item.m_src, item.m_dst)) {
                 t_cycle = getDefaultEndCycle(item);
             } else {
@@ -322,14 +335,15 @@ class NetworkDelayStruct {
     }
 
    public:
-    InnerTimeType getDefaultEndCycle(const SyncCommand& write_cmd) {
+    InterChiplet::InnerTimeType getDefaultEndCycle(const InterChiplet::SyncCommand& write_cmd) {
         // TODO: Get more accurate end cycle.
         int pac_size = write_cmd.m_nbytes / PAC_PAYLOAD_BYTE +
                        ((write_cmd.m_nbytes % PAC_PAYLOAD_BYTE) > 0 ? 1 : 0) + 1;
 
         return write_cmd.m_cycle + pac_size;
     }
-    CmdDelayPair getDefaultEndCycle(const SyncCommand& write_cmd, const SyncCommand& read_cmd) {
+    CmdDelayPair getDefaultEndCycle(const InterChiplet::SyncCommand& write_cmd,
+                                    const InterChiplet::SyncCommand& read_cmd) {
         // TODO: Get more accurate end cycle.
         int pac_size = write_cmd.m_nbytes / PAC_PAYLOAD_BYTE +
                        ((write_cmd.m_nbytes % PAC_PAYLOAD_BYTE) > 0 ? 1 : 0) + 1;
@@ -350,6 +364,5 @@ class NetworkDelayStruct {
     NetworkDelayMap m_lock_delay_map;
     NetworkDelayMap m_unlock_delay_map;
 };
-}  // namespace InterChiplet
 
 ```

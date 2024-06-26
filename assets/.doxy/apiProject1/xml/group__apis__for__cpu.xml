@@ -1,0 +1,487 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="group__apis__for__cpu" kind="group">
+    <compoundname>apis_for_cpu</compoundname>
+    <title>APIs for CPU</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__apis__for__cpu_1ga927dfb0ba007d73b1f1a21c88d413371" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>syscall_return_t</type>
+        <definition>syscall_return_t InterChiplet::launch</definition>
+        <argsstring>(int64_t __dst_x, int64_t __dst_y, int64_t __src_x, int64_t __src_y)</argsstring>
+        <name>launch</name>
+        <param>
+          <type>int64_t</type>
+          <declname>__dst_x</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__dst_y</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__src_y</declname>
+        </param>
+        <briefdescription>
+<para>Launch application to remote chiplet. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__dst_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/apis_c.cpp" line="22" column="18" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/apis_c.cpp" bodystart="22" bodyend="26" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_c.h" declline="22" declcolumn="18"/>
+      </memberdef>
+      <memberdef kind="function" id="group__apis__for__cpu_1ga94130236ada1ae228e2457584b742af7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>syscall_return_t</type>
+        <definition>syscall_return_t InterChiplet::waitLaunch</definition>
+        <argsstring>(int64_t __dst_x, int64_t __dst_y, int64_t *__src_x, int64_t *__src_y)</argsstring>
+        <name>waitLaunch</name>
+        <param>
+          <type>int64_t</type>
+          <declname>__dst_x</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__dst_y</declname>
+        </param>
+        <param>
+          <type>int64_t *</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int64_t *</type>
+          <declname>__src_y</declname>
+        </param>
+        <briefdescription>
+<para>Wait launch from remote chiplet. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__dst_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. Return value. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. Return value. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/apis_c.cpp" line="28" column="18" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/apis_c.cpp" bodystart="28" bodyend="32" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_c.h" declline="31" declcolumn="18"/>
+      </memberdef>
+      <memberdef kind="function" id="group__apis__for__cpu_1gaeb3707406a2d83fe064841f35b4bd22a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>syscall_return_t</type>
+        <definition>syscall_return_t InterChiplet::barrier</definition>
+        <argsstring>(int64_t __uid, int64_t __src_x, int64_t __src_y, int64_t __count=0)</argsstring>
+        <name>barrier</name>
+        <param>
+          <type>int64_t</type>
+          <declname>__uid</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__src_y</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__count</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Barrier. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__uid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Barrier ID. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of threads to barrier. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/apis_c.cpp" line="7" column="18" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/apis_c.cpp" bodystart="7" bodyend="10" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_c.h" declline="40" declcolumn="18"/>
+      </memberdef>
+      <memberdef kind="function" id="group__apis__for__cpu_1ga87cc83b5f4b4c4a7b8aefabc1f1f958d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>syscall_return_t</type>
+        <definition>syscall_return_t InterChiplet::lock</definition>
+        <argsstring>(int64_t __uid, int64_t __src_x, int64_t __src_y)</argsstring>
+        <name>lock</name>
+        <param>
+          <type>int64_t</type>
+          <declname>__uid</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__src_y</declname>
+        </param>
+        <briefdescription>
+<para>Lock mutex. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__uid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mutex ID. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/apis_c.cpp" line="12" column="18" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/apis_c.cpp" bodystart="12" bodyend="15" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_c.h" declline="48" declcolumn="18"/>
+      </memberdef>
+      <memberdef kind="function" id="group__apis__for__cpu_1gab4c0e279e100e03537de6dce106b3491" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>syscall_return_t</type>
+        <definition>syscall_return_t InterChiplet::unlock</definition>
+        <argsstring>(int64_t __uid, int64_t __src_x, int64_t __src_y)</argsstring>
+        <name>unlock</name>
+        <param>
+          <type>int64_t</type>
+          <declname>__uid</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__src_y</declname>
+        </param>
+        <briefdescription>
+<para>Unlock mutex. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__uid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mutex ID. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/apis_c.cpp" line="17" column="18" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/apis_c.cpp" bodystart="17" bodyend="20" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_c.h" declline="56" declcolumn="18"/>
+      </memberdef>
+      <memberdef kind="function" id="group__apis__for__cpu_1ga2d35ee14cc369f561a719ef750b0abb7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>syscall_return_t</type>
+        <definition>syscall_return_t InterChiplet::sendMessage</definition>
+        <argsstring>(int64_t __dst_x, int64_t __dst_y, int64_t __src_x, int64_t __src_y, void *__addr, int64_t __nbyte)</argsstring>
+        <name>sendMessage</name>
+        <param>
+          <type>int64_t</type>
+          <declname>__dst_x</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__dst_y</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__src_y</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>__addr</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__nbyte</declname>
+        </param>
+        <briefdescription>
+<para>Send data to remote chiplet. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__dst_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Data address. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__nbyte</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/apis_c.cpp" line="34" column="18" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/apis_c.cpp" bodystart="34" bodyend="39" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_c.h" declline="67" declcolumn="18"/>
+      </memberdef>
+      <memberdef kind="function" id="group__apis__for__cpu_1ga739ef4d1091f3ae3f911ebf5fabd2a4b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>syscall_return_t</type>
+        <definition>syscall_return_t InterChiplet::receiveMessage</definition>
+        <argsstring>(int64_t __dst_x, int64_t __dst_y, int64_t __src_x, int64_t __src_y, void *__addr, int64_t __nbyte)</argsstring>
+        <name>receiveMessage</name>
+        <param>
+          <type>int64_t</type>
+          <declname>__dst_x</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__dst_y</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__src_x</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__src_y</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>__addr</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>__nbyte</declname>
+        </param>
+        <briefdescription>
+<para>Read data from remote chiplet. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__dst_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address in Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Data address. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__nbyte</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/apis_c.cpp" line="40" column="18" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/apis_c.cpp" bodystart="40" bodyend="45" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_c.h" declline="79" declcolumn="18"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>APIs for CPU. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

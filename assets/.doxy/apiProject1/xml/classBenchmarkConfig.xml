@@ -1,0 +1,252 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="classBenchmarkConfig" kind="class" language="C++" prot="public">
+    <compoundname>BenchmarkConfig</compoundname>
+    <includes refid="benchmark__yaml_8h" local="no">benchmark_yaml.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classBenchmarkConfig_1a41a4622107a6cd97b484aa2272d2c371" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string BenchmarkConfig::m_benchmark_root</definition>
+        <argsstring></argsstring>
+        <name>m_benchmark_root</name>
+        <briefdescription>
+<para>Environments. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" line="183" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classBenchmarkConfig_1af15f52ffcedc423e20695c05f5944742" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string BenchmarkConfig::m_simulator_root</definition>
+        <argsstring></argsstring>
+        <name>m_simulator_root</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" line="184" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classBenchmarkConfig_1a980c8709029da9a10e56ca594e9b400a" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="classProcessConfig" kindref="compound">ProcessConfig</ref> &gt;</type>
+        <definition>std::vector&lt;ProcessConfig&gt; BenchmarkConfig::m_phase1_proc_cfg_list</definition>
+        <argsstring></argsstring>
+        <name>m_phase1_proc_cfg_list</name>
+        <briefdescription>
+<para>List of configuration structures of phase 1. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" line="188" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classBenchmarkConfig_1aae2c321ad9ca7964a445584e937ffdd1" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="classProcessConfig" kindref="compound">ProcessConfig</ref> &gt;</type>
+        <definition>std::vector&lt;ProcessConfig&gt; BenchmarkConfig::m_phase2_proc_cfg_list</definition>
+        <argsstring></argsstring>
+        <name>m_phase2_proc_cfg_list</name>
+        <briefdescription>
+<para>List of configuration structures of phase 2. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" line="192" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classBenchmarkConfig_1a6c6b96b25f3ad0fca2d9e7766bfcf6fa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>BenchmarkConfig::BenchmarkConfig</definition>
+        <argsstring>(const std::string &amp;file_name)</argsstring>
+        <name>BenchmarkConfig</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>file_name</declname>
+        </param>
+        <briefdescription>
+<para>Parse YAML configuration file to get benchmark configuration. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Path of YAML configuration file. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" line="74" column="5" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" bodystart="74" bodyend="98"/>
+      </memberdef>
+      <memberdef kind="function" id="classBenchmarkConfig_1a52d704f0ed0c61885fef321e722e2315" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void BenchmarkConfig::yaml_parse</definition>
+        <argsstring>(const YAML::Node &amp;config)</argsstring>
+        <name>yaml_parse</name>
+        <param>
+          <type>const YAML::Node &amp;</type>
+          <declname>config</declname>
+        </param>
+        <briefdescription>
+<para>Parse YAML configuration tree. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Top node of YAML Tree. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" line="104" column="10" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" bodystart="104" bodyend="107"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classBenchmarkConfig_1aa5c42862b5278d114c37e7457e3c19c7" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="classProcessConfig" kindref="compound">ProcessConfig</ref> &gt;</type>
+        <definition>std::vector&lt;ProcessConfig&gt; BenchmarkConfig::yaml_parse_phase</definition>
+        <argsstring>(const YAML::Node &amp;config)</argsstring>
+        <name>yaml_parse_phase</name>
+        <param>
+          <type>const YAML::Node &amp;</type>
+          <declname>config</declname>
+        </param>
+        <briefdescription>
+<para>Parse YAML configuration tree from &quot;phase1&quot; or &quot;phase2&quot;. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>&quot;phase1&quot; or &quot;phase2&quot; node of YAML. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" line="114" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" bodystart="114" bodyend="120"/>
+      </memberdef>
+      <memberdef kind="function" id="classBenchmarkConfig_1ab2306c95a02eaa33897af959abc14567" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classProcessConfig" kindref="compound">ProcessConfig</ref></type>
+        <definition>ProcessConfig BenchmarkConfig::yaml_parse_process</definition>
+        <argsstring>(const YAML::Node &amp;config)</argsstring>
+        <name>yaml_parse_process</name>
+        <param>
+          <type>const YAML::Node &amp;</type>
+          <declname>config</declname>
+        </param>
+        <briefdescription>
+<para>Parse YAML configuration tree below &quot;phase1&quot; or &quot;phase2&quot;. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>node below &quot;phase1&quot; or &quot;phase2&quot; of YAML. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" line="126" column="19" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" bodystart="126" bodyend="135"/>
+      </memberdef>
+      <memberdef kind="function" id="classBenchmarkConfig_1a6971ed18e7839b0fc44c53ae2a5af895" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void BenchmarkConfig::extend_env_var</definition>
+        <argsstring>()</argsstring>
+        <name>extend_env_var</name>
+        <briefdescription>
+<para>Extend Environment Variables. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Replace $SIMULATOR_ROOT and $BENCHMARK_ROOT with absoluate address. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" line="142" column="10" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" bodystart="142" bodyend="149"/>
+      </memberdef>
+      <memberdef kind="function" id="classBenchmarkConfig_1a56c239ec28c18a5b24efea8e1f39aa4b" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void BenchmarkConfig::extend_env_var_proc</definition>
+        <argsstring>(ProcessConfig &amp;proc_config)</argsstring>
+        <name>extend_env_var_proc</name>
+        <param>
+          <type><ref refid="classProcessConfig" kindref="compound">ProcessConfig</ref> &amp;</type>
+          <declname>proc_config</declname>
+        </param>
+        <briefdescription>
+<para>Extend Environment Variables in one process configuration. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Replace $SIMULATOR_ROOT and $BENCHMARK_ROOT with absoluate address. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" line="156" column="10" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" bodystart="156" bodyend="162"/>
+      </memberdef>
+      <memberdef kind="function" id="classBenchmarkConfig_1ad17bfb753262602f9b9ee930ab38cc78" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void BenchmarkConfig::extend_env_var_string</definition>
+        <argsstring>(std::string &amp;__str)</argsstring>
+        <name>extend_env_var_string</name>
+        <param>
+          <type>std::string &amp;</type>
+          <declname>__str</declname>
+        </param>
+        <briefdescription>
+<para>Extend Environment Variables in one string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Replace $SIMULATOR_ROOT and $BENCHMARK_ROOT with absoluate address. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" line="169" column="10" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" bodystart="169" bodyend="177"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Benchmark configuration structure. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" line="68" column="22" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" bodystart="68" bodyend="193"/>
+    <listofallmembers>
+      <member refid="classBenchmarkConfig_1a6c6b96b25f3ad0fca2d9e7766bfcf6fa" prot="public" virt="non-virtual"><scope>BenchmarkConfig</scope><name>BenchmarkConfig</name></member>
+      <member refid="classBenchmarkConfig_1a6971ed18e7839b0fc44c53ae2a5af895" prot="private" virt="non-virtual"><scope>BenchmarkConfig</scope><name>extend_env_var</name></member>
+      <member refid="classBenchmarkConfig_1a56c239ec28c18a5b24efea8e1f39aa4b" prot="private" virt="non-virtual"><scope>BenchmarkConfig</scope><name>extend_env_var_proc</name></member>
+      <member refid="classBenchmarkConfig_1ad17bfb753262602f9b9ee930ab38cc78" prot="private" virt="non-virtual"><scope>BenchmarkConfig</scope><name>extend_env_var_string</name></member>
+      <member refid="classBenchmarkConfig_1a41a4622107a6cd97b484aa2272d2c371" prot="public" virt="non-virtual"><scope>BenchmarkConfig</scope><name>m_benchmark_root</name></member>
+      <member refid="classBenchmarkConfig_1a980c8709029da9a10e56ca594e9b400a" prot="public" virt="non-virtual"><scope>BenchmarkConfig</scope><name>m_phase1_proc_cfg_list</name></member>
+      <member refid="classBenchmarkConfig_1aae2c321ad9ca7964a445584e937ffdd1" prot="public" virt="non-virtual"><scope>BenchmarkConfig</scope><name>m_phase2_proc_cfg_list</name></member>
+      <member refid="classBenchmarkConfig_1af15f52ffcedc423e20695c05f5944742" prot="public" virt="non-virtual"><scope>BenchmarkConfig</scope><name>m_simulator_root</name></member>
+      <member refid="classBenchmarkConfig_1a52d704f0ed0c61885fef321e722e2315" prot="public" virt="non-virtual"><scope>BenchmarkConfig</scope><name>yaml_parse</name></member>
+      <member refid="classBenchmarkConfig_1aa5c42862b5278d114c37e7457e3c19c7" prot="private" virt="non-virtual"><scope>BenchmarkConfig</scope><name>yaml_parse_phase</name></member>
+      <member refid="classBenchmarkConfig_1ab2306c95a02eaa33897af959abc14567" prot="private" virt="non-virtual"><scope>BenchmarkConfig</scope><name>yaml_parse_process</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

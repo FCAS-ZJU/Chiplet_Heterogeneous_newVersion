@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="group__cmd__handler__struct" kind="group">
+    <compoundname>Cmd_handler_struct</compoundname>
+    <title>Cmd_handler_struct</title>
+    <innerclass refid="classSyncClockStruct" prot="public">SyncClockStruct</innerclass>
+    <innerclass refid="classSyncPipeStruct" prot="public">SyncPipeStruct</innerclass>
+    <innerclass refid="classSyncBarrierStruct" prot="public">SyncBarrierStruct</innerclass>
+    <innerclass refid="classSyncLockStruct" prot="public">SyncLockStruct</innerclass>
+    <innerclass refid="classSyncLaunchStruct" prot="public">SyncLaunchStruct</innerclass>
+    <innerclass refid="classSyncCommStruct" prot="public">SyncCommStruct</innerclass>
+    <innerclass refid="classSyncStruct" prot="public">SyncStruct</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__cmd__handler__struct_1gae80febffec287d8ba0cccc9d2d6bb4e7" prot="public" static="no">
+        <type>std::vector&lt; <ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">InterChiplet::SyncCommand</ref> &gt;</type>
+        <definition>typedef std::vector&lt;InterChiplet::SyncCommand&gt; SyncCmdList</definition>
+        <argsstring></argsstring>
+        <name>SyncCmdList</name>
+        <briefdescription>
+<para>List of synchronization commands. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="21" column="21" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structures for Command handler. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

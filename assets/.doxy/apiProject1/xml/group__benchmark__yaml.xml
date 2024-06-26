@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="group__benchmark__yaml" kind="group">
+    <compoundname>Benchmark_yaml</compoundname>
+    <title>Benchmark_yaml</title>
+    <innerclass refid="classProcessConfig" prot="public">ProcessConfig</innerclass>
+    <innerclass refid="classBenchmarkConfig" prot="public">BenchmarkConfig</innerclass>
+    <briefdescription>
+<para>YAML configuration file interface. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -22,20 +22,21 @@
 
 
 
-## Namespaces
-
-| Type | Name |
-| ---: | :--- |
-| namespace | [**InterChiplet**](namespaceInterChiplet.md) <br> |
 
 ## Classes
 
 | Type | Name |
 | ---: | :--- |
-| class | [**NetworkDelayItem**](classInterChiplet_1_1NetworkDelayItem.md) <br>_Structure presents delay of one package in network._  |
-| class | [**NetworkDelayMap**](classInterChiplet_1_1NetworkDelayMap.md) <br>_Map for network delay information._  |
-| class | [**NetworkDelayStruct**](classInterChiplet_1_1NetworkDelayStruct.md) <br>_List of network delay item._  |
+| class | [**NetworkDelayItem**](classNetworkDelayItem.md) <br>_Structure presents delay of one package in network._  |
+| class | [**NetworkDelayMap**](classNetworkDelayMap.md) <br>_Map for network delay information._  |
+| class | [**NetworkDelayStruct**](classNetworkDelayStruct.md) <br>_List of network delay item._  |
 
+## Public Types
+
+| Type | Name |
+| ---: | :--- |
+| typedef std::tuple&lt; InterChiplet::InnerTimeType, InterChiplet::InnerTimeType &gt; | [**CmdDelayPair**](#typedef-cmddelaypair)  <br> |
+| typedef std::multimap&lt; InterChiplet::InnerTimeType, [**NetworkDelayItem**](classNetworkDelayItem.md) &gt; | [**NetworkDelayOrder**](#typedef-networkdelayorder)  <br> |
 
 
 
@@ -55,6 +56,26 @@
 | define  | [**PAC\_PAYLOAD\_BIT**](net__delay_8h.md#define-pac_payload_bit)  512<br> |
 | define  | [**PAC\_PAYLOAD\_BYTE**](net__delay_8h.md#define-pac_payload_byte)  (PAC\_PAYLOAD\_BIT / 8)<br> |
 | define  | [**SRC\_DELAY**](net__delay_8h.md#define-src_delay) (pair) std::get&lt;0&gt;(pair)<br> |
+
+## Public Types Documentation
+
+
+### typedef CmdDelayPair 
+
+```C++
+typedef std::tuple<InterChiplet::InnerTimeType, InterChiplet::InnerTimeType> CmdDelayPair;
+```
+
+
+
+
+### typedef NetworkDelayOrder 
+
+```C++
+typedef std::multimap<InterChiplet::InnerTimeType, NetworkDelayItem> NetworkDelayOrder;
+```
+
+
 
 ## Macro Definition Documentation
 

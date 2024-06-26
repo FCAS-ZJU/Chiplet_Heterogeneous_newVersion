@@ -191,9 +191,7 @@
 <codeline lineno="137"><highlight class="normal"></highlight></codeline>
 <codeline lineno="144" refid="classInterChiplet_1_1SyncCommand_1a37493b977cb7901455e9780e750455a6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classInterChiplet_1_1SyncCommand_1a37493b977cb7901455e9780e750455a6" kindref="member">m_stdin_fd</ref>;</highlight></codeline>
 <codeline lineno="145"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="146"><highlight class="normal"></highlight></codeline>
-<codeline lineno="150"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::vector&lt;SyncCommand&gt;<sp/>SyncCmdList;</highlight></codeline>
-<codeline lineno="151"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>InterChiplet</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>InterChiplet</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/global_define.h"/>
   </compounddef>

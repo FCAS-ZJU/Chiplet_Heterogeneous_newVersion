@@ -1,0 +1,198 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="classProcessConfig" kind="class" language="C++" prot="public">
+    <compoundname>ProcessConfig</compoundname>
+    <includes refid="benchmark__yaml_8h" local="no">benchmark_yaml.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classProcessConfig_1a84f9a749dc65f03fc7d4f1e89816eaca" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string ProcessConfig::m_command</definition>
+        <argsstring></argsstring>
+        <name>m_command</name>
+        <briefdescription>
+<para>Command of simulation process. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" line="42" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classProcessConfig_1a670a9b9b6bf0a2e007bc074391987b18" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; std::string &gt;</type>
+        <definition>std::vector&lt;std::string&gt; ProcessConfig::m_args</definition>
+        <argsstring></argsstring>
+        <name>m_args</name>
+        <briefdescription>
+<para>Arguments of simulation process. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" line="46" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classProcessConfig_1abb9280428a129394559bad3170650845" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string ProcessConfig::m_log_file</definition>
+        <argsstring></argsstring>
+        <name>m_log_file</name>
+        <briefdescription>
+<para>Path of logging name. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" line="50" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classProcessConfig_1a97fdcfbcf409f211384467dcdf42af61" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool ProcessConfig::m_to_stdout</definition>
+        <argsstring></argsstring>
+        <name>m_to_stdout</name>
+        <briefdescription>
+<para>True means redirect output of this process to standard output. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" line="54" column="10" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classProcessConfig_1ab5a188def407c31f16a51a909d99a6fb" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double ProcessConfig::m_clock_rate</definition>
+        <argsstring></argsstring>
+        <name>m_clock_rate</name>
+        <briefdescription>
+<para>the rate of inter-simulator cycle convert. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" line="58" column="12" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classProcessConfig_1afe503cc391117cd2da45769dbccc1d56" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string ProcessConfig::m_pre_copy</definition>
+        <argsstring></argsstring>
+        <name>m_pre_copy</name>
+        <briefdescription>
+<para>Files copy to sub-directory of simulator before executing. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" line="62" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classProcessConfig_1a945ae56936771779f96c74988901f26e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ProcessConfig::ProcessConfig</definition>
+        <argsstring>(const std::string &amp;__cmd, const std::vector&lt; std::string &gt; &amp;__args, const std::string &amp;__log, bool __to_stdout, double __clock_rate, const std::string &amp;__pre_copy)</argsstring>
+        <name>ProcessConfig</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>__cmd</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; std::string &gt; &amp;</type>
+          <declname>__args</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>__log</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>__to_stdout</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>__clock_rate</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>__pre_copy</declname>
+        </param>
+        <briefdescription>
+<para>Construct <ref refid="classProcessConfig" kindref="compound">ProcessConfig</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Command of simulation process. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Arguments of simulation process. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__log</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Path of logging name. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__to_stdout</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>True means redirect output of this process to standard output. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__clock_rate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the rate of inter-simulator cycle convert. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__pre_copy</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Files copy to sub-directory of simulator before executing. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" line="28" column="5" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" bodystart="28" bodyend="36"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Data structure to configure one simulation process. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" line="17" column="20" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/benchmark_yaml.h" bodystart="17" bodyend="63"/>
+    <listofallmembers>
+      <member refid="classProcessConfig_1a670a9b9b6bf0a2e007bc074391987b18" prot="public" virt="non-virtual"><scope>ProcessConfig</scope><name>m_args</name></member>
+      <member refid="classProcessConfig_1ab5a188def407c31f16a51a909d99a6fb" prot="public" virt="non-virtual"><scope>ProcessConfig</scope><name>m_clock_rate</name></member>
+      <member refid="classProcessConfig_1a84f9a749dc65f03fc7d4f1e89816eaca" prot="public" virt="non-virtual"><scope>ProcessConfig</scope><name>m_command</name></member>
+      <member refid="classProcessConfig_1abb9280428a129394559bad3170650845" prot="public" virt="non-virtual"><scope>ProcessConfig</scope><name>m_log_file</name></member>
+      <member refid="classProcessConfig_1afe503cc391117cd2da45769dbccc1d56" prot="public" virt="non-virtual"><scope>ProcessConfig</scope><name>m_pre_copy</name></member>
+      <member refid="classProcessConfig_1a97fdcfbcf409f211384467dcdf42af61" prot="public" virt="non-virtual"><scope>ProcessConfig</scope><name>m_to_stdout</name></member>
+      <member refid="classProcessConfig_1a945ae56936771779f96c74988901f26e" prot="public" virt="non-virtual"><scope>ProcessConfig</scope><name>ProcessConfig</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

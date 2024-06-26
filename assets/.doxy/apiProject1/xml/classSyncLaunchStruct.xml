@@ -1,0 +1,193 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="classSyncLaunchStruct" kind="class" language="C++" prot="public">
+    <compoundname>SyncLaunchStruct</compoundname>
+    <includes refid="cmd__handler_8h" local="no">cmd_handler.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classSyncLaunchStruct_1a6d2c81c785aa63a30eeaa039f6696b14" prot="private" static="no" mutable="no">
+        <type>std::map&lt; InterChiplet::AddrType, <ref refid="group__cmd__handler__struct_1gae80febffec287d8ba0cccc9d2d6bb4e7" kindref="member">SyncCmdList</ref> &gt;</type>
+        <definition>std::map&lt;InterChiplet::AddrType, SyncCmdList&gt; SyncLaunchStruct::m_launch_cmd_list</definition>
+        <argsstring></argsstring>
+        <name>m_launch_cmd_list</name>
+        <briefdescription>
+<para>List of Pending Pipe commands. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="241" column="14" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="241" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSyncLaunchStruct_1a8ca37410ea22b82eb0cc242b07693cee" prot="private" static="no" mutable="no">
+        <type>std::map&lt; InterChiplet::AddrType, <ref refid="group__cmd__handler__struct_1gae80febffec287d8ba0cccc9d2d6bb4e7" kindref="member">SyncCmdList</ref> &gt;</type>
+        <definition>std::map&lt;InterChiplet::AddrType, SyncCmdList&gt; SyncLaunchStruct::m_waitlaunch_cmd_list</definition>
+        <argsstring></argsstring>
+        <name>m_waitlaunch_cmd_list</name>
+        <briefdescription>
+<para>List of Pending Pipe commands. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="245" column="14" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="245" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classSyncLaunchStruct_1a5f5c615f659cd67f3a2eae861cb96dc6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool SyncLaunchStruct::hasMatchWaitlaunch</definition>
+        <argsstring>(const InterChiplet::SyncCommand &amp;__cmd)</argsstring>
+        <name>hasMatchWaitlaunch</name>
+        <param>
+          <type>const <ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">InterChiplet::SyncCommand</ref> &amp;</type>
+          <declname>__cmd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="248" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="248" bodyend="269"/>
+      </memberdef>
+      <memberdef kind="function" id="classSyncLaunchStruct_1a722043e66cf7af4118ae254d3a3423d2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">InterChiplet::SyncCommand</ref></type>
+        <definition>InterChiplet::SyncCommand SyncLaunchStruct::popMatchWaitlaunch</definition>
+        <argsstring>(const InterChiplet::SyncCommand &amp;__cmd)</argsstring>
+        <name>popMatchWaitlaunch</name>
+        <param>
+          <type>const <ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">InterChiplet::SyncCommand</ref> &amp;</type>
+          <declname>__cmd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="271" column="38" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="271" bodyend="292"/>
+      </memberdef>
+      <memberdef kind="function" id="classSyncLaunchStruct_1a2c4d1cba2e590729c8ef5c6c15f2ec75" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void SyncLaunchStruct::insertWaitlaunch</definition>
+        <argsstring>(InterChiplet::SyncCommand &amp;__cmd)</argsstring>
+        <name>insertWaitlaunch</name>
+        <param>
+          <type><ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">InterChiplet::SyncCommand</ref> &amp;</type>
+          <declname>__cmd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="294" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="294" bodyend="299"/>
+      </memberdef>
+      <memberdef kind="function" id="classSyncLaunchStruct_1a36029f52842dc57b1cd4f8775a803ab9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void SyncLaunchStruct::insertWaitlaunch</definition>
+        <argsstring>(const InterChiplet::SyncCommand &amp;__cmd)</argsstring>
+        <name>insertWaitlaunch</name>
+        <param>
+          <type>const <ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">InterChiplet::SyncCommand</ref> &amp;</type>
+          <declname>__cmd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="301" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="301" bodyend="306"/>
+      </memberdef>
+      <memberdef kind="function" id="classSyncLaunchStruct_1a80dd16b1124c073ea7221dc39b1495eb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool SyncLaunchStruct::hasMatchLaunch</definition>
+        <argsstring>(const InterChiplet::SyncCommand &amp;__cmd)</argsstring>
+        <name>hasMatchLaunch</name>
+        <param>
+          <type>const <ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">InterChiplet::SyncCommand</ref> &amp;</type>
+          <declname>__cmd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="308" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="308" bodyend="328"/>
+      </memberdef>
+      <memberdef kind="function" id="classSyncLaunchStruct_1a785cc7e67d7700439c572a6fae566509" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">InterChiplet::SyncCommand</ref></type>
+        <definition>InterChiplet::SyncCommand SyncLaunchStruct::popMatchLaunch</definition>
+        <argsstring>(const InterChiplet::SyncCommand &amp;__cmd)</argsstring>
+        <name>popMatchLaunch</name>
+        <param>
+          <type>const <ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">InterChiplet::SyncCommand</ref> &amp;</type>
+          <declname>__cmd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="330" column="38" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="330" bodyend="350"/>
+      </memberdef>
+      <memberdef kind="function" id="classSyncLaunchStruct_1ac201b6726697cf685a2a92bec21aa620" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void SyncLaunchStruct::insertLaunch</definition>
+        <argsstring>(InterChiplet::SyncCommand &amp;__cmd)</argsstring>
+        <name>insertLaunch</name>
+        <param>
+          <type><ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">InterChiplet::SyncCommand</ref> &amp;</type>
+          <declname>__cmd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="352" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="352" bodyend="357"/>
+      </memberdef>
+      <memberdef kind="function" id="classSyncLaunchStruct_1a3ba6e66876623159b95c4db81082af75" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void SyncLaunchStruct::insertLaunch</definition>
+        <argsstring>(const InterChiplet::SyncCommand &amp;__cmd)</argsstring>
+        <name>insertLaunch</name>
+        <param>
+          <type>const <ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">InterChiplet::SyncCommand</ref> &amp;</type>
+          <declname>__cmd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="359" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="359" bodyend="364"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure for Launch and Wait-launch synchronization. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="236" column="23" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="236" bodyend="365"/>
+    <listofallmembers>
+      <member refid="classSyncLaunchStruct_1a80dd16b1124c073ea7221dc39b1495eb" prot="public" virt="non-virtual"><scope>SyncLaunchStruct</scope><name>hasMatchLaunch</name></member>
+      <member refid="classSyncLaunchStruct_1a5f5c615f659cd67f3a2eae861cb96dc6" prot="public" virt="non-virtual"><scope>SyncLaunchStruct</scope><name>hasMatchWaitlaunch</name></member>
+      <member refid="classSyncLaunchStruct_1ac201b6726697cf685a2a92bec21aa620" prot="public" virt="non-virtual"><scope>SyncLaunchStruct</scope><name>insertLaunch</name></member>
+      <member refid="classSyncLaunchStruct_1a3ba6e66876623159b95c4db81082af75" prot="public" virt="non-virtual"><scope>SyncLaunchStruct</scope><name>insertLaunch</name></member>
+      <member refid="classSyncLaunchStruct_1a2c4d1cba2e590729c8ef5c6c15f2ec75" prot="public" virt="non-virtual"><scope>SyncLaunchStruct</scope><name>insertWaitlaunch</name></member>
+      <member refid="classSyncLaunchStruct_1a36029f52842dc57b1cd4f8775a803ab9" prot="public" virt="non-virtual"><scope>SyncLaunchStruct</scope><name>insertWaitlaunch</name></member>
+      <member refid="classSyncLaunchStruct_1a6d2c81c785aa63a30eeaa039f6696b14" prot="private" virt="non-virtual"><scope>SyncLaunchStruct</scope><name>m_launch_cmd_list</name></member>
+      <member refid="classSyncLaunchStruct_1a8ca37410ea22b82eb0cc242b07693cee" prot="private" virt="non-virtual"><scope>SyncLaunchStruct</scope><name>m_waitlaunch_cmd_list</name></member>
+      <member refid="classSyncLaunchStruct_1a785cc7e67d7700439c572a6fae566509" prot="public" virt="non-virtual"><scope>SyncLaunchStruct</scope><name>popMatchLaunch</name></member>
+      <member refid="classSyncLaunchStruct_1a722043e66cf7af4118ae254d3a3423d2" prot="public" virt="non-virtual"><scope>SyncLaunchStruct</scope><name>popMatchWaitlaunch</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

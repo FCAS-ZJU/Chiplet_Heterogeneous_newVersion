@@ -1,0 +1,259 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="classNetworkBenchItem" kind="class" language="C++" prot="public">
+    <compoundname>NetworkBenchItem</compoundname>
+    <includes refid="net__bench_8h" local="no">net_bench.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classNetworkBenchItem_1ae7700791eaf933e2ef76175e85d5ef4a" prot="public" static="no" mutable="no">
+        <type>InterChiplet::InnerTimeType</type>
+        <definition>InterChiplet::InnerTimeType NetworkBenchItem::m_src_cycle</definition>
+        <argsstring></argsstring>
+        <name>m_src_cycle</name>
+        <briefdescription>
+<para>Package injection cycle from the source side. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" line="24" column="33" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classNetworkBenchItem_1a61c6ffb34699b05dbd792ccf42d8a991" prot="public" static="no" mutable="no">
+        <type>InterChiplet::InnerTimeType</type>
+        <definition>InterChiplet::InnerTimeType NetworkBenchItem::m_dst_cycle</definition>
+        <argsstring></argsstring>
+        <name>m_dst_cycle</name>
+        <briefdescription>
+<para>Package injection cycle from the destination side. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" line="28" column="33" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classNetworkBenchItem_1ac1af01acfbec3c0078f17eab70f4821b" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t NetworkBenchItem::m_id</definition>
+        <argsstring></argsstring>
+        <name>m_id</name>
+        <briefdescription>
+<para>Packate id. (Not used yet.) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" line="32" column="14" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classNetworkBenchItem_1a711e9ebe58cab6d5db885e1fd58eeb66" prot="public" static="no" mutable="no">
+        <type>InterChiplet::AddrType</type>
+        <definition>InterChiplet::AddrType NetworkBenchItem::m_src</definition>
+        <argsstring></argsstring>
+        <name>m_src</name>
+        <briefdescription>
+<para>Source address. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" line="36" column="28" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classNetworkBenchItem_1aef051f24e2229001ba66f9603128040a" prot="public" static="no" mutable="no">
+        <type>InterChiplet::AddrType</type>
+        <definition>InterChiplet::AddrType NetworkBenchItem::m_dst</definition>
+        <argsstring></argsstring>
+        <name>m_dst</name>
+        <briefdescription>
+<para>Destination address. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" line="40" column="28" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classNetworkBenchItem_1a5ecf81edf00ad6f800657dc124a1480f" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int NetworkBenchItem::m_pac_size</definition>
+        <argsstring></argsstring>
+        <name>m_pac_size</name>
+        <briefdescription>
+<para>Size of package in bytes. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" line="44" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classNetworkBenchItem_1a90d56f6f01054d0656ba5bf847f3791a" prot="public" static="no" mutable="no">
+        <type>long</type>
+        <definition>long NetworkBenchItem::m_desc</definition>
+        <argsstring></argsstring>
+        <name>m_desc</name>
+        <briefdescription>
+<para>Synchronization protocol descriptor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" line="48" column="10" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classNetworkBenchItem_1a95a4cf7c5f9a2bdad873c12e1ea90672" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>NetworkBenchItem::NetworkBenchItem</definition>
+        <argsstring>()</argsstring>
+        <name>NetworkBenchItem</name>
+        <briefdescription>
+<para>Construct Empty <ref refid="classNetworkBenchItem" kindref="compound">NetworkBenchItem</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" line="54" column="5" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" bodystart="54" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="classNetworkBenchItem_1ad16ea0785e49a02ac8d5043bc725284c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>NetworkBenchItem::NetworkBenchItem</definition>
+        <argsstring>(const InterChiplet::SyncCommand &amp;__src_cmd, const InterChiplet::SyncCommand &amp;__dst_cmd)</argsstring>
+        <name>NetworkBenchItem</name>
+        <param>
+          <type>const <ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">InterChiplet::SyncCommand</ref> &amp;</type>
+          <declname>__src_cmd</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">InterChiplet::SyncCommand</ref> &amp;</type>
+          <declname>__dst_cmd</declname>
+        </param>
+        <briefdescription>
+<para>Construct <ref refid="classNetworkBenchItem" kindref="compound">NetworkBenchItem</ref> from SyncCommand. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__src_cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Structure of source command. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst_cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Structure of destination command. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" line="61" column="5" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" bodystart="61" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="classNetworkBenchItem_1a0097c78895556e88dcfdc57bbe0e6402" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>NetworkBenchItem::NetworkBenchItem</definition>
+        <argsstring>(const InterChiplet::SyncCommand &amp;__src_cmd)</argsstring>
+        <name>NetworkBenchItem</name>
+        <param>
+          <type>const <ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">InterChiplet::SyncCommand</ref> &amp;</type>
+          <declname>__src_cmd</declname>
+        </param>
+        <briefdescription>
+<para>Construct <ref refid="classNetworkBenchItem" kindref="compound">NetworkBenchItem</ref> from SyncCommand. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__src_cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Structure of source command. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" line="79" column="5" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" bodystart="79" bodyend="90"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="classNetworkBenchItem_1af05ae396deadd9d2d16b6a9ba628b161" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>friend std::ostream &amp;</type>
+        <definition>std::ostream&amp; operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;os, const NetworkBenchItem &amp;__item)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classNetworkBenchItem" kindref="compound">NetworkBenchItem</ref> &amp;</type>
+          <declname>__item</declname>
+        </param>
+        <briefdescription>
+<para>Overloading operator &lt;&lt;. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Write <ref refid="classNetworkBenchItem" kindref="compound">NetworkBenchItem</ref> to output stream. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" line="97" column="12" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" bodystart="97" bodyend="102"/>
+      </memberdef>
+      <memberdef kind="friend" id="classNetworkBenchItem_1ac8720b467b180b5fda1ecaac1464db94" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>friend std::istream &amp;</type>
+        <definition>std::istream&amp; operator&gt;&gt;</definition>
+        <argsstring>(std::istream &amp;os, NetworkBenchItem &amp;__item)</argsstring>
+        <name>operator&gt;&gt;</name>
+        <param>
+          <type>std::istream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <param>
+          <type><ref refid="classNetworkBenchItem" kindref="compound">NetworkBenchItem</ref> &amp;</type>
+          <declname>__item</declname>
+        </param>
+        <briefdescription>
+<para>Overloading operator &gt;&gt;. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Read <ref refid="classNetworkBenchItem" kindref="compound">NetworkBenchItem</ref> from input stream. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" line="109" column="25" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" bodystart="109" bodyend="119"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure of one package in network. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" line="19" column="23" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" bodystart="19" bodyend="120"/>
+    <listofallmembers>
+      <member refid="classNetworkBenchItem_1a90d56f6f01054d0656ba5bf847f3791a" prot="public" virt="non-virtual"><scope>NetworkBenchItem</scope><name>m_desc</name></member>
+      <member refid="classNetworkBenchItem_1aef051f24e2229001ba66f9603128040a" prot="public" virt="non-virtual"><scope>NetworkBenchItem</scope><name>m_dst</name></member>
+      <member refid="classNetworkBenchItem_1a61c6ffb34699b05dbd792ccf42d8a991" prot="public" virt="non-virtual"><scope>NetworkBenchItem</scope><name>m_dst_cycle</name></member>
+      <member refid="classNetworkBenchItem_1ac1af01acfbec3c0078f17eab70f4821b" prot="public" virt="non-virtual"><scope>NetworkBenchItem</scope><name>m_id</name></member>
+      <member refid="classNetworkBenchItem_1a5ecf81edf00ad6f800657dc124a1480f" prot="public" virt="non-virtual"><scope>NetworkBenchItem</scope><name>m_pac_size</name></member>
+      <member refid="classNetworkBenchItem_1a711e9ebe58cab6d5db885e1fd58eeb66" prot="public" virt="non-virtual"><scope>NetworkBenchItem</scope><name>m_src</name></member>
+      <member refid="classNetworkBenchItem_1ae7700791eaf933e2ef76175e85d5ef4a" prot="public" virt="non-virtual"><scope>NetworkBenchItem</scope><name>m_src_cycle</name></member>
+      <member refid="classNetworkBenchItem_1a95a4cf7c5f9a2bdad873c12e1ea90672" prot="public" virt="non-virtual"><scope>NetworkBenchItem</scope><name>NetworkBenchItem</name></member>
+      <member refid="classNetworkBenchItem_1ad16ea0785e49a02ac8d5043bc725284c" prot="public" virt="non-virtual"><scope>NetworkBenchItem</scope><name>NetworkBenchItem</name></member>
+      <member refid="classNetworkBenchItem_1a0097c78895556e88dcfdc57bbe0e6402" prot="public" virt="non-virtual"><scope>NetworkBenchItem</scope><name>NetworkBenchItem</name></member>
+      <member refid="classNetworkBenchItem_1af05ae396deadd9d2d16b6a9ba628b161" prot="public" virt="non-virtual"><scope>NetworkBenchItem</scope><name>operator&lt;&lt;</name></member>
+      <member refid="classNetworkBenchItem_1ac8720b467b180b5fda1ecaac1464db94" prot="public" virt="non-virtual"><scope>NetworkBenchItem</scope><name>operator&gt;&gt;</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

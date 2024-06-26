@@ -26,24 +26,24 @@
 
 
 
-## Namespaces
-
-| Type | Name |
-| ---: | :--- |
-| namespace | [**InterChiplet**](namespaceInterChiplet.md) <br> |
 
 ## Classes
 
 | Type | Name |
 | ---: | :--- |
-| class | [**SyncBarrierStruct**](classInterChiplet_1_1SyncBarrierStruct.md) <br>_Structure for Barrier synchronization._  |
-| class | [**SyncClockStruct**](classInterChiplet_1_1SyncClockStruct.md) <br>_Structure for Clock synchronization._  |
-| class | [**SyncCommStruct**](classInterChiplet_1_1SyncCommStruct.md) <br>_Structure for Communication synchronization._  |
-| class | [**SyncLaunchStruct**](classInterChiplet_1_1SyncLaunchStruct.md) <br>_Structure for Launch and Wait-launch synchronization._  |
-| class | [**SyncLockStruct**](classInterChiplet_1_1SyncLockStruct.md) <br>_Structure for Lock and Unlock synchronization._  |
-| class | [**SyncPipeStruct**](classInterChiplet_1_1SyncPipeStruct.md) <br>_Structure for Pipe synchronization._  |
+| class | [**SyncBarrierStruct**](classSyncBarrierStruct.md) <br>_Structure for Barrier synchronization._  |
+| class | [**SyncClockStruct**](classSyncClockStruct.md) <br>_Structure for Clock synchronization._  |
+| class | [**SyncCommStruct**](classSyncCommStruct.md) <br>_Structure for Communication synchronization._  |
+| class | [**SyncLaunchStruct**](classSyncLaunchStruct.md) <br>_Structure for Launch and Wait-launch synchronization._  |
+| class | [**SyncLockStruct**](classSyncLockStruct.md) <br>_Structure for Lock and Unlock synchronization._  |
+| class | [**SyncPipeStruct**](classSyncPipeStruct.md) <br>_Structure for Pipe synchronization._  |
 | class | [**SyncStruct**](classSyncStruct.md) <br>_Data structure of synchronize operation._  |
 
+## Public Types
+
+| Type | Name |
+| ---: | :--- |
+| typedef std::vector&lt; [**InterChiplet::SyncCommand**](classInterChiplet_1_1SyncCommand.md) &gt; | [**SyncCmdList**](#typedef-synccmdlist)  <br>_List of synchronization commands._  |
 
 
 
@@ -66,6 +66,17 @@
 
 
 
+
+
+
+## Public Types Documentation
+
+
+### typedef SyncCmdList 
+
+```C++
+typedef std::vector<InterChiplet::SyncCommand> SyncCmdList;
+```
 
 
 

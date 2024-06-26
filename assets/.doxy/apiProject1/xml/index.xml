@@ -1,90 +1,90 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.17">
-  <compound refid="classInterChiplet_1_1BenchmarkConfig" kind="class"><name>InterChiplet::BenchmarkConfig</name>
-    <member refid="classInterChiplet_1_1BenchmarkConfig_1a3467f8689d45bfab60f93a2b5b21b3b5" kind="variable"><name>m_benchmark_root</name></member>
-    <member refid="classInterChiplet_1_1BenchmarkConfig_1a0fcb8b32f9e42fa01d22274e2b01e255" kind="variable"><name>m_simulator_root</name></member>
-    <member refid="classInterChiplet_1_1BenchmarkConfig_1a7af2a0152d65110de7de35614d424da6" kind="variable"><name>m_phase1_proc_cfg_list</name></member>
-    <member refid="classInterChiplet_1_1BenchmarkConfig_1ab0d1fcd93ad876303a8066aa8639ef8a" kind="variable"><name>m_phase2_proc_cfg_list</name></member>
-    <member refid="classInterChiplet_1_1BenchmarkConfig_1ab5f99437fdd84e9601f3c72c7188cc8d" kind="function"><name>BenchmarkConfig</name></member>
-    <member refid="classInterChiplet_1_1BenchmarkConfig_1a07bdb90567a8a76365b85891c8f12b9c" kind="function"><name>yaml_parse</name></member>
-    <member refid="classInterChiplet_1_1BenchmarkConfig_1ac5978d56caad7790880180561f074266" kind="function"><name>yaml_parse_phase</name></member>
-    <member refid="classInterChiplet_1_1BenchmarkConfig_1ab3cfcc2ab6a68b2dc9b7dd217da42e44" kind="function"><name>yaml_parse_process</name></member>
-    <member refid="classInterChiplet_1_1BenchmarkConfig_1a52a5bc4e80740c0e85e1afc1b7702cc6" kind="function"><name>extend_env_var</name></member>
-    <member refid="classInterChiplet_1_1BenchmarkConfig_1a8e63dc69d5bce250ac75a039f0487b90" kind="function"><name>extend_env_var_proc</name></member>
-    <member refid="classInterChiplet_1_1BenchmarkConfig_1ad0d732645e8a8e5b92531d159095e4c2" kind="function"><name>extend_env_var_string</name></member>
+  <compound refid="classBenchmarkConfig" kind="class"><name>BenchmarkConfig</name>
+    <member refid="classBenchmarkConfig_1a41a4622107a6cd97b484aa2272d2c371" kind="variable"><name>m_benchmark_root</name></member>
+    <member refid="classBenchmarkConfig_1af15f52ffcedc423e20695c05f5944742" kind="variable"><name>m_simulator_root</name></member>
+    <member refid="classBenchmarkConfig_1a980c8709029da9a10e56ca594e9b400a" kind="variable"><name>m_phase1_proc_cfg_list</name></member>
+    <member refid="classBenchmarkConfig_1aae2c321ad9ca7964a445584e937ffdd1" kind="variable"><name>m_phase2_proc_cfg_list</name></member>
+    <member refid="classBenchmarkConfig_1a6c6b96b25f3ad0fca2d9e7766bfcf6fa" kind="function"><name>BenchmarkConfig</name></member>
+    <member refid="classBenchmarkConfig_1a52d704f0ed0c61885fef321e722e2315" kind="function"><name>yaml_parse</name></member>
+    <member refid="classBenchmarkConfig_1aa5c42862b5278d114c37e7457e3c19c7" kind="function"><name>yaml_parse_phase</name></member>
+    <member refid="classBenchmarkConfig_1ab2306c95a02eaa33897af959abc14567" kind="function"><name>yaml_parse_process</name></member>
+    <member refid="classBenchmarkConfig_1a6971ed18e7839b0fc44c53ae2a5af895" kind="function"><name>extend_env_var</name></member>
+    <member refid="classBenchmarkConfig_1a56c239ec28c18a5b24efea8e1f39aa4b" kind="function"><name>extend_env_var_proc</name></member>
+    <member refid="classBenchmarkConfig_1ad17bfb753262602f9b9ee930ab38cc78" kind="function"><name>extend_env_var_string</name></member>
   </compound>
-  <compound refid="classInterChiplet_1_1CmdLineOptions" kind="class"><name>InterChiplet::CmdLineOptions</name>
-    <member refid="classInterChiplet_1_1CmdLineOptions_1ad42027833f26f43fcf52bd25d8245164" kind="variable"><name>m_bench</name></member>
-    <member refid="classInterChiplet_1_1CmdLineOptions_1af65d1b7685d14e517465a72915818572" kind="variable"><name>m_cwd</name></member>
-    <member refid="classInterChiplet_1_1CmdLineOptions_1a86a68795dc277c308402743479ce017e" kind="variable"><name>m_timeout_threshold</name></member>
-    <member refid="classInterChiplet_1_1CmdLineOptions_1afd600ce39eb8a629f9f2693c5f684b3e" kind="variable"><name>m_err_rate_threshold</name></member>
-    <member refid="classInterChiplet_1_1CmdLineOptions_1a14293751e535fd4bbc24d34cdc5dca93" kind="variable"><name>m_debug</name></member>
-    <member refid="classInterChiplet_1_1CmdLineOptions_1ad490e8821ba4dc63a8b3e18655a1acb8" kind="function"><name>CmdLineOptions</name></member>
-    <member refid="classInterChiplet_1_1CmdLineOptions_1af8ec2f6eecf970df488500ca2c35eb56" kind="function"><name>parse</name></member>
+  <compound refid="classCmdLineOptions" kind="class"><name>CmdLineOptions</name>
+    <member refid="classCmdLineOptions_1aaf94d12d4de2d50e136e113be60cb36e" kind="variable"><name>m_bench</name></member>
+    <member refid="classCmdLineOptions_1ad2a012b35e5f3ac4e3c4c606b973fd35" kind="variable"><name>m_cwd</name></member>
+    <member refid="classCmdLineOptions_1a65435c9375c64504530db1dae72bf781" kind="variable"><name>m_timeout_threshold</name></member>
+    <member refid="classCmdLineOptions_1a3945bf49304982426cd44fad4952cc81" kind="variable"><name>m_err_rate_threshold</name></member>
+    <member refid="classCmdLineOptions_1acac45bddc33293d5f0076de4c14ca0a8" kind="variable"><name>m_debug</name></member>
+    <member refid="classCmdLineOptions_1a02b74af1e9b4ba3cec6cdc9401f26e13" kind="function"><name>CmdLineOptions</name></member>
+    <member refid="classCmdLineOptions_1ad09cca78f6b7046fe9936b131654a8ff" kind="function"><name>parse</name></member>
   </compound>
-  <compound refid="classInterChiplet_1_1NetworkBenchItem" kind="class"><name>InterChiplet::NetworkBenchItem</name>
-    <member refid="classInterChiplet_1_1NetworkBenchItem_1af25335ba06b82c19c7ee3cd50c122aea" kind="variable"><name>m_src_cycle</name></member>
-    <member refid="classInterChiplet_1_1NetworkBenchItem_1a324fe4be24a39afa3c3a39acf9d4e9cc" kind="variable"><name>m_dst_cycle</name></member>
-    <member refid="classInterChiplet_1_1NetworkBenchItem_1aa661ee76ac7fbdc8064cf305d750547a" kind="variable"><name>m_id</name></member>
-    <member refid="classInterChiplet_1_1NetworkBenchItem_1ac066fb2a23a136d4c9ca324362d35cf6" kind="variable"><name>m_src</name></member>
-    <member refid="classInterChiplet_1_1NetworkBenchItem_1a0189ab725ffdd3ab0f8845c9fa9f68d8" kind="variable"><name>m_dst</name></member>
-    <member refid="classInterChiplet_1_1NetworkBenchItem_1ae726753b751658db23701e8a19cc91a7" kind="variable"><name>m_pac_size</name></member>
-    <member refid="classInterChiplet_1_1NetworkBenchItem_1ab94f3ff73969f849ff440b30e4302e0e" kind="variable"><name>m_desc</name></member>
-    <member refid="classInterChiplet_1_1NetworkBenchItem_1a9ff67008f22d94de1d403f330abf94ab" kind="function"><name>NetworkBenchItem</name></member>
-    <member refid="classInterChiplet_1_1NetworkBenchItem_1a0e843ed82a1b9d8df770010a5a1532c4" kind="function"><name>NetworkBenchItem</name></member>
-    <member refid="classInterChiplet_1_1NetworkBenchItem_1a1fca2bdd24b992a60ea615c27c87295b" kind="function"><name>NetworkBenchItem</name></member>
-    <member refid="classInterChiplet_1_1NetworkBenchItem_1af05ae396deadd9d2d16b6a9ba628b161" kind="friend"><name>operator&lt;&lt;</name></member>
-    <member refid="classInterChiplet_1_1NetworkBenchItem_1ac8720b467b180b5fda1ecaac1464db94" kind="friend"><name>operator&gt;&gt;</name></member>
+  <compound refid="classNetworkBenchItem" kind="class"><name>NetworkBenchItem</name>
+    <member refid="classNetworkBenchItem_1ae7700791eaf933e2ef76175e85d5ef4a" kind="variable"><name>m_src_cycle</name></member>
+    <member refid="classNetworkBenchItem_1a61c6ffb34699b05dbd792ccf42d8a991" kind="variable"><name>m_dst_cycle</name></member>
+    <member refid="classNetworkBenchItem_1ac1af01acfbec3c0078f17eab70f4821b" kind="variable"><name>m_id</name></member>
+    <member refid="classNetworkBenchItem_1a711e9ebe58cab6d5db885e1fd58eeb66" kind="variable"><name>m_src</name></member>
+    <member refid="classNetworkBenchItem_1aef051f24e2229001ba66f9603128040a" kind="variable"><name>m_dst</name></member>
+    <member refid="classNetworkBenchItem_1a5ecf81edf00ad6f800657dc124a1480f" kind="variable"><name>m_pac_size</name></member>
+    <member refid="classNetworkBenchItem_1a90d56f6f01054d0656ba5bf847f3791a" kind="variable"><name>m_desc</name></member>
+    <member refid="classNetworkBenchItem_1a95a4cf7c5f9a2bdad873c12e1ea90672" kind="function"><name>NetworkBenchItem</name></member>
+    <member refid="classNetworkBenchItem_1ad16ea0785e49a02ac8d5043bc725284c" kind="function"><name>NetworkBenchItem</name></member>
+    <member refid="classNetworkBenchItem_1a0097c78895556e88dcfdc57bbe0e6402" kind="function"><name>NetworkBenchItem</name></member>
+    <member refid="classNetworkBenchItem_1af05ae396deadd9d2d16b6a9ba628b161" kind="friend"><name>operator&lt;&lt;</name></member>
+    <member refid="classNetworkBenchItem_1ac8720b467b180b5fda1ecaac1464db94" kind="friend"><name>operator&gt;&gt;</name></member>
   </compound>
-  <compound refid="classInterChiplet_1_1NetworkBenchList" kind="class"><name>InterChiplet::NetworkBenchList</name>
-    <member refid="classInterChiplet_1_1NetworkBenchList_1a6a4edc6297a8fbff3ca00b6653fae8a2" kind="function"><name>NetworkBenchList</name></member>
-    <member refid="classInterChiplet_1_1NetworkBenchList_1a15eaf30b1268f85bc8d5474b43437da0" kind="function"><name>insert</name></member>
-    <member refid="classInterChiplet_1_1NetworkBenchList_1a0166ba32ffba557197edbceef6b07fd6" kind="function"><name>dumpBench</name></member>
+  <compound refid="classNetworkBenchList" kind="class"><name>NetworkBenchList</name>
+    <member refid="classNetworkBenchList_1a86b34fe06502f0edfe5ab9b355be25bc" kind="function"><name>NetworkBenchList</name></member>
+    <member refid="classNetworkBenchList_1a1a69dab1495d828a1031e79766999fd2" kind="function"><name>insert</name></member>
+    <member refid="classNetworkBenchList_1aafd1a6bdb01fc36f8d4c29c741507fd3" kind="function"><name>dumpBench</name></member>
   </compound>
-  <compound refid="classInterChiplet_1_1NetworkDelayItem" kind="class"><name>InterChiplet::NetworkDelayItem</name>
-    <member refid="classInterChiplet_1_1NetworkDelayItem_1a4101b476942b4851887e434ba8d83173" kind="variable"><name>m_cycle</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayItem_1a27d75951b13fa561db905b1552d92190" kind="variable"><name>m_id</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayItem_1a90d4997668a891f3a59653a5db916f2a" kind="variable"><name>m_src</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayItem_1a33821017829355a4ef367190339c9736" kind="variable"><name>m_dst</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayItem_1a6494c45ddeca438d9411473d4e369e51" kind="variable"><name>m_desc</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayItem_1a37291ac73f584c1d8bff0834546e8c44" kind="variable"><name>m_delay_list</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayItem_1ab8e54d5746990e58cdb1476831ffc3ba" kind="function"><name>NetworkDelayItem</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayItem_1aead03120cd7a91dfb12cfba836fe96ef" kind="function"><name>NetworkDelayItem</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayItem_1a136796f32b6f19e903b10633ba782fbd" kind="friend"><name>operator&lt;&lt;</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayItem_1af4f074546559613383491525a7c47038" kind="friend"><name>operator&gt;&gt;</name></member>
+  <compound refid="classNetworkDelayItem" kind="class"><name>NetworkDelayItem</name>
+    <member refid="classNetworkDelayItem_1a868a2ce8f2042c918df8c3060cc6d1c3" kind="variable"><name>m_cycle</name></member>
+    <member refid="classNetworkDelayItem_1a91078f792e54ead32258225929d653b2" kind="variable"><name>m_id</name></member>
+    <member refid="classNetworkDelayItem_1acf1163742d981a57a99a4f2d606326fc" kind="variable"><name>m_src</name></member>
+    <member refid="classNetworkDelayItem_1a222fc032f9f9613306769dcf7e6d8ab2" kind="variable"><name>m_dst</name></member>
+    <member refid="classNetworkDelayItem_1ae24f380a0fe7cfbc759f2a904a5fdf46" kind="variable"><name>m_desc</name></member>
+    <member refid="classNetworkDelayItem_1a51a7b2c0b5cb9dba0a14e6e7091fa56a" kind="variable"><name>m_delay_list</name></member>
+    <member refid="classNetworkDelayItem_1a169cdbfde5a4c11b89b20fa275fc8591" kind="function"><name>NetworkDelayItem</name></member>
+    <member refid="classNetworkDelayItem_1afa76cb19b4b23bf3cd9f30aeac5d65c5" kind="function"><name>NetworkDelayItem</name></member>
+    <member refid="classNetworkDelayItem_1a136796f32b6f19e903b10633ba782fbd" kind="friend"><name>operator&lt;&lt;</name></member>
+    <member refid="classNetworkDelayItem_1af4f074546559613383491525a7c47038" kind="friend"><name>operator&gt;&gt;</name></member>
   </compound>
-  <compound refid="classInterChiplet_1_1NetworkDelayMap" kind="class"><name>InterChiplet::NetworkDelayMap</name>
-    <member refid="classInterChiplet_1_1NetworkDelayMap_1a7d555bcd20572c73543f82061b2223f9" kind="function"><name>insert</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayMap_1abc51e1445630306b6fb81f598bcc432c" kind="function"><name>hasAddr</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayMap_1afc2c03d3a04bb0e4a7117271fae10027" kind="function"><name>hasAddr</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayMap_1ad1c4eec044c5fbcc94a5b799743dd7bc" kind="function"><name>front</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayMap_1abf61f88d0fb1053da544091e7120d53d" kind="function"><name>front</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayMap_1a5c88e89ebd440cdc43aafcfe4447bcae" kind="function"><name>pop</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayMap_1ac03604a15556bafc10096501fb90f1c2" kind="function"><name>pop</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayMap_1a9acc3c5d748c5051043c529ea59fe47c" kind="function"><name>checkOrderOfCommand</name></member>
+  <compound refid="classNetworkDelayMap" kind="class"><name>NetworkDelayMap</name>
+    <member refid="classNetworkDelayMap_1ae83fe349535d2db5222fb0435b4980d4" kind="function"><name>insert</name></member>
+    <member refid="classNetworkDelayMap_1aa082126eff794b1db823dca0bd5f5bd4" kind="function"><name>hasAddr</name></member>
+    <member refid="classNetworkDelayMap_1a092035d7b57aa608ecd34c5c24b9f31e" kind="function"><name>hasAddr</name></member>
+    <member refid="classNetworkDelayMap_1a2e19fdd61cf233c21fbbda42860dd621" kind="function"><name>front</name></member>
+    <member refid="classNetworkDelayMap_1a829408b81a4085a3a1a037d10e940df5" kind="function"><name>front</name></member>
+    <member refid="classNetworkDelayMap_1a9061483f1887de13b93a3ec11f2f4ece" kind="function"><name>pop</name></member>
+    <member refid="classNetworkDelayMap_1a24ad0bc5d29dd2f94feb9c9eb5499e97" kind="function"><name>pop</name></member>
+    <member refid="classNetworkDelayMap_1ab3a369fd61a64b7cc6b6f5feba4f320c" kind="function"><name>checkOrderOfCommand</name></member>
   </compound>
-  <compound refid="classInterChiplet_1_1NetworkDelayStruct" kind="class"><name>InterChiplet::NetworkDelayStruct</name>
-    <member refid="classInterChiplet_1_1NetworkDelayStruct_1a9adb282af9e408857154f7b3e4c99969" kind="variable"><name>m_item_count</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayStruct_1a3815d16475989a18a23c1c9724eb6259" kind="variable"><name>m_src_delay_map</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayStruct_1a93bc4a6d7e6539c131586901bfba3b50" kind="variable"><name>m_launch_delay_map</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayStruct_1af044399410ce4f247d274b1c7744317f" kind="variable"><name>m_barrier_delay_map</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayStruct_1a15a9081330f168f2587e2f4bf03909f5" kind="variable"><name>m_lock_delay_map</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayStruct_1a46e14296ee10ac1588e6c8897566370b" kind="variable"><name>m_unlock_delay_map</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayStruct_1affa9552f3f2de13204bbdd985f7f8104" kind="function"><name>NetworkDelayStruct</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayStruct_1adea618ced1b0f5cdc464f49f16a33433" kind="function"><name>size</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayStruct_1a130d5694631393d080571a30b8989cb6" kind="function"><name>loadDelayInfo</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayStruct_1a8e46736311bf4fba7e19035354797634" kind="function"><name>checkOrderOfCommand</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayStruct_1ab5031f5ba12c78d6f9b9e5155e526d13" kind="function"><name>clearDelayInfo</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayStruct_1af77f4a956d61486fbf02e66515241e59" kind="function"><name>hasLaunch</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayStruct_1a1bfe8f2a1383ce4066c65b325b958e34" kind="function"><name>frontLaunchSrc</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayStruct_1a0250ce37f77eee4ed27c784444f58709" kind="function"><name>popLaunch</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayStruct_1a3e4f909a39d0df8a002f5da643e6a920" kind="function"><name>hasLock</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayStruct_1aa868a3f2848c1a18476cb769fd449946" kind="function"><name>frontLockSrc</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayStruct_1af92e27edc0d28a8670a47e14ddd93461" kind="function"><name>popLock</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayStruct_1ae2764b301540a58833cb8b29fb6427c2" kind="function"><name>getEndCycle</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayStruct_1a2df3cabb3b428b667673e481ee6ee2ce" kind="function"><name>getBarrierCycle</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayStruct_1a04cdab02c3b7200162ef92d1fe4f5981" kind="function"><name>getDefaultEndCycle</name></member>
-    <member refid="classInterChiplet_1_1NetworkDelayStruct_1a5f4bb6f1fecac6654e76176603acf451" kind="function"><name>getDefaultEndCycle</name></member>
+  <compound refid="classNetworkDelayStruct" kind="class"><name>NetworkDelayStruct</name>
+    <member refid="classNetworkDelayStruct_1a62d591ed4908c55d3278fb1669744279" kind="variable"><name>m_item_count</name></member>
+    <member refid="classNetworkDelayStruct_1a7900bc686802b091b044bbf71332d808" kind="variable"><name>m_src_delay_map</name></member>
+    <member refid="classNetworkDelayStruct_1a23e38396cb448734630c694501749eb5" kind="variable"><name>m_launch_delay_map</name></member>
+    <member refid="classNetworkDelayStruct_1a59bbf8c56edc676c7ae189ace771c95b" kind="variable"><name>m_barrier_delay_map</name></member>
+    <member refid="classNetworkDelayStruct_1ad63bc1048bb0c97764f87641f1de40fe" kind="variable"><name>m_lock_delay_map</name></member>
+    <member refid="classNetworkDelayStruct_1ae60b9d9765cf53caef64497c66f4670b" kind="variable"><name>m_unlock_delay_map</name></member>
+    <member refid="classNetworkDelayStruct_1aec2f29294c8371ae81a3947dccec0231" kind="function"><name>NetworkDelayStruct</name></member>
+    <member refid="classNetworkDelayStruct_1acfa92dfad35b75cf7d0bf1f151e25d04" kind="function"><name>size</name></member>
+    <member refid="classNetworkDelayStruct_1ab2efd84b08d70b8adc9bffba348c11cd" kind="function"><name>loadDelayInfo</name></member>
+    <member refid="classNetworkDelayStruct_1a4c20d1d18c23145e264ffa0ab60e8fef" kind="function"><name>checkOrderOfCommand</name></member>
+    <member refid="classNetworkDelayStruct_1a429e2621b8233a7bd3b7261b52eb6124" kind="function"><name>clearDelayInfo</name></member>
+    <member refid="classNetworkDelayStruct_1a844532eb08b5e86be5050248f823ba42" kind="function"><name>hasLaunch</name></member>
+    <member refid="classNetworkDelayStruct_1abc1907b0617d01fd51ed9245ef0ae4e1" kind="function"><name>frontLaunchSrc</name></member>
+    <member refid="classNetworkDelayStruct_1ad918c1d39242b1c02a6f4f75dabc79fa" kind="function"><name>popLaunch</name></member>
+    <member refid="classNetworkDelayStruct_1aa7a3f6bf0debfbf45c681eb2e3826631" kind="function"><name>hasLock</name></member>
+    <member refid="classNetworkDelayStruct_1a4b035efd88ec2aa53f9dfe939c719344" kind="function"><name>frontLockSrc</name></member>
+    <member refid="classNetworkDelayStruct_1ad6cfb1909459937d5da20da5afcc6b75" kind="function"><name>popLock</name></member>
+    <member refid="classNetworkDelayStruct_1a1437c12708f0b2f30119d34eea817cd5" kind="function"><name>getEndCycle</name></member>
+    <member refid="classNetworkDelayStruct_1ab0839a2af8f253a5a63dd6da3f1fea2f" kind="function"><name>getBarrierCycle</name></member>
+    <member refid="classNetworkDelayStruct_1a41cc00355fade6fd90c531fe0f80255e" kind="function"><name>getDefaultEndCycle</name></member>
+    <member refid="classNetworkDelayStruct_1af63ef393b0c6258ba9c2fff5c80e25a3" kind="function"><name>getDefaultEndCycle</name></member>
   </compound>
   <compound refid="classInterChiplet_1_1PipeComm" kind="class"><name>InterChiplet::PipeComm</name>
     <member refid="classInterChiplet_1_1PipeComm_1abd88d152a453fad63bdd394ebfa7e488" kind="variable"><name>m_named_fifo_map</name></member>
@@ -104,14 +104,14 @@
     <member refid="classInterChiplet_1_1PipeCommUnit_1a53e31b7ec893f89eb82c93955df2bbff" kind="function"><name>write_data</name></member>
     <member refid="classInterChiplet_1_1PipeCommUnit_1a04b9a2252965f1f533de180673751fc8" kind="function"><name>read_data_iter</name></member>
   </compound>
-  <compound refid="classInterChiplet_1_1ProcessConfig" kind="class"><name>InterChiplet::ProcessConfig</name>
-    <member refid="classInterChiplet_1_1ProcessConfig_1a09d838ffa12b0c28176a59261f24f42a" kind="variable"><name>m_command</name></member>
-    <member refid="classInterChiplet_1_1ProcessConfig_1af68c86e773c75090dff4cf433f8bb6a5" kind="variable"><name>m_args</name></member>
-    <member refid="classInterChiplet_1_1ProcessConfig_1ac183e7bdfe867918a205d0daccaf8606" kind="variable"><name>m_log_file</name></member>
-    <member refid="classInterChiplet_1_1ProcessConfig_1a2fa27cf6858cb329f9fb7f24bd08ce43" kind="variable"><name>m_to_stdout</name></member>
-    <member refid="classInterChiplet_1_1ProcessConfig_1ad82d336e66b36f6d8c6502bc5b0bb448" kind="variable"><name>m_clock_rate</name></member>
-    <member refid="classInterChiplet_1_1ProcessConfig_1a9ef4e7783db599c3f77b06465dbce65c" kind="variable"><name>m_pre_copy</name></member>
-    <member refid="classInterChiplet_1_1ProcessConfig_1ae84683fca980b81d1fabcf6454de0992" kind="function"><name>ProcessConfig</name></member>
+  <compound refid="classProcessConfig" kind="class"><name>ProcessConfig</name>
+    <member refid="classProcessConfig_1a84f9a749dc65f03fc7d4f1e89816eaca" kind="variable"><name>m_command</name></member>
+    <member refid="classProcessConfig_1a670a9b9b6bf0a2e007bc074391987b18" kind="variable"><name>m_args</name></member>
+    <member refid="classProcessConfig_1abb9280428a129394559bad3170650845" kind="variable"><name>m_log_file</name></member>
+    <member refid="classProcessConfig_1a97fdcfbcf409f211384467dcdf42af61" kind="variable"><name>m_to_stdout</name></member>
+    <member refid="classProcessConfig_1ab5a188def407c31f16a51a909d99a6fb" kind="variable"><name>m_clock_rate</name></member>
+    <member refid="classProcessConfig_1afe503cc391117cd2da45769dbccc1d56" kind="variable"><name>m_pre_copy</name></member>
+    <member refid="classProcessConfig_1a945ae56936771779f96c74988901f26e" kind="function"><name>ProcessConfig</name></member>
   </compound>
   <compound refid="classProcessStruct" kind="class"><name>ProcessStruct</name>
     <member refid="classProcessStruct_1a1534041cceee5691e3bec4550c5efe34" kind="variable"><name>m_command</name></member>
@@ -128,22 +128,22 @@
     <member refid="classProcessStruct_1a6814c3ab7ac3293bfa6fc2fae58800ac" kind="variable"><name>m_pid</name></member>
     <member refid="classProcessStruct_1a5d879956f620759608eb105072d5619e" kind="variable"><name>m_pid2</name></member>
     <member refid="classProcessStruct_1a4746f445292e2a2649e69da833f439d8" kind="variable"><name>m_sync_struct</name></member>
-    <member refid="classProcessStruct_1a330ae2cf7cd29c6cb9fcb4cea1ca631a" kind="function"><name>ProcessStruct</name></member>
+    <member refid="classProcessStruct_1aa95fda1ad6a2fd03be6e12d423fd7b5e" kind="function"><name>ProcessStruct</name></member>
   </compound>
-  <compound refid="classInterChiplet_1_1SyncBarrierStruct" kind="class"><name>InterChiplet::SyncBarrierStruct</name>
-    <member refid="classInterChiplet_1_1SyncBarrierStruct_1a1448e4219cc122e52898bf80dc60a727" kind="variable"><name>m_barrier_count_map</name></member>
-    <member refid="classInterChiplet_1_1SyncBarrierStruct_1ae9b511440e6d4a7cd8ca72d67631bb2e" kind="variable"><name>m_barrier_items_map</name></member>
-    <member refid="classInterChiplet_1_1SyncBarrierStruct_1a79a0d9e9812f416d1a1fa7e03e6daff3" kind="function"><name>insertBarrier</name></member>
-    <member refid="classInterChiplet_1_1SyncBarrierStruct_1a73f46cc74479501ae6589c26f29ae5e8" kind="function"><name>insertBarrier</name></member>
-    <member refid="classInterChiplet_1_1SyncBarrierStruct_1a0f292d7b5022a437c8e49b497c9844fe" kind="function"><name>overflow</name></member>
-    <member refid="classInterChiplet_1_1SyncBarrierStruct_1ad7cb0ab7747bae870cf2ddd895958157" kind="function"><name>barrierCmd</name></member>
-    <member refid="classInterChiplet_1_1SyncBarrierStruct_1ab49486e2d0d9b48e5730b82714f58eaa" kind="function"><name>reset</name></member>
+  <compound refid="classSyncBarrierStruct" kind="class"><name>SyncBarrierStruct</name>
+    <member refid="classSyncBarrierStruct_1aa319abddad88bdaeabe417b149207900" kind="variable"><name>m_barrier_count_map</name></member>
+    <member refid="classSyncBarrierStruct_1ae025708e1df2b3f3af4ffa6c0f61cc17" kind="variable"><name>m_barrier_items_map</name></member>
+    <member refid="classSyncBarrierStruct_1a31d6490060312f55d33bae84ac596433" kind="function"><name>insertBarrier</name></member>
+    <member refid="classSyncBarrierStruct_1aa1bec1e1823e32213c56a2c080439011" kind="function"><name>insertBarrier</name></member>
+    <member refid="classSyncBarrierStruct_1a64f7a6c16bc2165762c23c1e3f4a9fff" kind="function"><name>overflow</name></member>
+    <member refid="classSyncBarrierStruct_1aa6bcc0c7e4e728099fd5a7ffe0e9d181" kind="function"><name>barrierCmd</name></member>
+    <member refid="classSyncBarrierStruct_1adc216ceef0b2c8b1de184f3e6ff42f96" kind="function"><name>reset</name></member>
   </compound>
-  <compound refid="classInterChiplet_1_1SyncClockStruct" kind="class"><name>InterChiplet::SyncClockStruct</name>
-    <member refid="classInterChiplet_1_1SyncClockStruct_1a12776db86da5eed68e3c8eb87731b43e" kind="variable"><name>m_cycle</name></member>
-    <member refid="classInterChiplet_1_1SyncClockStruct_1aa156e38ae55e4b7fe03658063c7f8868" kind="function"><name>SyncClockStruct</name></member>
-    <member refid="classInterChiplet_1_1SyncClockStruct_1ac88f8decd1f34c6039c20b1f93a3a6b0" kind="function"><name>update</name></member>
-    <member refid="classInterChiplet_1_1SyncClockStruct_1adc90323c457c5685a4a0746f26bbf6d3" kind="function"><name>cycle</name></member>
+  <compound refid="classSyncClockStruct" kind="class"><name>SyncClockStruct</name>
+    <member refid="classSyncClockStruct_1ab4cc7d40d5bab304045196482f20796a" kind="variable"><name>m_cycle</name></member>
+    <member refid="classSyncClockStruct_1a7e4ca122f72ac02849a1d9546f09622f" kind="function"><name>SyncClockStruct</name></member>
+    <member refid="classSyncClockStruct_1ab2e58354c8799f85d14c47b55a5ffd0d" kind="function"><name>update</name></member>
+    <member refid="classSyncClockStruct_1a89a65854788e437e64470757bd277222" kind="function"><name>cycle</name></member>
   </compound>
   <compound refid="classInterChiplet_1_1SyncCommand" kind="class"><name>InterChiplet::SyncCommand</name>
     <member refid="classInterChiplet_1_1SyncCommand_1aee3265d5555a2c582591b859ccde068b" kind="variable"><name>m_type</name></member>
@@ -156,64 +156,64 @@
     <member refid="classInterChiplet_1_1SyncCommand_1a8a25436fca1b7e9c170664703c4341a1" kind="variable"><name>m_res_list</name></member>
     <member refid="classInterChiplet_1_1SyncCommand_1a37493b977cb7901455e9780e750455a6" kind="variable"><name>m_stdin_fd</name></member>
   </compound>
-  <compound refid="classInterChiplet_1_1SyncCommStruct" kind="class"><name>InterChiplet::SyncCommStruct</name>
-    <member refid="classInterChiplet_1_1SyncCommStruct_1a0fc881019b3e7bd257b64b046f618c92" kind="variable"><name>m_read_cmd_list</name></member>
-    <member refid="classInterChiplet_1_1SyncCommStruct_1a254fb1b661a8665b30a9718aee867c39" kind="variable"><name>m_write_cmd_list</name></member>
-    <member refid="classInterChiplet_1_1SyncCommStruct_1a36b2d6125c074db43e2d6c225aa90576" kind="function"><name>hasMatchWrite</name></member>
-    <member refid="classInterChiplet_1_1SyncCommStruct_1a56109f3d4b35ba315961f0bbe6400b87" kind="function"><name>popMatchWrite</name></member>
-    <member refid="classInterChiplet_1_1SyncCommStruct_1affe6962ea0b72a66461ce5e7d991f7c9" kind="function"><name>insertWrite</name></member>
-    <member refid="classInterChiplet_1_1SyncCommStruct_1a15e29083080864578d7df64cc3de0deb" kind="function"><name>insertWrite</name></member>
-    <member refid="classInterChiplet_1_1SyncCommStruct_1a3b6ec29d850fa9b95002a4fb46399da9" kind="function"><name>hasMatchRead</name></member>
-    <member refid="classInterChiplet_1_1SyncCommStruct_1a3ac18e72cf14e8d2bf3319271132131a" kind="function"><name>popMatchRead</name></member>
-    <member refid="classInterChiplet_1_1SyncCommStruct_1a508c6dfe8fa57283e4a42778353eb6b5" kind="function"><name>insertRead</name></member>
-    <member refid="classInterChiplet_1_1SyncCommStruct_1a580f59c0ffb435f18a3217ca548f602a" kind="function"><name>insertRead</name></member>
+  <compound refid="classSyncCommStruct" kind="class"><name>SyncCommStruct</name>
+    <member refid="classSyncCommStruct_1acf196aee72a4cfd811d7c964b8095e4f" kind="variable"><name>m_read_cmd_list</name></member>
+    <member refid="classSyncCommStruct_1af4fd359eba35d19f1751ed30881feb6a" kind="variable"><name>m_write_cmd_list</name></member>
+    <member refid="classSyncCommStruct_1a888ca29546e7dc1d9f082479c7536746" kind="function"><name>hasMatchWrite</name></member>
+    <member refid="classSyncCommStruct_1aa7949fd98637a2f79351974142e0ede7" kind="function"><name>popMatchWrite</name></member>
+    <member refid="classSyncCommStruct_1a867f1e739902f216aedf71b5d3d41d7f" kind="function"><name>insertWrite</name></member>
+    <member refid="classSyncCommStruct_1a112a998d90bf116af4f00e3ed0c1d823" kind="function"><name>insertWrite</name></member>
+    <member refid="classSyncCommStruct_1ae9cc4fe0cc7d3681b925e4a0749efef5" kind="function"><name>hasMatchRead</name></member>
+    <member refid="classSyncCommStruct_1a8df1a0ccc6bbbfc20e029d21732a2e3d" kind="function"><name>popMatchRead</name></member>
+    <member refid="classSyncCommStruct_1a937752223aa75b7704be5fac5bb5b916" kind="function"><name>insertRead</name></member>
+    <member refid="classSyncCommStruct_1ad06d124bb97a47e6990be5c127b9b8ab" kind="function"><name>insertRead</name></member>
   </compound>
-  <compound refid="classInterChiplet_1_1SyncLaunchStruct" kind="class"><name>InterChiplet::SyncLaunchStruct</name>
-    <member refid="classInterChiplet_1_1SyncLaunchStruct_1a6a8fc8b9299563b58d7055cf75a234b6" kind="variable"><name>m_launch_cmd_list</name></member>
-    <member refid="classInterChiplet_1_1SyncLaunchStruct_1abdf7ffb208c99fe6305dc9b28e6329c6" kind="variable"><name>m_waitlaunch_cmd_list</name></member>
-    <member refid="classInterChiplet_1_1SyncLaunchStruct_1a0381ab82216a98d5b12a28717df15c84" kind="function"><name>hasMatchWaitlaunch</name></member>
-    <member refid="classInterChiplet_1_1SyncLaunchStruct_1af998e68c78dbd12f02873d29a2f9a224" kind="function"><name>popMatchWaitlaunch</name></member>
-    <member refid="classInterChiplet_1_1SyncLaunchStruct_1a1a3a579b3559079f37cb59f093e6c5dd" kind="function"><name>insertWaitlaunch</name></member>
-    <member refid="classInterChiplet_1_1SyncLaunchStruct_1a1568388127cb649e287cb2cf21f117c0" kind="function"><name>insertWaitlaunch</name></member>
-    <member refid="classInterChiplet_1_1SyncLaunchStruct_1a1ae18b3f748504d76098133aec5edaa7" kind="function"><name>hasMatchLaunch</name></member>
-    <member refid="classInterChiplet_1_1SyncLaunchStruct_1a85c6b93fded4cdc3a0d1ce22ae3a431b" kind="function"><name>popMatchLaunch</name></member>
-    <member refid="classInterChiplet_1_1SyncLaunchStruct_1a636d1f7ffbeb3110650af3faefb50fa1" kind="function"><name>insertLaunch</name></member>
-    <member refid="classInterChiplet_1_1SyncLaunchStruct_1a6212f85ce938a7bff8c8e50dc093a356" kind="function"><name>insertLaunch</name></member>
+  <compound refid="classSyncLaunchStruct" kind="class"><name>SyncLaunchStruct</name>
+    <member refid="classSyncLaunchStruct_1a6d2c81c785aa63a30eeaa039f6696b14" kind="variable"><name>m_launch_cmd_list</name></member>
+    <member refid="classSyncLaunchStruct_1a8ca37410ea22b82eb0cc242b07693cee" kind="variable"><name>m_waitlaunch_cmd_list</name></member>
+    <member refid="classSyncLaunchStruct_1a5f5c615f659cd67f3a2eae861cb96dc6" kind="function"><name>hasMatchWaitlaunch</name></member>
+    <member refid="classSyncLaunchStruct_1a722043e66cf7af4118ae254d3a3423d2" kind="function"><name>popMatchWaitlaunch</name></member>
+    <member refid="classSyncLaunchStruct_1a2c4d1cba2e590729c8ef5c6c15f2ec75" kind="function"><name>insertWaitlaunch</name></member>
+    <member refid="classSyncLaunchStruct_1a36029f52842dc57b1cd4f8775a803ab9" kind="function"><name>insertWaitlaunch</name></member>
+    <member refid="classSyncLaunchStruct_1a80dd16b1124c073ea7221dc39b1495eb" kind="function"><name>hasMatchLaunch</name></member>
+    <member refid="classSyncLaunchStruct_1a785cc7e67d7700439c572a6fae566509" kind="function"><name>popMatchLaunch</name></member>
+    <member refid="classSyncLaunchStruct_1ac201b6726697cf685a2a92bec21aa620" kind="function"><name>insertLaunch</name></member>
+    <member refid="classSyncLaunchStruct_1a3ba6e66876623159b95c4db81082af75" kind="function"><name>insertLaunch</name></member>
   </compound>
-  <compound refid="classInterChiplet_1_1SyncLockStruct" kind="class"><name>InterChiplet::SyncLockStruct</name>
-    <member refid="classInterChiplet_1_1SyncLockStruct_1ae9b678c64b4ea60c1c2340e2e5da445e" kind="variable"><name>m_lock_set</name></member>
-    <member refid="classInterChiplet_1_1SyncLockStruct_1aada54fab8238376aaf09c9ec6549908d" kind="variable"><name>m_last_cmd_map</name></member>
-    <member refid="classInterChiplet_1_1SyncLockStruct_1ae03e01821bea49f0483e36b8acd4e820" kind="variable"><name>m_lock_cmd_list</name></member>
-    <member refid="classInterChiplet_1_1SyncLockStruct_1a4b5db36ba0ceab986ddb7441cb91f14d" kind="function"><name>isLocked</name></member>
-    <member refid="classInterChiplet_1_1SyncLockStruct_1a2fc2258e7667c5fac95af1f99a2a1820" kind="function"><name>lock</name></member>
-    <member refid="classInterChiplet_1_1SyncLockStruct_1a46a871972cb1627a122f5a4f527bfaa5" kind="function"><name>unlock</name></member>
-    <member refid="classInterChiplet_1_1SyncLockStruct_1a61461857d1208623c9b79e26d997fbf9" kind="function"><name>hasLastCmd</name></member>
-    <member refid="classInterChiplet_1_1SyncLockStruct_1a343f28c69839ed48d8ea265143cc524b" kind="function"><name>getLastCmd</name></member>
-    <member refid="classInterChiplet_1_1SyncLockStruct_1aec31a46d985e3d852fad00206204787c" kind="function"><name>insertLockCmd</name></member>
-    <member refid="classInterChiplet_1_1SyncLockStruct_1a5b9be40d18c4ed010bcd6453c659218b" kind="function"><name>hasLockCmd</name></member>
-    <member refid="classInterChiplet_1_1SyncLockStruct_1a6333eb951210a44891fa23180c78245a" kind="function"><name>hasLockCmd</name></member>
-    <member refid="classInterChiplet_1_1SyncLockStruct_1a35d05709f5a1aa8511f8ee3db2a5c088" kind="function"><name>popLockCmd</name></member>
-    <member refid="classInterChiplet_1_1SyncLockStruct_1a01050e10a71f6ece20b30152faf56793" kind="function"><name>popLockCmd</name></member>
+  <compound refid="classSyncLockStruct" kind="class"><name>SyncLockStruct</name>
+    <member refid="classSyncLockStruct_1a0d63de3b786e20aec1b530f42989f1e1" kind="variable"><name>m_lock_set</name></member>
+    <member refid="classSyncLockStruct_1a8434a1005e5f48b1f516ef4464e8273b" kind="variable"><name>m_last_cmd_map</name></member>
+    <member refid="classSyncLockStruct_1aa23498f73110eb47d19e8b176c7ab77f" kind="variable"><name>m_lock_cmd_list</name></member>
+    <member refid="classSyncLockStruct_1a37e5479b7d65ce46623d616b1b7f7a65" kind="function"><name>isLocked</name></member>
+    <member refid="classSyncLockStruct_1ac347a94d131b74ff8792c4ea5cac2791" kind="function"><name>lock</name></member>
+    <member refid="classSyncLockStruct_1a7d31223652c09e74980646f7ae23057b" kind="function"><name>unlock</name></member>
+    <member refid="classSyncLockStruct_1ad3380d378141f9a3e508be381044d435" kind="function"><name>hasLastCmd</name></member>
+    <member refid="classSyncLockStruct_1a2fd396fd323b9ac0bf8fe4d2fad5ee4a" kind="function"><name>getLastCmd</name></member>
+    <member refid="classSyncLockStruct_1a5facbc32bfc7d3eff200a96cc5d56608" kind="function"><name>insertLockCmd</name></member>
+    <member refid="classSyncLockStruct_1a998bb46dd4a2290d3bd36242579db01c" kind="function"><name>hasLockCmd</name></member>
+    <member refid="classSyncLockStruct_1a2d92780f55fd15da20eb4b7d8f566cf4" kind="function"><name>hasLockCmd</name></member>
+    <member refid="classSyncLockStruct_1adb1b416c20ccf003ad5dc9d938f95469" kind="function"><name>popLockCmd</name></member>
+    <member refid="classSyncLockStruct_1a30db50a2bef3ab08286bf72b09e77999" kind="function"><name>popLockCmd</name></member>
   </compound>
-  <compound refid="classInterChiplet_1_1SyncPipeStruct" kind="class"><name>InterChiplet::SyncPipeStruct</name>
-    <member refid="classInterChiplet_1_1SyncPipeStruct_1a1bf4fd71cb695669f0cda77f822c3d01" kind="variable"><name>m_pipe_set</name></member>
-    <member refid="classInterChiplet_1_1SyncPipeStruct_1a643639234fb188d9d0f12a165dead8ab" kind="function"><name>insert</name></member>
-    <member refid="classInterChiplet_1_1SyncPipeStruct_1aaebe4ef43a333d4bb5c840b71bb0aaf2" kind="function"><name>insert</name></member>
-    <member refid="classInterChiplet_1_1SyncPipeStruct_1a198f1bdcac17a8e331e49a0a1a4aa121" kind="function"><name>pipeSet</name></member>
-    <member refid="classInterChiplet_1_1SyncPipeStruct_1af9fea344e325cb665eaacec3b1e2be12" kind="function"><name>pipeSet</name></member>
+  <compound refid="classSyncPipeStruct" kind="class"><name>SyncPipeStruct</name>
+    <member refid="classSyncPipeStruct_1a4ce4394ac3a4dda22181cda27ea09a16" kind="variable"><name>m_pipe_set</name></member>
+    <member refid="classSyncPipeStruct_1ab974e1e9a1e321738abf811ffcc70869" kind="function"><name>insert</name></member>
+    <member refid="classSyncPipeStruct_1ad68be0170592ff7e2dc9e542eb309759" kind="function"><name>insert</name></member>
+    <member refid="classSyncPipeStruct_1a3419bba6610bb899b1cefc55917813d9" kind="function"><name>pipeSet</name></member>
+    <member refid="classSyncPipeStruct_1a04120e3140f46fcae2fe84caf5076f08" kind="function"><name>pipeSet</name></member>
   </compound>
   <compound refid="classSyncStruct" kind="class"><name>SyncStruct</name>
     <member refid="classSyncStruct_1ab0784758232d1077d94e7b3f6f1e04d8" kind="variable"><name>m_mutex</name></member>
-    <member refid="classSyncStruct_1a02090571fd56f15d4e0c9ee2b2aac906" kind="variable"><name>m_bench_list</name></member>
-    <member refid="classSyncStruct_1a82bd706195fcab7791b119b4cf336380" kind="variable"><name>m_delay_list</name></member>
-    <member refid="classSyncStruct_1a211671b42dda80bc3fd56f60515d1de9" kind="variable"><name>m_cycle_struct</name></member>
-    <member refid="classSyncStruct_1a6f55842c8d4d0f9476b79d4dfb7997a4" kind="variable"><name>m_pipe_struct</name></member>
-    <member refid="classSyncStruct_1a00cb50c1f5c03ce50b43bdc31f9db511" kind="variable"><name>m_barrier_struct</name></member>
-    <member refid="classSyncStruct_1af7c650516318007616f6b240b1eda1de" kind="variable"><name>m_lock_struct</name></member>
-    <member refid="classSyncStruct_1a5b819b026086ed35e2f336a8d72d89ef" kind="variable"><name>m_launch_struct</name></member>
-    <member refid="classSyncStruct_1a6d89c2ca5e58dc8c9dd57ca73ce36de6" kind="variable"><name>m_comm_struct</name></member>
-    <member refid="classSyncStruct_1a6e8e1007522396c43bfa0b7f479a3d17" kind="variable"><name>m_barrier_timing_struct</name></member>
-    <member refid="classSyncStruct_1afa97486f7505c3986c6fb545d2eb7fdb" kind="variable"><name>m_lock_timing_struct</name></member>
+    <member refid="classSyncStruct_1a58c20d17738f1be24fb705ffce7e26fe" kind="variable"><name>m_bench_list</name></member>
+    <member refid="classSyncStruct_1aec2ae24d772ee5796089fa4681ba9312" kind="variable"><name>m_delay_list</name></member>
+    <member refid="classSyncStruct_1abf7092297106c20b1554aa92880854d0" kind="variable"><name>m_cycle_struct</name></member>
+    <member refid="classSyncStruct_1a0761f48edea1b09a0f53e63fe65822cf" kind="variable"><name>m_pipe_struct</name></member>
+    <member refid="classSyncStruct_1a474d4a498dbc485b1502aad9d9c1fbb3" kind="variable"><name>m_barrier_struct</name></member>
+    <member refid="classSyncStruct_1a9f79ca61fbd5ed762e7af4170843aabc" kind="variable"><name>m_lock_struct</name></member>
+    <member refid="classSyncStruct_1a08246bffd7cff3408fc216829184b182" kind="variable"><name>m_launch_struct</name></member>
+    <member refid="classSyncStruct_1ac7005430bf77963430f82297eeadb960" kind="variable"><name>m_comm_struct</name></member>
+    <member refid="classSyncStruct_1a2a7952e9de830668711d351b4f95210a" kind="variable"><name>m_barrier_timing_struct</name></member>
+    <member refid="classSyncStruct_1acfec8723a774fdf1f77773e5c0bbef1a" kind="variable"><name>m_lock_timing_struct</name></member>
     <member refid="classSyncStruct_1aef6affcf15b1fbed554705dd2a96eea9" kind="function"><name>SyncStruct</name></member>
     <member refid="classSyncStruct_1a49ede67e9da5394d01f24686f0b189d6" kind="function"><name>~SyncStruct</name></member>
   </compound>
@@ -250,73 +250,71 @@
     <member refid="global__define_8h_1ac26ba9ae14605dea73b771e8a2ecef23" kind="typedef"><name>TimeType</name></member>
     <member refid="global__define_8h_1afe68d5ebd60351f36fc0ccffd95d883e" kind="typedef"><name>InnerTimeType</name></member>
     <member refid="global__define_8h_1a789537ce52539cce9db909442ed285a6" kind="typedef"><name>AddrType</name></member>
-    <member refid="global__define_8h_1ad13aae279631dbc2044a8bf2f5374f82" kind="typedef"><name>SyncCmdList</name></member>
-    <member refid="net__delay_8h_1a0249444479f72caca9d74a7ef968b06d" kind="typedef"><name>CmdDelayPair</name></member>
-    <member refid="net__delay_8h_1a33f3e10fcd207b70552a4da5a12d1f15" kind="typedef"><name>NetworkDelayOrder</name></member>
     <member refid="apis__c_8h_1a8fee9627cecac00867246765b7b8c52c" kind="variable"><name>syscall_return_t</name></member>
-    <member refid="apis__c_8h_1a927dfb0ba007d73b1f1a21c88d413371" kind="function"><name>launch</name></member>
-    <member refid="apis__c_8h_1a94130236ada1ae228e2457584b742af7" kind="function"><name>waitLaunch</name></member>
-    <member refid="apis__c_8h_1aeb3707406a2d83fe064841f35b4bd22a" kind="function"><name>barrier</name></member>
-    <member refid="apis__c_8h_1a87cc83b5f4b4c4a7b8aefabc1f1f958d" kind="function"><name>lock</name></member>
-    <member refid="apis__c_8h_1ab4c0e279e100e03537de6dce106b3491" kind="function"><name>unlock</name></member>
-    <member refid="apis__c_8h_1a2d35ee14cc369f561a719ef750b0abb7" kind="function"><name>sendMessage</name></member>
-    <member refid="apis__c_8h_1a739ef4d1091f3ae3f911ebf5fabd2a4b" kind="function"><name>receiveMessage</name></member>
-    <member refid="sync__protocol_8h_1a6f8d9486e2e33b99028e35f40a4c5def" kind="function"><name>pipeName</name></member>
-    <member refid="sync__protocol_8h_1a81af9954ebf153d700c1abd97e420614" kind="function"><name>parseCmd</name></member>
-    <member refid="sync__protocol_8h_1afa61e22fe5db340196133c439091dbcb" kind="function"><name>parseCmd</name></member>
-    <member refid="sync__protocol_8h_1a76e24d6520267de649c465e6b21f4e38" kind="function"><name>dumpCmd</name></member>
-    <member refid="sync__protocol_8h_1a0bef6e329fcfe31346f02817892c3ace" kind="function"><name>sendCycleCmd</name></member>
-    <member refid="sync__protocol_8h_1aee66313b502dedf1a3c8afd40ee5313e" kind="function"><name>sendSendCmd</name></member>
-    <member refid="sync__protocol_8h_1a543d48123daae3a9ec109ca057ac68d2" kind="function"><name>sendReceiveCmd</name></member>
-    <member refid="sync__protocol_8h_1aec69fde1956e97c4fccd88cf8b2203f6" kind="function"><name>sendBarrierCmd</name></member>
-    <member refid="sync__protocol_8h_1a0d2985651bc96b14664bcf8edf275483" kind="function"><name>sendLockCmd</name></member>
-    <member refid="sync__protocol_8h_1a0298681373ee86853db7302c0b9ba4c5" kind="function"><name>sendUnlockCmd</name></member>
-    <member refid="sync__protocol_8h_1a69975d33c784e73739deb5d96b5b4f5f" kind="function"><name>sendLaunchCmd</name></member>
-    <member refid="sync__protocol_8h_1ab161f23f03e99f29a90ca3f2a6268261" kind="function"><name>sendWaitlaunchCmd</name></member>
-    <member refid="sync__protocol_8h_1ac71ec629bd3ee40a415b3de09978cab6" kind="function"><name>sendReadCmd</name></member>
-    <member refid="sync__protocol_8h_1ad6f2545142eba5bd3de96b25f12e5417" kind="function"><name>sendWriteCmd</name></member>
-    <member refid="sync__protocol_8h_1aa77b140ec02e80ee343d8bb37c55784e" kind="function"><name>sendSyncCmd</name></member>
-    <member refid="sync__protocol_8h_1a1da54da150c1eb2acccec7859ae4dd7f" kind="function"><name>sendSyncCmd</name></member>
-    <member refid="sync__protocol_8h_1ad5774a911d55626e5b9ca25d475ecb96" kind="function"><name>sendResultCmd</name></member>
-    <member refid="sync__protocol_8h_1adb8bbab09b627f7dc7cfde226b922c04" kind="function"><name>sendResultCmd</name></member>
-    <member refid="sync__protocol_8h_1a69d14e5e65c3505aee919b468e1dd91f" kind="function"><name>sendResultCmd</name></member>
-    <member refid="sync__protocol_8h_1a4debdab3ba74b1b7329d742b6bdeaa57" kind="function"><name>sendResultCmd</name></member>
-    <member refid="sync__protocol_8h_1a25c2e7433e61a350a678a35737827126" kind="function"><name>sendResultCmd</name></member>
-    <member refid="sync__protocol_8h_1a2c9b408d4ffcac9d78395db5fa849873" kind="function"><name>sendResultCmd</name></member>
-    <member refid="sync__protocol_8h_1aaff9043fca81dba50f4ad34bc6f7f52f" kind="function"><name>cycleSync</name></member>
-    <member refid="sync__protocol_8h_1a9d721097777530c0d965f4a18f231ed3" kind="function"><name>sendSync</name></member>
-    <member refid="sync__protocol_8h_1add1d52bbf41f3dad6f4fde0fcaca92a2" kind="function"><name>receiveSync</name></member>
-    <member refid="sync__protocol_8h_1acbfd6f34fea6acce3d0320f4cc232b91" kind="function"><name>launchSync</name></member>
-    <member refid="sync__protocol_8h_1a0ba2e3130532f04c9ae3b5082402a1bc" kind="function"><name>waitlaunchSync</name></member>
-    <member refid="sync__protocol_8h_1a6dde3d09867aa7e376baab3f39de5ff8" kind="function"><name>barrierSync</name></member>
-    <member refid="sync__protocol_8h_1ac6fa4c3d7dd48af6193bb2d91a0f0094" kind="function"><name>lockSync</name></member>
-    <member refid="sync__protocol_8h_1aed6597f918e06b570e0a78764df40605" kind="function"><name>unlockSync</name></member>
-    <member refid="sync__protocol_8h_1aef900fd4a6120e00025eadaf5d6648f8" kind="function"><name>readSync</name></member>
-    <member refid="sync__protocol_8h_1adc410728c7847c4d31ff392fff3c67ea" kind="function"><name>writeSync</name></member>
+    <member refid="group__apis__for__cpu_1ga927dfb0ba007d73b1f1a21c88d413371" kind="function"><name>launch</name></member>
+    <member refid="group__apis__for__cpu_1ga94130236ada1ae228e2457584b742af7" kind="function"><name>waitLaunch</name></member>
+    <member refid="group__apis__for__cpu_1gaeb3707406a2d83fe064841f35b4bd22a" kind="function"><name>barrier</name></member>
+    <member refid="group__apis__for__cpu_1ga87cc83b5f4b4c4a7b8aefabc1f1f958d" kind="function"><name>lock</name></member>
+    <member refid="group__apis__for__cpu_1gab4c0e279e100e03537de6dce106b3491" kind="function"><name>unlock</name></member>
+    <member refid="group__apis__for__cpu_1ga2d35ee14cc369f561a719ef750b0abb7" kind="function"><name>sendMessage</name></member>
+    <member refid="group__apis__for__cpu_1ga739ef4d1091f3ae3f911ebf5fabd2a4b" kind="function"><name>receiveMessage</name></member>
+    <member refid="group__sync__proto_1ga6f8d9486e2e33b99028e35f40a4c5def" kind="function"><name>pipeName</name></member>
+    <member refid="group__sync__proto_1ga81af9954ebf153d700c1abd97e420614" kind="function"><name>parseCmd</name></member>
+    <member refid="group__sync__proto_1gafa61e22fe5db340196133c439091dbcb" kind="function"><name>parseCmd</name></member>
+    <member refid="group__sync__proto_1ga76e24d6520267de649c465e6b21f4e38" kind="function"><name>dumpCmd</name></member>
+    <member refid="group__sync__proto_1ga0bef6e329fcfe31346f02817892c3ace" kind="function"><name>sendCycleCmd</name></member>
+    <member refid="group__sync__proto_1gaee66313b502dedf1a3c8afd40ee5313e" kind="function"><name>sendSendCmd</name></member>
+    <member refid="group__sync__proto_1ga543d48123daae3a9ec109ca057ac68d2" kind="function"><name>sendReceiveCmd</name></member>
+    <member refid="group__sync__proto_1gaec69fde1956e97c4fccd88cf8b2203f6" kind="function"><name>sendBarrierCmd</name></member>
+    <member refid="group__sync__proto_1ga0d2985651bc96b14664bcf8edf275483" kind="function"><name>sendLockCmd</name></member>
+    <member refid="group__sync__proto_1ga0298681373ee86853db7302c0b9ba4c5" kind="function"><name>sendUnlockCmd</name></member>
+    <member refid="group__sync__proto_1ga69975d33c784e73739deb5d96b5b4f5f" kind="function"><name>sendLaunchCmd</name></member>
+    <member refid="group__sync__proto_1gab161f23f03e99f29a90ca3f2a6268261" kind="function"><name>sendWaitlaunchCmd</name></member>
+    <member refid="group__sync__proto_1gac71ec629bd3ee40a415b3de09978cab6" kind="function"><name>sendReadCmd</name></member>
+    <member refid="group__sync__proto_1gad6f2545142eba5bd3de96b25f12e5417" kind="function"><name>sendWriteCmd</name></member>
+    <member refid="group__sync__proto_1gaa77b140ec02e80ee343d8bb37c55784e" kind="function"><name>sendSyncCmd</name></member>
+    <member refid="group__sync__proto_1ga1da54da150c1eb2acccec7859ae4dd7f" kind="function"><name>sendSyncCmd</name></member>
+    <member refid="group__sync__proto_1gad5774a911d55626e5b9ca25d475ecb96" kind="function"><name>sendResultCmd</name></member>
+    <member refid="group__sync__proto_1gadb8bbab09b627f7dc7cfde226b922c04" kind="function"><name>sendResultCmd</name></member>
+    <member refid="group__sync__proto_1ga69d14e5e65c3505aee919b468e1dd91f" kind="function"><name>sendResultCmd</name></member>
+    <member refid="group__sync__proto_1ga4debdab3ba74b1b7329d742b6bdeaa57" kind="function"><name>sendResultCmd</name></member>
+    <member refid="group__sync__proto_1ga25c2e7433e61a350a678a35737827126" kind="function"><name>sendResultCmd</name></member>
+    <member refid="group__sync__proto_1ga2c9b408d4ffcac9d78395db5fa849873" kind="function"><name>sendResultCmd</name></member>
+    <member refid="group__sync__proto_1gaaff9043fca81dba50f4ad34bc6f7f52f" kind="function"><name>cycleSync</name></member>
+    <member refid="group__sync__proto_1ga9d721097777530c0d965f4a18f231ed3" kind="function"><name>sendSync</name></member>
+    <member refid="group__sync__proto_1gadd1d52bbf41f3dad6f4fde0fcaca92a2" kind="function"><name>receiveSync</name></member>
+    <member refid="group__sync__proto_1gacbfd6f34fea6acce3d0320f4cc232b91" kind="function"><name>launchSync</name></member>
+    <member refid="group__sync__proto_1ga0ba2e3130532f04c9ae3b5082402a1bc" kind="function"><name>waitlaunchSync</name></member>
+    <member refid="group__sync__proto_1ga6dde3d09867aa7e376baab3f39de5ff8" kind="function"><name>barrierSync</name></member>
+    <member refid="group__sync__proto_1gac6fa4c3d7dd48af6193bb2d91a0f0094" kind="function"><name>lockSync</name></member>
+    <member refid="group__sync__proto_1gaed6597f918e06b570e0a78764df40605" kind="function"><name>unlockSync</name></member>
+    <member refid="group__sync__proto_1gaef900fd4a6120e00025eadaf5d6648f8" kind="function"><name>readSync</name></member>
+    <member refid="group__sync__proto_1gadc410728c7847c4d31ff392fff3c67ea" kind="function"><name>writeSync</name></member>
   </compound>
   <compound refid="apis__c_8h" kind="file"><name>apis_c.h</name>
   </compound>
   <compound refid="apis__cu_8h" kind="file"><name>apis_cu.h</name>
-    <member refid="apis__cu_8h_1a62b3334fbd1d131961ff59345f3ad362" kind="function"><name>launch</name></member>
-    <member refid="apis__cu_8h_1aec6f9a695bd49f101888b9d7699bec99" kind="function"><name>waitLaunch</name></member>
-    <member refid="apis__cu_8h_1a4aa9fa9625dd63d39227f0e16b511e36" kind="function"><name>barrier</name></member>
-    <member refid="apis__cu_8h_1afdd40ada4175ae29956682ceca8936dc" kind="function"><name>lock</name></member>
-    <member refid="apis__cu_8h_1a3373e5cdb7eeb27f20822abb964fdc58" kind="function"><name>unlock</name></member>
-    <member refid="apis__cu_8h_1a67e03bf33a0e807915bfd0e6e65da1ca" kind="function"><name>sendMessage</name></member>
-    <member refid="apis__cu_8h_1ac5c661565ac7b798fbe3eab3a4763951" kind="function"><name>receiveMessage</name></member>
+    <member refid="group__apis__for__cuda_1ga62b3334fbd1d131961ff59345f3ad362" kind="function"><name>launch</name></member>
+    <member refid="group__apis__for__cuda_1gaec6f9a695bd49f101888b9d7699bec99" kind="function"><name>waitLaunch</name></member>
+    <member refid="group__apis__for__cuda_1ga4aa9fa9625dd63d39227f0e16b511e36" kind="function"><name>barrier</name></member>
+    <member refid="group__apis__for__cuda_1gafdd40ada4175ae29956682ceca8936dc" kind="function"><name>lock</name></member>
+    <member refid="group__apis__for__cuda_1ga3373e5cdb7eeb27f20822abb964fdc58" kind="function"><name>unlock</name></member>
+    <member refid="group__apis__for__cuda_1ga67e03bf33a0e807915bfd0e6e65da1ca" kind="function"><name>sendMessage</name></member>
+    <member refid="group__apis__for__cuda_1gac5c661565ac7b798fbe3eab3a4763951" kind="function"><name>receiveMessage</name></member>
   </compound>
   <compound refid="benchmark__yaml_8h" kind="file"><name>benchmark_yaml.h</name>
   </compound>
   <compound refid="cmd__handler_8h" kind="file"><name>cmd_handler.h</name>
-    <member refid="cmd__handler_8h_1a9f5f262279de5a1783a4a7aac68bf700" kind="function"><name>handle_cycle_cmd</name></member>
-    <member refid="cmd__handler_8h_1ab6b5801bc0c69d9b5e235362a8a9affb" kind="function"><name>handle_pipe_cmd</name></member>
-    <member refid="cmd__handler_8h_1abf9f8fa7ebad414492b36076a04be37c" kind="function"><name>handle_barrier_cmd</name></member>
-    <member refid="cmd__handler_8h_1acc423e4f60f3a7349e92a9abe7473863" kind="function"><name>handle_lock_cmd</name></member>
-    <member refid="cmd__handler_8h_1a7de5f42e7045a5cffcc47247dbcf8e3b" kind="function"><name>handle_unlock_cmd</name></member>
-    <member refid="cmd__handler_8h_1ac8b6bb4538c28dac9a6eeda20cc32942" kind="function"><name>handle_launch_cmd</name></member>
-    <member refid="cmd__handler_8h_1a93ecd3191d3a7e33f46457aff0525fba" kind="function"><name>handle_waitlaunch_cmd</name></member>
-    <member refid="cmd__handler_8h_1a4224ecb6b21e3144a4343d9df9a94b70" kind="function"><name>handle_read_cmd</name></member>
-    <member refid="cmd__handler_8h_1a2913c79ea81fd9e4a1b94678e7f53ba4" kind="function"><name>handle_write_cmd</name></member>
+    <member refid="group__cmd__handler__struct_1gae80febffec287d8ba0cccc9d2d6bb4e7" kind="typedef"><name>SyncCmdList</name></member>
+    <member refid="group__cmd__handler__func_1ga9f5f262279de5a1783a4a7aac68bf700" kind="function"><name>handle_cycle_cmd</name></member>
+    <member refid="group__cmd__handler__func_1gab6b5801bc0c69d9b5e235362a8a9affb" kind="function"><name>handle_pipe_cmd</name></member>
+    <member refid="group__cmd__handler__func_1gabf9f8fa7ebad414492b36076a04be37c" kind="function"><name>handle_barrier_cmd</name></member>
+    <member refid="group__cmd__handler__func_1gacc423e4f60f3a7349e92a9abe7473863" kind="function"><name>handle_lock_cmd</name></member>
+    <member refid="group__cmd__handler__func_1ga7de5f42e7045a5cffcc47247dbcf8e3b" kind="function"><name>handle_unlock_cmd</name></member>
+    <member refid="group__cmd__handler__func_1gac8b6bb4538c28dac9a6eeda20cc32942" kind="function"><name>handle_launch_cmd</name></member>
+    <member refid="group__cmd__handler__func_1ga93ecd3191d3a7e33f46457aff0525fba" kind="function"><name>handle_waitlaunch_cmd</name></member>
+    <member refid="group__cmd__handler__func_1ga4224ecb6b21e3144a4343d9df9a94b70" kind="function"><name>handle_read_cmd</name></member>
+    <member refid="group__cmd__handler__func_1ga2913c79ea81fd9e4a1b94678e7f53ba4" kind="function"><name>handle_write_cmd</name></member>
   </compound>
   <compound refid="cmdline__options_8h" kind="file"><name>cmdline_options.h</name>
   </compound>
@@ -332,8 +330,10 @@
   <compound refid="net__delay_8h" kind="file"><name>net_delay.h</name>
     <member refid="net__delay_8h_1a8685de6e6074df3e62c767fcf0b8d886" kind="define"><name>PAC_PAYLOAD_BIT</name></member>
     <member refid="net__delay_8h_1a48db85544f7162f62541900922dd71ab" kind="define"><name>PAC_PAYLOAD_BYTE</name></member>
-    <member refid="net__delay_8h_1ab2cadc5e1bdc6430743caafe1387f56b" kind="define"><name>SRC_DELAY</name></member>
-    <member refid="net__delay_8h_1ac5cfb612929f51312de05e4b4f9bb6a7" kind="define"><name>DST_DELAY</name></member>
+    <member refid="group__net__delay_1gab2cadc5e1bdc6430743caafe1387f56b" kind="define"><name>SRC_DELAY</name></member>
+    <member refid="group__net__delay_1gac5cfb612929f51312de05e4b4f9bb6a7" kind="define"><name>DST_DELAY</name></member>
+    <member refid="group__net__delay_1gaeb778c7f99f3f6efe0ad6c8c2281f39f" kind="typedef"><name>CmdDelayPair</name></member>
+    <member refid="group__net__delay_1ga2dfd29a9edac013133f822214b69c2d7" kind="typedef"><name>NetworkDelayOrder</name></member>
   </compound>
   <compound refid="pipe__comm_8h" kind="file"><name>pipe_comm.h</name>
     <member refid="pipe__comm_8h_1a0bca17bbd618498d60eb339e93518645" kind="define"><name>PIPE_COMMON_UNIT_CAPACITY</name></member>
@@ -345,26 +345,106 @@
   <compound refid="apis__c_8cpp" kind="file"><name>apis_c.cpp</name>
   </compound>
   <compound refid="cmd__handler_8cpp" kind="file"><name>cmd_handler.cpp</name>
-    <member refid="cmd__handler_8cpp_1a9f5f262279de5a1783a4a7aac68bf700" kind="function"><name>handle_cycle_cmd</name></member>
-    <member refid="cmd__handler_8cpp_1ab6b5801bc0c69d9b5e235362a8a9affb" kind="function"><name>handle_pipe_cmd</name></member>
-    <member refid="cmd__handler_8cpp_1abf9f8fa7ebad414492b36076a04be37c" kind="function"><name>handle_barrier_cmd</name></member>
-    <member refid="cmd__handler_8cpp_1acc423e4f60f3a7349e92a9abe7473863" kind="function"><name>handle_lock_cmd</name></member>
-    <member refid="cmd__handler_8cpp_1a7de5f42e7045a5cffcc47247dbcf8e3b" kind="function"><name>handle_unlock_cmd</name></member>
-    <member refid="cmd__handler_8cpp_1ac8b6bb4538c28dac9a6eeda20cc32942" kind="function"><name>handle_launch_cmd</name></member>
-    <member refid="cmd__handler_8cpp_1a93ecd3191d3a7e33f46457aff0525fba" kind="function"><name>handle_waitlaunch_cmd</name></member>
-    <member refid="cmd__handler_8cpp_1a4224ecb6b21e3144a4343d9df9a94b70" kind="function"><name>handle_read_cmd</name></member>
+    <member refid="group__cmd__handler__func_1ga9f5f262279de5a1783a4a7aac68bf700" kind="function"><name>handle_cycle_cmd</name></member>
+    <member refid="group__cmd__handler__func_1gab6b5801bc0c69d9b5e235362a8a9affb" kind="function"><name>handle_pipe_cmd</name></member>
+    <member refid="group__cmd__handler__func_1gabf9f8fa7ebad414492b36076a04be37c" kind="function"><name>handle_barrier_cmd</name></member>
+    <member refid="group__cmd__handler__func_1gacc423e4f60f3a7349e92a9abe7473863" kind="function"><name>handle_lock_cmd</name></member>
+    <member refid="group__cmd__handler__func_1ga7de5f42e7045a5cffcc47247dbcf8e3b" kind="function"><name>handle_unlock_cmd</name></member>
+    <member refid="group__cmd__handler__func_1gac8b6bb4538c28dac9a6eeda20cc32942" kind="function"><name>handle_launch_cmd</name></member>
+    <member refid="group__cmd__handler__func_1ga93ecd3191d3a7e33f46457aff0525fba" kind="function"><name>handle_waitlaunch_cmd</name></member>
+    <member refid="group__cmd__handler__func_1ga4224ecb6b21e3144a4343d9df9a94b70" kind="function"><name>handle_read_cmd</name></member>
     <member refid="cmd__handler_8cpp_1aadb90bcb4ae61bdfcdbca630cc30717c" kind="function"><name>handle_barrier_write_cmd</name></member>
     <member refid="cmd__handler_8cpp_1a05329837fe008ed3a076ae22715a9240" kind="function"><name>handle_lock_write_cmd</name></member>
     <member refid="cmd__handler_8cpp_1a4aa42c41c7341855a93b8465fc0881f6" kind="function"><name>handle_unlock_write_cmd</name></member>
-    <member refid="cmd__handler_8cpp_1a2913c79ea81fd9e4a1b94678e7f53ba4" kind="function"><name>handle_write_cmd</name></member>
+    <member refid="group__cmd__handler__func_1ga2913c79ea81fd9e4a1b94678e7f53ba4" kind="function"><name>handle_write_cmd</name></member>
   </compound>
   <compound refid="interchiplet_8cpp" kind="file"><name>interchiplet.cpp</name>
     <member refid="interchiplet_8cpp_1a54ad14193e9b8149834d2cb8a830f119" kind="define"><name>PIPE_BUF_SIZE</name></member>
     <member refid="interchiplet_8cpp_1a9f97a5ab5d396e3a8c2764fcb1b78205" kind="function"><name>parse_command</name></member>
     <member refid="interchiplet_8cpp_1a031eb9231de4e4539993f1ce8cbd1afe" kind="function"><name>bridge_thread</name></member>
-    <member refid="interchiplet_8cpp_1a4324f1755c5a12189e020ce408c65770" kind="function"><name>__loop_phase_one</name></member>
-    <member refid="interchiplet_8cpp_1a6d18824be3c170fbd8f229ef5efc97a7" kind="function"><name>__loop_phase_two</name></member>
+    <member refid="interchiplet_8cpp_1a40bfde3171f9489250ec4b906ceccddc" kind="function"><name>__loop_phase_one</name></member>
+    <member refid="interchiplet_8cpp_1a5553d7070e27184a868587b96c383ea5" kind="function"><name>__loop_phase_two</name></member>
     <member refid="interchiplet_8cpp_1ac0f2228420376f4db7e1274f2b41667c" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="group__apis__for__cpu" kind="group"><name>apis_for_cpu</name>
+    <member refid="group__apis__for__cpu_1ga927dfb0ba007d73b1f1a21c88d413371" kind="function"><name>launch</name></member>
+    <member refid="group__apis__for__cpu_1ga94130236ada1ae228e2457584b742af7" kind="function"><name>waitLaunch</name></member>
+    <member refid="group__apis__for__cpu_1gaeb3707406a2d83fe064841f35b4bd22a" kind="function"><name>barrier</name></member>
+    <member refid="group__apis__for__cpu_1ga87cc83b5f4b4c4a7b8aefabc1f1f958d" kind="function"><name>lock</name></member>
+    <member refid="group__apis__for__cpu_1gab4c0e279e100e03537de6dce106b3491" kind="function"><name>unlock</name></member>
+    <member refid="group__apis__for__cpu_1ga2d35ee14cc369f561a719ef750b0abb7" kind="function"><name>sendMessage</name></member>
+    <member refid="group__apis__for__cpu_1ga739ef4d1091f3ae3f911ebf5fabd2a4b" kind="function"><name>receiveMessage</name></member>
+  </compound>
+  <compound refid="group__apis__for__cuda" kind="group"><name>apis_for_cuda</name>
+    <member refid="group__apis__for__cuda_1ga62b3334fbd1d131961ff59345f3ad362" kind="function"><name>launch</name></member>
+    <member refid="group__apis__for__cuda_1gaec6f9a695bd49f101888b9d7699bec99" kind="function"><name>waitLaunch</name></member>
+    <member refid="group__apis__for__cuda_1ga4aa9fa9625dd63d39227f0e16b511e36" kind="function"><name>barrier</name></member>
+    <member refid="group__apis__for__cuda_1gafdd40ada4175ae29956682ceca8936dc" kind="function"><name>lock</name></member>
+    <member refid="group__apis__for__cuda_1ga3373e5cdb7eeb27f20822abb964fdc58" kind="function"><name>unlock</name></member>
+    <member refid="group__apis__for__cuda_1ga67e03bf33a0e807915bfd0e6e65da1ca" kind="function"><name>sendMessage</name></member>
+    <member refid="group__apis__for__cuda_1gac5c661565ac7b798fbe3eab3a4763951" kind="function"><name>receiveMessage</name></member>
+  </compound>
+  <compound refid="group__benchmark__yaml" kind="group"><name>Benchmark_yaml</name>
+  </compound>
+  <compound refid="group__cmd__handler__struct" kind="group"><name>Cmd_handler_struct</name>
+    <member refid="group__cmd__handler__struct_1gae80febffec287d8ba0cccc9d2d6bb4e7" kind="typedef"><name>SyncCmdList</name></member>
+  </compound>
+  <compound refid="group__cmd__handler__func" kind="group"><name>Cmd_handler_func</name>
+    <member refid="group__cmd__handler__func_1ga9f5f262279de5a1783a4a7aac68bf700" kind="function"><name>handle_cycle_cmd</name></member>
+    <member refid="group__cmd__handler__func_1gab6b5801bc0c69d9b5e235362a8a9affb" kind="function"><name>handle_pipe_cmd</name></member>
+    <member refid="group__cmd__handler__func_1gabf9f8fa7ebad414492b36076a04be37c" kind="function"><name>handle_barrier_cmd</name></member>
+    <member refid="group__cmd__handler__func_1gacc423e4f60f3a7349e92a9abe7473863" kind="function"><name>handle_lock_cmd</name></member>
+    <member refid="group__cmd__handler__func_1ga7de5f42e7045a5cffcc47247dbcf8e3b" kind="function"><name>handle_unlock_cmd</name></member>
+    <member refid="group__cmd__handler__func_1gac8b6bb4538c28dac9a6eeda20cc32942" kind="function"><name>handle_launch_cmd</name></member>
+    <member refid="group__cmd__handler__func_1ga93ecd3191d3a7e33f46457aff0525fba" kind="function"><name>handle_waitlaunch_cmd</name></member>
+    <member refid="group__cmd__handler__func_1ga4224ecb6b21e3144a4343d9df9a94b70" kind="function"><name>handle_read_cmd</name></member>
+    <member refid="group__cmd__handler__func_1ga2913c79ea81fd9e4a1b94678e7f53ba4" kind="function"><name>handle_write_cmd</name></member>
+  </compound>
+  <compound refid="group__cmdline" kind="group"><name>cmdline</name>
+  </compound>
+  <compound refid="group__net__bench" kind="group"><name>net_bench</name>
+  </compound>
+  <compound refid="group__net__delay" kind="group"><name>net_delay</name>
+    <member refid="group__net__delay_1gaeb778c7f99f3f6efe0ad6c8c2281f39f" kind="typedef"><name>CmdDelayPair</name></member>
+    <member refid="group__net__delay_1ga2dfd29a9edac013133f822214b69c2d7" kind="typedef"><name>NetworkDelayOrder</name></member>
+    <member refid="group__net__delay_1gab2cadc5e1bdc6430743caafe1387f56b" kind="define"><name>SRC_DELAY</name></member>
+    <member refid="group__net__delay_1gac5cfb612929f51312de05e4b4f9bb6a7" kind="define"><name>DST_DELAY</name></member>
+  </compound>
+  <compound refid="group__pipe__comm" kind="group"><name>pipe_comm</name>
+  </compound>
+  <compound refid="group__sync__proto" kind="group"><name>sync_proto</name>
+    <member refid="group__sync__proto_1ga6f8d9486e2e33b99028e35f40a4c5def" kind="function"><name>pipeName</name></member>
+    <member refid="group__sync__proto_1ga81af9954ebf153d700c1abd97e420614" kind="function"><name>parseCmd</name></member>
+    <member refid="group__sync__proto_1gafa61e22fe5db340196133c439091dbcb" kind="function"><name>parseCmd</name></member>
+    <member refid="group__sync__proto_1ga76e24d6520267de649c465e6b21f4e38" kind="function"><name>dumpCmd</name></member>
+    <member refid="group__sync__proto_1ga0bef6e329fcfe31346f02817892c3ace" kind="function"><name>sendCycleCmd</name></member>
+    <member refid="group__sync__proto_1gaee66313b502dedf1a3c8afd40ee5313e" kind="function"><name>sendSendCmd</name></member>
+    <member refid="group__sync__proto_1ga543d48123daae3a9ec109ca057ac68d2" kind="function"><name>sendReceiveCmd</name></member>
+    <member refid="group__sync__proto_1gaec69fde1956e97c4fccd88cf8b2203f6" kind="function"><name>sendBarrierCmd</name></member>
+    <member refid="group__sync__proto_1ga0d2985651bc96b14664bcf8edf275483" kind="function"><name>sendLockCmd</name></member>
+    <member refid="group__sync__proto_1ga0298681373ee86853db7302c0b9ba4c5" kind="function"><name>sendUnlockCmd</name></member>
+    <member refid="group__sync__proto_1ga69975d33c784e73739deb5d96b5b4f5f" kind="function"><name>sendLaunchCmd</name></member>
+    <member refid="group__sync__proto_1gab161f23f03e99f29a90ca3f2a6268261" kind="function"><name>sendWaitlaunchCmd</name></member>
+    <member refid="group__sync__proto_1gac71ec629bd3ee40a415b3de09978cab6" kind="function"><name>sendReadCmd</name></member>
+    <member refid="group__sync__proto_1gad6f2545142eba5bd3de96b25f12e5417" kind="function"><name>sendWriteCmd</name></member>
+    <member refid="group__sync__proto_1gaa77b140ec02e80ee343d8bb37c55784e" kind="function"><name>sendSyncCmd</name></member>
+    <member refid="group__sync__proto_1ga1da54da150c1eb2acccec7859ae4dd7f" kind="function"><name>sendSyncCmd</name></member>
+    <member refid="group__sync__proto_1gad5774a911d55626e5b9ca25d475ecb96" kind="function"><name>sendResultCmd</name></member>
+    <member refid="group__sync__proto_1gadb8bbab09b627f7dc7cfde226b922c04" kind="function"><name>sendResultCmd</name></member>
+    <member refid="group__sync__proto_1ga69d14e5e65c3505aee919b468e1dd91f" kind="function"><name>sendResultCmd</name></member>
+    <member refid="group__sync__proto_1ga4debdab3ba74b1b7329d742b6bdeaa57" kind="function"><name>sendResultCmd</name></member>
+    <member refid="group__sync__proto_1ga25c2e7433e61a350a678a35737827126" kind="function"><name>sendResultCmd</name></member>
+    <member refid="group__sync__proto_1ga2c9b408d4ffcac9d78395db5fa849873" kind="function"><name>sendResultCmd</name></member>
+    <member refid="group__sync__proto_1gaaff9043fca81dba50f4ad34bc6f7f52f" kind="function"><name>cycleSync</name></member>
+    <member refid="group__sync__proto_1ga9d721097777530c0d965f4a18f231ed3" kind="function"><name>sendSync</name></member>
+    <member refid="group__sync__proto_1gadd1d52bbf41f3dad6f4fde0fcaca92a2" kind="function"><name>receiveSync</name></member>
+    <member refid="group__sync__proto_1gacbfd6f34fea6acce3d0320f4cc232b91" kind="function"><name>launchSync</name></member>
+    <member refid="group__sync__proto_1ga0ba2e3130532f04c9ae3b5082402a1bc" kind="function"><name>waitlaunchSync</name></member>
+    <member refid="group__sync__proto_1ga6dde3d09867aa7e376baab3f39de5ff8" kind="function"><name>barrierSync</name></member>
+    <member refid="group__sync__proto_1gac6fa4c3d7dd48af6193bb2d91a0f0094" kind="function"><name>lockSync</name></member>
+    <member refid="group__sync__proto_1gaed6597f918e06b570e0a78764df40605" kind="function"><name>unlockSync</name></member>
+    <member refid="group__sync__proto_1gaef900fd4a6120e00025eadaf5d6648f8" kind="function"><name>readSync</name></member>
+    <member refid="group__sync__proto_1gadc410728c7847c4d31ff392fff3c67ea" kind="function"><name>writeSync</name></member>
   </compound>
   <compound refid="dir_943fa6db2bfb09b7dcf1f02346dde40e" kind="dir"><name>/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes</name>
   </compound>

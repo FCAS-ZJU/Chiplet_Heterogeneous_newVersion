@@ -17,21 +17,21 @@
 #define PAC_PAYLOAD_BIT 512
 #define PAC_PAYLOAD_BYTE (PAC_PAYLOAD_BIT / 8)
 
-namespace InterChiplet {
 class NetworkBenchItem {
    public:
-    InnerTimeType m_src_cycle;
-    InnerTimeType m_dst_cycle;
+    InterChiplet::InnerTimeType m_src_cycle;
+    InterChiplet::InnerTimeType m_dst_cycle;
     uint64_t m_id;
-    AddrType m_src;
-    AddrType m_dst;
+    InterChiplet::AddrType m_src;
+    InterChiplet::AddrType m_dst;
     int m_pac_size;
     long m_desc;
 
    public:
     NetworkBenchItem() {}
 
-    NetworkBenchItem(const SyncCommand& __src_cmd, const SyncCommand& __dst_cmd)
+    NetworkBenchItem(const InterChiplet::SyncCommand& __src_cmd,
+                     const InterChiplet::SyncCommand& __dst_cmd)
         : m_src_cycle(__src_cmd.m_cycle),
           m_dst_cycle(__dst_cmd.m_cycle),
           m_dst(__src_cmd.m_dst),
@@ -44,7 +44,7 @@ class NetworkBenchItem {
                      ((__src_cmd.m_nbytes % PAC_PAYLOAD_BYTE) > 0 ? 1 : 0) + 1;
     }
 
-    NetworkBenchItem(const SyncCommand& __src_cmd)
+    NetworkBenchItem(const InterChiplet::SyncCommand& __src_cmd)
         : m_src_cycle(__src_cmd.m_cycle),
           m_dst_cycle(__src_cmd.m_cycle),
           m_dst(__src_cmd.m_dst),
@@ -77,21 +77,22 @@ class NetworkBenchItem {
     }
 };
 
-class NetworkBenchList : public std::multimap<InnerTimeType, NetworkBenchItem> {
+class NetworkBenchList : public std::multimap<InterChiplet::InnerTimeType, NetworkBenchItem> {
    public:
-    NetworkBenchList() : std::multimap<InnerTimeType, NetworkBenchItem>() {}
+    NetworkBenchList() : std::multimap<InterChiplet::InnerTimeType, NetworkBenchItem>() {}
 
     void insert(const NetworkBenchItem& __item) {
-        std::multimap<InnerTimeType, NetworkBenchItem>::insert(
-            std::pair<InnerTimeType, NetworkBenchItem>(__item.m_src_cycle, __item));
+        std::multimap<InterChiplet::InnerTimeType, NetworkBenchItem>::insert(
+            std::pair<InterChiplet::InnerTimeType, NetworkBenchItem>(__item.m_src_cycle, __item));
     }
 
     void dumpBench(const std::string& __file_name, double __clock_rate) {
         std::ofstream bench_of(__file_name, std::ios::out);
         for (auto& it : *this) {
-            bench_of << static_cast<TimeType>(it.second.m_src_cycle * __clock_rate) << " "
-                     << static_cast<TimeType>(it.second.m_dst_cycle * __clock_rate) << " "
-                     << DIM_X(it.second.m_src) << " " << DIM_Y(it.second.m_src) << " "
+            bench_of << static_cast<InterChiplet::TimeType>(it.second.m_src_cycle * __clock_rate)
+                     << " "
+                     << static_cast<InterChiplet::TimeType>(it.second.m_dst_cycle * __clock_rate)
+                     << " " << DIM_X(it.second.m_src) << " " << DIM_Y(it.second.m_src) << " "
                      << DIM_X(it.second.m_dst) << " " << DIM_Y(it.second.m_dst) << " "
                      << it.second.m_pac_size << " " << it.second.m_desc << std::endl;
         }
@@ -99,6 +100,5 @@ class NetworkBenchList : public std::multimap<InnerTimeType, NetworkBenchItem> {
         bench_of.close();
     }
 };
-}  // namespace InterChiplet
 
 ```

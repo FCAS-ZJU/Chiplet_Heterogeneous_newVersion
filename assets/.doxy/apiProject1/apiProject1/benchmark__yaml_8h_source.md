@@ -15,7 +15,6 @@
 #include "yaml-cpp/yaml.h"
 namespace fs = boost::filesystem;
 
-namespace InterChiplet {
 class ProcessConfig {
    public:
     ProcessConfig(const std::string& __cmd, const std::vector<std::string>& __args,
@@ -123,6 +122,5 @@ class BenchmarkConfig {
     std::vector<ProcessConfig> m_phase1_proc_cfg_list;
     std::vector<ProcessConfig> m_phase2_proc_cfg_list;
 };
-}  // namespace InterChiplet
 
 ```

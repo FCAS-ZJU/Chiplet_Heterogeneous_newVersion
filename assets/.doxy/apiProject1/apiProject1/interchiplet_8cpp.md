@@ -45,8 +45,8 @@
 
 | Type | Name |
 | ---: | :--- |
-|  InterChiplet::InnerTimeType | [**\_\_loop\_phase\_one**](#function-__loop_phase_one) (int \_\_round, const std::vector&lt; [**InterChiplet::ProcessConfig**](classInterChiplet_1_1ProcessConfig.md) &gt; & \_\_proc\_phase1\_cfg\_list, const std::vector&lt; [**InterChiplet::ProcessConfig**](classInterChiplet_1_1ProcessConfig.md) &gt; & \_\_proc\_phase2\_cfg\_list) <br> |
-|  void | [**\_\_loop\_phase\_two**](#function-__loop_phase_two) (int \_\_round, const std::vector&lt; [**InterChiplet::ProcessConfig**](classInterChiplet_1_1ProcessConfig.md) &gt; & \_\_proc\_cfg\_list) <br> |
+|  InterChiplet::InnerTimeType | [**\_\_loop\_phase\_one**](#function-__loop_phase_one) (int \_\_round, const std::vector&lt; [**ProcessConfig**](classProcessConfig.md) &gt; & \_\_proc\_phase1\_cfg\_list, const std::vector&lt; [**ProcessConfig**](classProcessConfig.md) &gt; & \_\_proc\_phase2\_cfg\_list) <br> |
+|  void | [**\_\_loop\_phase\_two**](#function-__loop_phase_two) (int \_\_round, const std::vector&lt; [**ProcessConfig**](classProcessConfig.md) &gt; & \_\_proc\_cfg\_list) <br> |
 |  void \* | [**bridge\_thread**](#function-bridge_thread) (void \* \_\_args\_ptr) <br> |
 |  int | [**main**](#function-main) (int argc, const char \* argv) <br> |
 |  void | [**parse\_command**](#function-parse_command) (char \* \_\_pipe\_buf, [**ProcessStruct**](classProcessStruct.md) \* \_\_proc\_struct, int \_\_stdin\_fd) <br> |
@@ -71,8 +71,8 @@
 ```C++
 InterChiplet::InnerTimeType __loop_phase_one (
     int __round,
-    const std::vector< InterChiplet::ProcessConfig > & __proc_phase1_cfg_list,
-    const std::vector< InterChiplet::ProcessConfig > & __proc_phase2_cfg_list
+    const std::vector< ProcessConfig > & __proc_phase1_cfg_list,
+    const std::vector< ProcessConfig > & __proc_phase2_cfg_list
 ) 
 ```
 
@@ -84,7 +84,7 @@ InterChiplet::InnerTimeType __loop_phase_one (
 ```C++
 void __loop_phase_two (
     int __round,
-    const std::vector< InterChiplet::ProcessConfig > & __proc_cfg_list
+    const std::vector< ProcessConfig > & __proc_cfg_list
 ) 
 ```
 

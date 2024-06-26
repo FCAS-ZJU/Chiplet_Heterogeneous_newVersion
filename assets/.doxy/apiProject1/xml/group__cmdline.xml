@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="group__cmdline" kind="group">
+    <compoundname>cmdline</compoundname>
+    <title>Cmdline</title>
+    <innerclass refid="classCmdLineOptions" prot="public">CmdLineOptions</innerclass>
+    <briefdescription>
+<para>Command line parser. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

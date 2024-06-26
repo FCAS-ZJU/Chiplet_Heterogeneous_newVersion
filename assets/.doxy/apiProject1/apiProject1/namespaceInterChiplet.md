@@ -23,33 +23,16 @@
 
 | Type | Name |
 | ---: | :--- |
-| class | [**BenchmarkConfig**](classInterChiplet_1_1BenchmarkConfig.md) <br>_Benchmark configuration structure._  |
-| class | [**CmdLineOptions**](classInterChiplet_1_1CmdLineOptions.md) <br>_Options from command line._  |
-| class | [**NetworkBenchItem**](classInterChiplet_1_1NetworkBenchItem.md) <br>_Structure of one package in network._  |
-| class | [**NetworkBenchList**](classInterChiplet_1_1NetworkBenchList.md) <br>_List of network benchmark item._  |
-| class | [**NetworkDelayItem**](classInterChiplet_1_1NetworkDelayItem.md) <br>_Structure presents delay of one package in network._  |
-| class | [**NetworkDelayMap**](classInterChiplet_1_1NetworkDelayMap.md) <br>_Map for network delay information._  |
-| class | [**NetworkDelayStruct**](classInterChiplet_1_1NetworkDelayStruct.md) <br>_List of network delay item._  |
 | class | [**PipeComm**](classInterChiplet_1_1PipeComm.md) <br>_Pipe communication structure._  |
 | class | [**PipeCommUnit**](classInterChiplet_1_1PipeCommUnit.md) <br>_Structure for Single Pipe communication._  |
-| class | [**ProcessConfig**](classInterChiplet_1_1ProcessConfig.md) <br>_Data structure to configure one simulation process._  |
-| class | [**SyncBarrierStruct**](classInterChiplet_1_1SyncBarrierStruct.md) <br>_Structure for Barrier synchronization._  |
-| class | [**SyncClockStruct**](classInterChiplet_1_1SyncClockStruct.md) <br>_Structure for Clock synchronization._  |
-| class | [**SyncCommStruct**](classInterChiplet_1_1SyncCommStruct.md) <br>_Structure for Communication synchronization._  |
 | class | [**SyncCommand**](classInterChiplet_1_1SyncCommand.md) <br>_Structure of synchronization command._  |
-| class | [**SyncLaunchStruct**](classInterChiplet_1_1SyncLaunchStruct.md) <br>_Structure for Launch and Wait-launch synchronization._  |
-| class | [**SyncLockStruct**](classInterChiplet_1_1SyncLockStruct.md) <br>_Structure for Lock and Unlock synchronization._  |
-| class | [**SyncPipeStruct**](classInterChiplet_1_1SyncPipeStruct.md) <br>_Structure for Pipe synchronization._  |
 
 ## Public Types
 
 | Type | Name |
 | ---: | :--- |
 | typedef std::vector&lt; long &gt; | [**AddrType**](#typedef-addrtype)  <br>_Address type;._  |
-| typedef std::tuple&lt; InnerTimeType, InnerTimeType &gt; | [**CmdDelayPair**](#typedef-cmddelaypair)  <br> |
 | typedef double | [**InnerTimeType**](#typedef-innertimetype)  <br>_Time type used by interchiplet module._  |
-| typedef std::multimap&lt; InnerTimeType, [**NetworkDelayItem**](classInterChiplet_1_1NetworkDelayItem.md) &gt; | [**NetworkDelayOrder**](#typedef-networkdelayorder)  <br> |
-| typedef std::vector&lt; [**SyncCommand**](classInterChiplet_1_1SyncCommand.md) &gt; | [**SyncCmdList**](#typedef-synccmdlist)  <br>_List of synchronization commands._  |
 | enum  | [**SyncCommType**](#enum-synccommtype)  <br>_Type of synchronization command between simulators._  |
 | enum  | [**SyncProtocolDesc**](#enum-syncprotocoldesc)  <br>_Behavior descriptor of synchronization protocol._  |
 | enum  | [**SysCallID**](#enum-syscallid)  <br>_Syscall ID used in CPU/GPU._  |
@@ -126,37 +109,10 @@ typedef std::vector<long> InterChiplet::AddrType;
 
 
 
-### typedef CmdDelayPair 
-
-```C++
-typedef std::tuple<InnerTimeType, InnerTimeType> InterChiplet::CmdDelayPair;
-```
-
-
-
-
 ### typedef InnerTimeType 
 
 ```C++
 typedef double InterChiplet::InnerTimeType;
-```
-
-
-
-
-### typedef NetworkDelayOrder 
-
-```C++
-typedef std::multimap<InnerTimeType, NetworkDelayItem> InterChiplet::NetworkDelayOrder;
-```
-
-
-
-
-### typedef SyncCmdList 
-
-```C++
-typedef std::vector<SyncCommand> InterChiplet::SyncCmdList;
 ```
 
 

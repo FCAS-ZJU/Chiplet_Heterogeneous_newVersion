@@ -13,7 +13,6 @@
 
 #include "CLI/CLI.hpp"
 
-namespace InterChiplet {
 class CmdLineOptions {
    public:
     CmdLineOptions()
@@ -50,6 +49,5 @@ class CmdLineOptions {
 
     bool m_debug;
 };
-}  // namespace InterChiplet
 
 ```

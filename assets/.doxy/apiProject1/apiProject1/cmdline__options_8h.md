@@ -20,17 +20,12 @@
 
 
 
-## Namespaces
-
-| Type | Name |
-| ---: | :--- |
-| namespace | [**InterChiplet**](namespaceInterChiplet.md) <br> |
 
 ## Classes
 
 | Type | Name |
 | ---: | :--- |
-| class | [**CmdLineOptions**](classInterChiplet_1_1CmdLineOptions.md) <br>_Options from command line._  |
+| class | [**CmdLineOptions**](classCmdLineOptions.md) <br>_Options from command line._  |
 
 
 

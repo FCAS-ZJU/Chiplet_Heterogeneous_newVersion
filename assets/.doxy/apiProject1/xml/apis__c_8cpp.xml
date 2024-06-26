@@ -56,40 +56,40 @@
 <codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;global_define.h&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5"><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">InterChiplet<sp/>{</highlight></codeline>
-<codeline lineno="7"><highlight class="normal">syscall_return_t<sp/>barrier(int64_t<sp/>__uid,<sp/>int64_t<sp/>__src_x,<sp/>int64_t<sp/>__src_y,<sp/>int64_t<sp/>__count)<sp/>{</highlight></codeline>
+<codeline lineno="7"><highlight class="normal">syscall_return_t<sp/><ref refid="group__apis__for__cuda_1ga4aa9fa9625dd63d39227f0e16b511e36" kindref="member">barrier</ref>(int64_t<sp/>__uid,<sp/>int64_t<sp/>__src_x,<sp/>int64_t<sp/>__src_y,<sp/>int64_t<sp/>__count)<sp/>{</highlight></codeline>
 <codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ret_code<sp/>=<sp/>syscall(SYSCALL_BARRIER,<sp/>__uid,<sp/>__src_x,<sp/>__src_y,<sp/>__count);</highlight></codeline>
 <codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ret_code;</highlight></codeline>
 <codeline lineno="10"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="11"><highlight class="normal"></highlight></codeline>
-<codeline lineno="12"><highlight class="normal">syscall_return_t<sp/>lock(int64_t<sp/>__uid,<sp/>int64_t<sp/>__src_x,<sp/>int64_t<sp/>__src_y)<sp/>{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal">syscall_return_t<sp/><ref refid="group__apis__for__cuda_1gafdd40ada4175ae29956682ceca8936dc" kindref="member">lock</ref>(int64_t<sp/>__uid,<sp/>int64_t<sp/>__src_x,<sp/>int64_t<sp/>__src_y)<sp/>{</highlight></codeline>
 <codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ret_code<sp/>=<sp/>syscall(SYSCALL_LOCK,<sp/>__uid,<sp/>__src_x,<sp/>__src_y);</highlight></codeline>
 <codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ret_code;</highlight></codeline>
 <codeline lineno="15"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="16"><highlight class="normal"></highlight></codeline>
-<codeline lineno="17"><highlight class="normal">syscall_return_t<sp/>unlock(int64_t<sp/>__uid,<sp/>int64_t<sp/>__src_x,<sp/>int64_t<sp/>__src_y)<sp/>{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal">syscall_return_t<sp/><ref refid="group__apis__for__cuda_1ga3373e5cdb7eeb27f20822abb964fdc58" kindref="member">unlock</ref>(int64_t<sp/>__uid,<sp/>int64_t<sp/>__src_x,<sp/>int64_t<sp/>__src_y)<sp/>{</highlight></codeline>
 <codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ret_code<sp/>=<sp/>syscall(SYSCALL_UNLOCK,<sp/>__uid,<sp/>__src_x,<sp/>__src_y);</highlight></codeline>
 <codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ret_code;</highlight></codeline>
 <codeline lineno="20"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="21"><highlight class="normal"></highlight></codeline>
-<codeline lineno="22"><highlight class="normal">syscall_return_t<sp/>launch(int64_t<sp/>__dst_x,<sp/>int64_t<sp/>__dst_y,<sp/>int64_t<sp/>__src_x,</highlight></codeline>
+<codeline lineno="22"><highlight class="normal">syscall_return_t<sp/><ref refid="group__apis__for__cuda_1ga62b3334fbd1d131961ff59345f3ad362" kindref="member">launch</ref>(int64_t<sp/>__dst_x,<sp/>int64_t<sp/>__dst_y,<sp/>int64_t<sp/>__src_x,</highlight></codeline>
 <codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int64_t<sp/>__src_y)<sp/>{</highlight></codeline>
 <codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ret_code<sp/>=<sp/>syscall(SYSCALL_LAUNCH,<sp/>__dst_x,<sp/>__dst_y,<sp/>__src_x,<sp/>__src_y);</highlight></codeline>
 <codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ret_code;</highlight></codeline>
 <codeline lineno="26"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="27"><highlight class="normal"></highlight></codeline>
-<codeline lineno="28"><highlight class="normal">syscall_return_t<sp/>waitLaunch(int64_t<sp/>__dst_x,<sp/>int64_t<sp/>__dst_y,<sp/>int64_t*<sp/>__src_x,</highlight></codeline>
+<codeline lineno="28"><highlight class="normal">syscall_return_t<sp/><ref refid="group__apis__for__cuda_1gaec6f9a695bd49f101888b9d7699bec99" kindref="member">waitLaunch</ref>(int64_t<sp/>__dst_x,<sp/>int64_t<sp/>__dst_y,<sp/>int64_t*<sp/>__src_x,</highlight></codeline>
 <codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int64_t*<sp/>__src_y)<sp/>{</highlight></codeline>
 <codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ret_code<sp/>=<sp/>syscall(SYSCALL_WAITLAUNCH,<sp/>__dst_x,<sp/>__dst_y,<sp/>__src_x,<sp/>__src_y);</highlight></codeline>
 <codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ret_code;</highlight></codeline>
 <codeline lineno="32"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="33"><highlight class="normal"></highlight></codeline>
-<codeline lineno="34"><highlight class="normal">syscall_return_t<sp/>sendMessage(int64_t<sp/>__dst_x,<sp/>int64_t<sp/>__dst_y,<sp/>int64_t<sp/>__src_x,<sp/>int64_t<sp/>__src_y,</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">syscall_return_t<sp/><ref refid="group__apis__for__cuda_1ga67e03bf33a0e807915bfd0e6e65da1ca" kindref="member">sendMessage</ref>(int64_t<sp/>__dst_x,<sp/>int64_t<sp/>__dst_y,<sp/>int64_t<sp/>__src_x,<sp/>int64_t<sp/>__src_y,</highlight></codeline>
 <codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>__addr,<sp/>int64_t<sp/>__nbyte)<sp/>{</highlight></codeline>
 <codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ret_code<sp/>=</highlight></codeline>
 <codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>syscall(SYSCALL_REMOTE_WRITE,<sp/>__dst_x,<sp/>__dst_y,<sp/>__src_x,<sp/>__src_y,<sp/>__addr,<sp/>__nbyte);</highlight></codeline>
 <codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ret_code;</highlight></codeline>
 <codeline lineno="39"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="40"><highlight class="normal">syscall_return_t<sp/>receiveMessage(int64_t<sp/>__dst_x,<sp/>int64_t<sp/>__dst_y,<sp/>int64_t<sp/>__src_x,<sp/>int64_t<sp/>__src_y,</highlight></codeline>
+<codeline lineno="40"><highlight class="normal">syscall_return_t<sp/><ref refid="group__apis__for__cuda_1gac5c661565ac7b798fbe3eab3a4763951" kindref="member">receiveMessage</ref>(int64_t<sp/>__dst_x,<sp/>int64_t<sp/>__dst_y,<sp/>int64_t<sp/>__src_x,<sp/>int64_t<sp/>__src_y,</highlight></codeline>
 <codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>__addr,<sp/>int64_t<sp/>__nbyte)<sp/>{</highlight></codeline>
 <codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ret_code<sp/>=</highlight></codeline>
 <codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>syscall(SYSCALL_REMOTE_READ,<sp/>__dst_x,<sp/>__dst_y,<sp/>__src_x,<sp/>__src_y,<sp/>__addr,<sp/>__nbyte);</highlight></codeline>

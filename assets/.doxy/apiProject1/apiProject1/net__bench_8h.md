@@ -21,18 +21,13 @@
 
 
 
-## Namespaces
-
-| Type | Name |
-| ---: | :--- |
-| namespace | [**InterChiplet**](namespaceInterChiplet.md) <br> |
 
 ## Classes
 
 | Type | Name |
 | ---: | :--- |
-| class | [**NetworkBenchItem**](classInterChiplet_1_1NetworkBenchItem.md) <br>_Structure of one package in network._  |
-| class | [**NetworkBenchList**](classInterChiplet_1_1NetworkBenchList.md) <br>_List of network benchmark item._  |
+| class | [**NetworkBenchItem**](classNetworkBenchItem.md) <br>_Structure of one package in network._  |
+| class | [**NetworkBenchList**](classNetworkBenchList.md) <br>_List of network benchmark item._  |
 
 
 

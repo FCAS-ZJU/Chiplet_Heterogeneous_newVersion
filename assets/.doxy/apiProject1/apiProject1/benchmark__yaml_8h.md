@@ -21,18 +21,13 @@
 
 
 
-## Namespaces
-
-| Type | Name |
-| ---: | :--- |
-| namespace | [**InterChiplet**](namespaceInterChiplet.md) <br> |
 
 ## Classes
 
 | Type | Name |
 | ---: | :--- |
-| class | [**BenchmarkConfig**](classInterChiplet_1_1BenchmarkConfig.md) <br>_Benchmark configuration structure._  |
-| class | [**ProcessConfig**](classInterChiplet_1_1ProcessConfig.md) <br>_Data structure to configure one simulation process._  |
+| class | [**BenchmarkConfig**](classBenchmarkConfig.md) <br>_Benchmark configuration structure._  |
+| class | [**ProcessConfig**](classProcessConfig.md) <br>_Data structure to configure one simulation process._  |
 
 
 

@@ -46,7 +46,7 @@ _Data structure of process configuration._
 
 | Type | Name |
 | ---: | :--- |
-|   | [**ProcessStruct**](#function-processstruct) (const [**InterChiplet::ProcessConfig**](classInterChiplet_1_1ProcessConfig.md) & \_\_config) <br> |
+|   | [**ProcessStruct**](#function-processstruct) (const [**ProcessConfig**](classProcessConfig.md) & \_\_config) <br> |
 
 
 
@@ -190,7 +190,7 @@ std::string ProcessStruct::m_unfinished_line;
 
 ```C++
 inline ProcessStruct::ProcessStruct (
-    const InterChiplet::ProcessConfig & __config
+    const ProcessConfig & __config
 ) 
 ```
 

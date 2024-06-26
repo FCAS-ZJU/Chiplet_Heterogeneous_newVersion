@@ -188,13 +188,13 @@
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="classProcessStruct_1a330ae2cf7cd29c6cb9fcb4cea1ca631a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classProcessStruct_1aa95fda1ad6a2fd03be6e12d423fd7b5e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
         <definition>ProcessStruct::ProcessStruct</definition>
-        <argsstring>(const InterChiplet::ProcessConfig &amp;__config)</argsstring>
+        <argsstring>(const ProcessConfig &amp;__config)</argsstring>
         <name>ProcessStruct</name>
         <param>
-          <type>const <ref refid="classInterChiplet_1_1ProcessConfig" kindref="compound">InterChiplet::ProcessConfig</ref> &amp;</type>
+          <type>const <ref refid="classProcessConfig" kindref="compound">ProcessConfig</ref> &amp;</type>
           <declname>__config</declname>
         </param>
         <briefdescription>
@@ -212,15 +212,9 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="4">
-        <label>InterChiplet::NetworkBenchList</label>
-        <link refid="classInterChiplet_1_1NetworkBenchList"/>
-        <childnode refid="5" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="7">
-        <label>InterChiplet::SyncPipeStruct</label>
-        <link refid="classInterChiplet_1_1SyncPipeStruct"/>
+      <node id="10">
+        <label>SyncPipeStruct</label>
+        <link refid="classSyncPipeStruct"/>
       </node>
       <node id="2">
         <label>SyncStruct</label>
@@ -232,36 +226,25 @@
           <edgelabel>m_bench_list</edgelabel>
         </childnode>
         <childnode refid="6" relation="usage">
+          <edgelabel>m_lock_struct</edgelabel>
+          <edgelabel>m_lock_timing_struct</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
           <edgelabel>m_barrier_struct</edgelabel>
           <edgelabel>m_barrier_timing_struct</edgelabel>
         </childnode>
-        <childnode refid="7" relation="usage">
-          <edgelabel>m_pipe_struct</edgelabel>
-        </childnode>
         <childnode refid="8" relation="usage">
-          <edgelabel>m_delay_list</edgelabel>
+          <edgelabel>m_launch_struct</edgelabel>
         </childnode>
         <childnode refid="9" relation="usage">
           <edgelabel>m_comm_struct</edgelabel>
         </childnode>
         <childnode refid="10" relation="usage">
-          <edgelabel>m_launch_struct</edgelabel>
+          <edgelabel>m_pipe_struct</edgelabel>
         </childnode>
         <childnode refid="11" relation="usage">
-          <edgelabel>m_lock_struct</edgelabel>
-          <edgelabel>m_lock_timing_struct</edgelabel>
+          <edgelabel>m_delay_list</edgelabel>
         </childnode>
-      </node>
-      <node id="11">
-        <label>InterChiplet::SyncLockStruct</label>
-        <link refid="classInterChiplet_1_1SyncLockStruct"/>
-      </node>
-      <node id="3">
-        <label>InterChiplet::SyncClockStruct</label>
-        <link refid="classInterChiplet_1_1SyncClockStruct"/>
-      </node>
-      <node id="5">
-        <label>std::multimap&lt; InnerTimeType, NetworkBenchItem &gt;</label>
       </node>
       <node id="1">
         <label>ProcessStruct</label>
@@ -270,21 +253,38 @@
           <edgelabel>m_sync_struct</edgelabel>
         </childnode>
       </node>
-      <node id="10">
-        <label>InterChiplet::SyncLaunchStruct</label>
-        <link refid="classInterChiplet_1_1SyncLaunchStruct"/>
-      </node>
-      <node id="6">
-        <label>InterChiplet::SyncBarrierStruct</label>
-        <link refid="classInterChiplet_1_1SyncBarrierStruct"/>
+      <node id="5">
+        <label>std::multimap&lt; InterChiplet::InnerTimeType, NetworkBenchItem &gt;</label>
       </node>
       <node id="9">
-        <label>InterChiplet::SyncCommStruct</label>
-        <link refid="classInterChiplet_1_1SyncCommStruct"/>
+        <label>SyncCommStruct</label>
+        <link refid="classSyncCommStruct"/>
+      </node>
+      <node id="3">
+        <label>SyncClockStruct</label>
+        <link refid="classSyncClockStruct"/>
+      </node>
+      <node id="6">
+        <label>SyncLockStruct</label>
+        <link refid="classSyncLockStruct"/>
+      </node>
+      <node id="11">
+        <label>NetworkDelayStruct</label>
+        <link refid="classNetworkDelayStruct"/>
+      </node>
+      <node id="4">
+        <label>NetworkBenchList</label>
+        <link refid="classNetworkBenchList"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>SyncBarrierStruct</label>
+        <link refid="classSyncBarrierStruct"/>
       </node>
       <node id="8">
-        <label>InterChiplet::NetworkDelayStruct</label>
-        <link refid="classInterChiplet_1_1NetworkDelayStruct"/>
+        <label>SyncLaunchStruct</label>
+        <link refid="classSyncLaunchStruct"/>
       </node>
     </collaborationgraph>
     <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp" line="20" column="20" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/interchiplet.cpp" bodystart="20" bodyend="59"/>
@@ -303,7 +303,7 @@
       <member refid="classProcessStruct_1aa7c2d9709ea50a62e01b9c4f1c4d0d93" prot="public" virt="non-virtual"><scope>ProcessStruct</scope><name>m_thread_id</name></member>
       <member refid="classProcessStruct_1a9db6b8fedb2827c9f33108121569c21a" prot="public" virt="non-virtual"><scope>ProcessStruct</scope><name>m_to_stdout</name></member>
       <member refid="classProcessStruct_1acc417b68f64641cbdbd24c536064b2f5" prot="public" virt="non-virtual"><scope>ProcessStruct</scope><name>m_unfinished_line</name></member>
-      <member refid="classProcessStruct_1a330ae2cf7cd29c6cb9fcb4cea1ca631a" prot="public" virt="non-virtual"><scope>ProcessStruct</scope><name>ProcessStruct</name></member>
+      <member refid="classProcessStruct_1aa95fda1ad6a2fd03be6e12d423fd7b5e" prot="public" virt="non-virtual"><scope>ProcessStruct</scope><name>ProcessStruct</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

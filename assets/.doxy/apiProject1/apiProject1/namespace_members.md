@@ -14,7 +14,6 @@
 
 ## c
 
-* **CmdDelayPair** ([**InterChiplet**](namespaceInterChiplet.md))
 * **cycleSync** ([**InterChiplet**](namespaceInterChiplet.md))
 
 
@@ -36,11 +35,6 @@
 * **lockSync** ([**InterChiplet**](namespaceInterChiplet.md))
 
 
-## n
-
-* **NetworkDelayOrder** ([**InterChiplet**](namespaceInterChiplet.md))
-
-
 ## p
 
 * **parseCmd** ([**InterChiplet**](namespaceInterChiplet.md))
@@ -56,7 +50,6 @@
 
 ## s
 
-* **SyncCmdList** ([**InterChiplet**](namespaceInterChiplet.md))
 * **SyncCommType** ([**InterChiplet**](namespaceInterChiplet.md))
 * **SyncProtocolDesc** ([**InterChiplet**](namespaceInterChiplet.md))
 * **SysCallID** ([**InterChiplet**](namespaceInterChiplet.md))

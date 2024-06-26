@@ -1,0 +1,378 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="classNetworkDelayMap" kind="class" language="C++" prot="public">
+    <compoundname>NetworkDelayMap</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">std::map&lt; InterChiplet::AddrType, NetworkDelayOrder &gt;</basecompoundref>
+    <includes refid="net__delay_8h" local="no">net_delay.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classNetworkDelayMap_1ae83fe349535d2db5222fb0435b4980d4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void NetworkDelayMap::insert</definition>
+        <argsstring>(const InterChiplet::AddrType &amp;__addr, InterChiplet::InnerTimeType __cycle, const NetworkDelayItem &amp;__item)</argsstring>
+        <name>insert</name>
+        <param>
+          <type>const InterChiplet::AddrType &amp;</type>
+          <declname>__addr</declname>
+        </param>
+        <param>
+          <type>InterChiplet::InnerTimeType</type>
+          <declname>__cycle</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classNetworkDelayItem" kindref="compound">NetworkDelayItem</ref> &amp;</type>
+          <declname>__item</declname>
+        </param>
+        <briefdescription>
+<para>Insert delay information. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address as key. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__cycle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Event cycle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__item</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Delay information structure. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="125" column="10" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="125" bodyend="132"/>
+      </memberdef>
+      <memberdef kind="function" id="classNetworkDelayMap_1aa082126eff794b1db823dca0bd5f5bd4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool NetworkDelayMap::hasAddr</definition>
+        <argsstring>(const InterChiplet::AddrType &amp;__addr)</argsstring>
+        <name>hasAddr</name>
+        <param>
+          <type>const InterChiplet::AddrType &amp;</type>
+          <declname>__addr</declname>
+        </param>
+        <briefdescription>
+<para>Check whether there is delay information for the specified address. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>If there is delay information for the specified address, return True. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="139" column="10" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="139" bodyend="146"/>
+      </memberdef>
+      <memberdef kind="function" id="classNetworkDelayMap_1a092035d7b57aa608ecd34c5c24b9f31e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool NetworkDelayMap::hasAddr</definition>
+        <argsstring>(const InterChiplet::AddrType &amp;__addr, const InterChiplet::AddrType &amp;__src, const InterChiplet::AddrType &amp;__dst)</argsstring>
+        <name>hasAddr</name>
+        <param>
+          <type>const InterChiplet::AddrType &amp;</type>
+          <declname>__addr</declname>
+        </param>
+        <param>
+          <type>const InterChiplet::AddrType &amp;</type>
+          <declname>__src</declname>
+        </param>
+        <param>
+          <type>const InterChiplet::AddrType &amp;</type>
+          <declname>__dst</declname>
+        </param>
+        <briefdescription>
+<para>Check whether there is delay information for the specified address. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address as key. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>If there is delay information for the specified address, return True. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="155" column="10" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="155" bodyend="169"/>
+      </memberdef>
+      <memberdef kind="function" id="classNetworkDelayMap_1a2e19fdd61cf233c21fbbda42860dd621" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classNetworkDelayItem" kindref="compound">NetworkDelayItem</ref></type>
+        <definition>NetworkDelayItem NetworkDelayMap::front</definition>
+        <argsstring>(const InterChiplet::AddrType &amp;__addr)</argsstring>
+        <name>front</name>
+        <param>
+          <type>const InterChiplet::AddrType &amp;</type>
+          <declname>__addr</declname>
+        </param>
+        <briefdescription>
+<para>Return the first delay information for the specified address. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The first delay information to the specified address. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="176" column="22" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="176" bodyend="187"/>
+      </memberdef>
+      <memberdef kind="function" id="classNetworkDelayMap_1a829408b81a4085a3a1a037d10e940df5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classNetworkDelayItem" kindref="compound">NetworkDelayItem</ref></type>
+        <definition>NetworkDelayItem NetworkDelayMap::front</definition>
+        <argsstring>(const InterChiplet::AddrType &amp;__addr, const InterChiplet::AddrType &amp;__src, const InterChiplet::AddrType &amp;__dst)</argsstring>
+        <name>front</name>
+        <param>
+          <type>const InterChiplet::AddrType &amp;</type>
+          <declname>__addr</declname>
+        </param>
+        <param>
+          <type>const InterChiplet::AddrType &amp;</type>
+          <declname>__src</declname>
+        </param>
+        <param>
+          <type>const InterChiplet::AddrType &amp;</type>
+          <declname>__dst</declname>
+        </param>
+        <briefdescription>
+<para>Return the first delay information for the specified address. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address as key. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The first delay information to the specified address. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="196" column="22" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="196" bodyend="211"/>
+      </memberdef>
+      <memberdef kind="function" id="classNetworkDelayMap_1a9061483f1887de13b93a3ec11f2f4ece" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void NetworkDelayMap::pop</definition>
+        <argsstring>(const InterChiplet::AddrType &amp;__addr)</argsstring>
+        <name>pop</name>
+        <param>
+          <type>const InterChiplet::AddrType &amp;</type>
+          <declname>__addr</declname>
+        </param>
+        <briefdescription>
+<para>Pop the first delay information for the specified address. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Asdress. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="217" column="10" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="217" bodyend="228"/>
+      </memberdef>
+      <memberdef kind="function" id="classNetworkDelayMap_1a24ad0bc5d29dd2f94feb9c9eb5499e97" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void NetworkDelayMap::pop</definition>
+        <argsstring>(const InterChiplet::AddrType &amp;__addr, const InterChiplet::AddrType &amp;__src, const InterChiplet::AddrType &amp;__dst)</argsstring>
+        <name>pop</name>
+        <param>
+          <type>const InterChiplet::AddrType &amp;</type>
+          <declname>__addr</declname>
+        </param>
+        <param>
+          <type>const InterChiplet::AddrType &amp;</type>
+          <declname>__src</declname>
+        </param>
+        <param>
+          <type>const InterChiplet::AddrType &amp;</type>
+          <declname>__dst</declname>
+        </param>
+        <briefdescription>
+<para>Pop the first delay information for the specified address. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address as key. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__src</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__dst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="236" column="10" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="236" bodyend="250"/>
+      </memberdef>
+      <memberdef kind="function" id="classNetworkDelayMap_1ab3a369fd61a64b7cc6b6f5feba4f320c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool NetworkDelayMap::checkOrderOfCommand</definition>
+        <argsstring>(const InterChiplet::SyncCommand &amp;__cmd)</argsstring>
+        <name>checkOrderOfCommand</name>
+        <param>
+          <type>const <ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">InterChiplet::SyncCommand</ref> &amp;</type>
+          <declname>__cmd</declname>
+        </param>
+        <briefdescription>
+<para>Check the order of write/read commands. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Command to check. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>If the order of command matches the order of delay infomation, return True. Otherwise return False. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="258" column="10" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="258" bodyend="282"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Map for network delay information. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>std::map&lt; InterChiplet::AddrType, NetworkDelayOrder &gt;</label>
+      </node>
+      <node id="1">
+        <label>NetworkDelayMap</label>
+        <link refid="classNetworkDelayMap"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>std::map&lt; InterChiplet::AddrType, NetworkDelayOrder &gt;</label>
+      </node>
+      <node id="1">
+        <label>NetworkDelayMap</label>
+        <link refid="classNetworkDelayMap"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="117" column="40" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="117" bodyend="283"/>
+    <listofallmembers>
+      <member refid="classNetworkDelayMap_1ab3a369fd61a64b7cc6b6f5feba4f320c" prot="public" virt="non-virtual"><scope>NetworkDelayMap</scope><name>checkOrderOfCommand</name></member>
+      <member refid="classNetworkDelayMap_1a2e19fdd61cf233c21fbbda42860dd621" prot="public" virt="non-virtual"><scope>NetworkDelayMap</scope><name>front</name></member>
+      <member refid="classNetworkDelayMap_1a829408b81a4085a3a1a037d10e940df5" prot="public" virt="non-virtual"><scope>NetworkDelayMap</scope><name>front</name></member>
+      <member refid="classNetworkDelayMap_1aa082126eff794b1db823dca0bd5f5bd4" prot="public" virt="non-virtual"><scope>NetworkDelayMap</scope><name>hasAddr</name></member>
+      <member refid="classNetworkDelayMap_1a092035d7b57aa608ecd34c5c24b9f31e" prot="public" virt="non-virtual"><scope>NetworkDelayMap</scope><name>hasAddr</name></member>
+      <member refid="classNetworkDelayMap_1ae83fe349535d2db5222fb0435b4980d4" prot="public" virt="non-virtual"><scope>NetworkDelayMap</scope><name>insert</name></member>
+      <member refid="classNetworkDelayMap_1a9061483f1887de13b93a3ec11f2f4ece" prot="public" virt="non-virtual"><scope>NetworkDelayMap</scope><name>pop</name></member>
+      <member refid="classNetworkDelayMap_1a24ad0bc5d29dd2f94feb9c9eb5499e97" prot="public" virt="non-virtual"><scope>NetworkDelayMap</scope><name>pop</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

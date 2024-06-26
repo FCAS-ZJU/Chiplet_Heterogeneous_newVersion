@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="classSyncBarrierStruct" kind="class" language="C++" prot="public">
+    <compoundname>SyncBarrierStruct</compoundname>
+    <includes refid="cmd__handler_8h" local="no">cmd_handler.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classSyncBarrierStruct_1aa319abddad88bdaeabe417b149207900" prot="private" static="no" mutable="no">
+        <type>std::map&lt; int, int &gt;</type>
+        <definition>std::map&lt;int, int&gt; SyncBarrierStruct::m_barrier_count_map</definition>
+        <argsstring></argsstring>
+        <name>m_barrier_count_map</name>
+        <briefdescription>
+<para>Barrier count. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="67" column="14" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSyncBarrierStruct_1ae025708e1df2b3f3af4ffa6c0f61cc17" prot="private" static="no" mutable="no">
+        <type>std::map&lt; int, <ref refid="group__cmd__handler__struct_1gae80febffec287d8ba0cccc9d2d6bb4e7" kindref="member">SyncCmdList</ref> &gt;</type>
+        <definition>std::map&lt;int, SyncCmdList&gt; SyncBarrierStruct::m_barrier_items_map</definition>
+        <argsstring></argsstring>
+        <name>m_barrier_items_map</name>
+        <briefdescription>
+<para>Barrier items. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="71" column="14" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classSyncBarrierStruct_1a31d6490060312f55d33bae84ac596433" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void SyncBarrierStruct::insertBarrier</definition>
+        <argsstring>(int __uid, int __count)</argsstring>
+        <name>insertBarrier</name>
+        <param>
+          <type>int</type>
+          <declname>__uid</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__count</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="74" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="74" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="classSyncBarrierStruct_1aa1bec1e1823e32213c56a2c080439011" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void SyncBarrierStruct::insertBarrier</definition>
+        <argsstring>(int __uid, int __count, const InterChiplet::SyncCommand &amp;__cmd)</argsstring>
+        <name>insertBarrier</name>
+        <param>
+          <type>int</type>
+          <declname>__uid</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>__count</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">InterChiplet::SyncCommand</ref> &amp;</type>
+          <declname>__cmd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="89" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="89" bodyend="103"/>
+      </memberdef>
+      <memberdef kind="function" id="classSyncBarrierStruct_1a64f7a6c16bc2165762c23c1e3f4a9fff" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool SyncBarrierStruct::overflow</definition>
+        <argsstring>(int __uid)</argsstring>
+        <name>overflow</name>
+        <param>
+          <type>int</type>
+          <declname>__uid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="105" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="105" bodyend="114"/>
+      </memberdef>
+      <memberdef kind="function" id="classSyncBarrierStruct_1aa6bcc0c7e4e728099fd5a7ffe0e9d181" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="group__cmd__handler__struct_1gae80febffec287d8ba0cccc9d2d6bb4e7" kindref="member">SyncCmdList</ref> &amp;</type>
+        <definition>SyncCmdList&amp; SyncBarrierStruct::barrierCmd</definition>
+        <argsstring>(int __uid)</argsstring>
+        <name>barrierCmd</name>
+        <param>
+          <type>int</type>
+          <declname>__uid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="116" column="24" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="116" bodyend="116"/>
+      </memberdef>
+      <memberdef kind="function" id="classSyncBarrierStruct_1adc216ceef0b2c8b1de184f3e6ff42f96" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void SyncBarrierStruct::reset</definition>
+        <argsstring>(int __uid)</argsstring>
+        <name>reset</name>
+        <param>
+          <type>int</type>
+          <declname>__uid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="118" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="118" bodyend="122"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure for Barrier synchronization. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="62" column="24" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" bodystart="62" bodyend="123"/>
+    <listofallmembers>
+      <member refid="classSyncBarrierStruct_1aa6bcc0c7e4e728099fd5a7ffe0e9d181" prot="public" virt="non-virtual"><scope>SyncBarrierStruct</scope><name>barrierCmd</name></member>
+      <member refid="classSyncBarrierStruct_1a31d6490060312f55d33bae84ac596433" prot="public" virt="non-virtual"><scope>SyncBarrierStruct</scope><name>insertBarrier</name></member>
+      <member refid="classSyncBarrierStruct_1aa1bec1e1823e32213c56a2c080439011" prot="public" virt="non-virtual"><scope>SyncBarrierStruct</scope><name>insertBarrier</name></member>
+      <member refid="classSyncBarrierStruct_1aa319abddad88bdaeabe417b149207900" prot="private" virt="non-virtual"><scope>SyncBarrierStruct</scope><name>m_barrier_count_map</name></member>
+      <member refid="classSyncBarrierStruct_1ae025708e1df2b3f3af4ffa6c0f61cc17" prot="private" virt="non-virtual"><scope>SyncBarrierStruct</scope><name>m_barrier_items_map</name></member>
+      <member refid="classSyncBarrierStruct_1a64f7a6c16bc2165762c23c1e3f4a9fff" prot="public" virt="non-virtual"><scope>SyncBarrierStruct</scope><name>overflow</name></member>
+      <member refid="classSyncBarrierStruct_1adc216ceef0b2c8b1de184f3e6ff42f96" prot="public" virt="non-virtual"><scope>SyncBarrierStruct</scope><name>reset</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

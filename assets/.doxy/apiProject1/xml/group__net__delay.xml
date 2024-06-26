@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="group__net__delay" kind="group">
+    <compoundname>net_delay</compoundname>
+    <title>Net_delay</title>
+    <innerclass refid="classNetworkDelayItem" prot="public">NetworkDelayItem</innerclass>
+    <innerclass refid="classNetworkDelayMap" prot="public">NetworkDelayMap</innerclass>
+    <innerclass refid="classNetworkDelayStruct" prot="public">NetworkDelayStruct</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__net__delay_1gaeb778c7f99f3f6efe0ad6c8c2281f39f" prot="public" static="no">
+        <type>std::tuple&lt; InterChiplet::InnerTimeType, InterChiplet::InnerTimeType &gt;</type>
+        <definition>typedef std::tuple&lt;InterChiplet::InnerTimeType, InterChiplet::InnerTimeType&gt; CmdDelayPair</definition>
+        <argsstring></argsstring>
+        <name>CmdDelayPair</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="109" column="20" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__net__delay_1ga2dfd29a9edac013133f822214b69c2d7" prot="public" static="no">
+        <type>std::multimap&lt; InterChiplet::InnerTimeType, <ref refid="classNetworkDelayItem" kindref="compound">NetworkDelayItem</ref> &gt;</type>
+        <definition>typedef std::multimap&lt;InterChiplet::InnerTimeType, NetworkDelayItem&gt; NetworkDelayOrder</definition>
+        <argsstring></argsstring>
+        <name>NetworkDelayOrder</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="112" column="23" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__net__delay_1gab2cadc5e1bdc6430743caafe1387f56b" prot="public" static="no">
+        <name>SRC_DELAY</name>
+        <param><defname>pair</defname></param>
+        <initializer>std::get&lt;0&gt;(pair)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="110" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__net__delay_1gac5cfb612929f51312de05e4b4f9bb6a7" prot="public" static="no">
+        <name>DST_DELAY</name>
+        <param><defname>pair</defname></param>
+        <initializer>std::get&lt;1&gt;(pair)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" line="111" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_delay.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Network latency information interface. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

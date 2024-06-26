@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="group__pipe__comm" kind="group">
+    <compoundname>pipe_comm</compoundname>
+    <title>Pipe_comm</title>
+    <innerclass refid="classInterChiplet_1_1PipeCommUnit" prot="public">InterChiplet::PipeCommUnit</innerclass>
+    <innerclass refid="classInterChiplet_1_1PipeComm" prot="public">InterChiplet::PipeComm</innerclass>
+    <briefdescription>
+<para>Pipe communication interface. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

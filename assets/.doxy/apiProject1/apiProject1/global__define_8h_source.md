@@ -80,8 +80,6 @@ class SyncCommand {
 
     int m_stdin_fd;
 };
-
-typedef std::vector<SyncCommand> SyncCmdList;
 }  // namespace InterChiplet
 
 ```

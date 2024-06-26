@@ -19,22 +19,22 @@
 #include "net_delay.h"
 #include "sync_protocol.h"
 
-namespace InterChiplet {
+typedef std::vector<InterChiplet::SyncCommand> SyncCmdList;
 
 class SyncClockStruct {
    private:
-    InnerTimeType m_cycle;
+    InterChiplet::InnerTimeType m_cycle;
 
    public:
     SyncClockStruct() : m_cycle(0) {}
 
-    inline void update(InnerTimeType __cycle) {
+    inline void update(InterChiplet::InnerTimeType __cycle) {
         if (m_cycle < __cycle) {
             m_cycle = __cycle;
         }
     }
 
-    inline InnerTimeType cycle() { return m_cycle; }
+    inline InterChiplet::InnerTimeType cycle() { return m_cycle; }
 };
 
 class SyncPipeStruct {
@@ -68,7 +68,7 @@ class SyncBarrierStruct {
         // New barrier
         else {
             m_barrier_count_map[__uid] = __count;
-            m_barrier_items_map[__uid] = InterChiplet::SyncCmdList();
+            m_barrier_items_map[__uid] = SyncCmdList();
         }
     }
 
@@ -83,7 +83,7 @@ class SyncBarrierStruct {
         // New barrier
         else {
             m_barrier_count_map[__uid] = __count;
-            m_barrier_items_map[__uid] = InterChiplet::SyncCmdList();
+            m_barrier_items_map[__uid] = SyncCmdList();
         }
         m_barrier_items_map[__uid].push_back(__cmd);
     }
@@ -99,7 +99,7 @@ class SyncBarrierStruct {
         }
     }
 
-    inline InterChiplet::SyncCmdList& barrierCmd(int __uid) { return m_barrier_items_map[__uid]; }
+    inline SyncCmdList& barrierCmd(int __uid) { return m_barrier_items_map[__uid]; }
 
     inline void reset(int __uid) {
         if (m_barrier_count_map.find(__uid) != m_barrier_count_map.end()) {
@@ -111,7 +111,7 @@ class SyncBarrierStruct {
 class SyncLockStruct {
    private:
     std::set<int> m_lock_set;
-    std::map<int, SyncCommand> m_last_cmd_map;
+    std::map<int, InterChiplet::SyncCommand> m_last_cmd_map;
     std::map<int, SyncCmdList> m_lock_cmd_list;
 
    public:
@@ -145,7 +145,7 @@ class SyncLockStruct {
 
     inline void insertLockCmd(int __uid, const InterChiplet::SyncCommand& __cmd) {
         if (m_lock_cmd_list.find(__uid) == m_lock_cmd_list.end()) {
-            m_lock_cmd_list[__uid] = InterChiplet::SyncCmdList();
+            m_lock_cmd_list[__uid] = SyncCmdList();
         }
         m_lock_cmd_list[__uid].push_back(__cmd);
     }
@@ -157,7 +157,7 @@ class SyncLockStruct {
         return m_lock_cmd_list[__uid].size() > 0;
     }
 
-    inline bool hasLockCmd(int __uid, const AddrType& __src) {
+    inline bool hasLockCmd(int __uid, const InterChiplet::AddrType& __src) {
         if (m_lock_cmd_list.find(__uid) == m_lock_cmd_list.end()) {
             return false;
         }
@@ -175,22 +175,22 @@ class SyncLockStruct {
 
     inline InterChiplet::SyncCommand popLockCmd(int __uid) {
         if (m_lock_cmd_list.find(__uid) == m_lock_cmd_list.end()) {
-            return SyncCommand();
+            return InterChiplet::SyncCommand();
         }
         if (m_lock_cmd_list[__uid].size() == 0) {
-            return SyncCommand();
+            return InterChiplet::SyncCommand();
         }
         InterChiplet::SyncCommand command = m_lock_cmd_list[__uid].front();
         m_lock_cmd_list[__uid].erase(m_lock_cmd_list[__uid].begin());
         return command;
     }
 
-    inline InterChiplet::SyncCommand popLockCmd(int __uid, const AddrType& __src) {
+    inline InterChiplet::SyncCommand popLockCmd(int __uid, const InterChiplet::AddrType& __src) {
         if (m_lock_cmd_list.find(__uid) == m_lock_cmd_list.end()) {
-            return SyncCommand();
+            return InterChiplet::SyncCommand();
         }
         if (m_lock_cmd_list[__uid].size() == 0) {
-            return SyncCommand();
+            return InterChiplet::SyncCommand();
         }
         SyncCmdList& cmd_list = m_lock_cmd_list[__uid];
         for (SyncCmdList::iterator it = cmd_list.begin(); it != cmd_list.end(); it++) {
@@ -200,14 +200,14 @@ class SyncLockStruct {
                 return cmd;
             }
         }
-        return SyncCommand();
+        return InterChiplet::SyncCommand();
     }
 };
 
 class SyncLaunchStruct {
    private:
-    std::map<AddrType, SyncCmdList> m_launch_cmd_list;
-    std::map<AddrType, SyncCmdList> m_waitlaunch_cmd_list;
+    std::map<InterChiplet::AddrType, SyncCmdList> m_launch_cmd_list;
+    std::map<InterChiplet::AddrType, SyncCmdList> m_waitlaunch_cmd_list;
 
    public:
     inline bool hasMatchWaitlaunch(const InterChiplet::SyncCommand& __cmd) {
@@ -258,14 +258,14 @@ class SyncLaunchStruct {
 
     inline void insertWaitlaunch(InterChiplet::SyncCommand& __cmd) {
         if (m_waitlaunch_cmd_list.find(__cmd.m_dst) == m_waitlaunch_cmd_list.end()) {
-            m_waitlaunch_cmd_list[__cmd.m_dst] = InterChiplet::SyncCmdList();
+            m_waitlaunch_cmd_list[__cmd.m_dst] = SyncCmdList();
         }
         m_waitlaunch_cmd_list[__cmd.m_dst].push_back(__cmd);
     }
 
     inline void insertWaitlaunch(const InterChiplet::SyncCommand& __cmd) {
         if (m_waitlaunch_cmd_list.find(__cmd.m_dst) == m_waitlaunch_cmd_list.end()) {
-            m_waitlaunch_cmd_list[__cmd.m_dst] = InterChiplet::SyncCmdList();
+            m_waitlaunch_cmd_list[__cmd.m_dst] = SyncCmdList();
         }
         m_waitlaunch_cmd_list[__cmd.m_dst].push_back(__cmd);
     }
@@ -316,14 +316,14 @@ class SyncLaunchStruct {
 
     inline void insertLaunch(InterChiplet::SyncCommand& __cmd) {
         if (m_launch_cmd_list.find(__cmd.m_dst) == m_launch_cmd_list.end()) {
-            m_launch_cmd_list[__cmd.m_dst] = InterChiplet::SyncCmdList();
+            m_launch_cmd_list[__cmd.m_dst] = SyncCmdList();
         }
         m_launch_cmd_list[__cmd.m_dst].push_back(__cmd);
     }
 
     inline void insertLaunch(const InterChiplet::SyncCommand& __cmd) {
         if (m_launch_cmd_list.find(__cmd.m_dst) == m_launch_cmd_list.end()) {
-            m_launch_cmd_list[__cmd.m_dst] = InterChiplet::SyncCmdList();
+            m_launch_cmd_list[__cmd.m_dst] = SyncCmdList();
         }
         m_launch_cmd_list[__cmd.m_dst].push_back(__cmd);
     }
@@ -331,8 +331,8 @@ class SyncLaunchStruct {
 
 class SyncCommStruct {
    private:
-    std::map<AddrType, SyncCmdList> m_read_cmd_list;
-    std::map<AddrType, SyncCmdList> m_write_cmd_list;
+    std::map<InterChiplet::AddrType, SyncCmdList> m_read_cmd_list;
+    std::map<InterChiplet::AddrType, SyncCmdList> m_write_cmd_list;
 
    public:
     inline bool hasMatchWrite(const InterChiplet::SyncCommand& __cmd) {
@@ -427,7 +427,6 @@ class SyncCommStruct {
         m_read_cmd_list[__cmd.m_dst].push_back(__cmd);
     }
 };
-}  // namespace InterChiplet
 
 class SyncStruct {
    public:
@@ -443,21 +442,20 @@ class SyncStruct {
    public:
     pthread_mutex_t m_mutex;
 
-    InterChiplet::NetworkBenchList m_bench_list;
-    InterChiplet::NetworkDelayStruct m_delay_list;
+    NetworkBenchList m_bench_list;
+    NetworkDelayStruct m_delay_list;
 
-    InterChiplet::SyncClockStruct m_cycle_struct;
+    SyncClockStruct m_cycle_struct;
 
-    InterChiplet::SyncPipeStruct m_pipe_struct;
-    InterChiplet::SyncBarrierStruct m_barrier_struct;
-    InterChiplet::SyncLockStruct m_lock_struct;
-    InterChiplet::SyncLaunchStruct m_launch_struct;
+    SyncPipeStruct m_pipe_struct;
+    SyncBarrierStruct m_barrier_struct;
+    SyncLockStruct m_lock_struct;
+    SyncLaunchStruct m_launch_struct;
 
-    InterChiplet::SyncCommStruct m_comm_struct;
-    InterChiplet::SyncBarrierStruct m_barrier_timing_struct;
-    InterChiplet::SyncLockStruct m_lock_timing_struct;
+    SyncCommStruct m_comm_struct;
+    SyncBarrierStruct m_barrier_timing_struct;
+    SyncLockStruct m_lock_timing_struct;
 };
-
 void handle_cycle_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync_struct);
 
 void handle_pipe_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync_struct);

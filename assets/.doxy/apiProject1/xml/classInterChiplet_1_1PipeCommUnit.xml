@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" line="154" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" bodystart="154" bodyend="-1"/>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" line="159" column="17" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" bodystart="159" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classInterChiplet_1_1PipeCommUnit_1aaa4e4862480c3e0f7b7252604d062dd5" prot="private" static="no" mutable="no">
         <type>int</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" line="155" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" bodystart="155" bodyend="-1"/>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" line="160" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" bodystart="160" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classInterChiplet_1_1PipeCommUnit_1a172af4866e5e79c3042512a80d1ee067" prot="private" static="no" mutable="no">
         <type>uint8_t *</type>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" line="156" column="13" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" bodystart="156" bodyend="-1"/>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" line="161" column="13" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" bodystart="161" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classInterChiplet_1_1PipeCommUnit_1a72ab4ce7808b25e8576534035fee30f9" prot="private" static="no" mutable="no">
         <type>int</type>
@@ -54,7 +54,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" line="157" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" bodystart="157" bodyend="-1"/>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" line="162" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" bodystart="162" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classInterChiplet_1_1PipeCommUnit_1a038e4a57d56a5a777300877e0d8fb971" prot="private" static="no" mutable="no">
         <type>int</type>
@@ -67,7 +67,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" line="158" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" bodystart="158" bodyend="-1"/>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" line="163" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" bodystart="163" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -90,7 +90,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" line="26" column="5" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" bodystart="26" bodyend="47"/>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" line="31" column="5" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" bodystart="31" bodyend="52"/>
       </memberdef>
       <memberdef kind="function" id="classInterChiplet_1_1PipeCommUnit_1ad1fde9934c6d6a54a6d5eb8cb3794677" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>bool</type>
@@ -103,7 +103,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" line="49" column="10" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" bodystart="49" bodyend="49"/>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" line="54" column="10" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" bodystart="54" bodyend="54"/>
       </memberdef>
       <memberdef kind="function" id="classInterChiplet_1_1PipeCommUnit_1a6a8c0fe982bb57e941ee9d8940a5955c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>int</type>
@@ -124,7 +124,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" line="51" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" bodystart="51" bodyend="75"/>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" line="56" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" bodystart="56" bodyend="80"/>
       </memberdef>
       <memberdef kind="function" id="classInterChiplet_1_1PipeCommUnit_1a53e31b7ec893f89eb82c93955df2bbff" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>int</type>
@@ -145,7 +145,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" line="77" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" bodystart="77" bodyend="121"/>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" line="82" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" bodystart="82" bodyend="126"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
@@ -168,7 +168,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" line="124" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" bodystart="124" bodyend="151"/>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" line="129" column="9" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" bodystart="129" bodyend="156"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -176,7 +176,7 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" line="24" column="19" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" bodystart="24" bodyend="163"/>
+    <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" line="29" column="19" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/pipe_comm.h" bodystart="29" bodyend="168"/>
     <listofallmembers>
       <member refid="classInterChiplet_1_1PipeCommUnit_1aaa4e4862480c3e0f7b7252604d062dd5" prot="private" virt="non-virtual"><scope>InterChiplet::PipeCommUnit</scope><name>m_file_id</name></member>
       <member refid="classInterChiplet_1_1PipeCommUnit_1a124587f3e2cd6c91bd7eac35c25c582f" prot="private" virt="non-virtual"><scope>InterChiplet::PipeCommUnit</scope><name>m_file_name</name></member>

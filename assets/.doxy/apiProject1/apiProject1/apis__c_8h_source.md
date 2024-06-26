@@ -31,6 +31,7 @@ syscall_return_t sendMessage(int64_t __dst_x, int64_t __dst_y, int64_t __src_x, 
 
 syscall_return_t receiveMessage(int64_t __dst_x, int64_t __dst_y, int64_t __src_x, int64_t __src_y,
                                 void* __addr, int64_t __nbyte);
+
 }  // namespace InterChiplet
 
 ```

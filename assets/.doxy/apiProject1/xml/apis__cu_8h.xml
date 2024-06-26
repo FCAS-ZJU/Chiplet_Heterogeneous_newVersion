@@ -15,7 +15,7 @@
       </node>
     </incdepgraph>
       <sectiondef kind="func">
-      <memberdef kind="function" id="apis__cu_8h_1a62b3334fbd1d131961ff59345f3ad362" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="group__apis__for__cuda_1ga62b3334fbd1d131961ff59345f3ad362" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>__host__ cudaError_t CUDARTAPI</type>
         <definition>__host__ cudaError_t CUDARTAPI launch</definition>
         <argsstring>(int __dst_x, int __dst_y, int __src_x, int __src_y)</argsstring>
@@ -77,9 +77,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" line="12" column="39" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" declline="12" declcolumn="39"/>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" line="17" column="39" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" declline="17" declcolumn="39"/>
       </memberdef>
-      <memberdef kind="function" id="apis__cu_8h_1aec6f9a695bd49f101888b9d7699bec99" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="group__apis__for__cuda_1gaec6f9a695bd49f101888b9d7699bec99" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>__host__ cudaError_t CUDARTAPI</type>
         <definition>__host__ cudaError_t CUDARTAPI waitLaunch</definition>
         <argsstring>(int __dst_x, int __dst_y, int *__src_x, int *__src_y)</argsstring>
@@ -141,9 +141,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" line="21" column="39" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" declline="21" declcolumn="39"/>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" line="26" column="39" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" declline="26" declcolumn="39"/>
       </memberdef>
-      <memberdef kind="function" id="apis__cu_8h_1a4aa9fa9625dd63d39227f0e16b511e36" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="group__apis__for__cuda_1ga4aa9fa9625dd63d39227f0e16b511e36" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>__host__ cudaError_t CUDARTAPI</type>
         <definition>__host__ cudaError_t CUDARTAPI barrier</definition>
         <argsstring>(int __uid, int __src_x, int __src_y, int __count=0)</argsstring>
@@ -206,9 +206,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" line="31" column="39" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" declline="31" declcolumn="39"/>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" line="36" column="39" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" declline="36" declcolumn="39"/>
       </memberdef>
-      <memberdef kind="function" id="apis__cu_8h_1afdd40ada4175ae29956682ceca8936dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="group__apis__for__cuda_1gafdd40ada4175ae29956682ceca8936dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>__host__ cudaError_t CUDARTAPI</type>
         <definition>__host__ cudaError_t CUDARTAPI lock</definition>
         <argsstring>(int __uid, int __src_x, int __src_y)</argsstring>
@@ -258,9 +258,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" line="39" column="39" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" declline="39" declcolumn="39"/>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" line="44" column="39" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" declline="44" declcolumn="39"/>
       </memberdef>
-      <memberdef kind="function" id="apis__cu_8h_1a3373e5cdb7eeb27f20822abb964fdc58" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="group__apis__for__cuda_1ga3373e5cdb7eeb27f20822abb964fdc58" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>__host__ cudaError_t CUDARTAPI</type>
         <definition>__host__ cudaError_t CUDARTAPI unlock</definition>
         <argsstring>(int __uid, int __src_x, int __src_y)</argsstring>
@@ -310,9 +310,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" line="47" column="39" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" declline="47" declcolumn="39"/>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" line="52" column="39" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" declline="52" declcolumn="39"/>
       </memberdef>
-      <memberdef kind="function" id="apis__cu_8h_1a67e03bf33a0e807915bfd0e6e65da1ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="group__apis__for__cuda_1ga67e03bf33a0e807915bfd0e6e65da1ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>__host__ cudaError_t CUDARTAPI</type>
         <definition>__host__ cudaError_t CUDARTAPI sendMessage</definition>
         <argsstring>(int __dst_x, int __dst_y, int __src_x, int __srx_y, void *__addr, int __nbyte)</argsstring>
@@ -398,9 +398,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" line="58" column="39" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" declline="58" declcolumn="39"/>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" line="63" column="39" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" declline="63" declcolumn="39"/>
       </memberdef>
-      <memberdef kind="function" id="apis__cu_8h_1ac5c661565ac7b798fbe3eab3a4763951" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="group__apis__for__cuda_1gac5c661565ac7b798fbe3eab3a4763951" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>__host__ cudaError_t CUDARTAPI</type>
         <definition>__host__ cudaError_t CUDARTAPI receiveMessage</definition>
         <argsstring>(int __dst_x, int __dst_y, int __src_x, int __srx_y, void *__addr, int __nbyte)</argsstring>
@@ -486,7 +486,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" line="70" column="39" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" declline="70" declcolumn="39"/>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" line="75" column="39" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h" declline="75" declcolumn="39"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -498,22 +498,22 @@
 <codeline lineno="2"><highlight class="normal"></highlight></codeline>
 <codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;cuda_runtime_api.h&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="4"><highlight class="normal"></highlight></codeline>
-<codeline lineno="12"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>__host__<sp/>cudaError_t<sp/>CUDARTAPI<sp/>launch(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__dst_x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__dst_y,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__src_x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__src_y);</highlight></codeline>
-<codeline lineno="13"><highlight class="normal"></highlight></codeline>
-<codeline lineno="21"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>__host__<sp/>cudaError_t<sp/>CUDARTAPI<sp/>waitLaunch(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__dst_x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__dst_y,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">*<sp/>__src_x,</highlight></codeline>
-<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">*<sp/>__src_y);</highlight></codeline>
-<codeline lineno="23"><highlight class="normal"></highlight></codeline>
-<codeline lineno="31"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>__host__<sp/>cudaError_t<sp/>CUDARTAPI<sp/>barrier(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__uid,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__src_x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__src_y,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__count<sp/>=<sp/>0);</highlight></codeline>
-<codeline lineno="32"><highlight class="normal"></highlight></codeline>
-<codeline lineno="39"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>__host__<sp/>cudaError_t<sp/>CUDARTAPI<sp/>lock(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__uid,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__src_x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__src_y);</highlight></codeline>
-<codeline lineno="40"><highlight class="normal"></highlight></codeline>
-<codeline lineno="47"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>__host__<sp/>cudaError_t<sp/>CUDARTAPI<sp/>unlock(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__uid,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__src_x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__src_y);</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"></highlight></codeline>
-<codeline lineno="58"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>__host__<sp/>cudaError_t<sp/>CUDARTAPI<sp/>sendMessage(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__dst_x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__dst_y,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__src_x,</highlight></codeline>
-<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__srx_y,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>__addr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__nbyte);</highlight></codeline>
-<codeline lineno="60"><highlight class="normal"></highlight></codeline>
-<codeline lineno="70"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>__host__<sp/>cudaError_t<sp/>CUDARTAPI<sp/>receiveMessage(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__dst_x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__dst_y,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__src_x,</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__srx_y,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>__addr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__nbyte);</highlight></codeline>
+<codeline lineno="17"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>__host__<sp/>cudaError_t<sp/>CUDARTAPI<sp/><ref refid="group__apis__for__cuda_1ga62b3334fbd1d131961ff59345f3ad362" kindref="member">launch</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__dst_x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__dst_y,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__src_x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__src_y);</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>__host__<sp/>cudaError_t<sp/>CUDARTAPI<sp/><ref refid="group__apis__for__cuda_1gaec6f9a695bd49f101888b9d7699bec99" kindref="member">waitLaunch</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__dst_x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__dst_y,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">*<sp/>__src_x,</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">*<sp/>__src_y);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>__host__<sp/>cudaError_t<sp/>CUDARTAPI<sp/><ref refid="group__apis__for__cuda_1ga4aa9fa9625dd63d39227f0e16b511e36" kindref="member">barrier</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__uid,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__src_x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__src_y,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__count<sp/>=<sp/>0);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>__host__<sp/>cudaError_t<sp/>CUDARTAPI<sp/><ref refid="group__apis__for__cuda_1gafdd40ada4175ae29956682ceca8936dc" kindref="member">lock</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__uid,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__src_x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__src_y);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>__host__<sp/>cudaError_t<sp/>CUDARTAPI<sp/><ref refid="group__apis__for__cuda_1ga3373e5cdb7eeb27f20822abb964fdc58" kindref="member">unlock</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__uid,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__src_x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__src_y);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>__host__<sp/>cudaError_t<sp/>CUDARTAPI<sp/><ref refid="group__apis__for__cuda_1ga67e03bf33a0e807915bfd0e6e65da1ca" kindref="member">sendMessage</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__dst_x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__dst_y,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__src_x,</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__srx_y,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>__addr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__nbyte);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>__host__<sp/>cudaError_t<sp/>CUDARTAPI<sp/><ref refid="group__apis__for__cuda_1gac5c661565ac7b798fbe3eab3a4763951" kindref="member">receiveMessage</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__dst_x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__dst_y,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__src_x,</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__srx_y,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>__addr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>__nbyte);</highlight></codeline>
     </programlisting>
     <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/apis_cu.h"/>
   </compounddef>

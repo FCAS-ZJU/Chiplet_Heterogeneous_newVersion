@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="classNetworkBenchList" kind="class" language="C++" prot="public">
+    <compoundname>NetworkBenchList</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">std::multimap&lt; InterChiplet::InnerTimeType, NetworkBenchItem &gt;</basecompoundref>
+    <includes refid="net__bench_8h" local="no">net_bench.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classNetworkBenchList_1a86b34fe06502f0edfe5ab9b355be25bc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>NetworkBenchList::NetworkBenchList</definition>
+        <argsstring>()</argsstring>
+        <name>NetworkBenchList</name>
+        <briefdescription>
+<para>Construct <ref refid="classNetworkBenchList" kindref="compound">NetworkBenchList</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" line="130" column="5" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" bodystart="130" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="classNetworkBenchList_1a1a69dab1495d828a1031e79766999fd2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void NetworkBenchList::insert</definition>
+        <argsstring>(const NetworkBenchItem &amp;__item)</argsstring>
+        <name>insert</name>
+        <param>
+          <type>const <ref refid="classNetworkBenchItem" kindref="compound">NetworkBenchItem</ref> &amp;</type>
+          <declname>__item</declname>
+        </param>
+        <briefdescription>
+<para>Insert item into list. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Take the start cycle on source side as ordering key. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" line="137" column="10" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" bodystart="137" bodyend="140"/>
+      </memberdef>
+      <memberdef kind="function" id="classNetworkBenchList_1aafd1a6bdb01fc36f8d4c29c741507fd3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void NetworkBenchList::dumpBench</definition>
+        <argsstring>(const std::string &amp;__file_name, double __clock_rate)</argsstring>
+        <name>dumpBench</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>__file_name</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>__clock_rate</declname>
+        </param>
+        <briefdescription>
+<para>Dump benchmark list to specified file. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__file_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Path to benchmark file. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__clock_rate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Clock ratio (Simulator clock/Interchiplet clock). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" line="147" column="10" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" bodystart="147" bodyend="159"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>List of network benchmark item. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>std::multimap&lt; InterChiplet::InnerTimeType, NetworkBenchItem &gt;</label>
+      </node>
+      <node id="1">
+        <label>NetworkBenchList</label>
+        <link refid="classNetworkBenchList"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>std::multimap&lt; InterChiplet::InnerTimeType, NetworkBenchItem &gt;</label>
+      </node>
+      <node id="1">
+        <label>NetworkBenchList</label>
+        <link refid="classNetworkBenchList"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" line="125" column="46" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/net_bench.h" bodystart="125" bodyend="160"/>
+    <listofallmembers>
+      <member refid="classNetworkBenchList_1aafd1a6bdb01fc36f8d4c29c741507fd3" prot="public" virt="non-virtual"><scope>NetworkBenchList</scope><name>dumpBench</name></member>
+      <member refid="classNetworkBenchList_1a1a69dab1495d828a1031e79766999fd2" prot="public" virt="non-virtual"><scope>NetworkBenchList</scope><name>insert</name></member>
+      <member refid="classNetworkBenchList_1a86b34fe06502f0edfe5ab9b355be25bc" prot="public" virt="non-virtual"><scope>NetworkBenchList</scope><name>NetworkBenchList</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

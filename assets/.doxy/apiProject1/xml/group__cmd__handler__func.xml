@@ -1,0 +1,374 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="group__cmd__handler__func" kind="group">
+    <compoundname>Cmd_handler_func</compoundname>
+    <title>Cmd_handler_func</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__cmd__handler__func_1ga9f5f262279de5a1783a4a7aac68bf700" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void handle_cycle_cmd</definition>
+        <argsstring>(const InterChiplet::SyncCommand &amp;__cmd, SyncStruct *__sync_struct)</argsstring>
+        <name>handle_cycle_cmd</name>
+        <param>
+          <type>const <ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">InterChiplet::SyncCommand</ref> &amp;</type>
+          <declname>__cmd</declname>
+        </param>
+        <param>
+          <type><ref refid="classSyncStruct" kindref="compound">SyncStruct</ref> *</type>
+          <declname>__sync_struct</declname>
+        </param>
+        <briefdescription>
+<para>Handle CYCLE command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Command to handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__sync_struct</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to global synchronize structure. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="563" column="6" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/cmd_handler.cpp" bodystart="9" bodyend="13" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" declline="563" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__cmd__handler__func_1gab6b5801bc0c69d9b5e235362a8a9affb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void handle_pipe_cmd</definition>
+        <argsstring>(const InterChiplet::SyncCommand &amp;__cmd, SyncStruct *__sync_struct)</argsstring>
+        <name>handle_pipe_cmd</name>
+        <param>
+          <type>const <ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">InterChiplet::SyncCommand</ref> &amp;</type>
+          <declname>__cmd</declname>
+        </param>
+        <param>
+          <type><ref refid="classSyncStruct" kindref="compound">SyncStruct</ref> *</type>
+          <declname>__sync_struct</declname>
+        </param>
+        <briefdescription>
+<para>Handle PIPE command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Command to handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__sync_struct</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to global synchronize structure. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="570" column="6" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/cmd_handler.cpp" bodystart="15" bodyend="38" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" declline="570" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__cmd__handler__func_1gabf9f8fa7ebad414492b36076a04be37c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void handle_barrier_cmd</definition>
+        <argsstring>(const InterChiplet::SyncCommand &amp;__cmd, SyncStruct *__sync_struct)</argsstring>
+        <name>handle_barrier_cmd</name>
+        <param>
+          <type>const <ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">InterChiplet::SyncCommand</ref> &amp;</type>
+          <declname>__cmd</declname>
+        </param>
+        <param>
+          <type><ref refid="classSyncStruct" kindref="compound">SyncStruct</ref> *</type>
+          <declname>__sync_struct</declname>
+        </param>
+        <briefdescription>
+<para>Handle BARRIER command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Command to handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__sync_struct</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to global synchronize structure. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="577" column="6" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/cmd_handler.cpp" bodystart="40" bodyend="59" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" declline="577" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__cmd__handler__func_1gacc423e4f60f3a7349e92a9abe7473863" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void handle_lock_cmd</definition>
+        <argsstring>(const InterChiplet::SyncCommand &amp;__cmd, SyncStruct *__sync_struct)</argsstring>
+        <name>handle_lock_cmd</name>
+        <param>
+          <type>const <ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">InterChiplet::SyncCommand</ref> &amp;</type>
+          <declname>__cmd</declname>
+        </param>
+        <param>
+          <type><ref refid="classSyncStruct" kindref="compound">SyncStruct</ref> *</type>
+          <declname>__sync_struct</declname>
+        </param>
+        <briefdescription>
+<para>Handle LOCK command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Command to handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__sync_struct</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to global synchronize structure. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="584" column="6" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/cmd_handler.cpp" bodystart="61" bodyend="109" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" declline="584" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__cmd__handler__func_1ga7de5f42e7045a5cffcc47247dbcf8e3b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void handle_unlock_cmd</definition>
+        <argsstring>(const InterChiplet::SyncCommand &amp;__cmd, SyncStruct *__sync_struct)</argsstring>
+        <name>handle_unlock_cmd</name>
+        <param>
+          <type>const <ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">InterChiplet::SyncCommand</ref> &amp;</type>
+          <declname>__cmd</declname>
+        </param>
+        <param>
+          <type><ref refid="classSyncStruct" kindref="compound">SyncStruct</ref> *</type>
+          <declname>__sync_struct</declname>
+        </param>
+        <briefdescription>
+<para>Handle UNLOCK command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Command to handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__sync_struct</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to global synchronize structure. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="591" column="6" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/cmd_handler.cpp" bodystart="111" bodyend="160" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" declline="591" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__cmd__handler__func_1gac8b6bb4538c28dac9a6eeda20cc32942" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void handle_launch_cmd</definition>
+        <argsstring>(const InterChiplet::SyncCommand &amp;__cmd, SyncStruct *__sync_struct)</argsstring>
+        <name>handle_launch_cmd</name>
+        <param>
+          <type>const <ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">InterChiplet::SyncCommand</ref> &amp;</type>
+          <declname>__cmd</declname>
+        </param>
+        <param>
+          <type><ref refid="classSyncStruct" kindref="compound">SyncStruct</ref> *</type>
+          <declname>__sync_struct</declname>
+        </param>
+        <briefdescription>
+<para>Handle LAUNCH command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Command to handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__sync_struct</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to global synchronize structure. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="598" column="6" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/cmd_handler.cpp" bodystart="162" bodyend="194" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" declline="598" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__cmd__handler__func_1ga93ecd3191d3a7e33f46457aff0525fba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void handle_waitlaunch_cmd</definition>
+        <argsstring>(const InterChiplet::SyncCommand &amp;__cmd, SyncStruct *__sync_struct)</argsstring>
+        <name>handle_waitlaunch_cmd</name>
+        <param>
+          <type>const <ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">InterChiplet::SyncCommand</ref> &amp;</type>
+          <declname>__cmd</declname>
+        </param>
+        <param>
+          <type><ref refid="classSyncStruct" kindref="compound">SyncStruct</ref> *</type>
+          <declname>__sync_struct</declname>
+        </param>
+        <briefdescription>
+<para>Handle WAITLAUNCH command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Command to handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__sync_struct</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to global synchronize structure. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="605" column="6" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/cmd_handler.cpp" bodystart="196" bodyend="223" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" declline="605" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__cmd__handler__func_1ga4224ecb6b21e3144a4343d9df9a94b70" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void handle_read_cmd</definition>
+        <argsstring>(const InterChiplet::SyncCommand &amp;__cmd, SyncStruct *__sync_struct)</argsstring>
+        <name>handle_read_cmd</name>
+        <param>
+          <type>const <ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">InterChiplet::SyncCommand</ref> &amp;</type>
+          <declname>__cmd</declname>
+        </param>
+        <param>
+          <type><ref refid="classSyncStruct" kindref="compound">SyncStruct</ref> *</type>
+          <declname>__sync_struct</declname>
+        </param>
+        <briefdescription>
+<para>Handle READ command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Command to handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__sync_struct</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to global synchronize structure. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="612" column="6" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/cmd_handler.cpp" bodystart="225" bodyend="252" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" declline="612" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__cmd__handler__func_1ga2913c79ea81fd9e4a1b94678e7f53ba4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void handle_write_cmd</definition>
+        <argsstring>(const InterChiplet::SyncCommand &amp;__cmd, SyncStruct *__sync_struct)</argsstring>
+        <name>handle_write_cmd</name>
+        <param>
+          <type>const <ref refid="classInterChiplet_1_1SyncCommand" kindref="compound">InterChiplet::SyncCommand</ref> &amp;</type>
+          <declname>__cmd</declname>
+        </param>
+        <param>
+          <type><ref refid="classSyncStruct" kindref="compound">SyncStruct</ref> *</type>
+          <declname>__sync_struct</declname>
+        </param>
+        <briefdescription>
+<para>Handle WRITE command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>__cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Command to handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>__sync_struct</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to global synchronize structure. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" line="619" column="6" bodyfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/srcs/cmd_handler.cpp" bodystart="434" bodyend="473" declfile="/data_sda/junwan02/legosim/Chiplet_Heterogeneous_newVersion/interchiplet/includes/cmd_handler.h" declline="619" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Functions to handle commands. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>
