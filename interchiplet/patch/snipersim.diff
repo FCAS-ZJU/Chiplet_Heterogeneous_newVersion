@@ -1,0 +1,326 @@
+diff --git a/common/core/core.cc b/common/core/core.cc
+index 33f7f92..221ede4 100644
+--- a/common/core/core.cc
++++ b/common/core/core.cc
+@@ -19,6 +19,8 @@
+ 
+ #include <cstring>
+ 
++#include "../../../interchiplet/includes/pipe_comm.h"
++
+ #if 0
+    extern Lock iolock;
+ #  define MYLOG(...) { ScopedLock l(iolock); fflush(stderr); fprintf(stderr, "[%8lu] %dcor %-25s@%03u: ", getPerformanceModel()->getCycleCount(ShmemPerfModel::_USER_THREAD), m_core_id, __FUNCTION__, __LINE__); fprintf(stderr, __VA_ARGS__); fprintf(stderr, "\n"); fflush(stderr); }
+@@ -127,6 +129,13 @@ void Core::enablePerformanceModels()
+ 
+ void Core::disablePerformanceModels()
+ {
++   SubsecondTime start_time = getPerformanceModel()->getElapsedTime();
++   // Convert SubsecondTime to cycles in global clock domain
++   const ComponentPeriod *dom_global = Sim()->getDvfsManager()->getGlobalDomain();
++   UInt64 cycles = SubsecondTime::divideRounded(start_time, *dom_global);
++   // Send cycle command.
++   InterChiplet::sendCycleCmd(cycles);
++
+    getShmemPerfModel()->disable();
+    getMemoryManager()->disableModels();
+    getNetwork()->disableModels();
+diff --git a/common/core/syscall_model.cc b/common/core/syscall_model.cc
+index c336283..0e8ef1a 100644
+--- a/common/core/syscall_model.cc
++++ b/common/core/syscall_model.cc
+@@ -14,6 +14,7 @@
+ #include "stats.h"
+ #include "syscall_strings.h"
+ #include "circular_log.h"
++#include "dvfs_manager.h"
+ 
+ #include <errno.h>
+ #include <sys/syscall.h>
+@@ -23,6 +24,12 @@
+ 
+ #include <boost/algorithm/string.hpp>
+ 
++//changed at 2020-3-27
++#include "../../../interchiplet/includes/pipe_comm.h"
++#include <unordered_map>
++#include <cstdint>
++#include <map>
++
+ const char *SyscallMdl::futex_names[] =
+ {
+    "FUTEX_WAIT", "FUTEX_WAKE", "FUTEX_FD", "FUTEX_REQUEUE",
+@@ -31,6 +38,15 @@ const char *SyscallMdl::futex_names[] =
+    "FUTEX_CMP_REQUEUE_PI"
+ };
+ 
++//changed at 2020-5-4
++struct SPortInfo
++{
++   int64_t localPort, remoteAddr, remotePort;
++};
++typedef std::unordered_map<int64_t, SPortInfo> des_addr_map_t;
++des_addr_map_t des_addr_map;
++std::ofstream msg_record("message_record.txt");
++
+ SyscallMdl::SyscallMdl(Thread *thread)
+       : m_thread(thread)
+       , m_emulated(false)
+@@ -60,6 +76,8 @@ SyscallMdl::~SyscallMdl()
+    free(futex_counters);
+ }
+ 
++// static int lock_fd = -1;
++
+ bool SyscallMdl::runEnter(IntPtr syscall_number, syscall_args_t &args)
+ {
+    Core *core = m_thread->getCore();
+@@ -290,6 +308,113 @@ bool SyscallMdl::runEnter(IntPtr syscall_number, syscall_args_t &args)
+          break;
+       }
+ 
++      case InterChiplet::SYSCALL_BARRIER:
++      case InterChiplet::SYSCALL_LOCK:
++      case InterChiplet::SYSCALL_UNLOCK:
++      case InterChiplet::SYSCALL_LAUNCH:
++      case InterChiplet::SYSCALL_WAITLAUNCH:
++      case InterChiplet::SYSCALL_REMOTE_READ:
++      case InterChiplet::SYSCALL_REMOTE_WRITE:
++      {
++         // Get current cycle
++         SubsecondTime start_time = m_thread->getCore()->getPerformanceModel()->getElapsedTime();
++         // Convert SubsecondTime to cycles in global clock domain
++         const ComponentPeriod *dom_global = Sim()->getDvfsManager()->getGlobalDomain();
++         UInt64 cycles = SubsecondTime::divideRounded(start_time, *dom_global);
++
++         UInt64 end_time = cycles;
++         switch (syscall_number)
++         {
++            case InterChiplet::SYSCALL_BARRIER:
++            {
++               int uid = args.arg0;
++               int src_x = args.arg1;
++               int src_y = args.arg2;
++               int count = args.arg3;
++               end_time = InterChiplet::writeSync(
++                  cycles, src_x, src_y, uid, 0, 1, InterChiplet::SPD_BARRIER + count);
++               break;
++            }
++            case InterChiplet::SYSCALL_LOCK:
++            {
++               int uid = args.arg0;
++               int src_x = args.arg1;
++               int src_y = args.arg2;
++               end_time = InterChiplet::writeSync(
++                  cycles, src_x, src_y, uid, 0, 1, InterChiplet::SPD_LOCK);
++               break;
++            }
++            case InterChiplet::SYSCALL_UNLOCK:
++            {
++               int uid = args.arg0;
++               int src_x = args.arg1;
++               int src_y = args.arg2;
++               end_time = InterChiplet::writeSync(
++                  cycles, src_x, src_y, uid, 0, 1, InterChiplet::SPD_UNLOCK);
++               break;
++            }
++            case InterChiplet::SYSCALL_LAUNCH:
++            {
++               int dst_x = args.arg0;
++               int dst_y = args.arg1;
++               int src_x = args.arg2;
++               int src_y = args.arg3;
++               end_time = InterChiplet::writeSync(
++                  cycles, src_x, src_y, dst_x, dst_y, 1, InterChiplet::SPD_LAUNCH);
++               break;
++            }
++            case InterChiplet::SYSCALL_WAITLAUNCH:
++            {
++               int dst_x = args.arg0;
++               int dst_y = args.arg1;
++               int src_x = args.arg2;
++               int src_y = args.arg3;
++               end_time = InterChiplet::readSync(
++                  cycles, src_x, src_y, dst_x, dst_y, 1, InterChiplet::SPD_LAUNCH);
++               break;
++            }
++            case InterChiplet::SYSCALL_REMOTE_WRITE:
++            {
++               int dst_x = args.arg0;
++               int dst_y = args.arg1;
++               int src_x = args.arg2;
++               int src_y = args.arg3;
++               int nbytes = args.arg5;
++               end_time = InterChiplet::writeSync(cycles, src_x, src_y, dst_x, dst_y, nbytes, 0);
++               break;
++            }
++            case InterChiplet::SYSCALL_REMOTE_READ:
++            {
++               // Send WRITE command and wait for SYNC.
++               int dst_x = args.arg0;
++               int dst_y = args.arg1;
++               int src_x = args.arg2;
++               int src_y = args.arg3;
++               int nbytes = args.arg5;
++               end_time = InterChiplet::readSync(cycles, src_x, src_y, dst_x, dst_y, nbytes, 0);
++               break;
++            }
++         }
++
++         fflush(stdout);
++
++         // Update simulator time.
++         ComponentPeriod time_wake_period =
++               *(Sim()->getDvfsManager()->getGlobalDomain()) * end_time;
++         SubsecondTime time_wake = time_wake_period.getPeriod();
++         SubsecondTime sleep_end_time;
++         Sim()->getSyscallServer()->handleSleepCall(m_thread->getId(), time_wake, start_time,
++                                                      sleep_end_time);
++
++         // Sleep core until specified time.
++         if (m_thread->reschedule(sleep_end_time, core)) core = m_thread->getCore();
++
++         core->getPerformanceModel()->queuePseudoInstruction(
++               new SyncInstruction(sleep_end_time, SyncInstruction::SLEEP));
++
++         break;
++      }
++
+       case static_cast<unsigned long>(-1):
+       default:
+          break;
+diff --git a/sift/recorder/syscall_modeling.cc b/sift/recorder/syscall_modeling.cc
+index 4944127..e69e73c 100644
+--- a/sift/recorder/syscall_modeling.cc
++++ b/sift/recorder/syscall_modeling.cc
+@@ -7,6 +7,8 @@
+ #include <unistd.h>
+ #include <syscall.h>
+ 
++#include "../../../interchiplet/includes/pipe_comm.h"
++
+ bool handleAccessMemory(void *arg, Sift::MemoryLockType lock_signal, Sift::MemoryOpType mem_op, uint64_t d_addr, uint8_t* data_buffer, uint32_t data_size)
+ {
+    // Lock memory globally if requested
+@@ -40,6 +42,8 @@ bool handleAccessMemory(void *arg, Sift::MemoryLockType lock_signal, Sift::Memor
+    return true;
+ }
+ 
++InterChiplet::PipeComm global_pipe_comm;
++
+ // Emulate all system calls
+ // Do this as a regular callback (versus syscall enter/exit functions) as those hold the global pin lock
+ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
+@@ -174,6 +178,112 @@ VOID emulateSyscallFunc(THREADID threadid, CONTEXT *ctxt)
+          case SYS_exit_group:
+             thread_data[threadid].output->Syscall(syscall_number, (char*)args, sizeof(args));
+             break;
++
++         case InterChiplet::SYSCALL_BARRIER:
++         case InterChiplet::SYSCALL_LOCK:
++         case InterChiplet::SYSCALL_UNLOCK:
++         case InterChiplet::SYSCALL_LAUNCH:
++         case InterChiplet::SYSCALL_WAITLAUNCH:
++         case InterChiplet::SYSCALL_REMOTE_READ:
++         case InterChiplet::SYSCALL_REMOTE_WRITE:
++         {
++            thread_data[threadid].last_syscall_number = syscall_number;
++            thread_data[threadid].last_syscall_emulated=true;
++
++            switch (syscall_number)
++            {
++               case InterChiplet::SYSCALL_BARRIER:
++               {
++                  int uid = args[0];
++                  int srcX = args[1];
++                  int srcY = args[2];
++                  int count = args[3];
++
++                  printf("Enter Sniper barrier\n");
++                  InterChiplet::barrierSync(srcX, srcY, uid, count);
++                  break;
++               }
++               case InterChiplet::SYSCALL_LOCK:
++               {
++                  int uid = args[0];
++                  int srcX = args[1];
++                  int srcY = args[2];
++
++                  printf("Enter Sniper lock\n");
++                  InterChiplet::lockSync(srcX, srcY, uid);
++                  break;
++               }
++               case InterChiplet::SYSCALL_UNLOCK:
++               {
++                  int uid = args[0];
++                  int srcX = args[1];
++                  int srcY = args[2];
++
++                  printf("Enter Sniper unlock\n");
++                  InterChiplet::unlockSync(srcX, srcY, uid);
++                  break;
++               }
++               case InterChiplet::SYSCALL_LAUNCH:
++               {
++                  int dstX = args[0];
++                  int dstY = args[1];
++                  int srcX = args[2];
++                  int srcY = args[3];
++
++                  printf("Enter Sniper launch\n");
++                  InterChiplet::launchSync(srcX, srcY, dstX, dstY);
++                  break;
++               }
++               case InterChiplet::SYSCALL_WAITLAUNCH:
++               {
++                  int dstX = args[0];
++                  int dstY = args[1];
++                  int* srcX = (int*)args[2];
++                  int* srcY = (int*)args[3];
++
++                  printf("Enter Sniper waitLaunch\n");
++                  InterChiplet::waitlaunchSync(srcX, srcY, dstX, dstY);
++
++                  args[2] = *srcX;
++                  args[3] = *srcY;
++                  break;
++               }
++               case InterChiplet::SYSCALL_REMOTE_WRITE:
++               {
++                  int dstX = args[0];
++                  int dstY = args[1];
++                  int srcX = args[2];
++                  int srcY = args[3];
++                  int* data = (int*)args[4];
++                  int nbytes = args[5];
++
++                  printf("Enter Sniper sendMessage\n");
++                  std::string fileName = InterChiplet::sendSync(srcX, srcY, dstX, dstY);
++                  global_pipe_comm.write_data(fileName.c_str(), data, nbytes);
++                  break;
++               }
++               case InterChiplet::SYSCALL_REMOTE_READ:
++               {
++                  int dstX = args[0];
++                  int dstY = args[1];
++                  int srcX = args[2];
++                  int srcY = args[3];
++                  int* data = (int*)args[4];
++                  int nbytes = args[5];
++
++                  printf("Enter Sniper receiveMessage\n");
++                  std::string fileName = InterChiplet::receiveSync(srcX, srcY, dstX, dstY);
++                  global_pipe_comm.read_data(fileName.c_str(), data, nbytes);
++                  break;
++               }
++            }
++
++            fflush(stdout);
++
++            thread_data[threadid].last_syscall_returnval = 1;
++            thread_data[threadid].output->Syscall(syscall_number, (char *)args, sizeof(args));
++            break;
++         }
+       }
+    }
+ }
