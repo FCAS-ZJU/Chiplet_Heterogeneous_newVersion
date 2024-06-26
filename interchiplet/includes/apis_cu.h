@@ -3,6 +3,11 @@
 #include "cuda_runtime_api.h"
 
 /**
+ * @defgroup apis_for_cuda
+ * @brief APIs for CUDA.
+ * @{
+ */
+/**
  * @brief Launch application to remote chiplet.
  * @param __dst_x Destination address in X-axis.
  * @param __dst_y Destination address in Y-axis.
@@ -69,3 +74,6 @@ extern __host__ cudaError_t CUDARTAPI sendMessage(int __dst_x, int __dst_y, int 
  */
 extern __host__ cudaError_t CUDARTAPI receiveMessage(int __dst_x, int __dst_y, int __src_x,
                                                      int __srx_y, void* __addr, int __nbyte);
+/**
+ * @}
+ */

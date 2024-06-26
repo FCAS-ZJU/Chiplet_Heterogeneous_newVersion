@@ -7,8 +7,8 @@ You can learn the following topics from this page:
 - Function and APIs provided for imported simulators.
 
 ## The tasks to import a new simulator
- 
-1. Provide an implementation of APIs in benchmarks. See [Benchmark](../02-benchmarks.md) for the API list.
+
+1. Provide an implementation of APIs in benchmarks. See [Benchmark](../02-benchmarks/021-apis/index.md) for the API list.
 
    For example, APIs may implemented by system calls in one CPU simulator. Meanwhile, APIs may implemented by CUDA APIs or CUDA kernals in one GPGPU simulator.
 
@@ -140,11 +140,11 @@ global_pipe_comm.read_data(fileName, interdata, nbytes);     // Read data to Pip
     name: InterChiplet::PipeComm
 
 # Generate Patch and Apply Patch
- 
+
 Although imported simulators need a minor change to support the synchronization protocol, third-party simulators are still suggested to be imported as git submodules. The purpose behind such suggestions is to keep the repository clean and respect the spirit of open-source. The minor modifications should be stored in a dedicated diff file for each simulator.
- 
+
 [*patch.sh*](https://github.com/FCAS-ZJU/Chiplet_Heterogeneous_newVersion/blob/master_v2/patch.sh) is used to create .diff patches for all simulators. It will also copy modified files to *.cache*. It is forbidden to copy files in *.cache* to the directory of simulators because the copy operation cannot be redrawn. However, the file in *.cache* can be used as a reference when recovering from git confliction.
 
 [*apply_patch.sh*](http://github.com/FCAS-ZJU/Chiplet_Heterogeneous_newVersion/blob/master_v2/apply_patch.sh) will apply .diff patches to all simulators. `git reset` is necessary for each simulator before *apply_patch.sh* to avoid git confliction.
- 
+
 When adding new simulators, it is necessary to add the path of the new simulators to *patch.sh* and *apply_patch.sh*.

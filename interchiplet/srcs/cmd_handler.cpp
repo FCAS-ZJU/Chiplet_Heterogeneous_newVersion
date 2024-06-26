@@ -233,12 +233,11 @@ void handle_read_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync_
         spdlog::debug("{} Register READ command to pair with WRITE command.", dumpCmd(__cmd));
     } else {
         // Insert event to benchmark list.
-        InterChiplet::NetworkBenchItem bench_item(write_cmd, __cmd);
+        NetworkBenchItem bench_item(write_cmd, __cmd);
         __sync_struct->m_bench_list.insert(bench_item);
 
         // If there is a paired write command, get the end cycle of transaction.
-        InterChiplet::CmdDelayPair end_cycle =
-            __sync_struct->m_delay_list.getEndCycle(write_cmd, __cmd);
+        CmdDelayPair end_cycle = __sync_struct->m_delay_list.getEndCycle(write_cmd, __cmd);
         spdlog::debug("{} Pair with WRITE command. Transation ends at [{},{}] cycle.",
                       dumpCmd(__cmd), static_cast<InterChiplet::TimeType>(SRC_DELAY(end_cycle)),
                       static_cast<InterChiplet::TimeType>(DST_DELAY(end_cycle)));
@@ -262,7 +261,7 @@ void handle_barrier_write_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct
     int count = __cmd.m_desc & 0xFFFF;
 
     // Insert event to benchmark list.
-    InterChiplet::NetworkBenchItem bench_item(__cmd);
+    NetworkBenchItem bench_item(__cmd);
     __sync_struct->m_bench_list.insert(bench_item);
 
     // Register BARRIER command.
@@ -281,8 +280,7 @@ void handle_barrier_write_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct
 
         // Send synchronization command to all barrier items.
         for (auto& item : __sync_struct->m_barrier_timing_struct.barrierCmd(uid)) {
-            InterChiplet::CmdDelayPair end_cycle =
-                __sync_struct->m_delay_list.getEndCycle(item, sync_cmd);
+            CmdDelayPair end_cycle = __sync_struct->m_delay_list.getEndCycle(item, sync_cmd);
             spdlog::debug("\t{} Transaction ends at {} cycle.", dumpCmd(item),
                           static_cast<InterChiplet::TimeType>(SRC_DELAY(end_cycle)));
             // Send synchronization comand to response WRITE command.
@@ -308,7 +306,7 @@ void handle_lock_write_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* _
     int uid = DIM_X(__cmd.m_dst);
 
     // Insert event to benchmark list.
-    InterChiplet::NetworkBenchItem bench_item(__cmd);
+    NetworkBenchItem bench_item(__cmd);
     __sync_struct->m_bench_list.insert(bench_item);
 
     if (__sync_struct->m_lock_timing_struct.isLocked(uid)) {
@@ -317,8 +315,7 @@ void handle_lock_write_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* _
             (__sync_struct->m_lock_timing_struct.getLastCmd(uid).m_src == __cmd.m_src)) {
             // If the WRITE(LOCK) command comes from the same source, ignore the LOCK command.
             // Response this WRITE(LOCK) command immediately when it is received by destination.
-            InterChiplet::CmdDelayPair end_cycle =
-                __sync_struct->m_delay_list.getEndCycle(__cmd, __cmd);
+            CmdDelayPair end_cycle = __sync_struct->m_delay_list.getEndCycle(__cmd, __cmd);
             spdlog::debug("{} Transaction ends at {} cycle.", dumpCmd(__cmd),
                           static_cast<InterChiplet::TimeType>(SRC_DELAY(end_cycle)));
             // Send SYNC comand with end cycle to response WRITE command.
@@ -342,8 +339,7 @@ void handle_lock_write_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* _
         }
         // Response this WRITE(LOCK) command after it is received by the destination and the
         // destination finished the last command.
-        InterChiplet::CmdDelayPair end_cycle =
-            __sync_struct->m_delay_list.getEndCycle(__cmd, last_cmd);
+        CmdDelayPair end_cycle = __sync_struct->m_delay_list.getEndCycle(__cmd, last_cmd);
 
         // Calculate the end cycle of mutex.
         InterChiplet::SyncCommand sync_cmd = __cmd;
@@ -369,7 +365,7 @@ void handle_unlock_write_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct*
     int uid = DIM_X(__cmd.m_dst);
 
     // Insert event to benchmark list.
-    InterChiplet::NetworkBenchItem bench_item(__cmd);
+    NetworkBenchItem bench_item(__cmd);
     __sync_struct->m_bench_list.insert(bench_item);
 
     if (__sync_struct->m_lock_timing_struct.isLocked(uid)) {
@@ -383,8 +379,7 @@ void handle_unlock_write_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct*
         }
         // Response this WRITE(UNLOCK) command after it is received by the destination and the
         // destination finished the last command.
-        InterChiplet::CmdDelayPair end_cycle =
-            __sync_struct->m_delay_list.getEndCycle(__cmd, last_cmd);
+        CmdDelayPair end_cycle = __sync_struct->m_delay_list.getEndCycle(__cmd, last_cmd);
 
         // Calculate the end cycle of mutex.
         InterChiplet::SyncCommand sync_cmd = __cmd;
@@ -409,8 +404,7 @@ void handle_unlock_write_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct*
                 __sync_struct->m_lock_timing_struct.popLockCmd(uid);
             // Response this WRITE(LOCK) command after it is received by the destination and the
             // destination finished the WRITE(UNLOCK) command.
-            InterChiplet::CmdDelayPair end_cycle =
-                __sync_struct->m_delay_list.getEndCycle(lock_cmd, sync_cmd);
+            CmdDelayPair end_cycle = __sync_struct->m_delay_list.getEndCycle(lock_cmd, sync_cmd);
 
             // Calculate the end cycle of mutex.
             InterChiplet::SyncCommand sync_cmd = lock_cmd;
@@ -428,8 +422,7 @@ void handle_unlock_write_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct*
     } else {
         // If the mutex is unlocked, ignore the UNLOCK command.
         // Response this WRITE(UNLOCK) command immediately when it is received by destination.
-        InterChiplet::CmdDelayPair end_cycle =
-            __sync_struct->m_delay_list.getEndCycle(__cmd, __cmd);
+        CmdDelayPair end_cycle = __sync_struct->m_delay_list.getEndCycle(__cmd, __cmd);
         spdlog::debug("{} Transaction ends at {} cycle.", dumpCmd(__cmd),
                       static_cast<InterChiplet::TimeType>(SRC_DELAY(end_cycle)));
         // Send SYNC comand with end cycle to response WRITE command.
@@ -460,12 +453,11 @@ void handle_write_cmd(const InterChiplet::SyncCommand& __cmd, SyncStruct* __sync
         spdlog::debug("{} Register WRITE command to pair with READ command.", dumpCmd(__cmd));
     } else {
         // Insert event to benchmark list.
-        InterChiplet::NetworkBenchItem bench_item(__cmd, read_cmd);
+        NetworkBenchItem bench_item(__cmd, read_cmd);
         __sync_struct->m_bench_list.insert(bench_item);
 
         // If there is a paired read command, get the end cycle of transaction.
-        InterChiplet::CmdDelayPair end_cycle =
-            __sync_struct->m_delay_list.getEndCycle(__cmd, read_cmd);
+        CmdDelayPair end_cycle = __sync_struct->m_delay_list.getEndCycle(__cmd, read_cmd);
         spdlog::debug("{} Pair with READ command. Transation ends at [{},{}] cycle.",
                       dumpCmd(__cmd), static_cast<InterChiplet::TimeType>(SRC_DELAY(end_cycle)),
                       static_cast<InterChiplet::TimeType>(DST_DELAY(end_cycle)));

@@ -87,7 +87,7 @@ Popnet does not need to sort packages. *interchiplet* will reorder packages acco
 
 ## Sorting Latency Information
 
-*interchiplet* needs to rebuild the order of transactions according to the latency information file. 
+*interchiplet* needs to rebuild the order of transactions according to the latency information file.
 
 Transactions are organized by a two-level structure. The first level is a map of addresses and ordered queues of latency information. The second level is one queue of latency information ordered by cycles.
 
@@ -102,5 +102,5 @@ Transactions are organized by a two-level structure. The first level is a map of
 The network latency is provided by Phase 2 of the previous iteration. *interchiplet* will load all delay information before starting the simulation processes in Phase 1. When it receives the paired READ and WRITE commands, it will search for the first delay information message with the same source and destination. The matched delay information message will be dropped after use.
 
 There is no implicit guarantee that the number and the order of transactions do not change crossing the iteration. Because the simulation flow is based on iteration, the difference crossing iteration should reduce as the simulation continues.
- 
+
 If the network delay from SComps is missing, the network delay only considers the propagation delay, which equals the data amount divided by network bandwidth. In the first iteration, the network delay is determined in the same way.

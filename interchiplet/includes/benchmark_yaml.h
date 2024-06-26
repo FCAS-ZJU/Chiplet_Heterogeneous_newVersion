@@ -6,7 +6,11 @@
 #include "yaml-cpp/yaml.h"
 namespace fs = boost::filesystem;
 
-namespace InterChiplet {
+/**
+ * @defgroup benchmark_yaml
+ * @brief YAML configuration file interface.
+ * @{
+ */
 /**
  * @brief Data structure to configure one simulation process.
  */
@@ -187,4 +191,6 @@ class BenchmarkConfig {
      */
     std::vector<ProcessConfig> m_phase2_proc_cfg_list;
 };
-}  // namespace InterChiplet
+/**
+ * @}
+ */

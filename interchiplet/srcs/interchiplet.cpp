@@ -19,7 +19,7 @@
  */
 class ProcessStruct {
    public:
-    ProcessStruct(const InterChiplet::ProcessConfig& __config)
+    ProcessStruct(const ProcessConfig& __config)
         : m_command(__config.m_command),
           m_args(__config.m_args),
           m_log_file(__config.m_log_file),
@@ -324,8 +324,8 @@ void* bridge_thread(void* __args_ptr) {
 }
 
 InterChiplet::InnerTimeType __loop_phase_one(
-    int __round, const std::vector<InterChiplet::ProcessConfig>& __proc_phase1_cfg_list,
-    const std::vector<InterChiplet::ProcessConfig>& __proc_phase2_cfg_list) {
+    int __round, const std::vector<ProcessConfig>& __proc_phase1_cfg_list,
+    const std::vector<ProcessConfig>& __proc_phase2_cfg_list) {
     // Create synchronize data structure.
     SyncStruct* g_sync_structure = new SyncStruct();
 
@@ -376,8 +376,7 @@ InterChiplet::InnerTimeType __loop_phase_one(
     return res_cycle;
 }
 
-void __loop_phase_two(int __round,
-                      const std::vector<InterChiplet::ProcessConfig>& __proc_cfg_list) {
+void __loop_phase_two(int __round, const std::vector<ProcessConfig>& __proc_cfg_list) {
     // Create synchronize data structure.
     SyncStruct* g_sync_structure = new SyncStruct();
 
@@ -415,7 +414,7 @@ void __loop_phase_two(int __round,
 
 int main(int argc, const char* argv[]) {
     // Parse command line.
-    InterChiplet::CmdLineOptions options;
+    CmdLineOptions options;
     if (options.parse(argc, argv) != 0) {
         return 0;
     };
@@ -443,7 +442,7 @@ int main(int argc, const char* argv[]) {
     }
 
     // Load benchmark configuration.
-    InterChiplet::BenchmarkConfig configs(options.m_bench);
+    BenchmarkConfig configs(options.m_bench);
     spdlog::info("Load benchmark configuration from {}.", options.m_bench);
 
     // Get start time of simulation.

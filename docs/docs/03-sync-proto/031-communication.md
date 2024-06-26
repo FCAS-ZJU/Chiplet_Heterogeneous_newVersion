@@ -66,7 +66,7 @@ A6 -.-> C6
 ```mermaid
 flowchart TB
 
-subgraph receiveMessage 
+subgraph receiveMessage
 D1[__src_x]
 D2[__src_y]
 D3[__dst_x]
@@ -181,7 +181,7 @@ The package is injected at `src_cycle`. Hence, the package arrives at the destin
 The timing sequence is shown below:
 
 ```mermaid
-sequenceDiagram    
+sequenceDiagram 
 autonumber
 
 participant SP0 as Simulator<br/>Process 0

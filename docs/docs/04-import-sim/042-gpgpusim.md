@@ -1,6 +1,6 @@
 
 # Importing GPGPUSim
- 
+
 [GPGPUSim](http://www.gpgpu-sim.org) is a cycle-accurate model that simulates the architecture of Nvidia GPGPU.
 
 ## APIs
@@ -69,9 +69,9 @@ cudaMemcpy(interdata, __addr, __nbyte, cudaMemcpyDeviceToHost);
 cudaMemcpy(__addr, interdata, __nbyte, cudaMemcpyHostToDevice);
 ```
 
-GPGPUSim is a cycle-driven simulator whose cycle loop can be found in file *\$SIMULATOR_ROOT/gpgpu-sim/src/gpgpu-sim/gpu-sim.h* and *\$SIMULATOR_ROOT/gpgpu-sim/src/gpgpu-sim/gpu-sim.cc*. 
+GPGPUSim is a cycle-driven simulator whose cycle loop can be found in file *\$SIMULATOR_ROOT/gpgpu-sim/src/gpgpu-sim/gpu-sim.h* and *\$SIMULATOR_ROOT/gpgpu-sim/src/gpgpu-sim/gpu-sim.cc*.
 
-GPGPUSim applies two variables to record the execution cycles: `gpgpu_sim::gpu_sim_cycle` and `gpgpu_sim::gpu_tot_sim_cycle`. The sum of these two variables presents the real consumed cycle, which should be replaced by the cycle value in the SYNC command. 
+GPGPUSim applies two variables to record the execution cycles: `gpgpu_sim::gpu_sim_cycle` and `gpgpu_sim::gpu_tot_sim_cycle`. The sum of these two variables presents the real consumed cycle, which should be replaced by the cycle value in the SYNC command.
 
 When GPGPUSim handles CUDA APIs, the cycle loop has not started. Hence, `gpgpu_sim::gpu_sim_cycle` can be directly modified:
 
@@ -109,15 +109,15 @@ B2-->B2
 
 The mapping between APIs and commands is shown below:
 
-| System call | Functional command | Timing command |
-| ---- | :----: | :----: |
-| `launch` | `LAUNCH` | `WRITE` |
-| `waitlaunch` | `WAITLAUNCH` | `READ` |
-| `barrier` | `BARRIER` | `WRITE` |
-| `lock` | `LOCK` | `WRITE` |
-| `unlock` | `UNLOCK` | `WRITE` |
-| `receiveMessage` | `READ` | `READ` |
-| `sendMessage` | `WRITE` | `WRITE` |
+| System call      | Functional command | Timing command |
+| ---------------- | :----------------: | :------------: |
+| `launch`         | `LAUNCH`           | `WRITE`        |
+| `waitlaunch`     | `WAITLAUNCH`       | `READ`         |
+| `barrier`        | `BARRIER`          | `WRITE`        |
+| `lock`           | `LOCK`             | `WRITE`        |
+| `unlock`         | `UNLOCK`           | `WRITE`        |
+| `receiveMessage` | `READ`             | `READ`         |
+| `sendMessage`    | `WRITE`            | `WRITE`        |
 
 ## Issue CYCLE command
 

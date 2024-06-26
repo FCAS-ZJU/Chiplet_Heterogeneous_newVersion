@@ -18,7 +18,7 @@ UNLOCK <src_x> <src_y> <uid>
 WRITE <cycle> <src_x> <src_y> <dst_x> <dst_y> <nbytes=1> <desc=0x80000>
 ```
 
-`src_x` and `src_y` present the source address of the process that locks or unlocks the mutex. `uid` specifies the unique ID of the mutex. 
+`src_x` and `src_y` present the source address of the process that locks or unlocks the mutex. `uid` specifies the unique ID of the mutex.
 
 The `cycle` field in the WRITE command presents the time when the process locks or unlocks the mutex.
 
@@ -57,7 +57,7 @@ A3 -.-> B3 -.-> C3
 ```mermaid
 flowchart TB
 
-subgraph unlock 
+subgraph unlock
 D1[__src_x]
 D2[__src_y]
 D3[__uid]
@@ -298,7 +298,7 @@ deactivate SP1
 
 Similar to barrier transactions, when a process requires/releases one mutex, the process sends one request to a controller, like a mailbox. The location of the controller is configured in Popnet.
 
-The `cycle` field in the WRITE command with the lock/unlock flag presents the time when the source component sends the lock/unlock requirement to the destination, referenced as `src_cycle`. WRITE commands with the lock/unlock flag do not need to pair with READ commands. 
+The `cycle` field in the WRITE command with the lock/unlock flag presents the time when the source component sends the lock/unlock requirement to the destination, referenced as `src_cycle`. WRITE commands with the lock/unlock flag do not need to pair with READ commands.
 
 The SYNC command after one WRITE command with the lock/unlock flag means the source has received the acknowledgment. The task or flow in the source can continue after receiving the SYNC command. The execution cycle of the source should be adjusted to the value specified in the cycle field of SYNC commands.
 

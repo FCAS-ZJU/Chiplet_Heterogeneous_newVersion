@@ -8,6 +8,11 @@ namespace InterChiplet {
 typedef decltype(syscall(0)) syscall_return_t;
 
 /**
+ * @defgroup apis_for_cpu APIs for CPU
+ * @brief APIs for CPU.
+ * @{
+ */
+/**
  * @brief Launch application to remote chiplet.
  * @param __dst_x Destination address in X-axis.
  * @param __dst_y Destination address in Y-axis.
@@ -73,4 +78,8 @@ syscall_return_t sendMessage(int64_t __dst_x, int64_t __dst_y, int64_t __src_x, 
  */
 syscall_return_t receiveMessage(int64_t __dst_x, int64_t __dst_y, int64_t __src_x, int64_t __src_y,
                                 void* __addr, int64_t __nbyte);
+
+/**
+ * @}
+ */
 }  // namespace InterChiplet

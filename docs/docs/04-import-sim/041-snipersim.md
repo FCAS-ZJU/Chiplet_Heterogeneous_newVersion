@@ -1,6 +1,6 @@
 
 # Importing SniperSim
- 
+
 [SniperSim](http://snipersim.org//w/The_Sniper_Multi-Core_Simulator) is a trace-based CPU simulator that can achieve high speed and reasonable accuracy.
 
 ## APIs
@@ -122,15 +122,15 @@ B2-->B2
 
 The mapping between system calls and commands is shown below:
 
-| System call | Functional command | Timing command |
-| ---- | :----: | :----: |
-| SYSCALL_LAUNCH | `LAUNCH` | `WRITE` |
-| SYSCALL_WAITLAUNCH | `WAITLAUNCH` | `READ` |
-| SYSCALL_BARRIER | `BARRIER` | `WRITE` |
-| SYSCALL_LOCK | `LOCK` | `WRITE` |
-| SYSCALL_UNLOCK | `UNLOCK` | `WRITE` |
-| SYSCALL_REMOTE_READ | `READ` | `READ` |
-| SYSCALL_REMOTE_WRITE | `WRITE` | `WRITE` |
+| System call          | Functional command | Timing command |
+| -------------------- | :----------------: | :------------: |
+| SYSCALL_LAUNCH       | `LAUNCH`           | `WRITE`        |
+| SYSCALL_WAITLAUNCH   | `WAITLAUNCH`       | `READ`         |
+| SYSCALL_BARRIER      | `BARRIER`          | `WRITE`        |
+| SYSCALL_LOCK         | `LOCK`             | `WRITE`        |
+| SYSCALL_UNLOCK       | `UNLOCK`           | `WRITE`        |
+| SYSCALL_REMOTE_READ  | `READ`             | `READ`         |
+| SYSCALL_REMOTE_WRITE | `WRITE`            | `WRITE`        |
 
 ## Issue CYCLE command
 

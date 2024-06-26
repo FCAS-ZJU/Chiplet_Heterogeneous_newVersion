@@ -3,7 +3,12 @@ site_name: Documents for LegoSim
 nav:
   - index.md
   - 01-quick-start.md
-  - 02-benchmarks.md
+  - Benchmarks:
+    - APIs:
+      - 02-benchmarks/021-apis/index.md
+      - APIs for CPU: apiProject1/group__apis__for__cpu.md
+      - APIs for GPU: apiProject1/group__apis__for__cuda.md
+    - 02-benchmarks/022-yaml.md
   - Synchronization Protocol:
     - 03-sync-proto/index.md
     - 03-sync-proto/030-net-proto.md
@@ -16,89 +21,91 @@ nav:
     - 04-import-sim/index.md
     - 04-import-sim/041-snipersim.md
     - 04-import-sim/042-gpgpusim.md
-  - API Documents:
-    - Namespaces:
-      - InterChiplet: apiProject1/namespaceInterChiplet.md
-    - Classes:
-      - SyncCommand: apiProject1/classInterChiplet_1_1SyncCommand.md
-      - PipeCommUnit: apiProject1/classInterChiplet_1_1PipeCommUnit.md
-      - PipeComm: apiProject1/classInterChiplet_1_1PipeComm.md
+    - Synchronization protocol interface: apiProject1/group__sync__proto.md
+    - Pipe communication interface: apiProject1/group__pipe__comm.md
   - interchiplet Documents:
-    - Classes:
-      - Command line:
-        - CmdLineOptions: apiProject1/classInterChiplet_1_1CmdLineOptions.md
-      - Configuration:
-        - BenchmarkConfig: apiProject1/classInterChiplet_1_1BenchmarkConfig.md
-        - ProcessStruct: apiProject1/classProcessStruct.md
-      - Network benchmark:
-        - NetworkBenchItem: apiProject1/classInterChiplet_1_1NetworkBenchItem.md
-        - NetworkBenchList: apiProject1/classInterChiplet_1_1NetworkBenchList.md
-      - Network delay information:
-        - NetworkDelayItem: apiProject1/classInterChiplet_1_1NetworkDelayItem.md
-        - NetworkDelayMap: apiProject1/classInterChiplet_1_1NetworkDelayMap.md
-        - NetworkDelayStruct: apiProject1/classInterChiplet_1_1NetworkDelayStruct.md
-      - Command line handler:
-        - ProcessConfig: apiProject1/classInterChiplet_1_1ProcessConfig.md
-        - SyncStruct: apiProject1/classSyncStruct.md
-        - SyncBarrierStruct: apiProject1/classInterChiplet_1_1SyncBarrierStruct.md
-        - SyncClockStruct: apiProject1/classInterChiplet_1_1SyncClockStruct.md
-        - SyncCommStruct: apiProject1/classInterChiplet_1_1SyncCommStruct.md
-        - SyncLaunchStruct: apiProject1/classInterChiplet_1_1SyncLaunchStruct.md
-        - SyncLockStruct: apiProject1/classInterChiplet_1_1SyncLockStruct.md
-        - SyncPipeStruct: apiProject1/classInterChiplet_1_1SyncPipeStruct.md
+    - Command Line Parser: apiProject1/group__cmdline.md
+    - Yaml Configuration Interface: apiProject1/group__benchmark__yaml.md
+    - Network benchmark interface: apiProject1/group__net__bench.md
+    - Network latency information interface: apiProject1/group__net__delay.md
+    - Command handler structures: apiProject1/group__cmd__handler__struct.md
+    - Command handler functions: apiProject1/group__cmd__handler__func.md
   - Source Codes:
     - pages list: apiProject1/pages.md
-    - classes list: apiProject1/annotated.md
-    - namespaces list: apiProject1/namespaces.md
-    - file list: apiProject1/files.md
-    - classes index: apiProject1/classes.md
-    - classes hierarchy: apiProject1/hierarchy.md
-    - modules list: apiProject1/modules.md
-    - class_members: apiProject1/class_members.md
-    - class_member_functions: apiProject1/class_member_functions.md
-    - class_member_variables: apiProject1/class_member_variables.md
-    - class_member_typedefs: apiProject1/class_member_typedefs.md
-    - class_member_enums: apiProject1/class_member_enums.md
-    - namespace_members: apiProject1/namespace_members.md
-    - namespace_member_functions: apiProject1/namespace_member_functions.md
-    - namespace_member_variables: apiProject1/namespace_member_variables.md
-    - namespace_member_typedefs: apiProject1/namespace_member_typedefs.md
-    - namespace_member_enums: apiProject1/namespace_member_enums.md
-    - functions: apiProject1/functions.md
-    - macros: apiProject1/macros.md
-    - variables: apiProject1/variables.md
-    - Links: apiProject1/links.md
+    - modules:
+      - modules list: apiProject1/modules.md
+    - namespace:
+      - namespaces list: apiProject1/namespaces.md
+      - namespace_members: apiProject1/namespace_members.md
+      - namespace_member_functions: apiProject1/namespace_member_functions.md
+      - namespace_member_variables: apiProject1/namespace_member_variables.md
+      - namespace_member_typedefs: apiProject1/namespace_member_typedefs.md
+      - namespace_member_enums: apiProject1/namespace_member_enums.md
+      - InterChiplet: apiProject1/namespaceInterChiplet.md
+    - classes:
+      - classes list: apiProject1/annotated.md
+      - classes index: apiProject1/classes.md
+      - classes hierarchy: apiProject1/hierarchy.md
+      - class_members: apiProject1/class_members.md
+      - class_member_functions: apiProject1/class_member_functions.md
+      - class_member_variables: apiProject1/class_member_variables.md
+      - class_member_typedefs: apiProject1/class_member_typedefs.md
+      - class_member_enums: apiProject1/class_member_enums.md
+      - links: apiProject1/links.md
+      - BenchmarkConfig: apiProject1/classBenchmarkConfig.md
+      - CmdLineOptions: apiProject1/classCmdLineOptions.md
+      - NetworkBenchItem: apiProject1/classNetworkBenchItem.md
+      - NetworkBenchList: apiProject1/classNetworkBenchList.md
+      - NetworkDelayItem: apiProject1/classNetworkDelayItem.md
+      - NetworkDelayMap: apiProject1/classNetworkDelayMap.md
+      - NetworkDelayStruct: apiProject1/classNetworkDelayStruct.md
+      - PipeComm: apiProject1/classInterChiplet_1_1PipeComm.md
+      - PipeCommUnit: apiProject1/classInterChiplet_1_1PipeCommUnit.md
+      - ProcessConfig: apiProject1/classProcessConfig.md
+      - ProcessStruct: apiProject1/classProcessStruct.md
+      - SyncBarrierStruct: apiProject1/classSyncBarrierStruct.md
+      - SyncClockStruct: apiProject1/classSyncClockStruct.md
+      - SyncCommand: apiProject1/classInterChiplet_1_1SyncCommand.md
+      - SyncCommStruct: apiProject1/classSyncCommStruct.md
+      - SyncLaunchStruct: apiProject1/classSyncLaunchStruct.md
+      - SyncLockStruct: apiProject1/classSyncLockStruct.md
+      - SyncPipeStruct: apiProject1/classSyncPipeStruct.md
+      - SyncStruct: apiProject1/classSyncStruct.md
     - files:
+      - file list: apiProject1/files.md
+      - functions: apiProject1/functions.md
+      - macros: apiProject1/macros.md
+      - variables: apiProject1/variables.md
       - interchiplet: apiProject1/dir_a2025b34133129e5724d121abe9a4a4a.md
       - interchiplet/includes: apiProject1/dir_943fa6db2bfb09b7dcf1f02346dde40e.md
       - interchiplet/srcs: apiProject1/dir_b94c70d771af9f161858c2c4e7b3d1c5.md
       - apis_c.h: apiProject1/apis__c_8h.md
+      - apis_c.cpp: apiProject1/apis__c_8cpp.md
       - apis_cu.h: apiProject1/apis__cu_8h.md
       - benchmark_yaml.h: apiProject1/benchmark__yaml_8h.md
       - cmd_handler.h: apiProject1/cmd__handler_8h.md
+      - cmd_handler.cpp: apiProject1/cmd__handler_8cpp.md
       - cmdline_options.h: apiProject1/cmdline__options_8h.md
+      - interchiplet.cpp: apiProject1/interchiplet_8cpp.md
       - global_define.h: apiProject1/global__define_8h.md
       - net_bench.h: apiProject1/net__bench_8h.md
       - net_delay.h: apiProject1/net__delay_8h.md
       - pipe_comm.h: apiProject1/pipe__comm_8h.md
       - sync_protocol.h: apiProject1/sync__protocol_8h.md
-      - apis_c.cpp: apiProject1/apis__c_8cpp.md
-      - cmd_handler.cpp: apiProject1/cmd__handler_8cpp.md
-      - interchiplet.cpp: apiProject1/interchiplet_8cpp.md
     - sources:
       - apis_c.h: apiProject1/apis__c_8h_source.md
+      - apis_c.cpp: apiProject1/apis__c_8cpp_source.md
       - apis_cu.h: apiProject1/apis__cu_8h_source.md
       - benchmark_yaml.h: apiProject1/benchmark__yaml_8h_source.md
       - cmd_handler.h: apiProject1/cmd__handler_8h_source.md
       - cmdline_options.h: apiProject1/cmdline__options_8h_source.md
+      - interchiplet.cpp: apiProject1/interchiplet_8cpp_source.md
       - global_define.h: apiProject1/global__define_8h_source.md
       - net_bench.h: apiProject1/net__bench_8h_source.md
       - net_delay.h: apiProject1/net__delay_8h_source.md
       - pipe_comm.h: apiProject1/pipe__comm_8h_source.md
       - sync_protocol.h: apiProject1/sync__protocol_8h_source.md
-      - apis_c.h: apiProject1/apis__c_8cpp_source.md
       - cmd_handler.h: apiProject1/cmd__handler_8cpp_source.md
-      - interchiplet.h: apiProject1/interchiplet_8cpp_source.md
 
 theme:
   name: "material"

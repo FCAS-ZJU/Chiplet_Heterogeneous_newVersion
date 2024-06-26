@@ -180,7 +180,7 @@ The request package is injected at `src_cycle`. Hence, the request package arriv
 The timing sequence is shown below:
 
 ```mermaid
-sequenceDiagram    
+sequenceDiagram 
 autonumber
 
 participant SP0 as Simulator<br/>Process 0
@@ -202,7 +202,7 @@ SP0->>SP1:
 note right of SP1: src_cycle[1] + lat_1[1] + lat_3[1]
 ```
 
-In summary, 
+In summary,
 
 - The barrier overflow time is  `max(src_cycle[i] + lat_1[i])`.
 - The `cycle` of the SYNC command to the WRITE command with the barrier flag is `barrier overflow time + lat_3`.
