@@ -1,0 +1,218 @@
+diff --git a/src/arch/x86/linux/syscall_tbl32.cc b/src/arch/x86/linux/syscall_tbl32.cc
+index 2de334cee3..92a39dc81c 100644
+--- a/src/arch/x86/linux/syscall_tbl32.cc
++++ b/src/arch/x86/linux/syscall_tbl32.cc
+@@ -32,6 +32,8 @@
+ #include "arch/x86/linux/syscalls.hh"
+ #include "sim/syscall_emul.hh"
+ 
++#include "../../../../../../interchiplet/includes/sync_protocol.h"
++
+ namespace gem5
+ {
+ 
+@@ -371,7 +373,14 @@ SyscallDescTable<EmuLinux::SyscallABI32> EmuLinux::syscallDescs32 = {
+     { 321, "signalfd" },
+     { 322, "timerfd" },
+     { 323, "eventfd", eventfdFunc<X86Linux32> },
+-    { 355, "getrandom", getrandomFunc<X86Linux32>}
++    { 355, "getrandom", getrandomFunc<X86Linux32>},
++    { InterChiplet::SYSCALL_LAUNCH, "interchiplet_launch", interChipletLaunch },
++    { InterChiplet::SYSCALL_WAITLAUNCH, "interchiplet_waitlaunch", interChipletWaitLaunch },
++    { InterChiplet::SYSCALL_BARRIER, "interchiplet_barrier", interChipletBarrier },
++    { InterChiplet::SYSCALL_LOCK, "interchiplet_lock", interChipletLock },
++    { InterChiplet::SYSCALL_UNLOCK, "interchiplet_unlock", interChipletUnlock },
++    { InterChiplet::SYSCALL_REMOTE_READ, "interchiplet_receive", interChipletReceive },
++    { InterChiplet::SYSCALL_REMOTE_WRITE, "interchiplet_send", interChipletSend }
+ };
+ 
+ } // namespace X86ISA
+diff --git a/src/arch/x86/linux/syscall_tbl64.cc b/src/arch/x86/linux/syscall_tbl64.cc
+index 26299d884b..315cc37c3e 100644
+--- a/src/arch/x86/linux/syscall_tbl64.cc
++++ b/src/arch/x86/linux/syscall_tbl64.cc
+@@ -32,6 +32,8 @@
+ #include "arch/x86/linux/syscalls.hh"
+ #include "sim/syscall_emul.hh"
+ 
++#include "../../../../../../interchiplet/includes/sync_protocol.h"
++
+ namespace gem5
+ {
+ 
+@@ -404,7 +406,14 @@ SyscallDescTable<EmuLinux::SyscallABI64> EmuLinux::syscallDescs64 = {
+     { 447, "memfd_secret" },
+     { 448, "process_mrelease" },
+     { 449, "futex_waitv" },
+-    { 450, "set_mempolicy_home_node" }
++    { 450, "set_mempolicy_home_node" },
++    { InterChiplet::SYSCALL_LAUNCH, "interchiplet_launch", interChipletLaunch },
++    { InterChiplet::SYSCALL_WAITLAUNCH, "interchiplet_waitlaunch", interChipletWaitLaunch },
++    { InterChiplet::SYSCALL_BARRIER, "interchiplet_barrier", interChipletBarrier },
++    { InterChiplet::SYSCALL_LOCK, "interchiplet_lock", interChipletLock },
++    { InterChiplet::SYSCALL_UNLOCK, "interchiplet_unlock", interChipletUnlock },
++    { InterChiplet::SYSCALL_REMOTE_READ, "interchiplet_receive", interChipletReceive },
++    { InterChiplet::SYSCALL_REMOTE_WRITE, "interchiplet_send", interChipletSend }
+ };
+ 
+ } // namespace X86ISA
+diff --git a/src/sim/sim_events.cc b/src/sim/sim_events.cc
+index 66379d2061..e55461fb60 100644
+--- a/src/sim/sim_events.cc
++++ b/src/sim/sim_events.cc
+@@ -49,6 +49,8 @@
+ #include "sim/sim_exit.hh"
+ #include "sim/stats.hh"
+ 
++#include "../../../interchiplet/includes/sync_protocol.h"
++
+ namespace gem5
+ {
+ 
+@@ -88,6 +90,9 @@ void
+ exitSimLoop(const std::string &message, int exit_code, Tick when, Tick repeat,
+             bool serialize)
+ {
++    // Send exit cycle.
++    InterChiplet::sendCycleCmd(curTick());
++
+     warn_if(serialize && (when != curTick() || repeat),
+             "exitSimLoop called with a delay and auto serialization. This is "
+             "currently unsupported.");
+@@ -99,6 +104,9 @@ void
+ exitSimLoopNow(const std::string &message, int exit_code, Tick repeat,
+                bool serialize)
+ {
++    // Send exit cycle.
++    InterChiplet::sendCycleCmd(curTick());
++
+     new GlobalSimLoopExitEvent(message, exit_code, repeat);
+ }
+ 
+diff --git a/src/sim/syscall_emul.cc b/src/sim/syscall_emul.cc
+index 9794a4835e..2a9a0ff239 100644
+--- a/src/sim/syscall_emul.cc
++++ b/src/sim/syscall_emul.cc
+@@ -52,6 +52,9 @@
+ #include "sim/syscall_desc.hh"
+ #include "sim/system.hh"
+ 
++#include "../../../interchiplet/includes/pipe_comm.h"
++InterChiplet::PipeComm global_pipe_comm;
++
+ namespace gem5
+ {
+ 
+@@ -1502,4 +1505,79 @@ getcpuFunc(SyscallDesc *desc, ThreadContext *tc,
+     return 0;
+ }
+ 
++// Syscall Functional Emulator
++SyscallReturn
++interChipletLaunch(SyscallDesc *desc, ThreadContext *tc,
++                   int dst_x, int dst_y, int src_x, int src_y)
++{
++    InterChiplet::launchSync(src_x, src_y, dst_x, dst_y);
++
++    return 0;
++}
++
++SyscallReturn
++interChipletWaitLaunch(SyscallDesc *desc, ThreadContext *tc,
++                       int dst_x, int dst_y, VPtr<int> src_x, VPtr<int> src_y)
++{
++    int __src_x = *src_x;
++    int __src_y = *src_y;
++    InterChiplet::waitlaunchSync(&__src_x, &__src_y, dst_x, dst_y);
++    *src_x = __src_x;
++    *src_y = __src_y;
++
++    return 0;
++}
++
++SyscallReturn
++interChipletBarrier(SyscallDesc *desc, ThreadContext *tc,
++                    int uid, int src_x, int src_y, int count)
++{
++    InterChiplet::barrierSync(src_x, src_y, uid, count);
++
++    return 0;
++}
++
++SyscallReturn
++interChipletLock(SyscallDesc *desc, ThreadContext *tc,
++                    int uid, int src_x, int src_y)
++{
++    InterChiplet::lockSync(src_x, src_y, uid);
++
++    return 0;
++}
++
++SyscallReturn
++interChipletUnlock(SyscallDesc *desc, ThreadContext *tc,
++                    int uid, int src_x, int src_y)
++{
++    InterChiplet::unlockSync(src_x, src_y, uid);
++
++    return 0;
++}
++
++SyscallReturn
++interChipletSend(SyscallDesc *desc, ThreadContext *tc,
++                    int dst_x, int dst_y, int src_x, int src_y, VPtr<> addr, int nbytes)
++{
++    std::string fileName = InterChiplet::sendSync(src_x, src_y, dst_x, dst_y);
++    BufferArg data(addr, nbytes);
++    data.copyOut(SETranslatingPortProxy(tc));
++    global_pipe_comm.write_data(fileName.c_str(), data.bufferPtr(), nbytes);
++
++    return 0;
++}
++
++SyscallReturn
++interChipletReceive(SyscallDesc *desc, ThreadContext *tc,
++                    int dst_x, int dst_y, int src_x, int src_y, VPtr<> addr, int nbytes)
++{
++    std::string fileName = InterChiplet::receiveSync(src_x, src_y, dst_x, dst_y);
++    BufferArg data(addr, nbytes);
++    global_pipe_comm.read_data(fileName.c_str(), data.bufferPtr(), nbytes);
++    data.copyIn(SETranslatingPortProxy(tc));
++
++    return 0;
++}
++
++
+ } // namespace gem5
+diff --git a/src/sim/syscall_emul.hh b/src/sim/syscall_emul.hh
+index 97749f325d..5430084c5d 100644
+--- a/src/sim/syscall_emul.hh
++++ b/src/sim/syscall_emul.hh
+@@ -3084,6 +3084,28 @@ getrandomFunc(SyscallDesc *desc, ThreadContext *tc,
+     return count;
+ }
+ 
++// Syscall Functional Emulator
++SyscallReturn interChipletLaunch(SyscallDesc *desc, ThreadContext *tc,
++                                 int dst_x, int dst_y, int src_x, int src_y);
++
++SyscallReturn interChipletWaitLaunch(SyscallDesc *desc, ThreadContext *tc,
++                                     int dst_x, int dst_y, VPtr<int> src_x, VPtr<int> src_y);
++
++SyscallReturn interChipletBarrier(SyscallDesc *desc, ThreadContext *tc,
++                                  int uid, int src_x, int src_y, int count);
++
++SyscallReturn interChipletLock(SyscallDesc *desc, ThreadContext *tc,
++                               int uid, int src_x, int src_y);
++
++SyscallReturn interChipletUnlock(SyscallDesc *desc, ThreadContext *tc,
++                                 int uid, int src_x, int src_y);
++
++SyscallReturn interChipletSend(SyscallDesc *desc, ThreadContext *tc,
++                               int dst_x, int dst_y, int src_x, int src_y, VPtr<> addr, int nbyte);
++
++SyscallReturn interChipletReceive(SyscallDesc *desc, ThreadContext *tc,
++                                  int dst_x, int dst_y, int src_x, int src_y, VPtr<> addr, int nbyte);
++
+ } // namespace gem5
+ 
+ #endif // __SIM_SYSCALL_EMUL_HH__
