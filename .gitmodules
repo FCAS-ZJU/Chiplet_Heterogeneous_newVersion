@@ -16,3 +16,6 @@
 [submodule "interchiplet/thirdparty/yaml-cpp"]
 	path = interchiplet/thirdparty/yaml-cpp
 	url = https://github.com/jbeder/yaml-cpp.git
+[submodule "gem5"]
+	path = gem5
+	url = https://github.com/gem5/gem5.git
