@@ -1,3 +1,48 @@
+diff --git a/src/arch/arm/linux/se_workload.cc b/src/arch/arm/linux/se_workload.cc
+index c919d85edf..80aacf5a66 100644
+--- a/src/arch/arm/linux/se_workload.cc
++++ b/src/arch/arm/linux/se_workload.cc
+@@ -49,6 +49,8 @@
+ #include "mem/se_translating_port_proxy.hh"
+ #include "sim/syscall_emul.hh"
+ 
++#include "../../../../../../interchiplet/includes/sync_protocol.h"
++
+ namespace gem5
+ {
+ 
+@@ -488,7 +490,14 @@ class SyscallTable32 : public SyscallDescTable<EmuLinux::SyscallABI32>
+         { base + 363, "sys_rt_tgsigqueueinfo" },
+         { base + 364, "sys_perf_event_open" },
+         { base + 365, "sys_recvmmsg" },
+-        { base + 384, "getrandom", getrandomFunc<ArmLinux32> }
++        { base + 384, "getrandom", getrandomFunc<ArmLinux32> },
++        { InterChiplet::SYSCALL_LAUNCH, "interchiplet_launch", interChipletLaunch },
++        { InterChiplet::SYSCALL_WAITLAUNCH, "interchiplet_waitlaunch", interChipletWaitLaunch },
++        { InterChiplet::SYSCALL_BARRIER, "interchiplet_barrier", interChipletBarrier },
++        { InterChiplet::SYSCALL_LOCK, "interchiplet_lock", interChipletLock },
++        { InterChiplet::SYSCALL_UNLOCK, "interchiplet_unlock", interChipletUnlock },
++        { InterChiplet::SYSCALL_REMOTE_READ, "interchiplet_receive", interChipletReceive },
++        { InterChiplet::SYSCALL_REMOTE_WRITE, "interchiplet_send", interChipletSend }
+     })
+     {}
+ };
+@@ -841,7 +850,14 @@ class SyscallTable64 : public SyscallDescTable<EmuLinux::SyscallABI64>
+         { base + 1076, "umount" },
+         { base + 1077, "uselib" },
+         { base + 1078, "_sysctl" },
+-        { base + 1079, "fork" }
++        { base + 1079, "fork" },
++        { InterChiplet::SYSCALL_LAUNCH, "interchiplet_launch", interChipletLaunch },
++        { InterChiplet::SYSCALL_WAITLAUNCH, "interchiplet_waitlaunch", interChipletWaitLaunch },
++        { InterChiplet::SYSCALL_BARRIER, "interchiplet_barrier", interChipletBarrier },
++        { InterChiplet::SYSCALL_LOCK, "interchiplet_lock", interChipletLock },
++        { InterChiplet::SYSCALL_UNLOCK, "interchiplet_unlock", interChipletUnlock },
++        { InterChiplet::SYSCALL_REMOTE_READ, "interchiplet_receive", interChipletReceive },
++        { InterChiplet::SYSCALL_REMOTE_WRITE, "interchiplet_send", interChipletSend }
+     })
+     {}
+ };
 diff --git a/src/arch/x86/linux/syscall_tbl32.cc b/src/arch/x86/linux/syscall_tbl32.cc
 index 2de334cee3..92a39dc81c 100644
 --- a/src/arch/x86/linux/syscall_tbl32.cc
