@@ -1,7 +1,7 @@
 
 # Importing GPGPUSim
 
-[GPGPUSim](http://www.gpgpu-sim.org) is a cycle-accurate model that simulates the architecture of Nvidia GPGPU.
+[GPGPUSim](http://www.gpgpu-sim.org) is a cycle-accurate model that simulates the micro-architecture of Nvidia GPGPU.
 
 ## APIs
 
@@ -15,7 +15,7 @@ Benchmark APIs are added to the runtime library provided by GPGPUSim. APIs are i
 nvcc -L$(SIMULATOR_ROOT)/gpgpu-sim/lib/$(GPGPUSIM_CONFIG) --cudart shared $(CUDA_OBJS) -o $(CUDA_TARGET)
 ```
 
-## sendMessage and receiveMessage
+### sendMessage and receiveMessage
 
 The flow chart of `sendMessage` and `receiveMessage` is as follows:
 
@@ -42,7 +42,7 @@ H1-->H1
 
 subgraph Read Syscall
 O2(Start)
-A2[Issue READ command]
+A2[Issue RECEIVE command]
 B2[Wait for RESULT command]
 C2[Open Pipe]
 D2[Read data from Pipe]
@@ -86,7 +86,7 @@ long long int timeEnd = ...
 gpu->gpu_tot_sim_cycle = timeEnd - gpu->gpu_sim_cycle;
 ```
 
-## Other APIs
+### Other APIs
 
 Different from `sendMessage` and `receiveMessage`, except for functional and timing commands, it is not necessary to handle other functionality.
 
@@ -96,7 +96,7 @@ The flow chart is as follows:
 flowchart TD
 
 A1[Issue functional command]
-B1[Wait for READ command]
+B1[Wait for RESULT command]
 
 A2[Issue timing command]
 B2[Wait for SYNC command]

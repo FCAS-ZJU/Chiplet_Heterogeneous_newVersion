@@ -1,3 +1,6 @@
+
+For the detail documents in English, please access [Document for LegoSim](https://fcas-zju.github.io/Chiplet_Heterogeneous_newVersion/).
+
 # 安装
 
 ## 下载仓库并设置环境
@@ -40,7 +43,21 @@
     make -j4
     ```
 
-6. 编译安装GPGPUSim。GPGPUsim安装有前置条件：
+6. 编译安装Gem5。请查看Gem5文档获取详细安装指南。LegoSim中可以运行X86和ARM架构仿真器：
+
+    ```
+    cd gem5
+    scons build/X86/gem5.opt
+    ```
+
+    或者
+
+    ```
+    cd gem5
+    scons build/ARM/gem5.opt
+    ```
+
+7. 编译安装GPGPUSim。GPGPUsim安装有前置条件：
 
     1. GPGPUSim需要安装cuda。新版本的gpgpusim可以支持cuda4到cuda11的任意版本，详细信息请参见GPGPUSim的README。
     2. GPGPUSim对于编译版本有要求，建议使用GCC7。
@@ -52,7 +69,7 @@
     make -j4
     ```
 
-7. 编译安装popnet
+8. 编译安装popnet
 
     ```
     cd popnet_chiplet
@@ -62,7 +79,7 @@
     make -j4
     ```
 
-8. 编译安装芯粒间通信程序。interchiplet提供了芯粒间通信所需要的API和实现代码。
+9.  编译安装芯粒间通信程序。interchiplet提供了芯粒间通信所需要的API和实现代码。
 
     ```
     cd interchiplet

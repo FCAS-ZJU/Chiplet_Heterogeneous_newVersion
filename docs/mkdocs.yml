@@ -20,6 +20,7 @@ nav:
   - Importing Simulators:
     - 04-import-sim/index.md
     - 04-import-sim/041-snipersim.md
+    - 04-import-sim/043-gem5.md
     - 04-import-sim/042-gpgpusim.md
     - Synchronization protocol interface: apiProject1/group__sync__proto.md
     - Pipe communication interface: apiProject1/group__pipe__comm.md
