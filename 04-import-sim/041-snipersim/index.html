@@ -12,7 +12,7 @@
         <link rel="prev" href="../">
       
       
-        <link rel="next" href="../042-gpgpusim/">
+        <link rel="next" href="../043-gem5/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -617,6 +617,8 @@
       
         
       
+        
+      
     
     
     
@@ -717,6 +719,16 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#handle-syscalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Handle Syscalls
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Handle Syscalls">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#handle-syscall_remote_writesyscall_remote_read" class="md-nav__link">
     <span class="md-ellipsis">
       Handle SYSCALL_REMOTE_WRITE/SYSCALL_REMOTE_READ
@@ -724,13 +736,18 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#handle-other-system-calls" class="md-nav__link">
     <span class="md-ellipsis">
       Handle Other System Calls
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -747,6 +764,27 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../043-gem5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Importing GEM5
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -2929,6 +2967,16 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#handle-syscalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Handle Syscalls
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Handle Syscalls">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#handle-syscall_remote_writesyscall_remote_read" class="md-nav__link">
     <span class="md-ellipsis">
       Handle SYSCALL_REMOTE_WRITE/SYSCALL_REMOTE_READ
@@ -2936,13 +2984,18 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#handle-other-system-calls" class="md-nav__link">
     <span class="md-ellipsis">
       Handle Other System Calls
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2973,7 +3026,7 @@
 <h1 id="importing-snipersim">Importing SniperSim</h1>
 <p><a href="http://snipersim.org//w/The_Sniper_Multi-Core_Simulator">SniperSim</a> is a trace-based CPU simulator that can achieve high speed and reasonable accuracy.</p>
 <h2 id="apis">APIs</h2>
-<p>Read and write API is implemented by System Calls. The following system call numbers are assigned to these APIs.</p>
+<p>APIs are implemented by System Calls. The following system call numbers are assigned to these APIs.</p>
 <div class="highlight"><pre><span></span><code><span class="n">SYSCALL_LAUNCH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">501</span><span class="p">,</span><span class="w">        </span><span class="c1">// Launch request.</span>
 <span class="n">SYSCALL_WAITLAUNCH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">502</span><span class="p">,</span><span class="w">    </span><span class="c1">// Waiit launch request.</span>
 <span class="n">SYSCALL_BARRIER</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">503</span><span class="p">,</span><span class="w">       </span><span class="c1">// Enter barrier.</span>
@@ -2982,15 +3035,17 @@
 <span class="n">SYSCALL_REMOTE_READ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">506</span><span class="p">,</span><span class="w">   </span><span class="c1">// Read cross chiplet</span>
 <span class="n">SYSCALL_REMOTE_WRITE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">507</span><span class="p">,</span><span class="w">  </span><span class="c1">// Write cross chiplet</span>
 </code></pre></div>
-<p>Each benchmark APIs corresponds to one system call. All arguments of the benchmark APIs are also the arguments for system calls.</p>
-<h2 id="handle-syscall_remote_writesyscall_remote_read">Handle SYSCALL_REMOTE_WRITE/SYSCALL_REMOTE_READ</h2>
-<p>SniperSim provides separate functional and timing models. Hence, APIs are handled separately in functional and timing models.</p>
-<p>In the functional model, system calls are handled in file <em>$SIMULATOR_ROOT/snipersim/sift/recorder/syscall_modeling.cc</em>. The flow chart is as follows:</p>
+<p>Each benchmark API corresponds to one system call. All arguments of the benchmark APIs are also the arguments for system calls.</p>
+<h2 id="handle-syscalls">Handle Syscalls</h2>
+<p>SniperSim provides separate functional and timing models. Hence, syscalls are handled separately in functional and timing models.</p>
+<p>In the functional model, system calls are handled in file <em>$SIMULATOR_ROOT/snipersim/sift/recorder/syscall_modeling.cc</em>. In the timing model, system calls are handled in file <em>$SIMULATOR_ROOT/snipersim/common/core/syscall_model.cc</em>.</p>
+<h3 id="handle-syscall_remote_writesyscall_remote_read">Handle SYSCALL_REMOTE_WRITE/SYSCALL_REMOTE_READ</h3>
+<p>The flow chart of the function model is as follows:</p>
 <pre class="mermaid"><code>flowchart TD
 
 subgraph Write Syscall
-A1[Issue PIPE command]
-B1[Wait for SYNC command]
+A1[Issue SEND command]
+B1[Wait for RESULT command]
 C1[Open PIPE]
 D1[Write data to PIPE]
 end
@@ -2999,15 +3054,15 @@ A1--&gt;B1--&gt;C1--&gt;D1
 B1--&gt;B1
 
 subgraph Read Syscall
-A2[Issue PIPE command]
-B2[Wait for SYNC command]
+A2[Issue RECEIVE command]
+B2[Wait for RESULT command]
 C2[Open PIPE]
 D2[Read data from PIPE]
 end
 
 A2--&gt;B2--&gt;C2--&gt;D2
 B2--&gt;B2</code></pre>
-<p>In the timing model, system calls are handled in file <em>$SIMULATOR_ROOT/snipersim/common/core/syscall_model.cc</em>. The flow chart is as follows:</p>
+<p>The flow chart of the timing model is as follows:</p>
 <pre class="mermaid"><code>flowchart TD
 
 subgraph Write Syscall
@@ -3042,8 +3097,7 @@ C2--&gt;C2</code></pre>
 
 <span class="n">core</span><span class="o">-&gt;</span><span class="n">getPerformanceModel</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">queuePseudoInstruction</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">SyncInstruction</span><span class="p">(</span><span class="n">sleep_end_time</span><span class="p">,</span><span class="w"> </span><span class="n">SyncInstruction</span><span class="o">::</span><span class="n">SLEEP</span><span class="p">));</span>
 </code></pre></div>
-<h2 id="handle-other-system-calls">Handle Other System Calls</h2>
-<p>Except for SYSCALL_REMOTE_READ and SYSCALL_REMOTE_WRITE, other system calls are also implemented in file <em>$SIMULATOR_ROOT/snipersim/sift/recorder/syscall_modeling.cc</em> and <em>$SIMULATOR_ROOT/snipersim/common/core/syscall_model.cc</em>.</p>
+<h3 id="handle-other-system-calls">Handle Other System Calls</h3>
 <p>Different from SYSCALL_REMOTE_READ and SYSCALL_REMOTE_WRITE, except functional and timing commands, it is not necessary to handle other functionality.</p>
 <p>The flow chart is as follows:</p>
 <pre class="mermaid"><code>flowchart TD

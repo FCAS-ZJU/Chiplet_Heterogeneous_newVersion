@@ -9,7 +9,7 @@
       
       
       
-        <link rel="prev" href="../041-snipersim/">
+        <link rel="prev" href="../043-gem5/">
       
       
         <link rel="next" href="../../apiProject1/group__sync__proto/">
@@ -617,6 +617,8 @@
       
         
       
+        
+      
     
     
     
@@ -667,6 +669,27 @@
   
   <span class="md-ellipsis">
     Importing SniperSim
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../043-gem5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Importing GEM5
   </span>
   
 
@@ -735,9 +758,10 @@
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
+    <nav class="md-nav" aria-label="APIs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#sendmessage-and-receivemessage" class="md-nav__link">
     <span class="md-ellipsis">
       sendMessage and receiveMessage
@@ -745,13 +769,18 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#other-apis" class="md-nav__link">
     <span class="md-ellipsis">
       Other APIs
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2926,9 +2955,10 @@
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
+    <nav class="md-nav" aria-label="APIs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#sendmessage-and-receivemessage" class="md-nav__link">
     <span class="md-ellipsis">
       sendMessage and receiveMessage
@@ -2936,13 +2966,18 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#other-apis" class="md-nav__link">
     <span class="md-ellipsis">
       Other APIs
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2971,14 +3006,14 @@
 
 
 <h1 id="importing-gpgpusim">Importing GPGPUSim</h1>
-<p><a href="http://www.gpgpu-sim.org">GPGPUSim</a> is a cycle-accurate model that simulates the architecture of Nvidia GPGPU.</p>
+<p><a href="http://www.gpgpu-sim.org">GPGPUSim</a> is a cycle-accurate model that simulates the micro-architecture of Nvidia GPGPU.</p>
 <h2 id="apis">APIs</h2>
 <p>In real GPGPU systems, benchmark APIs will be scheduled to particular APIs. For example, DMA units handle communication. The mailbox handles the barrier and lock. Therefore, benchmark APIs should be implemented by CUDA runtime APIs rather than kernels.</p>
 <p>CUDA runtime APIs are declared and implemented in the CUDA kit. GPGPUSim provides a different runtime library <strong>libcudart.so</strong> rather than the standard runtime library from the CUDA kit. When compiling CUDA executable files, nvcc will link the standard runtime library.</p>
 <p>Benchmark APIs are added to the runtime library provided by GPGPUSim. APIs are implemented in file <em>$SIMULATOR_ROOT/gpgpu-sim/libcuda/cuda_runtime_api.cc</em>. Hence, when compiling CUDA executable files, the path to search libraries must be redirected to GPGPUSim:</p>
 <div class="highlight"><pre><span></span><code>nvcc -L$(SIMULATOR_ROOT)/gpgpu-sim/lib/$(GPGPUSIM_CONFIG) --cudart shared $(CUDA_OBJS) -o $(CUDA_TARGET)
 </code></pre></div>
-<h2 id="sendmessage-and-receivemessage">sendMessage and receiveMessage</h2>
+<h3 id="sendmessage-and-receivemessage">sendMessage and receiveMessage</h3>
 <p>The flow chart of <code>sendMessage</code> and <code>receiveMessage</code> is as follows:</p>
 <pre class="mermaid"><code>flowchart TD
 
@@ -3002,7 +3037,7 @@ H1--&gt;H1
 
 subgraph Read Syscall
 O2(Start)
-A2[Issue READ command]
+A2[Issue RECEIVE command]
 B2[Wait for RESULT command]
 C2[Open Pipe]
 D2[Read data from Pipe]
@@ -3036,13 +3071,13 @@ G2--&gt;G2</code></pre>
 <span class="c1">// Update the current cycle.</span>
 <span class="n">gpu</span><span class="o">-&gt;</span><span class="n">gpu_tot_sim_cycle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">timeEnd</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">gpu</span><span class="o">-&gt;</span><span class="n">gpu_sim_cycle</span><span class="p">;</span>
 </code></pre></div>
-<h2 id="other-apis">Other APIs</h2>
+<h3 id="other-apis">Other APIs</h3>
 <p>Different from <code>sendMessage</code> and <code>receiveMessage</code>, except for functional and timing commands, it is not necessary to handle other functionality.</p>
 <p>The flow chart is as follows:</p>
 <pre class="mermaid"><code>flowchart TD
 
 A1[Issue functional command]
-B1[Wait for READ command]
+B1[Wait for RESULT command]
 
 A2[Issue timing command]
 B2[Wait for SYNC command]

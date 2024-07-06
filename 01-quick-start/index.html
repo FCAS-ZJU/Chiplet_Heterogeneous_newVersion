@@ -682,6 +682,8 @@
       
         
       
+        
+      
     
     
     
@@ -732,6 +734,27 @@
   
   <span class="md-ellipsis">
     Importing SniperSim
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-import-sim/043-gem5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Importing GEM5
   </span>
   
 
@@ -2970,14 +2993,25 @@ git<span class="w"> </span>submodule<span class="w"> </span>update
 <div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>setup_env.sh
 </code></pre></div>
 <p>If the operation succeeds, <code>setup_environment succeeded</code> is printed to the terminal.</p>
-<p><strong>4. Apply modifications to SniperSim and GPGPUSim.</strong> The simulator can still execute benchmarks if Step 4 is skipped, but no interactions between chiplets are performed.</p>
+<p><strong>4. Apply modifications to Imported Simulators.</strong> The simulator can still execute benchmarks if Step 4 is skipped, but no interactions between chiplets are performed.</p>
 <div class="highlight"><pre><span></span><code>./apply_path.sh
 </code></pre></div>
-<p><strong>5. Compile SniperSim.</strong></p>
+<p><strong>5. Compile Imported Simulators.</strong></p>
+<p>The installation procedure can be skipped for unnecessary simulators.</p>
+<p><strong>5.1. Compile SniperSim.</strong></p>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>snipersim
 make<span class="w"> </span>-j4
 </code></pre></div>
-<p><strong>6. Compile GPGPUSim.</strong> Installation of GPGPUSim requires the following conditions:</p>
+<p><strong>5.2. Gem5.</strong> The detailed installation guide for Gem5 can be found at https://www.gem5.org/documentation/learning_gem5/part1/building/.</p>
+<p>If requirements have been addressed, X86 and ARM simulators can be used in LegoSim.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>gem5
+scons<span class="w"> </span>build/X86/gem5.opt<span class="w"> </span>-j4
+</code></pre></div>
+<p>or</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>gem5
+scons<span class="w"> </span>build/ARM/gem5.opt<span class="w"> </span>-j4
+</code></pre></div>
+<p><strong>5.3. Compile GPGPUSim.</strong> Installation of GPGPUSim requires the following conditions:</p>
 <ul>
 <li>CUDA environment is correctly installed and configured. Imported GPGPUSim supports CUDA versions from 4.0 to 11.0. See README within <em>gpgpu-sim</em> for details.</li>
 <li>GPGPUSim has a limitation on the compiler version. According to our experiment, GCC7 is recommended.</li>
@@ -2985,14 +3019,14 @@ make<span class="w"> </span>-j4
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>gpgpu-sim
 make<span class="w"> </span>-j4
 </code></pre></div>
-<p><strong>7. Compile Popnet.</strong></p>
+<p><strong>6. Compile Popnet.</strong></p>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>popnet
 mkdir<span class="w"> </span>build
 <span class="nb">cd</span><span class="w"> </span>build
 cmake<span class="w"> </span>..
 make<span class="w"> </span>-j4
 </code></pre></div>
-<p><strong>8. Compile the LegoSim.</strong> The compile process is managed by CMake.</p>
+<p><strong>7. Compile the LegoSim.</strong> The compile process is managed by CMake.</p>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>interchiplet
 mkdir<span class="w"> </span>build
 <span class="nb">cd</span><span class="w"> </span>build

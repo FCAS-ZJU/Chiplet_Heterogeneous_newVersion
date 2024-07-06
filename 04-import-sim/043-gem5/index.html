@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../sync__protocol_8h/">
+        <link rel="prev" href="../041-snipersim/">
       
       
-        <link rel="next" href="../apis__c_8cpp_source/">
+        <link rel="next" href="../042-gpgpusim/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -20,7 +20,7 @@
     
     
       
-        <title>apis_c.h - Documents for LegoSim</title>
+        <title>Importing GEM5 - Documents for LegoSim</title>
       
     
     
@@ -62,7 +62,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#file-apis_ch" class="md-skip">
+        <a href="#importing-gem5" class="md-skip">
           Skip to content
         </a>
       
@@ -98,7 +98,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              apis_c.h
+              Importing GEM5
             
           </span>
         </div>
@@ -327,7 +327,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../group__apis__for__cpu/" class="md-nav__link">
+      <a href="../../apiProject1/group__apis__for__cpu/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -348,7 +348,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../group__apis__for__cuda/" class="md-nav__link">
+      <a href="../../apiProject1/group__apis__for__cuda/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -598,6 +598,8 @@
       
   
   
+    
+  
   
   
     
@@ -620,16 +622,16 @@
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../04-import-sim/" class="md-nav__link ">
+            <a href="../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -646,7 +648,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             Importing Simulators
@@ -662,7 +664,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../04-import-sim/041-snipersim/" class="md-nav__link">
+      <a href="../041-snipersim/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -680,10 +682,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../04-import-sim/043-gem5/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Importing GEM5
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -692,6 +714,95 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#apis" class="md-nav__link">
+    <span class="md-ellipsis">
+      APIs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#handle-syscalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Handle Syscalls
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Handle Syscalls">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#handle-syscall_remote_writesyscall_remote_read" class="md-nav__link">
+    <span class="md-ellipsis">
+      Handle SYSCALL_REMOTE_WRITE/SYSCALL_REMOTE_READ
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-syscalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Other Syscalls
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adjust-simulator-tick" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adjust Simulator Tick
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#issue-cycle-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue CYCLE command
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cross-compile-for-arm-isa" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cross-compile for ARM ISA
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -704,7 +815,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../04-import-sim/042-gpgpusim/" class="md-nav__link">
+      <a href="../042-gpgpusim/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -725,7 +836,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../group__sync__proto/" class="md-nav__link">
+      <a href="../../apiProject1/group__sync__proto/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -746,7 +857,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../group__pipe__comm/" class="md-nav__link">
+      <a href="../../apiProject1/group__pipe__comm/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -823,7 +934,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../group__cmdline/" class="md-nav__link">
+      <a href="../../apiProject1/group__cmdline/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -844,7 +955,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../group__benchmark__yaml/" class="md-nav__link">
+      <a href="../../apiProject1/group__benchmark__yaml/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -865,7 +976,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../group__net__bench/" class="md-nav__link">
+      <a href="../../apiProject1/group__net__bench/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -886,7 +997,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../group__net__delay/" class="md-nav__link">
+      <a href="../../apiProject1/group__net__delay/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -907,7 +1018,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../group__cmd__handler__struct/" class="md-nav__link">
+      <a href="../../apiProject1/group__cmd__handler__struct/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -928,7 +1039,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../group__cmd__handler__func/" class="md-nav__link">
+      <a href="../../apiProject1/group__cmd__handler__func/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -953,10 +1064,8 @@
       
   
   
-    
   
   
-  
     
     
       
@@ -975,11 +1084,11 @@
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
         
           
           <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
@@ -993,7 +1102,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             Source Codes
@@ -1007,7 +1116,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pages/" class="md-nav__link">
+      <a href="../../apiProject1/pages/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1067,7 +1176,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../modules/" class="md-nav__link">
+      <a href="../../apiProject1/modules/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1147,7 +1256,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../namespaces/" class="md-nav__link">
+      <a href="../../apiProject1/namespaces/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1168,7 +1277,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../namespace_members/" class="md-nav__link">
+      <a href="../../apiProject1/namespace_members/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1189,7 +1298,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../namespace_member_functions/" class="md-nav__link">
+      <a href="../../apiProject1/namespace_member_functions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1210,7 +1319,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../namespace_member_variables/" class="md-nav__link">
+      <a href="../../apiProject1/namespace_member_variables/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1231,7 +1340,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../namespace_member_typedefs/" class="md-nav__link">
+      <a href="../../apiProject1/namespace_member_typedefs/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1252,7 +1361,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../namespace_member_enums/" class="md-nav__link">
+      <a href="../../apiProject1/namespace_member_enums/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1273,7 +1382,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../namespaceInterChiplet/" class="md-nav__link">
+      <a href="../../apiProject1/namespaceInterChiplet/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1395,7 +1504,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../annotated/" class="md-nav__link">
+      <a href="../../apiProject1/annotated/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1416,7 +1525,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../classes/" class="md-nav__link">
+      <a href="../../apiProject1/classes/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1437,7 +1546,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hierarchy/" class="md-nav__link">
+      <a href="../../apiProject1/hierarchy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1458,7 +1567,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../class_members/" class="md-nav__link">
+      <a href="../../apiProject1/class_members/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1479,7 +1588,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../class_member_functions/" class="md-nav__link">
+      <a href="../../apiProject1/class_member_functions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1500,7 +1609,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../class_member_variables/" class="md-nav__link">
+      <a href="../../apiProject1/class_member_variables/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1521,7 +1630,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../class_member_typedefs/" class="md-nav__link">
+      <a href="../../apiProject1/class_member_typedefs/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1542,7 +1651,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../class_member_enums/" class="md-nav__link">
+      <a href="../../apiProject1/class_member_enums/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1563,7 +1672,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../links/" class="md-nav__link">
+      <a href="../../apiProject1/links/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1584,7 +1693,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../classBenchmarkConfig/" class="md-nav__link">
+      <a href="../../apiProject1/classBenchmarkConfig/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1605,7 +1714,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../classCmdLineOptions/" class="md-nav__link">
+      <a href="../../apiProject1/classCmdLineOptions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1626,7 +1735,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../classNetworkBenchItem/" class="md-nav__link">
+      <a href="../../apiProject1/classNetworkBenchItem/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1647,7 +1756,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../classNetworkBenchList/" class="md-nav__link">
+      <a href="../../apiProject1/classNetworkBenchList/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1668,7 +1777,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../classNetworkDelayItem/" class="md-nav__link">
+      <a href="../../apiProject1/classNetworkDelayItem/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1689,7 +1798,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../classNetworkDelayMap/" class="md-nav__link">
+      <a href="../../apiProject1/classNetworkDelayMap/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1710,7 +1819,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../classNetworkDelayStruct/" class="md-nav__link">
+      <a href="../../apiProject1/classNetworkDelayStruct/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1731,7 +1840,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../classInterChiplet_1_1PipeComm/" class="md-nav__link">
+      <a href="../../apiProject1/classInterChiplet_1_1PipeComm/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1752,7 +1861,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../classInterChiplet_1_1PipeCommUnit/" class="md-nav__link">
+      <a href="../../apiProject1/classInterChiplet_1_1PipeCommUnit/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1773,7 +1882,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../classProcessConfig/" class="md-nav__link">
+      <a href="../../apiProject1/classProcessConfig/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1794,7 +1903,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../classProcessStruct/" class="md-nav__link">
+      <a href="../../apiProject1/classProcessStruct/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1815,7 +1924,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../classSyncBarrierStruct/" class="md-nav__link">
+      <a href="../../apiProject1/classSyncBarrierStruct/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1836,7 +1945,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../classSyncClockStruct/" class="md-nav__link">
+      <a href="../../apiProject1/classSyncClockStruct/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1857,7 +1966,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../classInterChiplet_1_1SyncCommand/" class="md-nav__link">
+      <a href="../../apiProject1/classInterChiplet_1_1SyncCommand/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1878,7 +1987,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../classSyncCommStruct/" class="md-nav__link">
+      <a href="../../apiProject1/classSyncCommStruct/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1899,7 +2008,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../classSyncLaunchStruct/" class="md-nav__link">
+      <a href="../../apiProject1/classSyncLaunchStruct/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1920,7 +2029,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../classSyncLockStruct/" class="md-nav__link">
+      <a href="../../apiProject1/classSyncLockStruct/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1941,7 +2050,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../classSyncPipeStruct/" class="md-nav__link">
+      <a href="../../apiProject1/classSyncPipeStruct/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1962,7 +2071,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../classSyncStruct/" class="md-nav__link">
+      <a href="../../apiProject1/classSyncStruct/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2068,7 +2177,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../files/" class="md-nav__link">
+      <a href="../../apiProject1/files/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2089,7 +2198,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../functions/" class="md-nav__link">
+      <a href="../../apiProject1/functions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2110,7 +2219,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../macros/" class="md-nav__link">
+      <a href="../../apiProject1/macros/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2131,7 +2240,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../variables/" class="md-nav__link">
+      <a href="../../apiProject1/variables/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2152,7 +2261,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dir_a2025b34133129e5724d121abe9a4a4a/" class="md-nav__link">
+      <a href="../../apiProject1/dir_a2025b34133129e5724d121abe9a4a4a/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2173,7 +2282,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dir_943fa6db2bfb09b7dcf1f02346dde40e/" class="md-nav__link">
+      <a href="../../apiProject1/dir_943fa6db2bfb09b7dcf1f02346dde40e/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2194,7 +2303,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dir_b94c70d771af9f161858c2c4e7b3d1c5/" class="md-nav__link">
+      <a href="../../apiProject1/dir_b94c70d771af9f161858c2c4e7b3d1c5/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2215,7 +2324,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../apis__c_8h/" class="md-nav__link">
+      <a href="../../apiProject1/apis__c_8h/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2236,7 +2345,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../apis__c_8cpp/" class="md-nav__link">
+      <a href="../../apiProject1/apis__c_8cpp/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2257,7 +2366,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../apis__cu_8h/" class="md-nav__link">
+      <a href="../../apiProject1/apis__cu_8h/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2278,7 +2387,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../benchmark__yaml_8h/" class="md-nav__link">
+      <a href="../../apiProject1/benchmark__yaml_8h/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2299,7 +2408,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cmd__handler_8h/" class="md-nav__link">
+      <a href="../../apiProject1/cmd__handler_8h/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2320,7 +2429,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cmd__handler_8cpp/" class="md-nav__link">
+      <a href="../../apiProject1/cmd__handler_8cpp/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2341,7 +2450,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cmdline__options_8h/" class="md-nav__link">
+      <a href="../../apiProject1/cmdline__options_8h/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2362,7 +2471,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../interchiplet_8cpp/" class="md-nav__link">
+      <a href="../../apiProject1/interchiplet_8cpp/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2383,7 +2492,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../global__define_8h/" class="md-nav__link">
+      <a href="../../apiProject1/global__define_8h/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2404,7 +2513,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../net__bench_8h/" class="md-nav__link">
+      <a href="../../apiProject1/net__bench_8h/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2425,7 +2534,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../net__delay_8h/" class="md-nav__link">
+      <a href="../../apiProject1/net__delay_8h/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2446,7 +2555,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pipe__comm_8h/" class="md-nav__link">
+      <a href="../../apiProject1/pipe__comm_8h/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2467,7 +2576,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../sync__protocol_8h/" class="md-nav__link">
+      <a href="../../apiProject1/sync__protocol_8h/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2493,10 +2602,8 @@
                 
   
   
-    
   
   
-  
     
     
       
@@ -2529,11 +2636,11 @@
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_6" >
         
           
           <label class="md-nav__link" for="__nav_7_6" id="__nav_7_6_label" tabindex="0">
@@ -2547,7 +2654,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_6_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7_6">
             <span class="md-nav__icon md-icon"></span>
             sources
@@ -2558,19 +2665,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../apiProject1/apis__c_8h_source/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2579,7 +2677,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -2592,7 +2689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../apis__c_8cpp_source/" class="md-nav__link">
+      <a href="../../apiProject1/apis__c_8cpp_source/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2613,7 +2710,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../apis__cu_8h_source/" class="md-nav__link">
+      <a href="../../apiProject1/apis__cu_8h_source/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2634,7 +2731,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../benchmark__yaml_8h_source/" class="md-nav__link">
+      <a href="../../apiProject1/benchmark__yaml_8h_source/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2655,7 +2752,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cmd__handler_8h_source/" class="md-nav__link">
+      <a href="../../apiProject1/cmd__handler_8h_source/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2676,7 +2773,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cmdline__options_8h_source/" class="md-nav__link">
+      <a href="../../apiProject1/cmdline__options_8h_source/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2697,7 +2794,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../interchiplet_8cpp_source/" class="md-nav__link">
+      <a href="../../apiProject1/interchiplet_8cpp_source/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2718,7 +2815,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../global__define_8h_source/" class="md-nav__link">
+      <a href="../../apiProject1/global__define_8h_source/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2739,7 +2836,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../net__bench_8h_source/" class="md-nav__link">
+      <a href="../../apiProject1/net__bench_8h_source/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2760,7 +2857,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../net__delay_8h_source/" class="md-nav__link">
+      <a href="../../apiProject1/net__delay_8h_source/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2781,7 +2878,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pipe__comm_8h_source/" class="md-nav__link">
+      <a href="../../apiProject1/pipe__comm_8h_source/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2802,7 +2899,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../sync__protocol_8h_source/" class="md-nav__link">
+      <a href="../../apiProject1/sync__protocol_8h_source/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2823,7 +2920,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cmd__handler_8cpp_source/" class="md-nav__link">
+      <a href="../../apiProject1/cmd__handler_8cpp_source/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2872,6 +2969,83 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#apis" class="md-nav__link">
+    <span class="md-ellipsis">
+      APIs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#handle-syscalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Handle Syscalls
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Handle Syscalls">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#handle-syscall_remote_writesyscall_remote_read" class="md-nav__link">
+    <span class="md-ellipsis">
+      Handle SYSCALL_REMOTE_WRITE/SYSCALL_REMOTE_READ
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-syscalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Other Syscalls
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adjust-simulator-tick" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adjust Simulator Tick
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#issue-cycle-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue CYCLE command
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cross-compile-for-arm-isa" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cross-compile for ARM ISA
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2885,35 +3059,176 @@
                   
 
 
-<h1 id="file-apis_ch">File apis_c.h</h1>
-<p><a href="../files/"><strong>File List</strong></a> <strong>&gt;</strong> <a href="../dir_943fa6db2bfb09b7dcf1f02346dde40e/"><strong>includes</strong></a> <strong>&gt;</strong> <a href="../apis__c_8h/"><strong>apis_c.h</strong></a></p>
-<p><a href="../apis__c_8h/">Go to the documentation of this file.</a> </p>
-<div class="highlight"><pre><span></span><code><span class="cp">#pragma once</span>
+<h1 id="importing-gem5">Importing GEM5</h1>
+<p><a href="https://github.com/gem5/gem5">GEM5</a> provides a powerful platform to study the architecture and micro-architecture of computer systems. It is widely used in both academic and industrial fields.</p>
+<p>Currently, supported ISAs include X86 and ARM. Supported timing models include AtomicSimpleCPU, TimingSimpleCPU, and O3CPU.</p>
+<h2 id="apis">APIs</h2>
+<p>APIs are implemented by System Calls. The following system call numbers are assigned to these APIs.</p>
+<div class="highlight"><pre><span></span><code><span class="n">SYSCALL_LAUNCH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">501</span><span class="p">,</span><span class="w">        </span><span class="c1">// Launch request.</span>
+<span class="n">SYSCALL_WAITLAUNCH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">502</span><span class="p">,</span><span class="w">    </span><span class="c1">// Waiit launch request.</span>
+<span class="n">SYSCALL_BARRIER</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">503</span><span class="p">,</span><span class="w">       </span><span class="c1">// Enter barrier.</span>
+<span class="n">SYSCALL_LOCK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">504</span><span class="p">,</span><span class="w">          </span><span class="c1">// Lock mutex.</span>
+<span class="n">SYSCALL_UNLOCK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">505</span><span class="p">,</span><span class="w">        </span><span class="c1">// Unlock mutex.</span>
+<span class="n">SYSCALL_REMOTE_READ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">506</span><span class="p">,</span><span class="w">   </span><span class="c1">// Read cross chiplet</span>
+<span class="n">SYSCALL_REMOTE_WRITE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">507</span><span class="p">,</span><span class="w">  </span><span class="c1">// Write cross chiplet</span>
+</code></pre></div>
+<p>Each benchmark API corresponds to one system call. All arguments of the benchmark APIs are also the arguments for system calls.</p>
+<h2 id="handle-syscalls">Handle Syscalls</h2>
+<p>Gem5 is categorized as an execution-driven simulation. The timing model will call the function model at the right time one instruction by one instruction. Hence, the functional commands and the timing commands can be handled in the same place.</p>
+<p>Gem5 provides unified function models for all timing models. The function models for all ISAs are implemented in folder <code>src/arch</code>. Each ISA has different syscall lists.</p>
+<ul>
+<li><em>$SIMULATOR_ROOT/gem5/src/arch/x86/linux/syscall_tbl32.cc</em> and <em>$SIMULATOR_ROOT/gem5/src/arch/x86/linux/syscall_tbl64.cc</em> define the syscall list for x86.</li>
+<li><em>$SIMULATOR_ROOT/gem5/src/arch/arm/linux/se_workload.cc</em> defines the syscall list for ARMv8 ISA.</li>
+</ul>
+<p>Different ISAs apply the same emulator of syscalls. You can find the handler for all syscalls in <em>$SIMULATOR_ROOT/gem5/src/sim/syscall_emul.hh</em> and <em>$SIMULATOR_ROOT/gem5/src/sim/syscall_emul.cc</em>. </p>
+<h3 id="handle-syscall_remote_writesyscall_remote_read">Handle SYSCALL_REMOTE_WRITE/SYSCALL_REMOTE_READ</h3>
+<p>The flow chart of <code>SYSCALL_REMOTE_WRITE</code> and <code>SYSCALL_REMOTE_READ</code> is as follows:</p>
+<pre class="mermaid"><code>flowchart TD
 
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+subgraph Write Syscall
+O1(Start)
+A1[Copy data out of simulation space]
+B1[Issue SEND command]
+C1[Wait for RESULT command]
+D1[Open Pipe]
+E1[Write data to Pipe]
+F1[Get current simulation cycle]
+G1[Send WRITE command]
+H1[Wait for SYNC command]
+I1[Adjust simulation cycle]
+Z1(End)
+end
 
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdint&gt;</span>
+O1--&gt;A1--&gt;B1--&gt;C1--&gt;D1--&gt;E1--&gt;F1--&gt;G1--&gt;H1----&gt;I1--&gt;Z1
+C1--&gt;C1
+H1--&gt;H1
 
-<span class="k">namespace</span><span class="w"> </span><span class="nn">InterChiplet</span><span class="w"> </span><span class="p">{</span>
-<span class="k">typedef</span><span class="w"> </span><span class="k">decltype</span><span class="p">(</span><span class="n">syscall</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span><span class="w"> </span><span class="n">syscall_return_t</span><span class="p">;</span>
+subgraph Read Syscall
+O2(Start)
+A2[Issue RECEIVE command]
+B2[Wait for RESULT command]
+C2[Open Pipe]
+D2[Read data from Pipe]
+E2[Get current simulation cycle]
+F2[Send READ command]
+G2[Wait for SYNC command]
+H2[Copy data into simulation space]
+I2[Adjust simulation tick]
+Z2(End)
+end
 
-<span class="n">syscall_return_t</span><span class="w"> </span><span class="nf">launch</span><span class="p">(</span><span class="kt">int64_t</span><span class="w"> </span><span class="n">__dst_x</span><span class="p">,</span><span class="w"> </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">__dst_y</span><span class="p">,</span><span class="w"> </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">__src_x</span><span class="p">,</span><span class="w"> </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">__src_y</span><span class="p">);</span>
+O2----&gt;A2--&gt;B2--&gt;C2--&gt;D2--&gt;E2--&gt;F2--&gt;G2--&gt;H2--&gt;I2--&gt;Z2
+B2--&gt;B2
+G2--&gt;G2</code></pre>
+<h3 id="other-syscalls">Other Syscalls</h3>
+<p>Different from <code>SYSCALL_REMOTE_WRITE</code> and <code>SYSCALL_REMOTE_READ</code>, except for functional and timing commands, it is not necessary to handle other functionality.</p>
+<p>The flow chart is as follows:</p>
+<pre class="mermaid"><code>flowchart TD
 
-<span class="n">syscall_return_t</span><span class="w"> </span><span class="nf">waitLaunch</span><span class="p">(</span><span class="kt">int64_t</span><span class="w"> </span><span class="n">__dst_x</span><span class="p">,</span><span class="w"> </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">__dst_y</span><span class="p">,</span><span class="w"> </span><span class="kt">int64_t</span><span class="o">*</span><span class="w"> </span><span class="n">__src_x</span><span class="p">,</span><span class="w"> </span><span class="kt">int64_t</span><span class="o">*</span><span class="w"> </span><span class="n">__src_y</span><span class="p">);</span>
+A1[Issue functional command]
+B1[Wait for RESULT command]
 
-<span class="n">syscall_return_t</span><span class="w"> </span><span class="nf">barrier</span><span class="p">(</span><span class="kt">int64_t</span><span class="w"> </span><span class="n">__uid</span><span class="p">,</span><span class="w"> </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">__src_x</span><span class="p">,</span><span class="w"> </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">__src_y</span><span class="p">,</span><span class="w"> </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">__count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+A2[Issue timing command]
+B2[Wait for SYNC command]
+C2[Change the simulator tick]
 
-<span class="n">syscall_return_t</span><span class="w"> </span><span class="nf">lock</span><span class="p">(</span><span class="kt">int64_t</span><span class="w"> </span><span class="n">__uid</span><span class="p">,</span><span class="w"> </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">__src_x</span><span class="p">,</span><span class="w"> </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">__src_y</span><span class="p">);</span>
+A1--&gt;B1--&gt;A2--&gt;B2--&gt;C2
+B1--&gt;B1
+B2--&gt;B2</code></pre>
+<p>The mapping between APIs and commands is shown below:</p>
+<table>
+<thead>
+<tr>
+<th>System call</th>
+<th style="text-align: center;">Functional command</th>
+<th style="text-align: center;">Timing command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>launch</code></td>
+<td style="text-align: center;"><code>LAUNCH</code></td>
+<td style="text-align: center;"><code>WRITE</code></td>
+</tr>
+<tr>
+<td><code>waitlaunch</code></td>
+<td style="text-align: center;"><code>WAITLAUNCH</code></td>
+<td style="text-align: center;"><code>READ</code></td>
+</tr>
+<tr>
+<td><code>barrier</code></td>
+<td style="text-align: center;"><code>BARRIER</code></td>
+<td style="text-align: center;"><code>WRITE</code></td>
+</tr>
+<tr>
+<td><code>lock</code></td>
+<td style="text-align: center;"><code>LOCK</code></td>
+<td style="text-align: center;"><code>WRITE</code></td>
+</tr>
+<tr>
+<td><code>unlock</code></td>
+<td style="text-align: center;"><code>UNLOCK</code></td>
+<td style="text-align: center;"><code>WRITE</code></td>
+</tr>
+<tr>
+<td><code>receiveMessage</code></td>
+<td style="text-align: center;"><code>READ</code></td>
+<td style="text-align: center;"><code>READ</code></td>
+</tr>
+<tr>
+<td><code>sendMessage</code></td>
+<td style="text-align: center;"><code>WRITE</code></td>
+<td style="text-align: center;"><code>WRITE</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="adjust-simulator-tick">Adjust Simulator Tick</h2>
+<p>In order to deal with multiple clock domains in computer systems, the basic timing unit in Gem5 is called <code>Tick</code> instead of the cycle. Considering one chiplet with multiple clock domains, we prefer to handle the unit transaction by benchmark configuration files (.yaml). </p>
+<p>For example,</p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">cmd</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;$SIMULATOR_ROOT/gem5/build/X86/gem5.opt&quot;</span>
+<span class="w">    </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;$SIMULATOR_ROOT/gem5/configs/deprecated/example/se.py&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;--cmd&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;$BENCHMARK_ROOT/bin/test_c&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;-o&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;0</span><span class="nv"> </span><span class="s">0&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;gem5.0.0.log&quot;</span>
+<span class="w">    </span><span class="nt">is_to_stdout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">clock_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500</span>
+</code></pre></div>
+<p>The kernel simulation loop of Gem5 is one event queue. Timing models handle the first event in the queue and inject for events if necessary.</p>
+<pre class="mermaid"><code>flowchart LR
 
-<span class="n">syscall_return_t</span><span class="w"> </span><span class="nf">unlock</span><span class="p">(</span><span class="kt">int64_t</span><span class="w"> </span><span class="n">__uid</span><span class="p">,</span><span class="w"> </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">__src_x</span><span class="p">,</span><span class="w"> </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">__src_y</span><span class="p">);</span>
+A1[Event queue]
+B1[Timing model]
 
-<span class="n">syscall_return_t</span><span class="w"> </span><span class="nf">sendMessage</span><span class="p">(</span><span class="kt">int64_t</span><span class="w"> </span><span class="n">__dst_x</span><span class="p">,</span><span class="w"> </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">__dst_y</span><span class="p">,</span><span class="w"> </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">__src_x</span><span class="p">,</span><span class="w"> </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">__src_y</span><span class="p">,</span>
-<span class="w">                             </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">__addr</span><span class="p">,</span><span class="w"> </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">__nbyte</span><span class="p">);</span>
+A1--"The first event in queue"--&gt;B1--"More events"--&gt;A1</code></pre>
+<p>Two global variables are added in <em>$SIMULATOR_ROOT/gem5/src/sim/eventq.hh</em> and <em>$SIMULATOR_ROOT/gem5/src/sim/eventq.cc</em> so that all components can access them.</p>
+<ul>
+<li><code>gem5::interchiplet_end_tick_valid</code> means whether it is necessary to change the simulator tick.</li>
+<li><code>gem5::interchiplet_end_tick</code> means the target to change the simulator tick.</li>
+</ul>
+<p>In AtomicSimpleCPU, the timing model injects one tick event into the event queue every cycle. When the simulator tick needs changing, the latency is added to the next tick event so the simulator can move forward to the target time. See <em>$SIMULATOR_ROOT/gem5/src/cpu/simple/atomic.cc</em> for details.</p>
+<p>In TimingSimpleCPU, the timing model injects one fetch event into the event queue for each bubble. When the simulator tick needs changing, the next fetch event is injected into the event queue at the target time. See <em>$SIMULATOR_ROOT/gem5/src/cpu/simple/timing.cc</em> for details.</p>
+<p>In O3CPU, the timing model also injects one tick event into the event queue every cycle. Hence, the next tick event is injected at the target time when the tick needs changing. See <em>$SIMULATOR_ROOT/gem5/src/cpu/o3/cpu.cc</em> for details.</p>
+<h2 id="issue-cycle-command">Issue CYCLE command</h2>
+<p>Because the CPU always controls the flow of benchmarks, the CPU's execution cycle plays a vital role in the execution cycle of the entire simulation. CYCLE command is issued in file <em>$SIMULATOR_ROOT/gem5/src/sim/sim_event.cc</em> when the simulator quits the simulation loop.</p>
+<h2 id="cross-compile-for-arm-isa">Cross-compile for ARM ISA</h2>
+<p>As a universal simulation platform, Gem5 supports multiple ISAs. Syscalls required to handle benchmark APIs have been added to x86 and ARM ISA. Hence, Gem5 in LegoSim can also execute ARM benchmarks.</p>
+<p>The following command installs the cross-compiler for ARM.</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>gcc-aarch64-linux-gnu
+</code></pre></div>
+<p>Then, you can use <code>aarch64-linux-gnu-gcc</code> and <code>aarch64-linux-gnu-g++</code> to compile benchmarks just like <code>gcc</code> and <code>g++</code>.</p>
+<blockquote>
+<p>Wnen apply ARM cross compile, <code>interchiplet_c</code> cannot be used. <code>apis_c.cpp</code> should be compiled to one object file and linked to the target.</p>
+</blockquote>
+<p>For example,</p>
+<div class="highlight"><pre><span></span><code><span class="c"># C language target</span>
+<span class="nf">C_target</span><span class="o">:</span><span class="w"> </span><span class="k">$(</span><span class="nv">C_OBJS</span><span class="k">)</span> <span class="n">obj</span>/<span class="n">interchiplet</span>.<span class="n">o</span>
+<span class="w">    </span><span class="k">$(</span>CC<span class="k">)</span><span class="w"> </span><span class="k">$(</span>C_OBJS<span class="k">)</span><span class="w"> </span>obj/interchiplet.o<span class="w"> </span>-o<span class="w"> </span><span class="k">$(</span>C_TARGET<span class="k">)</span>
 
-<span class="n">syscall_return_t</span><span class="w"> </span><span class="nf">receiveMessage</span><span class="p">(</span><span class="kt">int64_t</span><span class="w"> </span><span class="n">__dst_x</span><span class="p">,</span><span class="w"> </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">__dst_y</span><span class="p">,</span><span class="w"> </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">__src_x</span><span class="p">,</span><span class="w"> </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">__src_y</span><span class="p">,</span>
-<span class="w">                                </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">__addr</span><span class="p">,</span><span class="w"> </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">__nbyte</span><span class="p">);</span>
+<span class="c"># Interchiplet library</span>
+<span class="nf">obj/interchiplet.o</span><span class="o">:</span><span class="w"> </span>../../../../<span class="n">interchiplet</span>/<span class="n">srcs</span>/<span class="n">apis_c</span>.<span class="n">cpp</span>
+<span class="w">    </span><span class="k">$(</span>CC<span class="k">)</span><span class="w"> </span><span class="k">$(</span>CFLAGS<span class="k">)</span><span class="w"> </span>-c<span class="w"> </span>$&lt;<span class="w"> </span>-o<span class="w"> </span><span class="nv">$@</span>
 
-<span class="p">}</span><span class="w">  </span><span class="c1">// namespace InterChiplet</span>
+<span class="c"># Rule for C object</span>
+<span class="nf">obj/%.o</span><span class="o">:</span><span class="w"> </span>../../<span class="n">snipersim</span>/<span class="n">barrier</span>/%.<span class="n">cpp</span>
+<span class="w">    </span><span class="k">$(</span>CC<span class="k">)</span><span class="w"> </span><span class="k">$(</span>CFLAGS<span class="k">)</span><span class="w"> </span>-c<span class="w"> </span>$&lt;<span class="w"> </span>-o<span class="w"> </span><span class="nv">$@</span>
 </code></pre></div>
 
 
