@@ -5,25 +5,25 @@ phase1:
     args: ["$SIMULATOR_ROOT/gem5/configs/deprecated/example/se.py", "--cmd", "$BENCHMARK_ROOT/bin/test_c", "-o", "0 0"]
     log: "gem5.0.0.log"
     is_to_stdout: false
-    clock_rate: 1
+    clock_rate: 500
   # Process 1
   - cmd: "$SIMULATOR_ROOT/gem5/build/X86/gem5.opt"
     args: ["$SIMULATOR_ROOT/gem5/configs/deprecated/example/se.py", "--cmd", "$BENCHMARK_ROOT/bin/test_c", "-o", "0 1"]
     log: "gem5.0.1.log"
     is_to_stdout: false
-    clock_rate: 1
+    clock_rate: 500
   # Process 2
   - cmd: "$SIMULATOR_ROOT/gem5/build/X86/gem5.opt"
     args: ["$SIMULATOR_ROOT/gem5/configs/deprecated/example/se.py", "--cmd", "$BENCHMARK_ROOT/bin/test_c", "-o", "1 0"]
     log: "gem5.1.0.log"
     is_to_stdout: false
-    clock_rate: 1
+    clock_rate: 500
   # Process 3
   - cmd: "$SIMULATOR_ROOT/gem5/build/X86/gem5.opt"
     args: ["$SIMULATOR_ROOT/gem5/configs/deprecated/example/se.py", "--cmd", "$BENCHMARK_ROOT/bin/test_c", "-o", "1 1"]
     log: "gem5.1.1.log"
     is_to_stdout: false
-    clock_rate: 1
+    clock_rate: 500
 
 # Phase 2 configuration.
 phase2:

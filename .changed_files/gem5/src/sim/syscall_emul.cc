@@ -1511,6 +1511,11 @@ interChipletLaunch(SyscallDesc *desc, ThreadContext *tc,
                    int dst_x, int dst_y, int src_x, int src_y)
 {
     InterChiplet::launchSync(src_x, src_y, dst_x, dst_y);
+    gem5::Tick end_time = InterChiplet::writeSync(
+        curTick(), src_x, src_y, dst_x, dst_y, 1, InterChiplet::SPD_LAUNCH);
+
+    gem5::interchiplet_end_tick_valid = true;
+    gem5::interchiplet_end_tick = end_time;
 
     return 0;
 }
@@ -1524,6 +1529,11 @@ interChipletWaitLaunch(SyscallDesc *desc, ThreadContext *tc,
     InterChiplet::waitlaunchSync(&__src_x, &__src_y, dst_x, dst_y);
     *src_x = __src_x;
     *src_y = __src_y;
+    gem5::Tick end_time = InterChiplet::readSync(
+        curTick(), __src_x, __src_y, dst_x, dst_y, 1, InterChiplet::SPD_LAUNCH);
+
+    gem5::interchiplet_end_tick_valid = true;
+    gem5::interchiplet_end_tick = end_time;
 
     return 0;
 }
@@ -1533,6 +1543,11 @@ interChipletBarrier(SyscallDesc *desc, ThreadContext *tc,
                     int uid, int src_x, int src_y, int count)
 {
     InterChiplet::barrierSync(src_x, src_y, uid, count);
+    gem5::Tick end_time = InterChiplet::writeSync(
+        curTick(), src_x, src_y, uid, 0, 1, InterChiplet::SPD_BARRIER + count);
+
+    gem5::interchiplet_end_tick_valid = true;
+    gem5::interchiplet_end_tick = end_time;
 
     return 0;
 }
@@ -1542,6 +1557,11 @@ interChipletLock(SyscallDesc *desc, ThreadContext *tc,
                     int uid, int src_x, int src_y)
 {
     InterChiplet::lockSync(src_x, src_y, uid);
+    gem5::Tick end_time = InterChiplet::writeSync(
+        curTick(), src_x, src_y, uid, 0, 1, InterChiplet::SPD_LOCK);
+
+    gem5::interchiplet_end_tick_valid = true;
+    gem5::interchiplet_end_tick = end_time;
 
     return 0;
 }
@@ -1551,6 +1571,11 @@ interChipletUnlock(SyscallDesc *desc, ThreadContext *tc,
                     int uid, int src_x, int src_y)
 {
     InterChiplet::unlockSync(src_x, src_y, uid);
+    gem5::Tick end_time = InterChiplet::writeSync(
+        curTick(), src_x, src_y, uid, 0, 1, InterChiplet::SPD_UNLOCK);
+
+    gem5::interchiplet_end_tick_valid = true;
+    gem5::interchiplet_end_tick = end_time;
 
     return 0;
 }
@@ -1564,6 +1589,12 @@ interChipletSend(SyscallDesc *desc, ThreadContext *tc,
     data.copyOut(SETranslatingPortProxy(tc));
     global_pipe_comm.write_data(fileName.c_str(), data.bufferPtr(), nbytes);
 
+    gem5::Tick end_time = InterChiplet::writeSync(
+        curTick(), src_x, src_y, dst_x, dst_y, nbytes, 0);
+
+    gem5::interchiplet_end_tick_valid = true;
+    gem5::interchiplet_end_tick = end_time;
+
     return 0;
 }
 
@@ -1575,6 +1606,12 @@ interChipletReceive(SyscallDesc *desc, ThreadContext *tc,
     BufferArg data(addr, nbytes);
     global_pipe_comm.read_data(fileName.c_str(), data.bufferPtr(), nbytes);
     data.copyIn(SETranslatingPortProxy(tc));
+
+    gem5::Tick end_time = InterChiplet::readSync(
+        curTick(), src_x, src_y, dst_x, dst_y, nbytes, 0);
+
+    gem5::interchiplet_end_tick_valid = true;
+    gem5::interchiplet_end_tick = end_time;
 
     return 0;
 }

@@ -101,6 +101,111 @@ index 26299d884b..315cc37c3e 100644
  };
  
  } // namespace X86ISA
+diff --git a/src/cpu/o3/cpu.cc b/src/cpu/o3/cpu.cc
+index a93d5bc74d..d0cc98167a 100644
+--- a/src/cpu/o3/cpu.cc
++++ b/src/cpu/o3/cpu.cc
+@@ -388,8 +388,14 @@ CPU::tick()
+             lastRunningCycle = curCycle();
+             cpuStats.timesIdled++;
+         } else {
+-            schedule(tickEvent, clockEdge(Cycles(1)));
+-            DPRINTF(O3CPU, "Scheduling next tick!\n");
++            if (gem5::interchiplet_end_tick_valid) {
++                std::cout << "Directly forward tick to " << gem5::interchiplet_end_tick << std::endl;
++                gem5::interchiplet_end_tick_valid = false;
++                schedule(tickEvent, gem5::interchiplet_end_tick);
++            } else {
++                schedule(tickEvent, clockEdge(Cycles(1)));
++                DPRINTF(O3CPU, "Scheduling next tick!\n");
++            }
+         }
+     }
+ 
+diff --git a/src/cpu/simple/atomic.cc b/src/cpu/simple/atomic.cc
+index 2cbb62da0c..7cb5ac4104 100644
+--- a/src/cpu/simple/atomic.cc
++++ b/src/cpu/simple/atomic.cc
+@@ -730,6 +730,12 @@ AtomicSimpleCPU::tick()
+     if (tryCompleteDrain())
+         return;
+ 
++    if (gem5::interchiplet_end_tick_valid) {
++        std::cout << "Directly forward tick to " << gem5::interchiplet_end_tick << std::endl;
++        latency = gem5::interchiplet_end_tick - gem5::curTick();
++        gem5::interchiplet_end_tick_valid = false;
++    }
++
+     // instruction takes at least one cycle
+     if (latency < clockPeriod())
+         latency = clockPeriod();
+diff --git a/src/cpu/simple/timing.cc b/src/cpu/simple/timing.cc
+index c6348da16a..a9a53eca8e 100644
+--- a/src/cpu/simple/timing.cc
++++ b/src/cpu/simple/timing.cc
+@@ -807,10 +807,24 @@ TimingSimpleCPU::advanceInst(const Fault &fault)
+     serviceInstCountEvents();
+ 
+     if (_status == BaseSimpleCPU::Running) {
+-        // kick off fetch of next instruction... callback from icache
+-        // response will cause that instruction to be executed,
+-        // keeping the CPU running.
+-        fetch();
++        if (gem5::interchiplet_end_tick_valid) {
++            // blocking CPU by reschedule fetch event.
++            std::cout << "Directly forward tick to " << gem5::interchiplet_end_tick
++                << std::endl;
++            gem5::interchiplet_end_tick_valid = false;
++            if (gem5::interchiplet_end_tick > curTick())
++            {
++                reschedule(fetchEvent, gem5::interchiplet_end_tick, true);
++            } else {
++                // Same as no blocking.
++                fetch();
++            }
++        } else {
++            // kick off fetch of next instruction... callback from icache
++            // response will cause that instruction to be executed,
++            // keeping the CPU running.
++            fetch();
++        }
+     }
+ }
+ 
+diff --git a/src/sim/eventq.cc b/src/sim/eventq.cc
+index 23ca2f6f4e..9c33f8f1e6 100644
+--- a/src/sim/eventq.cc
++++ b/src/sim/eventq.cc
+@@ -44,6 +44,8 @@
+ 
+ namespace gem5
+ {
++bool interchiplet_end_tick_valid = false;
++Tick interchiplet_end_tick = 0;
+ 
+ Tick simQuantum = 0;
+ 
+@@ -256,6 +258,7 @@ EventQueue::serviceOne()
+         event->flags.clear(Event::Squashed);
+     }
+ 
++    // std::cout << event->when() << "\t" << event->name() <<  "\t" << event->description() << std::endl;
+     event->release();
+ 
+     return NULL;
+diff --git a/src/sim/eventq.hh b/src/sim/eventq.hh
+index cf1734b992..c4b1b35797 100644
+--- a/src/sim/eventq.hh
++++ b/src/sim/eventq.hh
+@@ -57,6 +57,8 @@
+ 
+ namespace gem5
+ {
++extern bool interchiplet_end_tick_valid;
++extern Tick interchiplet_end_tick;
+ 
+ class EventQueue;       // forward declaration
+ class BaseGlobalEvent;
 diff --git a/src/sim/sim_events.cc b/src/sim/sim_events.cc
 index 66379d2061..e55461fb60 100644
 --- a/src/sim/sim_events.cc
@@ -135,7 +240,7 @@ index 66379d2061..e55461fb60 100644
  }
  
 diff --git a/src/sim/syscall_emul.cc b/src/sim/syscall_emul.cc
-index 9794a4835e..2a9a0ff239 100644
+index 9794a4835e..cd1e337ea2 100644
 --- a/src/sim/syscall_emul.cc
 +++ b/src/sim/syscall_emul.cc
 @@ -52,6 +52,9 @@
@@ -148,7 +253,7 @@ index 9794a4835e..2a9a0ff239 100644
  namespace gem5
  {
  
-@@ -1502,4 +1505,79 @@ getcpuFunc(SyscallDesc *desc, ThreadContext *tc,
+@@ -1502,4 +1505,116 @@ getcpuFunc(SyscallDesc *desc, ThreadContext *tc,
      return 0;
  }
  
@@ -158,6 +263,11 @@ index 9794a4835e..2a9a0ff239 100644
 +                   int dst_x, int dst_y, int src_x, int src_y)
 +{
 +    InterChiplet::launchSync(src_x, src_y, dst_x, dst_y);
++    gem5::Tick end_time = InterChiplet::writeSync(
++        curTick(), src_x, src_y, dst_x, dst_y, 1, InterChiplet::SPD_LAUNCH);
++
++    gem5::interchiplet_end_tick_valid = true;
++    gem5::interchiplet_end_tick = end_time;
 +
 +    return 0;
 +}
@@ -171,6 +281,11 @@ index 9794a4835e..2a9a0ff239 100644
 +    InterChiplet::waitlaunchSync(&__src_x, &__src_y, dst_x, dst_y);
 +    *src_x = __src_x;
 +    *src_y = __src_y;
++    gem5::Tick end_time = InterChiplet::readSync(
++        curTick(), __src_x, __src_y, dst_x, dst_y, 1, InterChiplet::SPD_LAUNCH);
++
++    gem5::interchiplet_end_tick_valid = true;
++    gem5::interchiplet_end_tick = end_time;
 +
 +    return 0;
 +}
@@ -180,6 +295,11 @@ index 9794a4835e..2a9a0ff239 100644
 +                    int uid, int src_x, int src_y, int count)
 +{
 +    InterChiplet::barrierSync(src_x, src_y, uid, count);
++    gem5::Tick end_time = InterChiplet::writeSync(
++        curTick(), src_x, src_y, uid, 0, 1, InterChiplet::SPD_BARRIER + count);
++
++    gem5::interchiplet_end_tick_valid = true;
++    gem5::interchiplet_end_tick = end_time;
 +
 +    return 0;
 +}
@@ -189,6 +309,11 @@ index 9794a4835e..2a9a0ff239 100644
 +                    int uid, int src_x, int src_y)
 +{
 +    InterChiplet::lockSync(src_x, src_y, uid);
++    gem5::Tick end_time = InterChiplet::writeSync(
++        curTick(), src_x, src_y, uid, 0, 1, InterChiplet::SPD_LOCK);
++
++    gem5::interchiplet_end_tick_valid = true;
++    gem5::interchiplet_end_tick = end_time;
 +
 +    return 0;
 +}
@@ -198,6 +323,11 @@ index 9794a4835e..2a9a0ff239 100644
 +                    int uid, int src_x, int src_y)
 +{
 +    InterChiplet::unlockSync(src_x, src_y, uid);
++    gem5::Tick end_time = InterChiplet::writeSync(
++        curTick(), src_x, src_y, uid, 0, 1, InterChiplet::SPD_UNLOCK);
++
++    gem5::interchiplet_end_tick_valid = true;
++    gem5::interchiplet_end_tick = end_time;
 +
 +    return 0;
 +}
@@ -211,6 +341,12 @@ index 9794a4835e..2a9a0ff239 100644
 +    data.copyOut(SETranslatingPortProxy(tc));
 +    global_pipe_comm.write_data(fileName.c_str(), data.bufferPtr(), nbytes);
 +
++    gem5::Tick end_time = InterChiplet::writeSync(
++        curTick(), src_x, src_y, dst_x, dst_y, nbytes, 0);
++
++    gem5::interchiplet_end_tick_valid = true;
++    gem5::interchiplet_end_tick = end_time;
++
 +    return 0;
 +}
 +
@@ -222,6 +358,12 @@ index 9794a4835e..2a9a0ff239 100644
 +    BufferArg data(addr, nbytes);
 +    global_pipe_comm.read_data(fileName.c_str(), data.bufferPtr(), nbytes);
 +    data.copyIn(SETranslatingPortProxy(tc));
++
++    gem5::Tick end_time = InterChiplet::readSync(
++        curTick(), src_x, src_y, dst_x, dst_y, nbytes, 0);
++
++    gem5::interchiplet_end_tick_valid = true;
++    gem5::interchiplet_end_tick = end_time;
 +
 +    return 0;
 +}
