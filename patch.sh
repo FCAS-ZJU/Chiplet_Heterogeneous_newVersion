@@ -36,3 +36,16 @@ for item in "${file_list[@]}"; do
     echo $item
     cp --parent gpgpu-sim/$item .changed_files/
 done
+
+# Patch for GEM5
+cd ${SIMULATOR_ROOT}/gem5
+git diff > ../interchiplet/patch/gem5.diff
+gem5_changed_file_list="$(git diff --name-only)"
+
+cd ${SIMULATOR_ROOT}
+file_list=($gem5_changed_file_list)
+echo ${#file_list[@]} "Files has changed."
+for item in "${file_list[@]}"; do
+    echo $item
+    cp --parent gem5/$item .changed_files/
+done

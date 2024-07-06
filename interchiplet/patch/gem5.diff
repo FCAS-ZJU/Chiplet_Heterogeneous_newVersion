@@ -1,0 +1,405 @@
+diff --git a/src/arch/arm/linux/se_workload.cc b/src/arch/arm/linux/se_workload.cc
+index c919d85edf..80aacf5a66 100644
+--- a/src/arch/arm/linux/se_workload.cc
++++ b/src/arch/arm/linux/se_workload.cc
+@@ -49,6 +49,8 @@
+ #include "mem/se_translating_port_proxy.hh"
+ #include "sim/syscall_emul.hh"
+ 
++#include "../../../../../../interchiplet/includes/sync_protocol.h"
++
+ namespace gem5
+ {
+ 
+@@ -488,7 +490,14 @@ class SyscallTable32 : public SyscallDescTable<EmuLinux::SyscallABI32>
+         { base + 363, "sys_rt_tgsigqueueinfo" },
+         { base + 364, "sys_perf_event_open" },
+         { base + 365, "sys_recvmmsg" },
+-        { base + 384, "getrandom", getrandomFunc<ArmLinux32> }
++        { base + 384, "getrandom", getrandomFunc<ArmLinux32> },
++        { InterChiplet::SYSCALL_LAUNCH, "interchiplet_launch", interChipletLaunch },
++        { InterChiplet::SYSCALL_WAITLAUNCH, "interchiplet_waitlaunch", interChipletWaitLaunch },
++        { InterChiplet::SYSCALL_BARRIER, "interchiplet_barrier", interChipletBarrier },
++        { InterChiplet::SYSCALL_LOCK, "interchiplet_lock", interChipletLock },
++        { InterChiplet::SYSCALL_UNLOCK, "interchiplet_unlock", interChipletUnlock },
++        { InterChiplet::SYSCALL_REMOTE_READ, "interchiplet_receive", interChipletReceive },
++        { InterChiplet::SYSCALL_REMOTE_WRITE, "interchiplet_send", interChipletSend }
+     })
+     {}
+ };
+@@ -841,7 +850,14 @@ class SyscallTable64 : public SyscallDescTable<EmuLinux::SyscallABI64>
+         { base + 1076, "umount" },
+         { base + 1077, "uselib" },
+         { base + 1078, "_sysctl" },
+-        { base + 1079, "fork" }
++        { base + 1079, "fork" },
++        { InterChiplet::SYSCALL_LAUNCH, "interchiplet_launch", interChipletLaunch },
++        { InterChiplet::SYSCALL_WAITLAUNCH, "interchiplet_waitlaunch", interChipletWaitLaunch },
++        { InterChiplet::SYSCALL_BARRIER, "interchiplet_barrier", interChipletBarrier },
++        { InterChiplet::SYSCALL_LOCK, "interchiplet_lock", interChipletLock },
++        { InterChiplet::SYSCALL_UNLOCK, "interchiplet_unlock", interChipletUnlock },
++        { InterChiplet::SYSCALL_REMOTE_READ, "interchiplet_receive", interChipletReceive },
++        { InterChiplet::SYSCALL_REMOTE_WRITE, "interchiplet_send", interChipletSend }
+     })
+     {}
+ };
+diff --git a/src/arch/x86/linux/syscall_tbl32.cc b/src/arch/x86/linux/syscall_tbl32.cc
+index 2de334cee3..92a39dc81c 100644
+--- a/src/arch/x86/linux/syscall_tbl32.cc
++++ b/src/arch/x86/linux/syscall_tbl32.cc
+@@ -32,6 +32,8 @@
+ #include "arch/x86/linux/syscalls.hh"
+ #include "sim/syscall_emul.hh"
+ 
++#include "../../../../../../interchiplet/includes/sync_protocol.h"
++
+ namespace gem5
+ {
+ 
+@@ -371,7 +373,14 @@ SyscallDescTable<EmuLinux::SyscallABI32> EmuLinux::syscallDescs32 = {
+     { 321, "signalfd" },
+     { 322, "timerfd" },
+     { 323, "eventfd", eventfdFunc<X86Linux32> },
+-    { 355, "getrandom", getrandomFunc<X86Linux32>}
++    { 355, "getrandom", getrandomFunc<X86Linux32>},
++    { InterChiplet::SYSCALL_LAUNCH, "interchiplet_launch", interChipletLaunch },
++    { InterChiplet::SYSCALL_WAITLAUNCH, "interchiplet_waitlaunch", interChipletWaitLaunch },
++    { InterChiplet::SYSCALL_BARRIER, "interchiplet_barrier", interChipletBarrier },
++    { InterChiplet::SYSCALL_LOCK, "interchiplet_lock", interChipletLock },
++    { InterChiplet::SYSCALL_UNLOCK, "interchiplet_unlock", interChipletUnlock },
++    { InterChiplet::SYSCALL_REMOTE_READ, "interchiplet_receive", interChipletReceive },
++    { InterChiplet::SYSCALL_REMOTE_WRITE, "interchiplet_send", interChipletSend }
+ };
+ 
+ } // namespace X86ISA
+diff --git a/src/arch/x86/linux/syscall_tbl64.cc b/src/arch/x86/linux/syscall_tbl64.cc
+index 26299d884b..315cc37c3e 100644
+--- a/src/arch/x86/linux/syscall_tbl64.cc
++++ b/src/arch/x86/linux/syscall_tbl64.cc
+@@ -32,6 +32,8 @@
+ #include "arch/x86/linux/syscalls.hh"
+ #include "sim/syscall_emul.hh"
+ 
++#include "../../../../../../interchiplet/includes/sync_protocol.h"
++
+ namespace gem5
+ {
+ 
+@@ -404,7 +406,14 @@ SyscallDescTable<EmuLinux::SyscallABI64> EmuLinux::syscallDescs64 = {
+     { 447, "memfd_secret" },
+     { 448, "process_mrelease" },
+     { 449, "futex_waitv" },
+-    { 450, "set_mempolicy_home_node" }
++    { 450, "set_mempolicy_home_node" },
++    { InterChiplet::SYSCALL_LAUNCH, "interchiplet_launch", interChipletLaunch },
++    { InterChiplet::SYSCALL_WAITLAUNCH, "interchiplet_waitlaunch", interChipletWaitLaunch },
++    { InterChiplet::SYSCALL_BARRIER, "interchiplet_barrier", interChipletBarrier },
++    { InterChiplet::SYSCALL_LOCK, "interchiplet_lock", interChipletLock },
++    { InterChiplet::SYSCALL_UNLOCK, "interchiplet_unlock", interChipletUnlock },
++    { InterChiplet::SYSCALL_REMOTE_READ, "interchiplet_receive", interChipletReceive },
++    { InterChiplet::SYSCALL_REMOTE_WRITE, "interchiplet_send", interChipletSend }
+ };
+ 
+ } // namespace X86ISA
+diff --git a/src/cpu/o3/cpu.cc b/src/cpu/o3/cpu.cc
+index a93d5bc74d..d0cc98167a 100644
+--- a/src/cpu/o3/cpu.cc
++++ b/src/cpu/o3/cpu.cc
+@@ -388,8 +388,14 @@ CPU::tick()
+             lastRunningCycle = curCycle();
+             cpuStats.timesIdled++;
+         } else {
+-            schedule(tickEvent, clockEdge(Cycles(1)));
+-            DPRINTF(O3CPU, "Scheduling next tick!\n");
++            if (gem5::interchiplet_end_tick_valid) {
++                std::cout << "Directly forward tick to " << gem5::interchiplet_end_tick << std::endl;
++                gem5::interchiplet_end_tick_valid = false;
++                schedule(tickEvent, gem5::interchiplet_end_tick);
++            } else {
++                schedule(tickEvent, clockEdge(Cycles(1)));
++                DPRINTF(O3CPU, "Scheduling next tick!\n");
++            }
+         }
+     }
+ 
+diff --git a/src/cpu/simple/atomic.cc b/src/cpu/simple/atomic.cc
+index 2cbb62da0c..7cb5ac4104 100644
+--- a/src/cpu/simple/atomic.cc
++++ b/src/cpu/simple/atomic.cc
+@@ -730,6 +730,12 @@ AtomicSimpleCPU::tick()
+     if (tryCompleteDrain())
+         return;
+ 
++    if (gem5::interchiplet_end_tick_valid) {
++        std::cout << "Directly forward tick to " << gem5::interchiplet_end_tick << std::endl;
++        latency = gem5::interchiplet_end_tick - gem5::curTick();
++        gem5::interchiplet_end_tick_valid = false;
++    }
++
+     // instruction takes at least one cycle
+     if (latency < clockPeriod())
+         latency = clockPeriod();
+diff --git a/src/cpu/simple/timing.cc b/src/cpu/simple/timing.cc
+index c6348da16a..a9a53eca8e 100644
+--- a/src/cpu/simple/timing.cc
++++ b/src/cpu/simple/timing.cc
+@@ -807,10 +807,24 @@ TimingSimpleCPU::advanceInst(const Fault &fault)
+     serviceInstCountEvents();
+ 
+     if (_status == BaseSimpleCPU::Running) {
+-        // kick off fetch of next instruction... callback from icache
+-        // response will cause that instruction to be executed,
+-        // keeping the CPU running.
+-        fetch();
++        if (gem5::interchiplet_end_tick_valid) {
++            // blocking CPU by reschedule fetch event.
++            std::cout << "Directly forward tick to " << gem5::interchiplet_end_tick
++                << std::endl;
++            gem5::interchiplet_end_tick_valid = false;
++            if (gem5::interchiplet_end_tick > curTick())
++            {
++                reschedule(fetchEvent, gem5::interchiplet_end_tick, true);
++            } else {
++                // Same as no blocking.
++                fetch();
++            }
++        } else {
++            // kick off fetch of next instruction... callback from icache
++            // response will cause that instruction to be executed,
++            // keeping the CPU running.
++            fetch();
++        }
+     }
+ }
+ 
+diff --git a/src/sim/eventq.cc b/src/sim/eventq.cc
+index 23ca2f6f4e..9c33f8f1e6 100644
+--- a/src/sim/eventq.cc
++++ b/src/sim/eventq.cc
+@@ -44,6 +44,8 @@
+ 
+ namespace gem5
+ {
++bool interchiplet_end_tick_valid = false;
++Tick interchiplet_end_tick = 0;
+ 
+ Tick simQuantum = 0;
+ 
+@@ -256,6 +258,7 @@ EventQueue::serviceOne()
+         event->flags.clear(Event::Squashed);
+     }
+ 
++    // std::cout << event->when() << "\t" << event->name() <<  "\t" << event->description() << std::endl;
+     event->release();
+ 
+     return NULL;
+diff --git a/src/sim/eventq.hh b/src/sim/eventq.hh
+index cf1734b992..c4b1b35797 100644
+--- a/src/sim/eventq.hh
++++ b/src/sim/eventq.hh
+@@ -57,6 +57,8 @@
+ 
+ namespace gem5
+ {
++extern bool interchiplet_end_tick_valid;
++extern Tick interchiplet_end_tick;
+ 
+ class EventQueue;       // forward declaration
+ class BaseGlobalEvent;
+diff --git a/src/sim/sim_events.cc b/src/sim/sim_events.cc
+index 66379d2061..e55461fb60 100644
+--- a/src/sim/sim_events.cc
++++ b/src/sim/sim_events.cc
+@@ -49,6 +49,8 @@
+ #include "sim/sim_exit.hh"
+ #include "sim/stats.hh"
+ 
++#include "../../../interchiplet/includes/sync_protocol.h"
++
+ namespace gem5
+ {
+ 
+@@ -88,6 +90,9 @@ void
+ exitSimLoop(const std::string &message, int exit_code, Tick when, Tick repeat,
+             bool serialize)
+ {
++    // Send exit cycle.
++    InterChiplet::sendCycleCmd(curTick());
++
+     warn_if(serialize && (when != curTick() || repeat),
+             "exitSimLoop called with a delay and auto serialization. This is "
+             "currently unsupported.");
+@@ -99,6 +104,9 @@ void
+ exitSimLoopNow(const std::string &message, int exit_code, Tick repeat,
+                bool serialize)
+ {
++    // Send exit cycle.
++    InterChiplet::sendCycleCmd(curTick());
++
+     new GlobalSimLoopExitEvent(message, exit_code, repeat);
+ }
+ 
+diff --git a/src/sim/syscall_emul.cc b/src/sim/syscall_emul.cc
+index 9794a4835e..cd1e337ea2 100644
+--- a/src/sim/syscall_emul.cc
++++ b/src/sim/syscall_emul.cc
+@@ -52,6 +52,9 @@
+ #include "sim/syscall_desc.hh"
+ #include "sim/system.hh"
+ 
++#include "../../../interchiplet/includes/pipe_comm.h"
++InterChiplet::PipeComm global_pipe_comm;
++
+ namespace gem5
+ {
+ 
+@@ -1502,4 +1505,116 @@ getcpuFunc(SyscallDesc *desc, ThreadContext *tc,
+     return 0;
+ }
+ 
++// Syscall Functional Emulator
++SyscallReturn
++interChipletLaunch(SyscallDesc *desc, ThreadContext *tc,
++                   int dst_x, int dst_y, int src_x, int src_y)
++{
++    InterChiplet::launchSync(src_x, src_y, dst_x, dst_y);
++    gem5::Tick end_time = InterChiplet::writeSync(
++        curTick(), src_x, src_y, dst_x, dst_y, 1, InterChiplet::SPD_LAUNCH);
++
++    gem5::interchiplet_end_tick_valid = true;
++    gem5::interchiplet_end_tick = end_time;
++
++    return 0;
++}
++
++SyscallReturn
++interChipletWaitLaunch(SyscallDesc *desc, ThreadContext *tc,
++                       int dst_x, int dst_y, VPtr<int> src_x, VPtr<int> src_y)
++{
++    int __src_x = *src_x;
++    int __src_y = *src_y;
++    InterChiplet::waitlaunchSync(&__src_x, &__src_y, dst_x, dst_y);
++    *src_x = __src_x;
++    *src_y = __src_y;
++    gem5::Tick end_time = InterChiplet::readSync(
++        curTick(), __src_x, __src_y, dst_x, dst_y, 1, InterChiplet::SPD_LAUNCH);
++
++    gem5::interchiplet_end_tick_valid = true;
++    gem5::interchiplet_end_tick = end_time;
++
++    return 0;
++}
++
++SyscallReturn
++interChipletBarrier(SyscallDesc *desc, ThreadContext *tc,
++                    int uid, int src_x, int src_y, int count)
++{
++    InterChiplet::barrierSync(src_x, src_y, uid, count);
++    gem5::Tick end_time = InterChiplet::writeSync(
++        curTick(), src_x, src_y, uid, 0, 1, InterChiplet::SPD_BARRIER + count);
++
++    gem5::interchiplet_end_tick_valid = true;
++    gem5::interchiplet_end_tick = end_time;
++
++    return 0;
++}
++
++SyscallReturn
++interChipletLock(SyscallDesc *desc, ThreadContext *tc,
++                    int uid, int src_x, int src_y)
++{
++    InterChiplet::lockSync(src_x, src_y, uid);
++    gem5::Tick end_time = InterChiplet::writeSync(
++        curTick(), src_x, src_y, uid, 0, 1, InterChiplet::SPD_LOCK);
++
++    gem5::interchiplet_end_tick_valid = true;
++    gem5::interchiplet_end_tick = end_time;
++
++    return 0;
++}
++
++SyscallReturn
++interChipletUnlock(SyscallDesc *desc, ThreadContext *tc,
++                    int uid, int src_x, int src_y)
++{
++    InterChiplet::unlockSync(src_x, src_y, uid);
++    gem5::Tick end_time = InterChiplet::writeSync(
++        curTick(), src_x, src_y, uid, 0, 1, InterChiplet::SPD_UNLOCK);
++
++    gem5::interchiplet_end_tick_valid = true;
++    gem5::interchiplet_end_tick = end_time;
++
++    return 0;
++}
++
++SyscallReturn
++interChipletSend(SyscallDesc *desc, ThreadContext *tc,
++                    int dst_x, int dst_y, int src_x, int src_y, VPtr<> addr, int nbytes)
++{
++    std::string fileName = InterChiplet::sendSync(src_x, src_y, dst_x, dst_y);
++    BufferArg data(addr, nbytes);
++    data.copyOut(SETranslatingPortProxy(tc));
++    global_pipe_comm.write_data(fileName.c_str(), data.bufferPtr(), nbytes);
++
++    gem5::Tick end_time = InterChiplet::writeSync(
++        curTick(), src_x, src_y, dst_x, dst_y, nbytes, 0);
++
++    gem5::interchiplet_end_tick_valid = true;
++    gem5::interchiplet_end_tick = end_time;
++
++    return 0;
++}
++
++SyscallReturn
++interChipletReceive(SyscallDesc *desc, ThreadContext *tc,
++                    int dst_x, int dst_y, int src_x, int src_y, VPtr<> addr, int nbytes)
++{
++    std::string fileName = InterChiplet::receiveSync(src_x, src_y, dst_x, dst_y);
++    BufferArg data(addr, nbytes);
++    global_pipe_comm.read_data(fileName.c_str(), data.bufferPtr(), nbytes);
++    data.copyIn(SETranslatingPortProxy(tc));
++
++    gem5::Tick end_time = InterChiplet::readSync(
++        curTick(), src_x, src_y, dst_x, dst_y, nbytes, 0);
++
++    gem5::interchiplet_end_tick_valid = true;
++    gem5::interchiplet_end_tick = end_time;
++
++    return 0;
++}
++
++
+ } // namespace gem5
+diff --git a/src/sim/syscall_emul.hh b/src/sim/syscall_emul.hh
+index 97749f325d..5430084c5d 100644
+--- a/src/sim/syscall_emul.hh
++++ b/src/sim/syscall_emul.hh
+@@ -3084,6 +3084,28 @@ getrandomFunc(SyscallDesc *desc, ThreadContext *tc,
+     return count;
+ }
+ 
++// Syscall Functional Emulator
++SyscallReturn interChipletLaunch(SyscallDesc *desc, ThreadContext *tc,
++                                 int dst_x, int dst_y, int src_x, int src_y);
++
++SyscallReturn interChipletWaitLaunch(SyscallDesc *desc, ThreadContext *tc,
++                                     int dst_x, int dst_y, VPtr<int> src_x, VPtr<int> src_y);
++
++SyscallReturn interChipletBarrier(SyscallDesc *desc, ThreadContext *tc,
++                                  int uid, int src_x, int src_y, int count);
++
++SyscallReturn interChipletLock(SyscallDesc *desc, ThreadContext *tc,
++                               int uid, int src_x, int src_y);
++
++SyscallReturn interChipletUnlock(SyscallDesc *desc, ThreadContext *tc,
++                                 int uid, int src_x, int src_y);
++
++SyscallReturn interChipletSend(SyscallDesc *desc, ThreadContext *tc,
++                               int dst_x, int dst_y, int src_x, int src_y, VPtr<> addr, int nbyte);
++
++SyscallReturn interChipletReceive(SyscallDesc *desc, ThreadContext *tc,
++                                  int dst_x, int dst_y, int src_x, int src_y, VPtr<> addr, int nbyte);
++
+ } // namespace gem5
+ 
+ #endif // __SIM_SYSCALL_EMUL_HH__

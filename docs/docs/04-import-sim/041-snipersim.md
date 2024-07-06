@@ -5,7 +5,7 @@
 
 ## APIs
 
-Read and write API is implemented by System Calls. The following system call numbers are assigned to these APIs.
+APIs are implemented by System Calls. The following system call numbers are assigned to these APIs.
 
 ```c++
 SYSCALL_LAUNCH = 501,        // Launch request.
@@ -17,20 +17,24 @@ SYSCALL_REMOTE_READ = 506,   // Read cross chiplet
 SYSCALL_REMOTE_WRITE = 507,  // Write cross chiplet
 ```
 
-Each benchmark APIs corresponds to one system call. All arguments of the benchmark APIs are also the arguments for system calls.
+Each benchmark API corresponds to one system call. All arguments of the benchmark APIs are also the arguments for system calls.
 
-## Handle SYSCALL_REMOTE_WRITE/SYSCALL_REMOTE_READ
+## Handle Syscalls
 
-SniperSim provides separate functional and timing models. Hence, APIs are handled separately in functional and timing models.
+SniperSim provides separate functional and timing models. Hence, syscalls are handled separately in functional and timing models.
 
-In the functional model, system calls are handled in file *$SIMULATOR_ROOT/snipersim/sift/recorder/syscall_modeling.cc*. The flow chart is as follows:
+In the functional model, system calls are handled in file *$SIMULATOR_ROOT/snipersim/sift/recorder/syscall_modeling.cc*. In the timing model, system calls are handled in file *\$SIMULATOR_ROOT/snipersim/common/core/syscall_model.cc*.
+
+### Handle SYSCALL_REMOTE_WRITE/SYSCALL_REMOTE_READ
+
+The flow chart of the function model is as follows:
 
 ```mermaid
 flowchart TD
 
 subgraph Write Syscall
-A1[Issue PIPE command]
-B1[Wait for SYNC command]
+A1[Issue SEND command]
+B1[Wait for RESULT command]
 C1[Open PIPE]
 D1[Write data to PIPE]
 end
@@ -39,8 +43,8 @@ A1-->B1-->C1-->D1
 B1-->B1
 
 subgraph Read Syscall
-A2[Issue PIPE command]
-B2[Wait for SYNC command]
+A2[Issue RECEIVE command]
+B2[Wait for RESULT command]
 C2[Open PIPE]
 D2[Read data from PIPE]
 end
@@ -49,7 +53,7 @@ A2-->B2-->C2-->D2
 B2-->B2
 ```
 
-In the timing model, system calls are handled in file *$SIMULATOR_ROOT/snipersim/common/core/syscall_model.cc*. The flow chart is as follows:
+The flow chart of the timing model is as follows:
 
 ```mermaid
 flowchart TD
@@ -91,9 +95,7 @@ if (m_thread->reschedule(sleep_end_time, core))
 core->getPerformanceModel()->queuePseudoInstruction(new SyncInstruction(sleep_end_time, SyncInstruction::SLEEP));
 ```
 
-## Handle Other System Calls
-
-Except for SYSCALL_REMOTE_READ and SYSCALL_REMOTE_WRITE, other system calls are also implemented in file *\$SIMULATOR_ROOT/snipersim/sift/recorder/syscall_modeling.cc* and *$SIMULATOR_ROOT/snipersim/common/core/syscall_model.cc*.
+### Handle Other System Calls
 
 Different from SYSCALL_REMOTE_READ and SYSCALL_REMOTE_WRITE, except functional and timing commands, it is not necessary to handle other functionality.
 

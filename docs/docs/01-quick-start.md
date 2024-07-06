@@ -32,20 +32,40 @@ source setup_env.sh
 
 If the operation succeeds, `setup_environment succeeded` is printed to the terminal.
 
-**4. Apply modifications to SniperSim and GPGPUSim.** The simulator can still execute benchmarks if Step 4 is skipped, but no interactions between chiplets are performed.
+**4. Apply modifications to Imported Simulators.** The simulator can still execute benchmarks if Step 4 is skipped, but no interactions between chiplets are performed.
 
 ```shell
 ./apply_path.sh
 ```
 
-**5. Compile SniperSim.**
+**5. Compile Imported Simulators.**
+
+The installation procedure can be skipped for unnecessary simulators.
+
+**5.1. Compile SniperSim.**
 
 ```shell
 cd snipersim
 make -j4
 ```
 
-**6. Compile GPGPUSim.** Installation of GPGPUSim requires the following conditions:
+**5.2. Gem5.** The detailed installation guide for Gem5 can be found at https://www.gem5.org/documentation/learning_gem5/part1/building/.
+
+If requirements have been addressed, X86 and ARM simulators can be used in LegoSim.
+
+```shell
+cd gem5
+scons build/X86/gem5.opt -j4
+```
+
+or
+
+```shell
+cd gem5
+scons build/ARM/gem5.opt -j4
+```
+
+**5.3. Compile GPGPUSim.** Installation of GPGPUSim requires the following conditions:
 
 - CUDA environment is correctly installed and configured. Imported GPGPUSim supports CUDA versions from 4.0 to 11.0. See README within *gpgpu-sim* for details.
 - GPGPUSim has a limitation on the compiler version. According to our experiment, GCC7 is recommended.
@@ -55,7 +75,7 @@ cd gpgpu-sim
 make -j4
 ```
 
-**7. Compile Popnet.**
+**6. Compile Popnet.**
 
 ```shell
 cd popnet
@@ -65,7 +85,7 @@ cmake ..
 make -j4
 ```
 
-**8. Compile the LegoSim.** The compile process is managed by CMake.
+**7. Compile the LegoSim.** The compile process is managed by CMake.
 
 ```shell
 cd interchiplet

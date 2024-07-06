@@ -14,3 +14,7 @@ git apply ../interchiplet/patch/snipersim.diff
 # Patch for GPGPUSim
 cd ${SIMULATOR_ROOT}/gpgpu-sim
 git apply ../interchiplet/patch/gpgpu-sim.diff
+
+# Patch for GEM5
+cd ${SIMULATOR_ROOT}/gem5
+git apply ../interchiplet/patch/gem5.diff
